@@ -1,0 +1,16 @@
+<div ng-controller="transSellerQuery" class="panel panel-default">
+    <div class="panel-heading">查询条件
+        <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'up':'down'}}" href="" ng-click="showFilter=!showFilter"></a>
+    </div>
+    <div class="panel-body" ng-show="showFilter">
+        <div class="row">
+            <div class="col-xs-2"><input class="form-control input-sm" ng-model="filter.archivesNo" placeholder="流水号" /></div>
+            <div class="col-xs-2">
+                <select class="form-control input-sm" ng-convert-select  ng-model="filter.status" code="trans_status_filter_in" default-text="审核状态">
+                </select>
+            </div>
+            <div class="col-xs-1"><button class="btn btn-default btn-sm" ng-click="ngTable.reload()"><span class="glyphicon glyphicon-search"></span> 查询</button></div>
+        </div>
+    </div>
+    <ng-table url="/trans/pager" row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
+</div>

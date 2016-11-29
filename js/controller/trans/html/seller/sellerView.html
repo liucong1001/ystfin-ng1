@@ -1,0 +1,20 @@
+<div ng-controller="transSellerView">
+    <div class="pull-left list-group" style="width:240px;">
+        <a ng-repeat="img in imgs" ng-class="{active:active == $index}" class="list-group-item" href="" ng-click="activeImage($index)">{{img.title}}</a>
+    </div>
+    <div style="margin-left:250px; position: relative;border-radius: 4px;">
+            <div style="min-height: 305px;border-radius: 4px;">
+                <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                    <div uib-slide ng-repeat="img in imgs" index="$index">
+                        <div style="width: 100%;overflow: hidden;text-align: center;border-radius: 4px;">
+                        <img style="height:500px;width:auto;" ng-src="{{'/common/download?file=' + img.path | encodeURI}}" style="margin:auto;">
+                        </div>
+                        <div class="carousel-caption">
+                            <span>{{img.title}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

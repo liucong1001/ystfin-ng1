@@ -1,0 +1,27 @@
+<table class="table table-condensed">
+    <thead><tr><th ng-repeat="col in columns" ng-style="{'width':col.width + '%'}" ng-class="{'clickable':col.sortable,'text-danger':col.sorting}" ng-click="sort(col)">
+        {{col.title}}
+        <span ng-if="col.sortable" class="glyphicon"
+           ng-class="{'glyphicon-arrow-down':col.sorting&&!col.sortAsc,'glyphicon-arrow-up':col.sorting&&col.sortAsc,'glyphicon-sort':col.sortable&&!col.sorting}"></span>
+    </th></tr></thead>
+    <tbody>
+        <tr ng-repeat="row in content" class="{{rowClass(row)}}">
+            <td ng-repeat="col in columns"><div ng-include src="tmpl($index)" /></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="{{columns.length}}">
+                <span ng-if="!totalRows" class="pull-middle text-warning">未找符合条件的结果</span>
+                <nav ng-if="totalRows">
+                    <ul class="pagination pull-middle">
+                        <li ng-class="{'disabled':page<1}"><a href="" ng-click="prev()">&laquo;</a></li>
+                        <li ng-repeat="p in pageButtons()" ng-class="{'active':p==page+1}"><a href="" ng-click="goto(p-1)">{{p}}</a></li>
+                        <li ng-class="{'disabled':page+1>=totalPages()}"><a href="" ng-click="next()">&raquo;</a></li>
+                    </ul>
+                    <span class="pull-middle text-info">共找到{{totalRows}}个符合条件的结果，当前页{{content.length}}条结果</span>
+                </nav>
+            </td>
+        </tr>
+    </tfoot>
+</table>

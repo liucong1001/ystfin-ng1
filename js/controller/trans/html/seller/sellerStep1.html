@@ -1,0 +1,35 @@
+<div  ng-controller="transSellerStep1">
+<div class="container-fluid panel-body">
+    <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-3">
+        <ng-panel title="原车主头像" type="default" class="img-view">
+            <div ng-if="!photo" class="img">{{status.photo || "未拍照"}}</div>
+            <img ng-if="photo" ng-img-view="" ng-src="{{imgSrc(photo)}}" />
+            <div class="panel-footer">
+                <button class="btn btn-primary btn-sm" ng-click="snapshot()"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button class="btn btn-sm btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'photo')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            </div>
+        </ng-panel>
+    </div>
+    <div class="col-md-3">
+        <ng-panel title="卖家指纹" class="img-view" type="default">
+            <div ng-if="!finger" class="img">{{status.finger|| "未拍照"}}</div>
+            <img ng-if="finger" ng-src="{{imgSrc(finger)}}" />
+            <div class="panel-footer">
+                <button class="btn btn-primary btn-sm" ng-click="fingerPrint()"><span class="glyphicon glyphicon-thumbs-up"></span> 采集指纹</button>
+                <button class="btn btn-sm btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'finger')"><span class="glyphicon glyphicon-upload"></span> 上传指纹</button>
+            </div>
+        </ng-panel>
+    </div>
+    </div>
+</div>
+<div>{{archivesNo}}</div>
+<div class="panel-footer text-right">
+    <button class="btn btn-default btn-sm" ng-click="confirmPreview()" ng-disabled="error()">确认书打印预览</button>
+    <button class="btn btn-primary btn-sm" ng-click="next()" ng-disabled="!edit&&(submiting||error()||!printed)">下一步，上传证件</button>
+</div>
+</div>
