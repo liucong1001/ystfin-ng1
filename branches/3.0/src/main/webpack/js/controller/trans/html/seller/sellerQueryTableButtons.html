@@ -1,0 +1,2 @@
+<a class="text-info" href="/ng#/trans/seller/view/{{row.archivesNo}}"><span class="glyphicon glyphicon-picture"></span> 查看</a>
+<a ng-if="row.status[0]=='0'" ng-has-any-role roles="02,09,99"  class="text-danger" href="/ng#/trans/seller/step1?archivesNo={{row.archivesNo}}&edit=true"><span class="glyphicon glyphicon-edit"></span>修改</a>

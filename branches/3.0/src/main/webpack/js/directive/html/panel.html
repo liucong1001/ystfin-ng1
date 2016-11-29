@@ -1,0 +1,7 @@
+<div class="panel panel-{{type}}">
+    <div ng-if="title" class="panel-heading">{{title}}</div>
+    <div class="panel-body" ng-if="body" ng-transclude>
+    </div>
+    <ng-transclude ng-if="!body"></ng-transclude>
+    <div class="panel-footer" ng-if="footer">{{footer}}</div>
+</div>

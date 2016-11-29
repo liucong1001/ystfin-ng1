@@ -1,0 +1,23 @@
+<div ng-controller="transPrintCarCert">
+	<div class="modal-header">
+	    车辆证件打印预览
+	</div>
+	<div class="modal-body">
+		<div class="text-center">
+		    <button type="button" class="btn btn-primary" ng-click="print()">打印</button>
+		    <button type="button" class="btn btn-danger" ng-click="back()">返回</button>
+		</div>
+		<div id="printArea">
+			<div style="padding:0;padding-bottom: 120px;text-align: center;">
+				<p style="text-align: center;font-size: 24px;">车辆行驶证&登记证书</p>
+				<div style="position:absolute;bottom:0px;left:0;text-align: center;">
+	                <img src="/common/qrcode/{{archivesNo}}" style="height: 100px;width:auto;"/>
+	                <div style="margin-top:0px;">{{archivesNo}}</div>
+	            </div>
+				<br/>
+				<br/>
+				<img src="/common/download/{{registration}}" style="width:700px;"/>
+			</div>
+		</div>
+	</div>
+</div>
