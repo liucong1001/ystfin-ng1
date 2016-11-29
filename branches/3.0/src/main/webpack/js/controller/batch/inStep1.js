@@ -1,63 +1,55 @@
 /**
- * Created by 扬 on 2016/11/28.
+ * Created by peter on 2016/11/29.
  */
-"use strict"
-var app = require("../../ngcommon")
+"use strict";
+var app = require("../../ngcommon");
 
 app.config(["$routeProvider",function($routeProvider){
     $routeProvider.when("/batch/in/step1",{
         controller:"batchStep1Controller",
         template:require("./html/in/step1.html")
-    })
-}])
-app.factory("TransRecord",["$resource",function ($resource) {
-    return $resource("/new/trans/:id",{
-        update:{method:"PUT"}
-    })
-}])
-app.factory("Order",["$resource",function ($resource) {
-    return $resource("/order/:id",{
-        update:{method:"PUT"}
-    })
-}])
+    });
+}]);
 
-app.controller("batchStep1Controller",["$scope","TransRecord","Order","$location",function ($scope,TransRecord,Order,$location) {
-    $scope.items = {}
-    $scope.itemsLength = 0
-    $scope.archivesNoKeyUp = function ($event) {
-        if ($event.keyCode == 13 && $scope.archivesNo) {
-            TransRecord.get({archivesNo:$scope.archivesNo},function (tr) {
-                if(!tr.orderNo){       // 未创建订单
-                    $scope.items[tr.archivesNo] = tr
-                    $scope.itemsLength++
-                    $scope.archivesNoError = ""
-                }else{
-                    $scope.archivesNoError = $scope.archivesNo + "已存在于订单[" + tr.orderNo + "]中"
-                }
-                $scope.archivesNo = ""
-            })
+app.controller("batchStep1Controller",["$scope","$http","$location",function ($scope,$http,$location) {
+	$http.get("/batch/staffs").then(function(result){
+		$scope.staffs = result.data;
+	});
+	
+	$("#staff_id").focusout(function(){
+		$http.post("middleman/findTheContents?agencyStaffId="+$(this).val()).then(function(result){
+			$scope.middleMans = result.data;
+		});
+	});
+	
+	$("#middleMan_id").focusout(function(){
+		$http.get("/dealers/contact/"+$(this).val()).then(function(result){
+			$scope.theContact = result.data;
+		});
+	});
+	
+	$scope.imgSrc = function (path) {
+        return "/common/download/temp?file=" + path;
+    };
+	
+	$scope.error = function () {
+        if(!this.theContact){
+            return true;
         }
-    }
-    $scope.removeItem = function(archivesNo){
-        $scope.itemsLength--
-        delete $scope.items[archivesNo]
-    }
-    $scope.orderTotalAmount = function () {
-        var total = 0;
-        for(var i in $scope.items){
-            total += $scope.items[i].fee
-        }
-        return total
-    }
-    $scope.submit = function () {
-        var order = new Order({})
-        order.items = []
-        for(var i in $scope.items){
-            var item = $scope.items[i]
-            order.items.push({archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:$scope.itemsLength, uprice:item.fee,tprice:item.fee})
-        }
-        order.$save().then(function (result) {
-            $location.path("/order/" + result.id)
-        })
-    }
-}])
+        return false;
+    };
+    
+    $scope.next = function () {
+        $scope.submiting = true;
+        var step = new Step($scope.batch);
+        step.$save({step:"step1"}).then(function(result){
+            $scope.submiting = false;
+            $location.path("/batch/in/step2");
+            window.scrollTo(0,0);
+        },function (error) {
+            $scope.submiting = false;
+        });
+    };
+	
+	
+}]);
