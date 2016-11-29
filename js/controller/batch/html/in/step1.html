@@ -1,3 +1,31 @@
-<div>
-	hello world！
-</div>
+<div class="container-fluid panel-body">
+	<div class="row">
+		<div class="col-md-6">
+			请选择商户：<select id="staff_id" ng-model="staff" ng-options="staff.id as staff.userName for staff in staffs track by staff.id"></select>
+		</div>
+		<div class="col-md-4">
+			请选择联系人：<select id="middleMan_id" ng-model="middleMan" ng-options="middleMan.id as middleMan.name for middleMan in middleMans track by middleMan.id"></select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">身份证号：{{theContact.idCardNo}}</div>
+		<div class="col-md-4">联系电话：{{theContact.phone}}</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<ng-panel title="身份证正面" type="primary" class="img-view">
+				<img ng-if="theContact.idCardFront" ng-src="{{imgSrc(theContact.idCardFront.path)}}" />
+			</ng-panel>
+		</div>
+		<div class="col-md-4">
+			<ng-panel title="身份证反面" type="primary" class="img-view">
+				<img ng-if="theContact.idCardBk" ng-src="{{imgSrc(theContact.idCardBk.path)}}" />
+			</ng-panel>
+		</div>
+	</div>
+	<div class="panel-footer text-right">
+    	<button class="btn btn-primary btn-sm" ng-disabled="submiting||error()" ng-click="next()">下一步，卖家证件</button>
+	</div>
+</div>	
+
+	
