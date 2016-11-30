@@ -18,11 +18,11 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
 	
 	$("#staff_id").focusout(function(){
 		$http.get("/batch/findTheContacts/"+$(this).val()).then(function(result){
-			$scope.middleMans = result.data;
+			$scope.theContacts = result.data;
 		});
 	});
 	
-	$("#middleMan_id").focusout(function(){
+	$("#contact_id").focusout(function(){
 		$http.get("/batch/contact/"+$(this).val()).then(function(result){
 			$scope.theContact = result.data;
 		});
@@ -39,12 +39,11 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
         return false;
     };
     
-    
     $scope.next = function () {
         $scope.submiting = true;
         var step = new Step({
             staff: $scope.staff,
-            theContact: $scope.theContact,
+            theContact: $scope.contact,
             batchNo:$scope.batchNo
         });
         step.$save({step:"step1"}).then(function(result){
@@ -55,6 +54,12 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
             $scope.submiting = false;
         });
     };
+    
+    Step.get({step: "step1"}, function (step1, header) {
+        $scope.staff = $scope.staffs[0];
+        $scope.contact = $scope.theContacts[0];
+        $scope.batchNo = step1.batchNo;
+    });
 	
 	
 }]);
