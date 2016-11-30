@@ -1,0 +1,26 @@
+<div class="container-fluid panel-body">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 身份证</label>
+                    <label class="radio-inline {{seller.certType=='02'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="02"> 居住证</label>
+                    <label class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 企业营业执照(三证合一)</label>
+                    <br/>
+                    <label class="radio-inline {{seller.certType=='04'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="04"> 组织机构代码证(工商营业执照、税务登记证)</label>
+                    <label class="radio-inline {{seller.certType=='05'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="05"> 护照</label>
+                </div>
+            </div>
+            <br/>
+            <ng-include src="'sellerCert' + seller.certType"></ng-include>
+        </div>
+    </div>
+</div>
+<div class="panel-footer text-right">
+    <button class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="prev()">返回，选择商户联系人</button>
+    <button class="btn btn-primary btn-sm" ng-disabled="submiting||error()" ng-click="next()">下一步，添加车辆</button>
+</div>
+
+	
