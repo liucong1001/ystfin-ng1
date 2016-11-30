@@ -9,3 +9,4 @@ require("../css/ui.css")
 
 require("./controller/pay/createOrder")
 require("./controller/batch/inStep1")
+require("./controller/batch/inStep2")
