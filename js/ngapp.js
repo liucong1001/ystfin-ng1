@@ -8,4 +8,4 @@ require("../css/main.css")
 require("../css/ui.css")
 
 require("./controller/pay/createOrder")
-require("./controller/batch/instep1")
+require("./controller/batch/inStep1")
