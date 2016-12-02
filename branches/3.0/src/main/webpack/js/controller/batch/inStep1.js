@@ -56,8 +56,8 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
     };
     
     Step.get({step: "step1"}, function (step1, header) {
-        $scope.staff = $scope.staffs[0];
-        $scope.contact = $scope.theContacts[0];
+        //$scope.staff = $scope.staff;
+       // $scope.contact = $scope.theContacts;
         $scope.batchNo = step1.batchNo;
     });
 	
