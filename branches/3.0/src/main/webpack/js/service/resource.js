@@ -11,4 +11,14 @@ module.exports = function (app) {
     app.factory("sellerReview", ["$resource", function ($resource) {
         return $resource('/trans/seller/review')
     }])
+    app.factory("TransRecord",["$resource",function ($resource) {
+        return $resource("/new/trans/:id",{
+            update:{method:"PUT"}
+        })
+    }])
+    app.factory("Order",["$resource",function ($resource) {
+        return $resource("/order/:id",{
+            update:{method:"PUT"}
+        })
+    }])
 }

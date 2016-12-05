@@ -1,0 +1,43 @@
+<div class="alert alert-danger" ng-if="!icardWriterReady">
+    未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
+</div>
+<div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">
+    请将要充值的卡放置到写卡器上。
+</div>
+<div class="alert alert-success" ng-if="icardWriterReady && cardNo">
+    已检测到充值卡，请输入充值金额后，点击充值按钮。
+</div>
+<div class="alert alert-danger" ng-if="accountLoadMessge">
+    该充值未绑定商户，不可充值！
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>充值卡充值</h2></div>
+    <div class="panel-body form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-2 control-label">卡号：</div><div class="col-sm-6 form-control-static">{{cardNo}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">商户号：</div><div class="col-sm-6 form-control-static">{{account.dealers.loginName}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">商户名称：</div><div class="col-sm-6 form-control-static">{{account.dealers.name}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">当前余额：</div>
+            <div class="col-sm-2 form-control-static">{{account.balance / 100 | currency:"￥"}}</div>
+            <div class="col-sm-4 form-control-static">{{account.balance / 100 | amountHZ}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">输入充值金额：</div>
+            <div class="col-sm-2"><input class="form-control" type="number" ng-model="amount" /></div>
+            <div class="col-sm-4 form-control-static">{{amount | amountHZ}}</div>
+        </div>
+    </div>
+    <div class="panel-footer"><button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || !amount">充值</button></div>
+</div>
+<div class="alert alert-danger" ng-if="rechargeMessage && rechargeMessage != 'success'">
+    {{rechargeMessage}}
+</div>
+<div class="alert alert-success" ng-if="rechargeMessage && rechargeMessage == 'success'">
+    充值成功!
+</div>

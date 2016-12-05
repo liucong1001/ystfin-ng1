@@ -4,6 +4,7 @@ body{
 	/*border-radius: 6px;*/
 	background: #eee;
 	font-family: 微软雅黑;
+	-ms-overflow-style: scrollbar;
 }
 a,a:HOVER,a:FOCUS{
 	text-decoration: none;
