@@ -1,20 +1,61 @@
 <div>
+    <div class="alert alert-danger" ng-if="!icardWriterReady">
+        未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
+    </div>
+    <div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">
+        请将要付款的充值卡放置到写卡器上。
+    </div>
+    <div class="alert alert-success" ng-if="icardWriterReady && cardNo">
+        已检测到充值卡，请核对后点击“确定扣款”按钮。
+    </div>
+    <div class="alert alert-danger" ng-if="accountLoadMessge">
+        该充值未绑定商户，不可消费！
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="pull-left">订单详情</h4><div class="pull-right"><button class="btn btn-small btn-primary" ng-disabled="itemsLength==0" ng-click="submit()">提交</button></div>
+            <h2 class="pull-left">订单详情({{order.status=="02"?"已支付":"待支付"}}) - {{order.orderNo}}</h2>
             <div class="clearfix"></div>
         </div>
         <table class="table table-striped">
-            <thead><tr><th>流水号</th><th>车牌号</th><th>手续费</th><th></th></tr></thead>
+            <thead><tr><th>流水号</th><th>车牌号</th><th>手续费</th></tr></thead>
             <tbody>
-            <tr ng-repeat="item in items">
+            <tr ng-repeat="item in order.items">
                 <td>{{item.archivesNo}}</td>
-                <td>{{item.vehicle.plateNumber}}</td>
-                <td>{{item.fee}}</td>
-                <td><a href="" ng-click="removeItem(item.archivesNo)">移除</a></td>
+                <td>{{item.plateNumber}}</td>
+                <td>{{item.tprice / 100 | currency:"￥"}}</td>
             </tr>
             </tbody>
         </table>
-        <div class="panel-footer"><div class="pull-right">共<span class="text-danger">{{itemsLength}}</span>个流水 合计:￥<span class="text-danger">{{orderTotalAmount()}}</span>元</div><div class="clearfix"></div></div>
+        <div class="panel-body form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">充值卡号：</div><div class="col-sm-6 form-control-static">{{cardNo}}</div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">充值卡所属商户号：</div><div class="col-sm-6 form-control-static">{{account.dealers.loginName}}</div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">充值卡所属商户名称：</div><div class="col-sm-6 form-control-static">{{account.dealers.name}}</div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">当前余额：</div>
+                <div class="col-sm-2 form-control-static">{{account.balance / 100 | currency:"￥"}}<span class="text-danger" ng-if="account.balance && account.balance-order.amount<0">余额不足</span></div>
+                <div class="col-sm-4 form-control-static">{{account.balance / 100 | amountHZ}}</div>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <div class="pull-right">
+                <button class="btn btn-lg btn-danger" ng-click="pay()" ng-disabled="order.status != '01' || !account.dealers || account.balance - order.amount <= 0">确定扣款</button>
+                共<span class="text-danger">{{order.items.length}}</span>个流水 合计:<span class="text-danger">{{order.amount / 100 | currency:"￥"}}</span>元
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="alert alert-danger" ng-if="payMessage && payMessage != 'success'">
+        {{payMessage}}
+    </div>
+    <div class="alert alert-success" ng-if="payMessage && payMessage == 'success'">
+        扣款成功! <a href="/ng#/pay/order/create">返回</a>
     </div>
 </div>

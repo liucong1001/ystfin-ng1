@@ -1,0 +1,36 @@
+<div class="alert alert-danger" ng-if="!icardWriterReady">
+    未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
+</div>
+<div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">
+    请将未使用的充值卡放置到写卡器上。
+</div>
+<div class="alert alert-success" ng-if="icardWriterReady && cardNo">
+    已检测到充值号，可点击页面底部按钮绑定充值卡。
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>充值卡绑定</h2></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-2 text-right">商户：</div>
+            <div class="col-sm-6">{{dealers.name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 text-right">商户代码：</div>
+            <div class="col-sm-6">{{dealers.loginName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 text-right">充值卡号：</div>
+            <div class="col-sm-6">{{cardNo || "未放置充值卡"}}</div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div><button class="btn btn-large btn-danger" ng-disabled="!cardNo" ng-click="bindCard()">确定绑定</button></div>
+    </div>
+</div>
+
+<div class="alert alert-danger" ng-if="bindMessage && bindMessage != 'success'">
+    {{bindMessage}}
+</div>
+<div class="alert alert-success" ng-if="bindMessage && bindMessage == 'success'">
+    绑定充值卡成功!<a href="#" class="">返回列表</a>
+</div>

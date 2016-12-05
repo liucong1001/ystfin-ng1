@@ -10,16 +10,6 @@ app.config(["$routeProvider",function($routeProvider){
         template:require("./html/order/create.html")
     })
 }])
-app.factory("TransRecord",["$resource",function ($resource) {
-    return $resource("/new/trans/:id",{
-        update:{method:"PUT"}
-    })
-}])
-app.factory("Order",["$resource",function ($resource) {
-    return $resource("/order/:id",{
-        update:{method:"PUT"}
-    })
-}])
 
 app.controller("createOrderController",["$scope","TransRecord","Order","$location",function ($scope,TransRecord,Order,$location) {
     $scope.items = {}
@@ -54,10 +44,10 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
         order.items = []
         for(var i in $scope.items){
             var item = $scope.items[i]
-            order.items.push({archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:$scope.itemsLength, uprice:item.fee,tprice:item.fee})
+            order.items.push({archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:$scope.itemsLength, uprice:item.fee * 100,tprice:item.fee * 100})
         }
         order.$save().then(function (result) {
-            $location.path("/order/" + result.id)
+            $location.path("/pay/order/" + result.id + "/pay")
         })
     }
 }])

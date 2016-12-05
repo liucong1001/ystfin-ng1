@@ -1,20 +1,17 @@
 /**
- * Created by 扬 on 2016/11/28.
+ * Created by 扬 on 2016/12/1.
  */
 "use strict"
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when("/pay/order/:id/pay",{
-        controller:"payOrderController",
-        template:require("./html/order/pay.html")
+    $routeProvider.when("/icard/recharge",{
+        controller:"icardRechargeController",
+        template:require("./html/recharge.html")
     })
 }])
-app.controller("payOrderController",["$scope","Order","$routeParams","$http","$icard","$filter",function ($scope,Order,$routeParams,$http,$icard,$filter) {
-    Order.get({id:$routeParams.id},function (order) {
-        $scope.order = order
-    })
 
+app.controller("icardRechargeController",["$scope","$http","$icard","$filter",function ($scope,$http,$icard,$filter) {
     $scope.intv = 0
     $scope.initCardWriter = function () {
         $icard.init().then(function () {
@@ -57,24 +54,24 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         console.log("********",$scope.intv)
         if($scope.intv) clearInterval($scope.intv)
     })
-    $scope.pay = function () {
+    $scope.recharge = function () {
         clearInterval($scope.intv)
         $scope.intv = 0
         var date = $filter("date")(Date.now(),"yyyyMMdd")
         var time = $filter("date")(Date.now(),"HHmmss")
-        var amount = $scope.order.amount;
-        var tag = $icard.pay(amount,time,date,time)
+        var amount = parseFloat($scope.amount) * 100;
+        var tag = $icard.recharge(amount,time,date,time)
         if(!tag){
-            $scope.payMessage = "写卡失败"
+            $scope.rechargeMessage = "写卡失败"
             scanCard()
         }else{
-            $http.post("/icard/pay",{cardNo:$scope.cardNo,amount:amount,tac:tag, date:date,time:time,orderNo:$scope.order.orderNo}).then(function (result) {
+            $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,tac:tag,date:date,time:time}).then(function (result) {
                 $scope.account = result.data
-                $scope.payMessage = "success"
-                $scope.order.status = "02"
+                $scope.rechargeMessage = "success"
+                $scope.amount = ""
                 scanCard()
             },function (result) {
-                $scope.payMessage =  result.data.message
+                $scope.rechargeMessage =  result.data.message
                 scanCard()
             })
         }

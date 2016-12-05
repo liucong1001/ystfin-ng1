@@ -1,12 +1,12 @@
 <table class="table table-condensed">
-    <thead><tr><th ng-repeat="col in columns" ng-style="{'width':col.width + '%'}" ng-class="{'clickable':col.sortable,'text-danger':col.sorting}" ng-click="sort(col)">
+    <thead><tr><th ng-repeat="col in columns" ng-style="{'width':col.width + '%'}" class="{{col.thClass}}" ng-class="{'clickable':col.sortable,'text-danger':col.sorting}" ng-click="sort(col)">
         {{col.title}}
         <span ng-if="col.sortable" class="glyphicon"
            ng-class="{'glyphicon-arrow-down':col.sorting&&!col.sortAsc,'glyphicon-arrow-up':col.sorting&&col.sortAsc,'glyphicon-sort':col.sortable&&!col.sorting}"></span>
     </th></tr></thead>
     <tbody>
         <tr ng-repeat="row in content" class="{{rowClass(row)}}">
-            <td ng-repeat="col in columns"><div ng-include src="tmpl($index)" /></td>
+            <td ng-repeat="col in columns" class="{{col.tdClass}}"><div ng-include src="tmpl($index)" /></td>
         </tr>
     </tbody>
     <tfoot>
