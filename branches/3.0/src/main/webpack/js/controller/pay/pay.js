@@ -13,49 +13,50 @@ app.config(["$routeProvider",function($routeProvider){
 app.controller("payOrderController",["$scope","Order","$routeParams","$http","$icard","$filter",function ($scope,Order,$routeParams,$http,$icard,$filter) {
     Order.get({id:$routeParams.id},function (order) {
         $scope.order = order
-    })
-
-    $scope.intv = 0
-    $scope.initCardWriter = function () {
-        $icard.init().then(function () {
-            $scope.icardWriterReady = true
-        },function () {
-            $scope.icardWriterReady = false
-        })
-    }
-    $scope.initCardWriter()
-    $scope.$watch("intv",function (val,old) {
-        if(old) clearInterval(old)
-    })
-    $scope.$on("$destroy",function () {
-        if($scope.intv) clearInterval($scope.intv)
-    })
-    function scanCard() {
-        $scope.intv = $icard.scanCard(function (cardNo) {
-            $scope.$apply(function () {
-                $scope.cardNo = cardNo
+        if(order.status != "01") return
+        $scope.intv = 0
+        $scope.initCardWriter = function () {
+            $icard.init().then(function () {
+                $scope.icardWriterReady = true
+            }, function () {
+                $scope.icardWriterReady = false
             })
-        })
-    }
-    $scope.$watch("icardWriterReady", function (val,old) {
-        scanCard()
-    })
-    $scope.$watch("cardNo",function (val) {
-        if(val){
-            $http.get("/icard/cardNo/" + val).then(function (result) {
-                $scope.account = result.data
-                $scope.accountLoadMessge = ""
-            },function (result) {
-                $scope.accountLoadMessge = result.data.message
-            })
-        }else{
-            $scope.account = {}
-            $scope.accountLoadMessge = ""
         }
-    })
-    $scope.$on("$destroy",function () {
-        console.log("********",$scope.intv)
-        if($scope.intv) clearInterval($scope.intv)
+        $scope.initCardWriter()
+        $scope.$watch("intv", function (val, old) {
+            if (old) clearInterval(old)
+        })
+        $scope.$on("$destroy", function () {
+            if ($scope.intv) clearInterval($scope.intv)
+        })
+        function scanCard() {
+            $scope.intv = $icard.scanCard(function (cardNo) {
+                $scope.$apply(function () {
+                    $scope.cardNo = cardNo
+                })
+            })
+        }
+
+        $scope.$watch("icardWriterReady", function (val, old) {
+            scanCard()
+        })
+        $scope.$watch("cardNo", function (val) {
+            if (val) {
+                $http.get("/icard/cardNo/" + val).then(function (result) {
+                    $scope.account = result.data
+                    $scope.accountLoadMessge = ""
+                }, function (result) {
+                    $scope.accountLoadMessge = result.data.message
+                })
+            } else {
+                $scope.account = {}
+                $scope.accountLoadMessge = ""
+            }
+        })
+        $scope.$on("$destroy", function () {
+            console.log("********", $scope.intv)
+            if ($scope.intv) clearInterval($scope.intv)
+        })
     })
     $scope.pay = function () {
         clearInterval($scope.intv)

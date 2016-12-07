@@ -7,7 +7,11 @@
     <br/>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="pull-left">订单详情</h4><div class="pull-right"><button class="btn btn-small btn-primary" ng-disabled="itemsLength==0" ng-click="submit()">提交</button></div>
+            <h4 class="pull-left">订单详情</h4>
+            <div class="pull-right">
+                <a class="btn btn-sm btn-default" href="/ng#/pay/order/query">返回</a>
+                <button class="btn btn-sm btn-primary" ng-disabled="itemsLength==0" ng-click="submit()">提交</button>
+            </div>
             <div class="clearfix"></div>
         </div>
         <table class="table table-striped">

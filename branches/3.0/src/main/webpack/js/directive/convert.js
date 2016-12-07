@@ -36,7 +36,7 @@ module.exports = function (app) {
     })
     app.directive("ngConvert", function () {
         return {
-            restrict: "A",
+            restrict: "AE",
             template: "{{convert[value].name||value}}",
             replace:false,
             scope:{
