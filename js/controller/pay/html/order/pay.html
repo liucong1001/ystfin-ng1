@@ -1,4 +1,5 @@
 <div>
+    <div ng-if="order.status == '01'">
     <div class="alert alert-danger" ng-if="!icardWriterReady">
         未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
     </div>
@@ -10,6 +11,7 @@
     </div>
     <div class="alert alert-danger" ng-if="accountLoadMessge">
         该充值未绑定商户，不可消费！
+    </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -26,7 +28,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="panel-body form-horizontal">
+        <div class="panel-body form-horizontal" ng-if="order.status=='01'">
             <div class="form-group">
                 <div class="col-sm-2 control-label">充值卡号：</div><div class="col-sm-6 form-control-static">{{cardNo}}</div>
             </div>
@@ -46,7 +48,7 @@
 
         <div class="panel-footer">
             <div class="pull-right">
-                <button class="btn btn-lg btn-danger" ng-click="pay()" ng-disabled="order.status != '01' || !account.dealers || account.balance - order.amount <= 0">确定扣款</button>
+                <button class="btn btn-lg btn-danger" ng-click="pay()" ng-show="order.status == '01'" ng-disabled="order.status != '01' || !account.dealers || account.balance - order.amount <= 0">确定扣款</button>
                 共<span class="text-danger">{{order.items.length}}</span>个流水 合计:<span class="text-danger">{{order.amount / 100 | currency:"￥"}}</span>元
             </div>
             <div class="clearfix"></div>
@@ -56,6 +58,7 @@
         {{payMessage}}
     </div>
     <div class="alert alert-success" ng-if="payMessage && payMessage == 'success'">
-        扣款成功! <a href="/ng#/pay/order/create">返回</a>
+        扣款成功!
     </div>
+    <a href="/ng#/pay/order/query" class="btn btn-default">返回</a>
 </div>
