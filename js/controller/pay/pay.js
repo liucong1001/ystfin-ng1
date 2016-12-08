@@ -29,13 +29,25 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         $scope.$on("$destroy", function () {
             if ($scope.intv) clearInterval($scope.intv)
         })
+        $scope.$watch("cardMessage",function (val) {
+            $icard.showText(val)
+        })
         function scanCard() {
-            $scope.intv = $icard.scanCard(function (cardNo) {
+            $scope.intv = $icard.scanCard(function (cardNo,balance) {
                 $scope.$apply(function () {
+                    $scope.cardBalance = balance
                     $scope.cardNo = cardNo
+                    if(cardNo){
+                        $scope.cardMessage = "待缴金额:" + $filter("currency")(order.amount/100) +
+                            "\n当前余额:" + $filter("currency")(balance / 100)
+                    }
+                    else{
+                        $scope.cardMessage = "待缴金额:" + $filter("currency")(order.amount/100)
+                    }
                 })
             })
         }
+
 
         $scope.$watch("icardWriterReady", function (val, old) {
             scanCard()
@@ -67,15 +79,18 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         var tag = $icard.pay(amount,time,date,time)
         if(!tag){
             $scope.payMessage = "写卡失败"
+            $scope.cardMessage = "扣款失败"
             scanCard()
         }else{
             $http.post("/icard/pay",{cardNo:$scope.cardNo,amount:amount,tac:tag, date:date,time:time,orderNo:$scope.order.orderNo}).then(function (result) {
                 $scope.account = result.data
                 $scope.payMessage = "success"
                 $scope.order.status = "02"
+                $scope.cardMessage = "扣款成功"
                 scanCard()
             },function (result) {
                 $scope.payMessage =  result.data.message
+                $scope.cardMessage = "扣款失败"
                 scanCard()
             })
         }
