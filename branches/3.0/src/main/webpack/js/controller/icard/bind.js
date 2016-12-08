@@ -14,8 +14,13 @@ app.config(["$routeProvider",function($routeProvider){
 app.controller("icardBindController",["$scope","$http","$routeParams","$icard",function ($scope,$http,$routeParams,$icard) {
     $scope.dealersId = $routeParams.dealersId
 
+    $scope.$watch("cardMessage",function (val) {
+        $icard.showText(val)
+    })
+
     $http.get("/dealers/" + $scope.dealersId).then(function (result) {
         $scope.dealers = result.data
+        $scope.cardMessage = result.data.name
     })
 
     $scope.intv = 0
@@ -29,20 +34,18 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
     $scope.initCardWriter()
 
     $scope.$watch("intv",function (val,old) {
-        console.log("******",val,old)
         if(old) clearInterval(old)
     })
     $scope.$on("$destroy",function () {
-        console.log("********",$scope.intv)
         if($scope.intv) clearInterval($scope.intv)
     })
     $scope.$watch("icardWriterReady", function (val,old) {
         $scope.intv = $icard.scanCard(function (cardNo) {
             $scope.$apply(function () {
                 $scope.cardNo = cardNo
+                $scope.cardMessage = $scope.dealers.name + "\n" + (cardNo || "")
             })
         })
-        console.log("--------",$scope.intv)
     })
     $scope.bindCard = function () {
         if(!this.cardNo) return false

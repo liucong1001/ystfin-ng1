@@ -8,7 +8,7 @@
     已检测到充值号，可点击页面底部按钮绑定充值卡。
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h2>充值卡绑定</h2></div>
+    <div class="panel-heading"><h2>充值卡绑定({{dealers.icardNo?"已绑定":"未绑定"}})</h2></div>
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-2 text-right">商户：</div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <div><button class="btn btn-large btn-danger" ng-disabled="!cardNo" ng-click="bindCard()">确定绑定</button></div>
+        <div><button class="btn btn-large btn-danger" ng-disabled="!cardNo || dealers.icardNo" ng-click="bindCard()">确定绑定</button></div>
     </div>
 </div>
 

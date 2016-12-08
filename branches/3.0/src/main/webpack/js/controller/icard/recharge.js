@@ -20,6 +20,9 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter",fu
             $scope.icardWriterReady = false
         })
     }
+    $scope.$watch("cardMessage",function (val) {
+        $icard.showText(val)
+    })
     $scope.initCardWriter()
     $scope.$watch("intv",function (val,old) {
         if(old) clearInterval(old)
@@ -28,9 +31,16 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter",fu
         if($scope.intv) clearInterval($scope.intv)
     })
     function scanCard() {
-        $scope.intv = $icard.scanCard(function (cardNo) {
+        $scope.intv = $icard.scanCard(function (cardNo,balance) {
+
             $scope.$apply(function () {
                 $scope.cardNo = cardNo
+                if(cardNo){
+                    $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
+                }
+                else{
+                    $scope.cardMessage = ""
+                }
             })
         })
     }
@@ -51,7 +61,6 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter",fu
         }
     })
     $scope.$on("$destroy",function () {
-        console.log("********",$scope.intv)
         if($scope.intv) clearInterval($scope.intv)
     })
     $scope.recharge = function () {
@@ -63,14 +72,17 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter",fu
         var tag = $icard.recharge(amount,time,date,time)
         if(!tag){
             $scope.rechargeMessage = "写卡失败"
+            $scope.cardMessage = "充值失败"
             scanCard()
         }else{
             $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,tac:tag,date:date,time:time}).then(function (result) {
                 $scope.account = result.data
                 $scope.rechargeMessage = "success"
                 $scope.amount = ""
+                $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.balance / 100)
                 scanCard()
             },function (result) {
+                $scope.cardMessage = "充值失败"
                 $scope.rechargeMessage =  result.data.message
                 scanCard()
             })

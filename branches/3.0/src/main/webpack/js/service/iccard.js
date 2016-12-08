@@ -50,8 +50,6 @@ module.exports = function (app) {
             },
 
             scanCard: function (callback) {
-                var curCardNo = ""
-                var curAmount = 0
                 var ctrl = document.getElementById("__icCardWriterCtrl")
                 var intv = setInterval(function () {
                     if(!scan) return
@@ -59,19 +57,17 @@ module.exports = function (app) {
 //                        clearInterval(intv)
                         var amount = ctrl.ReadBalance()
                         var cardNo = ctrl.ReadCardNo()
-                        if(amount != curAmount || curAmount != cardNo) {
-                            ctrl.ShowText("余额:" + $filter("currency")(ctrl.ReadBalance() / 100, "") + "元")
-                        }
-                        curCardNo = cardNo
-                        curAmount = amount
-                        callback(cardNo)
+                        callback(cardNo,amount)
                     }
                     else{
                         callback()
-                        ctrl.ShowText("")
                     }
                 }, 1000)
                 return intv
+            },
+            showText:function (text) {
+                var ctrl = document.getElementById("__icCardWriterCtrl")
+                ctrl.ShowText(text);
             },
             stopScan:function () {
                scan = false
