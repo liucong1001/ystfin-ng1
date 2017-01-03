@@ -6,13 +6,14 @@
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when("/pay/order/query",{
+    $routeProvider.when("/pay/order/query/:icardNo",{
         controller:"queryOrderController",
         template:require("./html/order/query.html")
     })
 }])
 
-app.controller("queryOrderController",["$scope","TransRecord","Order","$location",function ($scope,TransRecord,Order,$location) {
+app.controller("queryOrderController",["$scope","TransRecord","Order","$location","$routeParams",function ($scope,TransRecord,Order,$location,$routeParams) {
+    $scope.filter = {"orderNo":$routeParams.icardNo};
     $scope.tableColumns = [
         {title:"订单号",template:"{{row.orderNo}}", width:25,thClass:"text-center",tdClass:"text-center"},
         {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-right",tdClass:"text-right", width:25},
