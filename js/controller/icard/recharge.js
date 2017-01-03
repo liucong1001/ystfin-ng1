@@ -11,7 +11,7 @@ app.config(["$routeProvider",function($routeProvider){
     })
 }])
 
-app.controller("icardRechargeController",["$scope","$http","$icard","$filter",function ($scope,$http,$icard,$filter) {
+app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$location",function ($scope,$http,$icard,$filter,$location) {
     $scope.intv = 0
     $scope.initCardWriter = function () {
         $icard.init().then(function () {
@@ -87,5 +87,8 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter",fu
                 scanCard()
             })
         }
+    }
+    $scope.details= function () {
+        $location.path("/icard/1/details");
     }
 }])

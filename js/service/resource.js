@@ -21,4 +21,22 @@ module.exports = function (app) {
             update:{method:"PUT"}
         })
     }])
+
+    app.factory("AccountRecords",["$resource",function ($resource) {
+        return $resource("/account/:id/records/",{
+            update:{method:"PUT"}
+        })
+    }])
+
+    app.factory("batchInStep", ["$resource", function ($resource) {
+        return $resource('/batch/in/:step/:id', null, {
+            update: {method: 'PUT'}
+        });
+    }]);
+    app.factory("batchOutStep", ["$resource", function ($resource) {
+        return $resource('/batch/out/:step/:id', null, {
+            update: {method: 'PUT'}
+        });
+    }]);
+
 }

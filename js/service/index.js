@@ -9,5 +9,4 @@ require("./iccard")(app)
 require("./resource")(app)
 require("./filter")(app)
 require("./idcard")(app)
-require("./batch/batchService")(app)
 
