@@ -11,8 +11,9 @@ app.config(["$routeProvider",function($routeProvider){
     })
 }])
 
-app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$location",function ($scope,$http,$icard,$filter,$location) {
-    $scope.intv = 0
+app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$location","$routeParams",function ($scope,$http,$icard,$filter,$location,$routeParams) {
+    $scope.intv = 0;
+    $scope.cardNo = $routeParams.cardNo;
     $scope.initCardWriter = function () {
         $icard.init().then(function () {
             $scope.icardWriterReady = true
@@ -32,7 +33,6 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
     })
     function scanCard() {
         $scope.intv = $icard.scanCard(function (cardNo,balance) {
-
             $scope.$apply(function () {
                 $scope.cardNo = cardNo
                 if(cardNo){
@@ -48,7 +48,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
         scanCard()
     })
     $scope.$watch("cardNo",function (val) {
-        if(val){
+        if(val&&val != null){
             $http.get("/icard/cardNo/" + val).then(function (result) {
                 $scope.account = result.data
                 $scope.accountLoadMessge = ""
@@ -87,8 +87,5 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
                 scanCard()
             })
         }
-    }
-    $scope.details= function () {
-        $location.path("/icard/1/details");
     }
 }])
