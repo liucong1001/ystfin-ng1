@@ -6,7 +6,7 @@
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when("/pay/order/query/:icardNo",{
+    $routeProvider.when("/pay/order/query",{
         controller:"queryOrderController",
         template:require("./html/order/query.html")
     })
