@@ -27,5 +27,4 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
             default: return "danger"
         }
     }
-
 }]);
