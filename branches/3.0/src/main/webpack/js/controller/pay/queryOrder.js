@@ -15,11 +15,12 @@ app.config(["$routeProvider",function($routeProvider){
 app.controller("queryOrderController",["$scope","TransRecord","Order","$location","$routeParams",function ($scope,TransRecord,Order,$location,$routeParams) {
     $scope.filter = {"orderNo":$routeParams.icardNo};
     $scope.accountId = $routeParams.accountId;
+    $scope.balance = $routeParams.balance;
     $scope.tableColumns = [
         {title:"订单号",template:"{{row.orderNo}}", width:25,thClass:"text-center",tdClass:"text-center"},
         {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-right",tdClass:"text-right", width:25},
         {title:"状态",template:"<ng-convert code='order_status' value='{{row.status}}' ></ng-convert>",width:25,thClass:"text-center",tdClass:"text-center"},
-        {title:"",template:"<a href='/ng#/pay/order/{{row.id}}/pay?accountId="+$scope.accountId+"'>{{row.status==\"01\"?'收款':'查看'}}</a>"}
+        {title:"",template:"<a href='/ng#/pay/order/{{row.id}}/pay?accountId="+$scope.accountId+"&balance="+$routeParams.balance+"'>{{row.status==\"01\"?'收款':'查看'}}</a>"}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){

@@ -16,10 +16,10 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
     $scope.balance = $routeParams.balance;
     $scope.tableColumns = [
         {title:"订单",template:"{{row.orderNo}}", width:20,thClass:"text-center",tdClass:"text-center"},
-        {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:20},
+        {title:"金额",template:"{{row.amount / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"处理时间",template:"{{row.createTime | date:'yyyy-MM-dd'}}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"类型",template:"<ng-convert code='account_record_type' value='{{row.type}}' ></ng-convert>",width:20,thClass:"text-left",tdClass:"text-left"},
-        {title:"订单详情",template:"<a href='/ng#/pay/order/query?icardNo={{row.orderNo}}&accountId={{row.account.id}}'>{{row.orderNo ? '查看':''}}</a>",width:20,thClass:"text-left",tdClass:"text-left"}
+        {title:"订单详情",template:"<a href='/ng#/pay/order/query?icardNo={{row.orderNo}}&accountId={{row.account.id}}&balance="+$scope.balance+"'>{{row.orderNo ? '查看':''}}</a>",width:20,thClass:"text-left",tdClass:"text-left"}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){

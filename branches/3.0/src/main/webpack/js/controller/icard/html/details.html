@@ -6,12 +6,12 @@
         <div class="row">
             <div class="col-xs-2"><input class="form-control input-sm" ng-model="filter.orderNo" placeholder="订单号(模糊匹配)" /></div>
             <div class="col-xs-2">
-                <select class="form-control input-sm" ng-convert-select  ng-model="filter.type" code="icard_typequ" default-text="订单类型">
+                <select class="form-control input-sm" ng-convert-select  ng-model="filter.type" code="order_status" default-text="订单类型">
                 </select>
             </div>
             <div class="col-xs-1"><button class="btn btn-default btn-sm" ng-click="ngTable.reload()"><span class="glyphicon glyphicon-search"></span> 查询</button></div>
         </div>
     </div>
-    <ng-table url="/icard/account/pager" row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
+    <ng-table url="/icard/accountRecord/pager" row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
 </div>
-账户余额:<span class="text-danger">{{balance / 100 | currency:"￥"}}</span>元&nbsp;&nbsp;&nbsp;&nbsp;<a href="/dealers/manager" class="btn btn-default">返回</a>
+账户余额:<span class="text-danger">{{balance / 100 | currency:"￥"}}</span>元&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ng#/account/manager" class="btn btn-default">返回</a>
