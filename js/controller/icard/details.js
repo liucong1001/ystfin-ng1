@@ -13,6 +13,7 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords",function ($scope,$routeParams,AccountRecords) {
     $scope.filter = {"account.id":$routeParams.id};
+    $scope.balance = $routeParams.balance;
     $scope.tableColumns = [
         {title:"订单",template:"{{row.orderNo}}", width:20,thClass:"text-center",tdClass:"text-center"},
         {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:20},
