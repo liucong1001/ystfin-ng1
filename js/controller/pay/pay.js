@@ -71,7 +71,7 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         })
     })
 
-    $scope.acountId = $routeParams.acountId;
+    $scope.accountId = $routeParams.accountId;
 
     $scope.pay = function () {
         clearInterval($scope.intv)
