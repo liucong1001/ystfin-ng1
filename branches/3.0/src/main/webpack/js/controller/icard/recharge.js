@@ -13,7 +13,7 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$location","$routeParams",function ($scope,$http,$icard,$filter,$location,$routeParams) {
     $scope.intv = 0;
-    $scope.cardNo = $routeParams.cardNo;
+    //$scope.cardNo = $routeParams.cardNo;
     $scope.initCardWriter = function () {
         $icard.init().then(function () {
             $scope.icardWriterReady = true
