@@ -17,10 +17,11 @@ app.controller("queryOrderController",["$scope","TransRecord","Order","$location
     $scope.accountId = $routeParams.accountId;
     $scope.balance = $routeParams.balance;
     $scope.tableColumns = [
-        {title:"订单号",template:"{{row.orderNo}}", width:25,thClass:"text-center",tdClass:"text-center"},
-        {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-right",tdClass:"text-right", width:25},
-        {title:"状态",template:"<ng-convert code='order_status' value='{{row.status}}' ></ng-convert>",width:25,thClass:"text-center",tdClass:"text-center"},
-        {title:"",template:"<a href='/ng#/pay/order/{{row.id}}/pay?accountId="+$scope.accountId+"&balance="+$routeParams.balance+"'>{{row.status==\"01\"?'收款':'查看'}}</a>"}
+        {title:"订单号",template:"{{row.orderNo}}", width:20,thClass:"text-center",tdClass:"text-center"},
+        {title:"金额",template:"{{row.amount/100 | currency:'￥'}}",thClass:"text-right",tdClass:"text-right", width:20},
+        {title:"状态",template:"<ng-convert code='order_status' value='{{row.status}}' ></ng-convert>",width:20,thClass:"text-center",tdClass:"text-center"},
+        {title:"创建时间",template:"{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}",width:20,thClass:"text-center",tdClass:"text-center"},
+        {title:"",template:"<a href='/ng#/pay/order/{{row.id}}/pay?accountId="+$scope.accountId+"&balance="+$routeParams.balance+"'>{{row.status==\"01\"?'收款':'查看'}}</a>",width:20}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){
