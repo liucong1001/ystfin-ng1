@@ -24,7 +24,7 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
     $scope.rowClass = function (row) {
         switch(row.type){
             case "01":return "danger text-danger"
-            case "02":return "success small text-success"
+            case "02":return "success text-success"
             default: return "info"
         }
     }

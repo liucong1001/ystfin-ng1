@@ -33,7 +33,10 @@
             <div class="col-sm-4 form-control-static">{{amount | amountHZ}}</div>
         </div>
     </div>
-    <div class="panel-footer"><button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || !amount">充值</button></div>
+    <div class="panel-footer">
+        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || !amount">充值</button>
+        <button class="btn btn-lg btn-default" ng-click="back()">返回</button>
+    </div>
 </div>
 <div class="alert alert-danger" ng-if="rechargeMessage && rechargeMessage != 'success'">
     {{rechargeMessage}}
