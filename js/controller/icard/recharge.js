@@ -87,4 +87,8 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
             })
         }
     }
+    $scope.back = function () {
+        $location.path("/account/manager");
+    }
+
 }])
