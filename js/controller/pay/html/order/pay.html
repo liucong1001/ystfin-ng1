@@ -19,10 +19,10 @@
             <div class="clearfix"></div>
         </div>
         <table class="table table-striped">
-            <thead><tr><th>流水号</th><th>车牌号</th><th>手续费</th></tr></thead>
+            <thead><tr><th>发票号</th><th>车牌号</th><th>手续费</th></tr></thead>
             <tbody>
             <tr ng-repeat="item in order.items">
-                <td>{{item.archivesNo}}</td>
+                <td>{{item.billNo}}</td>
                 <td>{{item.plateNumber}}</td>
                 <td>{{item.tprice / 100 | currency:"￥"}}</td>
             </tr>
@@ -49,7 +49,7 @@
         <div class="panel-footer">
             <div class="pull-right">
                 <button class="btn btn-lg btn-danger" ng-click="pay()" ng-show="order.status == '01'" ng-disabled="order.status != '01' || !account.dealers || account.balance - order.amount <= 0">确定扣款</button>
-                共<span class="text-danger">{{order.items.length}}</span>个流水 合计:<span class="text-danger">{{order.amount / 100 | currency:"￥"}}</span>元
+                共<span class="text-danger">{{order.items.length}}</span>张发票 合计:<span class="text-danger">{{order.amount / 100 | currency:"￥"}}</span>元
             </div>
             <div class="clearfix"></div>
         </div>
@@ -58,7 +58,7 @@
         {{payMessage}}
     </div>
     <div class="alert alert-success" ng-if="payMessage && payMessage == 'success'">
-        扣款成功!
+        <span style="font-size: 20px;">扣款成功!</span>
     </div>
     <a href="/ng#/pay/order/query?accountId={{accountId}}&balance={{balance}}" ng-if="accountId" class="btn btn-default">返回</a>
 </div>
