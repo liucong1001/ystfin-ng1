@@ -39,4 +39,10 @@ module.exports = function (app) {
         });
     }]);
 
+    app.factory("Bills",["$resource",function ($resource) {
+        return $resource('/new/trans/bills/:archivesNo',null,{
+           update: {method: 'PUT'}
+        });
+    }]);
+
 }

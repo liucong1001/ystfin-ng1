@@ -11,12 +11,12 @@ app.config(["$routeProvider",function($routeProvider){
     })
 }])
 
-app.controller("createOrderController",["$scope","TransRecord","Order","$location",function ($scope,TransRecord,Order,$location) {
+app.controller("createOrderController",["$scope","TransRecord","Order","$location","Bills",function ($scope,TransRecord,Order,$location,Bills) {
     $scope.items = {}
     $scope.itemsLength = 0
     $scope.archivesNoKeyUp = function ($event) {
         if ($event.keyCode == 13 && $scope.archivesNo) {
-            TransRecord.get({archivesNo:$scope.archivesNo},function (tr) {
+            /*TransRecord.get({archivesNo:$scope.archivesNo},function (tr) {
                 if(!tr.orderNo && tr.status == "11"){       // 未创建订单
                     if(!$scope.items[tr.archivesNo]) {
                         $scope.itemsLength++
@@ -29,12 +29,20 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
                     $scope.archivesNoError = $scope.archivesNo + "已存在于订单[" + tr.orderNo + "]中"
                 }
                 $scope.archivesNo = ""
+            })*/
+            Bills.query({archivesNo:$scope.archivesNo},function (bills) {
+                for(var i = 0 ; i < bills.length; i++){
+                    if(!$scope.items[bills[i].id]){
+                        $scope.itemsLength++
+                    }
+                    $scope.items[bills[i].id] = bills[i];
+                }
             })
         }
     }
-    $scope.removeItem = function(archivesNo){
+    $scope.removeItem = function(id){
         $scope.itemsLength--
-        delete $scope.items[archivesNo]
+        delete $scope.items[id]
     }
     $scope.orderTotalAmount = function () {
         var total = 0;
@@ -48,7 +56,7 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
         order.items = []
         for(var i in $scope.items){
             var item = $scope.items[i]
-            order.items.push({archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
+            order.items.push({archivesNo:item.billNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
         }
         order.$save().then(function (result) {
             $location.path("/pay/order/" + result.id + "/pay")
