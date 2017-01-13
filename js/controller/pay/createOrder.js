@@ -31,6 +31,9 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
                 $scope.archivesNo = ""
             })*/
             Bills.query({archivesNo:$scope.archivesNo},function (bills) {
+                if(bills.length==0){
+                    $scope.archivesNoError = $scope.archivesNo + "流水无待支付发票！"
+                }
                 for(var i = 0 ; i < bills.length; i++){
                     if(!$scope.items[bills[i].id]){
                         $scope.itemsLength++
