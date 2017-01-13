@@ -56,7 +56,7 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
         order.items = []
         for(var i in $scope.items){
             var item = $scope.items[i]
-            order.items.push({archivesNo:item.billNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
+            order.items.push({billNo:item.billNo,archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
         }
         order.$save().then(function (result) {
             $location.path("/pay/order/" + result.id + "/pay")
