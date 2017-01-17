@@ -2,10 +2,10 @@
 	<div>{{batchNo}}</div>
 	<div class="row">
 		<div class="col-md-6">
-			请选择商户：<select id="staff_id" ng-model="staff" ng-options="staff.id as staff.userName for staff in staffs track by staff.id"></select>
+			请选择商户：<select ng-blur="getStaff()" ng-model="staff" ng-options="staff.id as staff.userName for staff in staffs track by staff.id"></select>
 		</div>
 		<div class="col-md-4">
-			请选择联系人：<select id="contact_id" ng-model="contact" ng-options="theContact.id as theContact.name for theContact in theContacts track by theContact.id"></select>
+			请选择联系人：<select ng-blur="getContact()" ng-model="contact" ng-options="theContact.id as theContact.name for theContact in theContacts track by theContact.id"></select>
 		</div>
 	</div>
 	<div class="row">

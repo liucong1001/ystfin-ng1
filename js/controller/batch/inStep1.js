@@ -16,17 +16,17 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
 		$scope.staffs = result.data;
 	});
 	
-	$("#staff_id").focusout(function(){
-		$http.get("/batch/findTheContacts/"+$(this).val()).then(function(result){
+	$scope.getStaff = function(){
+		$http.get("/batch/findTheContacts/"+$scope.staff).then(function(result){
 			$scope.theContacts = result.data;
 		});
-	});
+	};
 	
-	$("#contact_id").focusout(function(){
-		$http.get("/batch/contact/"+$(this).val()).then(function(result){
+	$scope.getContact = function(){
+		$http.get("/batch/contact/"+$scope.contact).then(function(result){
 			$scope.theContact = result.data;
 		});
-	});
+	};
 	
 	$scope.imgSrc = function (path) {
         return "/common/download/temp?file=" + path;
