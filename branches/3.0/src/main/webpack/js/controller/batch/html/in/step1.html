@@ -2,23 +2,34 @@
 	<div>{{batchNo}}</div>
 	<div class="row">
 		<div class="col-md-6">
-			请选择商户：<select ng-blur="getStaff()" ng-model="staff" ng-options="staff.id as staff.userName for staff in staffs track by staff.id"></select>
+			请选择商户：
+			<select ng-change="getStaff()" ng-model="staff" ng-init="staff = '0'">
+				<option value = "0">--请选择商户--</option>
+				<option ng-repeat="s in staffs" value="{{s.id}}">{{s.userName}}</option>
+			</select>
+		</select>
 		</div>
-		<div class="col-md-4">
-			请选择联系人：<select ng-blur="getContact()" ng-model="contact" ng-options="theContact.id as theContact.name for theContact in theContacts track by theContact.id"></select>
+		<div class="col-md-6">
+			请选择联系人：
+			<select ng-change="getContact()" ng-model="contact" ng-init="contact = '0'">
+				<option value = "0">--请选择联系人--</option>
+				<option ng-repeat="c in theContacts" value="{{c.id}}">{{c.name}}</option>
+			</select>
 		</div>
 	</div>
+	<br/>
 	<div class="row">
 		<div class="col-md-6">身份证号：{{theContact.idCardNo}}</div>
-		<div class="col-md-4">联系电话：{{theContact.phone}}</div>
+		<div class="col-md-6">联系电话：{{theContact.phone}}</div>
 	</div>
+	<br/>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<ng-panel title="身份证正面" type="primary" class="img-view">
 				<img ng-if="theContact.idCardFront" ng-src="{{imgSrc(theContact.idCardFront.path)}}" />
 			</ng-panel>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<ng-panel title="身份证反面" type="primary" class="img-view">
 				<img ng-if="theContact.idCardBk" ng-src="{{imgSrc(theContact.idCardBk.path)}}" />
 			</ng-panel>
