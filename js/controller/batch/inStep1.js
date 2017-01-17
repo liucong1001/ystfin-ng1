@@ -17,6 +17,9 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
 	});
 	
 	$scope.getStaff = function(){
+        $scope.theContact = '';
+        $scope.theContacts = '';
+        $scope.contact = '0';
 		$http.get("/batch/findTheContacts/"+$scope.staff).then(function(result){
 			$scope.theContacts = result.data;
 		});
