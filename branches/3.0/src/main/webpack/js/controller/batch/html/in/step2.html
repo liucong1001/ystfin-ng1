@@ -3,6 +3,15 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-8">
+			<div class="row">
+				<div class="col-md-12">
+					选择商贩
+					<select ng-model="middleMan" ng-init="middleMan='0'" ng-change="getMiddleMan()">
+						<option value="0">--请选择商贩--</option>
+						<option ng-repeat="m in middleMans" value="{{m.id}}">{{m.name}}</option>
+					</select>
+				</div>
+			</div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 居民身份证</label>
