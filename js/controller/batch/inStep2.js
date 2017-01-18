@@ -17,6 +17,41 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
         $scope.seller = step2
         console.log(header);
     })
+    Step.get({step:"step1"},function(step1,header){
+        $scope.step1 = step1
+        console.log($scope.step1.staff);
+        $http.get("/batch/middleMan/"+$scope.step1.staff).then(function (result) {
+            $scope.middleMans = result.data;
+            console.log($scope.middleMans);
+        })
+    })
+
+    $scope.getMiddleMan = function () {
+        $http.get("/middleman/"+$scope.middleMan).then(function (result) {
+            console.log(result.data);
+            $scope.middle = result.data;
+            if($scope.middle){
+                $scope.seller.idcardName = $scope.middle.name;
+                $scope.seller.idcardAddress = $scope.middle.address;
+                $scope.seller.idcardLimitEnd = $scope.middle.endTime;
+                $scope.seller.idcardNo = $scope.middle.certCode;
+                $scope.seller.cert = $scope.middle.idCardFront.path;
+                $scope.seller.certBg = $scope.middle.idCardBg.path;
+                $scope.seller.photo = $scope.middle.regPhoto.path;
+                $scope.seller.finger = $scope.middle.fingerprintImg.path;
+            }else{
+                $scope.seller.idcardName = '';
+                $scope.seller.idcardAddress = '';
+                $scope.seller.idcardLimitEnd = '';
+                $scope.seller.idcardNo = '';
+                $scope.seller.cert = '';
+                $scope.seller.certBg = '';
+                $scope.seller.photo = '';
+                $scope.seller.finger = '';
+            }
+        })
+    }
+
 	// 证件类型:01 居民身份证 02  企业营业执照(三证合一) 03企业组织机构代码证（营业执照、税务登记证）
 	$scope.seller = {
         certType: "01"         
