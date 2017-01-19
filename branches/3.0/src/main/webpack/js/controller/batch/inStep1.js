@@ -12,7 +12,20 @@ app.config(["$routeProvider",function($routeProvider){
 }]);
 
 app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep",function ($scope,$http,$location,Step) {
-	$http.get("/batch/staffs").then(function(result){
+    Step.get({step:"step1"},function(step1,header){
+        $scope.step1 = step1
+        console.log($scope.step1.staff);
+        $scope.staff = $scope.step1.staff;
+        $http.get("/batch/findTheContacts/"+$scope.staff).then(function(result){
+            $scope.theContacts = result.data;
+        });
+        $scope.contact = $scope.step1.theContact;
+        $http.get("/batch/contact/"+$scope.contact).then(function(result){
+            $scope.theContact = result.data;
+        });
+    })
+
+    $http.get("/batch/staffs").then(function(result){
 		$scope.staffs = result.data;
 	});
 	
