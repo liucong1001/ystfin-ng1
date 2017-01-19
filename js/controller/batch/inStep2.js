@@ -15,7 +15,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
 	// 获取后台缓存数据
     Step.get({step:"step2"},function (step2,header) {
         $scope.seller = step2
-        console.log(header);
+        $scope.middleMan = $scope.seller.middleMan;
     })
     Step.get({step:"step1"},function(step1,header){
         $scope.step1 = step1
@@ -39,6 +39,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
                 $scope.seller.certBg = $scope.middle.idCardBg.path;
                 $scope.seller.photo = $scope.middle.regPhoto.path;
                 $scope.seller.finger = $scope.middle.fingerprintImg.path;
+                $scope.seller.middleMan = $scope.middle.id;
             }else{
                 $scope.seller.idcardName = '';
                 $scope.seller.idcardAddress = '';
@@ -48,6 +49,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
                 $scope.seller.certBg = '';
                 $scope.seller.photo = '';
                 $scope.seller.finger = '';
+                $scope.seller.middleMan = '';
             }
         })
     }
@@ -157,9 +159,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     //下一步
     $scope.next = function () {
         $scope.submiting = true;
-        var step = new Step({
-        	
-        });
+        var step = new Step($scope.seller);
         step.$save({step:"step2"}).then(function(result){
             $scope.submiting = false;
             $location.path("/batch/in/step3");
