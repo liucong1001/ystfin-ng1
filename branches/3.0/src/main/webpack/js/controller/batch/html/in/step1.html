@@ -1,7 +1,7 @@
 <div class="container-fluid panel-body">
 	<div>{{batchNo}}</div>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-5">
 			请选择商户：
 			<select ng-change="getStaff()" ng-model="staff" ng-init="staff = '0'">
 				<option value = "0">--请选择商户--</option>
@@ -9,7 +9,7 @@
 			</select>
 		</select>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 			请选择联系人：
 			<select ng-change="getContact()" ng-model="contact" ng-init="contact = '0'">
 				<option value = "0">--请选择联系人--</option>
@@ -19,17 +19,17 @@
 	</div>
 	<br/>
 	<div class="row">
-		<div class="col-md-6">身份证号：{{theContact.idCardNo}}</div>
-		<div class="col-md-6">联系电话：{{theContact.phone}}</div>
+		<div class="col-md-5">身份证号：{{theContact.idCardNo}}</div>
+		<div class="col-md-5">联系电话：{{theContact.phone}}</div>
 	</div>
 	<br/>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-5">
 			<ng-panel title="身份证正面" type="primary" class="img-view">
 				<img ng-if="theContact.idCardFront" ng-src="{{imgSrc(theContact.idCardFront.path)}}" />
 			</ng-panel>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 			<ng-panel title="身份证反面" type="primary" class="img-view">
 				<img ng-if="theContact.idCardBk" ng-src="{{imgSrc(theContact.idCardBk.path)}}" />
 			</ng-panel>
