@@ -28,6 +28,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     $scope.addVehicle = function () {
         var i = $scope.vehicle.items.length;
         $scope.vehicle.items.push( {'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''});
+        $scope.status = {};
         $scope.i = i;
     }
     //删除车辆
@@ -56,7 +57,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         },xuanzhuan);
         $scope.active = index + 1;
     }
-    $scope.upload = function($file,type,index,i){
+    $scope.upload = function($file,type,i){
         $scope.status[type] = "正在上传...";
         Upload.upload({
             url:"/common/upload/single",

@@ -31,7 +31,7 @@
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+1}}" ng-click="snapshot('vehicleCert',certCount+1,null,i)" class="btn btn-sm {{active != certCount+1?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'vehicleCert')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'vehicleCert',i)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
                         </div>
                     </ng-panel>
                 </div>
@@ -42,7 +42,7 @@
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+2}}" ng-click="snapshot('vehicleCertBg',certCount+2,null,i)" class="btn btn-sm {{active != certCount+2?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'vehicleCertBg')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'vehicleCertBg',i)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
                         </div>
                     </ng-panel>
                 </div>
@@ -55,7 +55,7 @@
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+3}}" ng-click="snapshot('registrationCert',certCount+3,true,i)" class="btn btn-sm {{active != certCount+3?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'registration')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'registrationCert',i)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
                         </div>
                     </ng-panel>
                 </div>
@@ -66,7 +66,7 @@
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+4}}" ng-click="snapshot('registrationCertBg',certCount+4,true,i)" class="btn btn-sm {{active != certCount+4?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'registrationBg')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                                    ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'registrationCertBg',i)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
                         </div>
                     </ng-panel>
                 </div>
