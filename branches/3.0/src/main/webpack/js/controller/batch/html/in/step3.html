@@ -1,3 +1,20 @@
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+        <button class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="addVehicle()">添加下一辆车</button>
+        <div class="panel panel-default">
+            <div class="panel-heading">车辆列表
+                <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'up':'down'}}" href="" ng-click="showFilter=!showFilter"></a>
+            </div>
+            <div class="panel-body" ng-show="showFilter">
+                <div class="row">
+                    <div ng-repeat="v in vehicle.items" class="col-xs-1"><button class="btn btn-default btn-sm"  ng-click="editVehicle($index)">{{$index+1}}号车</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid panel-body">
     <div class="row">
         <div class="col-md-4">
@@ -53,17 +70,7 @@
             </div>
         </div>
     </div>
-   <!-- <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
-            <div class="row" ng-repeat ="v in vehicle.items">
-                <button ng-click = "editVehicle($index)">第{{$index+1}}台车</button>
-            </div>
-        </div>
-    </div>-->
     <div class="panel-footer text-right">
-        <button class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="addVehicle()">添加下一辆车</button>
         <button class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="prev()">返回，添加卖家</button>
         <button class="btn btn-primary btn-sm" ng-disabled="submiting||error()" ng-click="next()">下一步，添加附件</button>
     </div>
