@@ -13,7 +13,7 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep","$templateCache","$webcam","Upload",function ($scope,$http,$location,Step,$tpc,$webcam,Upload) {
     // 获取后台缓存数据
-    Step.get({step:"step3"},function (step3,header) {
+    Step.get({step:"step3"},function (step3) {
         $scope.vehicle= step3
         $scope.i = 0;
     })
@@ -28,7 +28,12 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     $scope.addVehicle = function () {
         var i = $scope.vehicle.items.length;
         $scope.vehicle.items.push( {'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''});
-        i++;
+        $scope.i = i;
+    }
+    //删除车辆
+    $scope.removeVehicle = function (i) {
+        $scope.vehicle.items.splice(i,1);
+        i--,
         $scope.i = i;
     }
     //修改车辆
@@ -81,15 +86,6 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         window.scrollTo(0,0);
     };
 
-    //判断是否可点击下一步
-    $scope.error = function () {
-        if($scope.i > 0) {
-            return false;
-        }else{
-            return true;
-        }
-    };
-
     //下一步
     $scope.next = function () {
         $scope.submiting = true;
@@ -102,5 +98,14 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
             $scope.submiting = false;
         });
     };
+    //判断是否能下一步
+    $scope.error = function () {
+        for(var i in $scope.vehicle.items){
+            if(!$scope.vehicle.items[i]['vehicleCert']||!$scope.vehicle.items[i]['vehicleCertBg']||!$scope.vehicle.items[i]['registrationCert']||!$scope.vehicle.items[i]['registrationCertBg']){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }]);

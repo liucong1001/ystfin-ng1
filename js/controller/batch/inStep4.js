@@ -88,8 +88,8 @@ app.controller("batchStep4Controller",["$scope","$rootScope","$http","$location"
         })
     }
     $scope.prev = function () {
-       /* var step = new Step({images:$scope.imgs})
-        step.$save({step:"step4"})*/
+        var step = new Step({images:$scope.imgs})
+        step.$save({step:"step4"})
         $location.path("/batch/in/step3")
         window.scrollTo(0,0)
     }

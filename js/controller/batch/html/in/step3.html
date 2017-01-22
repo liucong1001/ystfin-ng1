@@ -9,7 +9,10 @@
             </div>
             <div class="panel-body" ng-show="showFilter">
                 <div class="row">
-                    <div ng-repeat="v in vehicle.items" class="col-xs-1"><button class="btn btn-default btn-sm"  ng-click="editVehicle($index)">{{$index+1}}号车</button></div>
+                    <div ng-repeat="v in vehicle.items" class="col-xs-1">
+                        <button class="btn btn-default btn-sm"  ng-click="editVehicle($index)">{{$index+1}}号车</button>
+                        <a href="" ng-click="removeVehicle($index)" ng-if="$index>0">删除</a>
+                    </div>
                 </div>
             </div>
         </div>
