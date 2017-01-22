@@ -15,29 +15,29 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     // 获取后台缓存数据
     Step.get({step:"step3"},function (step3,header) {
         $scope.vehicle= step3
+        $scope.i = 0;
     })
-
     $scope.vehicle = {
         items:[{'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''}]
     };
     $scope.status = {};
     $scope.i = 0;
+    $scope.showFilter = true;
+
     //添加车辆
     $scope.addVehicle = function () {
-        var i = $scope.i;
+        var i = $scope.vehicle.items.length;
         $scope.vehicle.items.push( {'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''});
-        console.log($scope.vehicle.items);
         i++;
         $scope.i = i;
     }
     //修改车辆
-    /*$scope.editVehicle = function (i) {
+    $scope.editVehicle = function (i) {
         var vehicle = $scope.vehicle.items[i];
-
         $scope.i = i;
-    }*/
+    }
     //拍照
-    $webcam.show("280px","150px",true)
+    $webcam.show("280px","170px",true)
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
         $webcam.hide();
