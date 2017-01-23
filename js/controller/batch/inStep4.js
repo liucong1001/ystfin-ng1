@@ -94,11 +94,9 @@ app.controller("batchStep4Controller",["$scope","$rootScope","$http","$location"
     $scope.next = function () {
         $scope.submiting = true
         var step = new Step({images:$scope.imgs})
-        var method = $routeParams.edit?step.$update:step.$save
-        method.call(step,{step:"finally"}).then(function(result){
+        step.$save({step:"finally"}).then(function(result){
             $scope.submiting = false
-            $webcam.hide()
-           /* $location.path("/trans/seller/complate/" + result.message)*/
+            $location.path("/batch/in/complate/" + result.message);
             window.scrollTo(0,0)
         },function (err) {
             $scope.submiting = false
