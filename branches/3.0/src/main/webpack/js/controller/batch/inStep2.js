@@ -19,16 +19,13 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     })
     Step.get({step:"step1"},function(step1,header){
         $scope.step1 = step1
-        console.log($scope.step1.staff);
         $http.get("/batch/middleMan/"+$scope.step1.staff).then(function (result) {
             $scope.middleMans = result.data;
-            console.log($scope.middleMans);
         })
     })
-
+    //填充商贩信息
     $scope.getMiddleMan = function () {
         $http.get("/middleman/"+$scope.middleMan).then(function (result) {
-            console.log(result.data);
             $scope.middle = result.data;
             if($scope.middle){
                 $scope.seller.idcardName = $scope.middle.name;
@@ -53,7 +50,6 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             }
         })
     }
-
 	// 证件类型:01 居民身份证 02  企业营业执照(三证合一) 03企业组织机构代码证（营业执照、税务登记证）
 	$scope.seller = {
         certType: "01"         
@@ -90,6 +86,10 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
                 console.log(evt);
             }
         );
+    };
+    //显示图片
+    $scope.imgSrc = function (path) {
+        return "/common/download/temp?file=" + path;
     };
     // 设置证件数量
     $scope.certCount = 0;
@@ -146,15 +146,12 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     $tpc.put("sellerCert01",require("./html/in/sellerCert01.html"));
     $tpc.put("sellerCert02",require("./html/in/sellerCert02.html"));
     $tpc.put("sellerCert03",require("./html/in/sellerCert03.html"));
-	//判断是否可点击下一步
-	$scope.error = function () {
-		for(var i in $scope.certs){
-            if(!$scope.seller[$scope.certs[i]]){
-                console.log("++++++++++",$scope.certs,$scope.seller[$scope.certs[i]])
-                return true
-            }
-        }
-        return false
+    //返回上一步
+    $scope.prev = function () {
+        var step = new Step($scope.seller)
+        step.$save({step:"step2"});
+        $location.path("/batch/in/step1");
+        window.scrollTo(0,0);
     };
     //下一步
     $scope.next = function () {
@@ -168,17 +165,14 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             $scope.submiting = false;
         });
     };
-    //返回上一步
-    $scope.prev = function () {
-        var step = new Step($scope.seller)
-        step.$save({step:"step2"});
-        $location.path("/batch/in/step1");
-        window.scrollTo(0,0);
+    //判断是否可点击下一步
+    $scope.error = function () {
+        for(var i in $scope.certs){
+            if(!$scope.seller[$scope.certs[i]]){
+                return true
+            }
+        }
+        return false
     };
-    //显示图片
-    $scope.imgSrc = function (path) {
-        return "/common/download/temp?file=" + path;
-    };
-	
-	
+
 }]);
