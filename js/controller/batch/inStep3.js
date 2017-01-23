@@ -23,7 +23,6 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     $scope.status = {};
     $scope.i = 0;
     $scope.showFilter = true;
-
     //添加车辆
     $scope.addVehicle = function () {
         var i = $scope.vehicle.items.length;
@@ -57,6 +56,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         },xuanzhuan);
         $scope.active = index + 1;
     }
+    //上传
     $scope.upload = function($file,type,i){
         $scope.status[type] = "正在上传...";
         Upload.upload({
@@ -73,20 +73,10 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
             }
         );
     };
-
     //显示图片
     $scope.imgSrc = function (path) {
         return "/common/download/temp?file=" + path;
     };
-
-    //返回上一步
-    $scope.prev = function () {
-        var step = new Step($scope.vehicle)
-        step.$save({step:"step3"});
-        $location.path("/batch/in/step2");
-        window.scrollTo(0,0);
-    };
-
     //下一步
     $scope.next = function () {
         $scope.submiting = true;
@@ -99,10 +89,21 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
             $scope.submiting = false;
         });
     };
+    //返回上一步
+    $scope.prev = function () {
+        var step = new Step($scope.vehicle)
+        step.$save({step:"step3"});
+        $location.path("/batch/in/step2");
+        window.scrollTo(0,0);
+    };
     //判断是否能下一步
     $scope.error = function () {
         for(var i in $scope.vehicle.items){
-            if(!$scope.vehicle.items[i]['vehicleCert']||!$scope.vehicle.items[i]['vehicleCertBg']||!$scope.vehicle.items[i]['registrationCert']||!$scope.vehicle.items[i]['registrationCertBg']){
+            if(!$scope.vehicle.items[i]['vehicleCert']
+                ||!$scope.vehicle.items[i]['vehicleCertBg']
+                ||!$scope.vehicle.items[i]['registrationCert']
+                ||!$scope.vehicle.items[i]['registrationCertBg'])
+            {
                 return true;
             }
         }
