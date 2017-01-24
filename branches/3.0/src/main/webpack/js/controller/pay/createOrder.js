@@ -35,8 +35,9 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
                     $scope.archivesNoError = $scope.archivesNo + "流水无待支付发票！"
                 }
                 for(var i = 0 ; i < bills.length; i++){
-                    if(!$scope.items[bills[i].id]){
+                    if(!bills[i].orderNo){
                         $scope.itemsLength++
+                        console.log($scope.itemsLength)
                     }
                     $scope.items[bills[i].id] = bills[i];
                 }
@@ -50,7 +51,9 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
     $scope.orderTotalAmount = function () {
         var total = 0;
         for(var i in $scope.items){
-            total += $scope.items[i].fee
+            if(!$scope.items[i].orderNo){
+                total += $scope.items[i].fee
+            }
         }
         return total
     }
@@ -59,7 +62,9 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
         order.items = []
         for(var i in $scope.items){
             var item = $scope.items[i]
-            order.items.push({billNo:item.billNo,archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
+            if(!item.orderNo){
+                order.items.push({billNo:item.billNo,archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
+            }
         }
         order.$save().then(function (result) {
             $location.path("/pay/order/" + result.id + "/pay")
