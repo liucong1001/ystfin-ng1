@@ -11,13 +11,12 @@ require("ng-file-upload")
 require("../node_modules/angular-xeditable/dist/css/xeditable.css")
 require("angular-xeditable")
 require("angular-ui-bootstrap")
-require("../node_modules/ui-select-master/dist/select.min.css")
-require("ui-select-master")
-
+require("./lib/inputDropdown")
+require("../css/inputDropdownStyles.css")
 
 require("./directive/index")
 require("./service/index")
-var app = angular.module("sctsApp",["ngRoute","xeditable","ngResource","ngFileUpload","ngAnimate","ui.bootstrap","ys.ng.ui","ys.ng.service","ui.select"])
+var app = angular.module("sctsApp",["ngRoute","xeditable","ngResource","ngFileUpload","ngAnimate","inputDropdown","ui.bootstrap","ys.ng.ui","ys.ng.service"])
 
 app.run(["editableOptions",function(editableOptions) {
     editableOptions.theme = 'bs3'
