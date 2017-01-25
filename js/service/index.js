@@ -10,5 +10,5 @@ require("./resource")(app)
 require("./filter")(app)
 require("./idcard")(app)
 require("./globalConfig")(app)
-require("./batch/batchService")(app)
+//require("./batch/batchService")(app)
 
