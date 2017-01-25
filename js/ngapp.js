@@ -4,9 +4,9 @@
 require("../css/bootstrap.css")
 require("../css/elements.css")
 require("../css/theme.css")
+require("../css/iconfont.css")
 require("../css/main.css")
 require("../css/ui.css")
-require("../css/iconfont.css")
 
 require("./controller/pay/createOrder")
 require("./controller/pay/queryOrder")

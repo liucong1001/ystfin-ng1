@@ -448,3 +448,6 @@ th{
 	width:auto;
 	/*margin:auto;*/
 }
+.iconfont{
+	font-size: inherit;
+}
