@@ -3,8 +3,8 @@
  */
 "use strict"
 module.exports = function (app) {
-    app.factory("sellerStep", ["$resource", function ($resource) {
-        return $resource('/trans/seller/:step/:id', null, {
+    app.factory("$seller", ["$resource", function ($resource) {
+        return $resource('/seller/:step/:id', null, {
             update: {method: 'PUT'}
         })
     }])

@@ -1,35 +1,47 @@
-<div  ng-controller="transSellerStep1">
+<form role="form" novalidate name="sellerStep1Frm" ng-submit="onSubmit(sellerStep1Frm)">
+<div class="panel panel-default">
+    <div class="panel-heading">选择联系人</div>
 <div class="container-fluid panel-body">
+    <pre class="alert alert-danger" ng-if="errorMessage">{{errorMessage}}</pre>
+        <div class="row">
+        <div class="form-group col-sm-6" ng-class="{'has-feedback':sellerStep1Frm['theContact.name'].$dirty,'has-success':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$valid,'has-error':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$invalid}">
+            <label class="">联系人：</label>
+            <input-dropdown text-field="name" item-template="'{{item.name}}-{{item.dealers.loginName}}'" selected-item="selectedContact"
+                input-class-name="form-control input-sm" input-required="true" input-name="theContact.name"
+                input-placeholder="模糊匹配商户/联系人"
+                default-dropdown-items="contactList" filter-list-method="searchContact(userInput)"/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="">商户：</label><span class="form-control-static">{{selectedContact.dealers.loginName + "-" + selectedContact.dealers.name}}</span>
+        </div>
+        </div>
+    <div ng-if="selectedContact">
     <div class="row">
-    <div class="col-md-4">
+        <div class="col-sm-6">
+            <div class="form-group"><label>电话：</label><span class="form-control-static">{{selectedContact.phone}}</span></div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group"><label>身份证：</label><span class="form-control-static">{{selectedContact.idCardNo}}</span></div>
+        </div>
     </div>
-    <div class="col-md-3">
-        <ng-panel title="原车主头像" type="default" class="img-view">
-            <div ng-if="!photo" class="img">{{status.photo || "未拍照"}}</div>
-            <img ng-if="photo" ng-img-view="" ng-src="{{imgSrc(photo)}}" />
-            <div class="panel-footer">
-                <button class="btn btn-primary btn-sm" ng-click="snapshot()"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
-                <button class="btn btn-sm btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'photo')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="thumbnail">
+                <img ng-src="/common/download/{{selectedContact.idCardFront.id}}" />
+                <h3>身份证正面</h3>
             </div>
-        </ng-panel>
-    </div>
-    <div class="col-md-3">
-        <ng-panel title="卖家指纹" class="img-view" type="default">
-            <div ng-if="!finger" class="img">{{status.finger|| "未拍照"}}</div>
-            <img ng-if="finger" ng-src="{{imgSrc(finger)}}" />
-            <div class="panel-footer">
-                <button class="btn btn-primary btn-sm" ng-click="fingerPrint()"><span class="glyphicon glyphicon-thumbs-up"></span> 采集指纹</button>
-                <button class="btn btn-sm btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'finger')"><span class="glyphicon glyphicon-upload"></span> 上传指纹</button>
+        </div>
+        <div class="col-sm-6">
+            <div class="thumbnail">
+                <img ng-src="/common/download/{{selectedContact.idCardBk.id}}" />
+                <h3>身份证背面</h3>
             </div>
-        </ng-panel>
+        </div>
     </div>
     </div>
 </div>
-<div>{{archivesNo}}</div>
 <div class="panel-footer text-right">
-    <button class="btn btn-default btn-sm" ng-click="confirmPreview()" ng-disabled="error()">确认书打印预览</button>
-    <button class="btn btn-primary btn-sm" ng-click="next()" ng-disabled="!edit&&(submiting||error()||!printed)">下一步，上传证件</button>
+    <button class="btn btn-primary btn-sm" type="submit" ng-disabled="sellerStep1Frm.$invalid">下一步，上传证件</button>
 </div>
 </div>
+</form>

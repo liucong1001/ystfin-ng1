@@ -9,4 +9,6 @@ require("./iccard")(app)
 require("./resource")(app)
 require("./filter")(app)
 require("./idcard")(app)
+require("./globalConfig")(app)
+require("./batch/batchService")(app)
 

@@ -18,12 +18,12 @@ module.exports = function (app) {
                 page:"=",
                 idProperty:"@"
             },
-            controller:["$scope","$http","$sce","$templateCache",function($scope,$http,$sce,$tpc){
+            controller:["$scope","$http","$sce",function($scope,$http,$sce){
                 if(!$scope.tmplPrefix) $scope.tmplPrefix = "T" + new Date().getTime()
                 $scope.idProperty = $scope.idProperty || "id"
                 for(var i in $scope.columns){
                     var col = $scope.columns[i]
-                    $tpc.put($scope.tmplPrefix + "-" + i,col.template)
+                    //$tpc.put($scope.tmplPrefix + "-" + i,col.template)
                     if(col.sorting){
                         $scope.sortArray = [col.sortProperty + "," + (col.sortAsc?"asc":"desc"),$scope.idProperty + ",asc"]
                     }
@@ -54,9 +54,10 @@ module.exports = function (app) {
                     $scope.goto(0)
                 }
                 $scope.goto($scope.page)
+                /*
                 $scope.tmpl = function (index) {
                     return $scope.tmplPrefix + "-" + index
-                }
+                }*/
                 $scope.totalPages = function () {
                     return parseInt($scope.totalRows / $scope.pageSize) + ($scope.totalRows % $scope.pageSize?1:0)
                 }
