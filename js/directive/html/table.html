@@ -6,7 +6,9 @@
     </th></tr></thead>
     <tbody>
         <tr ng-repeat="row in content" class="{{rowClass(row)}}">
-            <td ng-repeat="col in columns" class="{{col.tdClass}}"><div ng-include src="tmpl($index)" /></td>
+            <td ng-repeat="col in columns" class="{{col.tdClass}}"><!--<div ng-include src="tmpl($index)" />-->
+                <div compile="col.template"></div>
+            </td>
         </tr>
     </tbody>
     <tfoot>

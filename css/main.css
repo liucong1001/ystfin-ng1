@@ -440,9 +440,11 @@ th{
 
 .img-view-dialog{
 	height:600px;
+	width:auto;
+	text-align: center;
 }
 .img-view-dialog img{
 	height:100%;
 	width:auto;
-	margin:auto;
+	/*margin:auto;*/
 }
