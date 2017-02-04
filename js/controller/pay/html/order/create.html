@@ -11,12 +11,14 @@
             <div class="clearfix"></div>
         </div>
         <table class="table table-striped">
-            <thead><tr><th>发票号</th><th>车牌号</th><th>手续费</th><th></th></tr></thead>
+            <thead><tr><th>发票号</th><th>车牌号</th><th>类型</th><th>手续费</th><th>开票时间</th><th></th></tr></thead>
             <tbody>
                 <tr ng-repeat="item in items">
                     <td>{{item.billNo}}</td>
                     <td>{{item.plateNumber}}</td>
+                    <td><ng-convert code="bill_type" value="{{item.billType}}"></ng-convert></td>
                     <td>{{item.fee}}</td>
+                    <td>{{item.usedDate}}</td>
                     <td><a href="" ng-click="removeItem(item.id)" ng-if="!item.orderNo">移除</a><span ng-if="item.orderNo" style="color:red;">已存在订单"{{item.orderNo}}"中</span></td>
                 </tr>
             </tbody>
