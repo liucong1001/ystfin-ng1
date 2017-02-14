@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-4">
+        <ng-panel title="营业执照(三证合一)" type="{{active != 1?'default':'primary'}}"  class="img-view">
+            <div ng-if="!seller.business" class="img">{{status.business|| "未拍照"}}</div>
+            <img ng-if="seller.business" ng-img-view="" ng-src="{{imgSrc(seller.business)}}" />
+            <div class="panel-footer">
+                <button ng-focus-this="{{active==7}}" ng-click="snapshot('business',1,true)" class="btn btn-sm {{active != 1?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'business',1)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            </div>
+        </ng-panel>
+    </div>
+</div>

@@ -24,35 +24,42 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
         })
     })
     //填充商贩信息
-    $scope.getMiddleMan = function () {
-        $http.get("/middleman/"+$scope.middleMan).then(function (result) {
-            $scope.middle = result.data;
-            if($scope.middle){
-                $scope.seller.idcardName = $scope.middle.name;
-                $scope.seller.idcardAddress = $scope.middle.address;
-                $scope.seller.idcardLimitEnd = $scope.middle.endTime;
-                $scope.seller.idcardNo = $scope.middle.certCode;
-                $scope.seller.cert = $scope.middle.idCardFront.path;
-                $scope.seller.certBg = $scope.middle.idCardBg.path;
-                $scope.seller.photo = $scope.middle.regPhoto.path;
-                $scope.seller.finger = $scope.middle.fingerprintImg.path;
-                $scope.seller.middleMan = $scope.middle.id;
-            }else{
-                $scope.seller.idcardName = '';
-                $scope.seller.idcardAddress = '';
-                $scope.seller.idcardLimitEnd = '';
-                $scope.seller.idcardNo = '';
-                $scope.seller.cert = '';
-                $scope.seller.certBg = '';
-                $scope.seller.photo = '';
-                $scope.seller.finger = '';
-                $scope.seller.middleMan = '';
-            }
-        })
+    $scope.getMiddleMan = function (i) {
+        $scope.middle = $scope.middleMans[i];
+        if($scope.middle){
+            $scope.seller.idcardName = $scope.middle.name;
+            $scope.seller.idcardAddress = $scope.middle.address;
+            $scope.seller.idcardLimitEnd = $scope.middle.endTime;
+            $scope.seller.idcardNo = $scope.middle.certCode;
+            $scope.seller.cert = $scope.middle.idCardFront.path;
+            $scope.seller.certBg = $scope.middle.idCardBg.path;
+            $scope.seller.middleMan = $scope.middle.id;
+            $scope.seller.consignationType='01';
+        }else{
+            $scope.seller.idcardName = '';
+            $scope.seller.idcardAddress = '';
+            $scope.seller.idcardLimitEnd = '';
+            $scope.seller.idcardNo = '';
+            $scope.seller.cert = '';
+            $scope.seller.certBg = '';
+            $scope.seller.middleMan = '';
+        }
     }
-	// 证件类型:01 居民身份证 02  企业营业执照(三证合一) 03企业组织机构代码证（营业执照、税务登记证）
+
+    $scope.getTrustor = function (i) {
+        $scope.trustor =  $scope.middleMans[i];
+        if($scope.trustor){
+            $scope.seller.trustorCert = $scope.trustor.idCardFront.path;
+            $scope.seller.trustorCertBg = $scope.trustor.idCardBg.path;
+        }else{
+            $scope.seller.trustorCert = '';
+            $scope.seller.trustorCertBg = '';
+        }
+    }
+	// 证件类型:01身份证 02居住证 03临时身份证 04港澳台通行证 05军官证 06护照 07营业执照（三证合一） 08组织机构代码证
 	$scope.seller = {
-        certType: "01"         
+        certType: "01",
+        consignationType: "01"
     };
 	$scope.status = {};
 	//拍照
@@ -93,25 +100,52 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     };
     // 设置证件数量
     $scope.certCount = 0;
-    $scope.$watch("seller.certType",function(val,old){
+    $scope.$watch("seller.certType",function(val){
         $scope.active = 1;
         switch(val){
             case "01":
                 $scope.certCount = 3;
-                $scope.certs = ["cert","certBg","photo","finger"];
+                $scope.certs = ["cert","certBg"];
                 break;
             case "02":
-                $scope.certCount = 1;
-                $scope.certs = ["buslicense","photo","finger"];
+                $scope.certCount = 2;
+                $scope.certs = ["residence","residenceBg"];
                 break;
             case "03":
+                $scope.certCount = 4;
+                $scope.certs = ["temporary1","temporary2","temporary3","temporary4"];
+                break;
+            case "04":
+                $scope.certCount = 2;
+                $scope.certs = ["pass","passBg"];
+                break;
+            case "05":
+                $scope.certCount = 1;
+                $scope.certs = ["military"];
+                break;
+            case "06":
                 $scope.certCount = 3;
-                $scope.certs = ["organization","buslicense","tax","photo","finger"];
+                $scope.certs = ["passport1","passport2","passport3"];
+                break;
+            case "07":
+                $scope.certCount = 1;
+                $scope.certs = ["business"];
+                break;
+            case "08":
+                $scope.certCount = 1;
+                $scope.certs = ["organization"];
                 break;
         }
         $scope.status = {};
     });
-    
+    $scope.$watch("seller.consignationType",function(val){
+        switch(val) {
+            case "1":
+                $scope.trustorCount = 3;
+                $scope.trustorCerts = ["trustorCert","trustorCertBg","proxy"];
+                break;
+        }
+    })
     //身份证读卡器
     $scope.idcardReady = $idcard.init();
     $scope.readCard = function () {
@@ -127,25 +161,16 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
         }
         $scope.active = 2;
     };
-    //指纹仪
-    $scope.fingerPrint = function () {
-        $scope.status.finger = "正在采集指纹...";
-        $finger.read(function (success,filename,data) {
-            $scope.$apply(function () {
-                if(success){
-                    $scope.seller.finger = filename;
-                    $scope.seller.fingerData = data;
-                }
-                else{
-                    $scope.status.finger = "采集指纹失败";
-                }
-            });
-        });
-    };
     // 证件模板
     $tpc.put("sellerCert01",require("./html/in/sellerCert01.html"));
     $tpc.put("sellerCert02",require("./html/in/sellerCert02.html"));
     $tpc.put("sellerCert03",require("./html/in/sellerCert03.html"));
+    $tpc.put("sellerCert04",require("./html/in/sellerCert04.html"));
+    $tpc.put("sellerCert05",require("./html/in/sellerCert05.html"));
+    $tpc.put("sellerCert06",require("./html/in/sellerCert06.html"));
+    $tpc.put("sellerCert07",require("./html/in/sellerCert07.html"));
+    $tpc.put("sellerCert08",require("./html/in/sellerCert08.html"));
+    $tpc.put("sellerTrustor",require("./html/in/sellerTrustor.html"));
     //返回上一步
     $scope.prev = function () {
         var step = new Step($scope.seller)
@@ -167,12 +192,17 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     };
     //判断是否可点击下一步
     $scope.error = function () {
+        var count = 0 ;
         for(var i in $scope.certs){
-            if(!$scope.seller[$scope.certs[i]]){
-                return true
+            if($scope.seller[$scope.certs[i]]){
+                count++;
             }
         }
-        return false
+        if(count >= $scope.certCount){
+            return false;
+        }else{
+            return true;
+        }
     };
 
 }]);

@@ -28,8 +28,6 @@ app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep
     //获取所有商户
     $http.get("/batch/staffs").then(function(result){
 		$scope.staffs = result.data;
-        /*$scope.user = {};
-        $scope.states = result.data;*/
 	});
 	//选择商户后读取联系人列表
 	$scope.getStaff = function(){

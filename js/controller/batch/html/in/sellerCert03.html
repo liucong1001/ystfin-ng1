@@ -1,34 +1,47 @@
 <div class="row">
     <div class="col-md-4">
-        <ng-panel title="企业组织机构代码证" type="{{active != 1?'default':'primary'}}" class="img-view">
-            <div ng-if="!seller.organization" class="img">{{status.organization|| "未拍照"}}</div>
-            <img ng-if="seller.organization" ng-img-view="" ng-src="{{imgSrc(seller.organization)}}" />
+        <ng-panel title="临时身份证正面" type="{{active != 1?'default':'primary'}}" class="img-view">
+            <div ng-if="!seller.temporary1" class="img">{{status.temporary1|| "未拍照"}}</div>
+            <img ng-if="seller.temporary1" ng-img-view="" ng-src="{{imgSrc(seller.temporary1)}}" />
             <div class="panel-footer">
-                <button ng-focus-this="{{active==1}}" ng-click="snapshot('organization',1)" class="btn btn-sm {{active != 1?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button ng-focus-this="{{active==1}}" ng-click="snapshot('temporary1',1)" class="btn btn-sm {{active != 1?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                 <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'organization',1)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'temporary1',1)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
             </div>
         </ng-panel>
     </div>
     <div class="col-md-4">
-        <ng-panel title="工商营业执照" type="{{active != 2?'default':'primary'}}"  class="img-view">
-            <div ng-if="!seller.buslicense" class="img">{{status.buslicense|| "未拍照"}}</div>
-            <img ng-if="seller.buslicense" ng-img-view="" ng-src="{{imgSrc(seller.buslicense)}}" />
+        <ng-panel title="临时身份证背面" type="{{active != 2?'default':'primary'}}"  class="img-view">
+            <div ng-if="!seller.temporary2" class="img">{{status.temporary2|| "未拍照"}}</div>
+            <img ng-if="seller.temporary2" ng-img-view="" ng-src="{{imgSrc(seller.temporary2)}}" />
             <div class="panel-footer">
-                <button ng-focus-this="{{active==2}}" ng-click="snapshot('buslicense',2)" class="btn btn-sm {{active != 2?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button ng-focus-this="{{active==2}}" ng-click="snapshot('temporary2',2)" class="btn btn-sm {{active != 2?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                 <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'buslicense',2)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'temporary2',2)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            </div>
+        </ng-panel>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <ng-panel title="驾驶证正面&户口本" type="{{active != 3?'default':'primary'}}" class="img-view">
+            <div ng-if="!seller.temporary3" class="img">{{status.temporary3|| "未拍照"}}</div>
+            <img ng-if="seller.temporary3" ng-img-view="" ng-src="{{imgSrc(seller.temporary3)}}" />
+            <div class="panel-footer">
+                <button ng-focus-this="{{active==3}}" ng-click="snapshot('temporary3',3)" class="btn btn-sm {{active != 3?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'temporary3',3)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
             </div>
         </ng-panel>
     </div>
     <div class="col-md-4">
-        <ng-panel title="税务登记证" type="{{active != 3?'default':'primary'}}" class="img-view">
-            <div ng-if="!seller.tax" class="img">{{status.tax|| "未拍照"}}</div>
-            <img ng-if="seller.tax" ng-img-view="" ng-src="{{imgSrc(seller.tax)}}" />
+        <ng-panel title="驾驶证背面" type="{{active != 4?'default':'primary'}}"  class="img-view">
+            <div ng-if="!seller.temporary4" class="img">{{status.temporary4|| "未拍照"}}</div>
+            <img ng-if="seller.temporary4" ng-img-view="" ng-src="{{imgSrc(seller.temporary4)}}" />
             <div class="panel-footer">
-                <button ng-focus-this="{{active==3}}" ng-click="snapshot('tax',3)" class="btn btn-sm {{active != 3?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                <button ng-focus-this="{{active==4}}" ng-click="snapshot('temporary4',4)" class="btn btn-sm {{active != 4?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                 <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'tax',3)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'temporary4',4)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
             </div>
         </ng-panel>
     </div>

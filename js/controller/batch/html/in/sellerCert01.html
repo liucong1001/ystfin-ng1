@@ -14,7 +14,7 @@
 	    </ng-panel>
 	</div>
 	<div class="col-md-4">
-	    <ng-panel title="居民身份证正面" type="{{active != 2?'default':'primary'}}" class="img-view">
+	    <ng-panel title="身份证正面" type="{{active != 2?'default':'primary'}}" class="img-view">
 	        <div ng-if="!seller.cert" class="img">{{status.cert || "未拍照"}}</div>
 	        <img ng-if="seller.cert" ng-img-view="" ng-src="{{imgSrc(seller.cert)}}" />
 	        <div class="panel-footer">
@@ -25,7 +25,7 @@
 	    </ng-panel>
 	</div>
 	<div class="col-md-4">
-	    <ng-panel title="居民身份证背面" type="{{active != 3?'default':'primary'}}" class="img-view">
+	    <ng-panel title="身份证背面" type="{{active != 3?'default':'primary'}}" class="img-view">
 	        <div ng-if="!seller.certBg" class="img">{{status.certBg || "未拍照"}}</div>
 	        <img ng-if="seller.certBg" ng-img-view="" ng-src="{{imgSrc(seller.certBg)}}" />
 	        <div class="panel-footer">
