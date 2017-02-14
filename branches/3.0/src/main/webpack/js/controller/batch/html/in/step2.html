@@ -4,20 +4,30 @@
         </div>
         <div class="col-md-8">
 			<div class="row">
-				<div class="col-md-12">
+                <div class="col-md-4">
 					请选择商贩:
-					<select ng-model="middleMan" ng-init="middleMan='0'" ng-change="getMiddleMan()">
-						<option value="0">--不是商贩--</option>
-						<option ng-repeat="m in middleMans" value="{{m.id}}">{{m.name}}</option>
+					<select ng-model="middleMan" ng-init="middleMan='-1'" ng-change="getMiddleMan(middleMan)">
+                        <option value="-1">--不是商贩--</option>
+						<option ng-repeat="m in middleMans" value="{{$index}}">{{m.name}}</option>
 					</select>
+				</div>
+				<div class="col-md-8" ng-if="middleMan == -1">
+                    请选择委托类型:
+                    <label class="radio-inline {{seller.consignationType=='01'?'text-primary':''}}"><input type="radio" name="consignationType" autocomplete="off" ng-model="seller.consignationType" value="01"> 无委托人</label>
+                    <label class="radio-inline {{seller.consignationType=='02'?'text-primary':''}}"><input type="radio" name="consignationType" autocomplete="off" ng-model="seller.consignationType" value="02"> 有委托人</label>
 				</div>
 			</div>
 			<br/>
             <div class="row">
                 <div class="col-md-12">
-                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 居民身份证</label>
-                    <label class="radio-inline {{seller.certType=='02'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="02"> 企业营业执照(三证合一)</label>
-                    <label class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 企业组织机构代码证(营业执照、税务登记证)</label>
+                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 身份证</label>
+                    <label class="radio-inline {{seller.certType=='02'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="02"> 暂住证</label>
+                    <label class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 临时身份证</label>
+                    <label class="radio-inline {{seller.certType=='04'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="04"> 港澳台通行证</label>
+                    <label class="radio-inline {{seller.certType=='05'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="05"> 军官证</label>
+                    <label class="radio-inline {{seller.certType=='06'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="06"> 护照</label><br/><br/>
+                    <label class="radio-inline {{seller.certType=='07'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="07"> 营业执照(三证合一)</label>
+                    <label class="radio-inline {{seller.certType=='08'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="08"> 组织机构代码证</label>
                 </div>
             </div>
             <br/>
@@ -27,32 +37,19 @@
     <div class="row">
     	<div class="col-md-4">
         </div>
-        <div class="col-md-8">
-        	<div class="row">
-			    <div class="col-md-4">
-			        <ng-panel title="{{seller.certType=='01'?'卖家头像':'委托人头像'}}" type="{{active != certCount + 1?'default':'primary'}}" class="img-view">
-			            <div ng-if="!seller.photo" class="img">{{status.photo || "未拍照"}}</div>
-			            <img ng-if="seller.photo" ng-img-view="" ng-src="{{imgSrc(seller.photo)}}" />
-			            <div class="panel-footer">
-			                <button ng-focus-this="{{active==certCount+1}}" class="btn btn-sm {{active != certCount+1?'btn-default':'btn-primary'}}" ng-click="snapshot('photo',certCount+1)"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
-			                <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-			                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'photo')"><span class="glyphicon glyphicon-upload"></span> 上传</button>
-			            </div>
-			        </ng-panel>
-			    </div>
-			    <div class="col-md-4">
-			        <ng-panel title="{{seller.certType=='01'?'卖家指纹':'委托人指纹'}}" type="{{active != certCount + 2?'default':'primary'}}" class="img-view" >
-			            <div ng-if="!seller.finger" class="img">{{status.finger|| "未采集"}}</div>
-			            <img ng-if="seller.finger" ng-src="{{imgSrc(seller.finger)}}" />
-			            <div class="panel-footer">
-			                <button ng-focus-this="{{active==certCount+2}}" class="btn btn-sm {{active != certCount+2?'btn-default':'btn-primary'}}" ng-click="fingerPrint('finger',certCount+2)"><span class="glyphicon glyphicon-thumbs-up"></span> 采集指纹</button>
-			                <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-			                        ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'finger')"><span class="glyphicon glyphicon-upload"></span> 上传指纹</button>
-			            </div>
-			        </ng-panel>
-			    </div>
-			</div>
-		</div>
+        <div class="col-md-8" ng-if="seller.consignationType=='02'">
+            <div class="row">
+                <div class="col-md-6">
+                    委托人请选择商贩:
+                    <select ng-model="trustor" ng-init="trustor='-1'" ng-change="getTrustor(trustor)">
+                        <option value="-1">--不是商贩--</option>
+                        <option ng-repeat="m in middleMans" value="{{$index}}">{{m.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <ng-include src="'sellerTrustor'"></ng-include>
+        </div>
     </div>
 </div>
 <div class="panel-footer text-right">
