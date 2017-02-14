@@ -18,7 +18,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         $scope.i = 0;
     })
     $scope.vehicle = {
-        items:[{'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''}]
+        items:[{'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':'','images':[]}]
     };
     $scope.status = {};
     $scope.i = 0;
@@ -26,7 +26,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     //添加车辆
     $scope.addVehicle = function () {
         var i = $scope.vehicle.items.length;
-        $scope.vehicle.items.push( {'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':''});
+        $scope.vehicle.items.push( {'vehicleCert':'','vehicleCertBg':'','registrationCert':'','registrationCertBg':'','images':[]});
         $scope.status = {};
         $scope.i = i;
     }
@@ -73,6 +73,74 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
             }
         );
     };
+
+    //相册处理
+    $scope.myInterval = 0
+    $scope.noWrapSlides = false
+    $scope.activeImgs = 0
+    $scope.goto = function (index) {
+        $scope.activeImgs = index
+    }
+    $scope.nextImg = function () {
+        if($scope.activeImgs >= $scope.vehicle.items[i]['images'].length - 1){
+            return
+        }
+        $scope.activeImgs++
+    }
+    $scope.prevImg = function () {
+        if($scope.activeImgs <= 0){
+            return
+        }
+        $scope.activeImgs--
+    }
+    //删除当前图片
+    $scope.remove = function (index,i) {
+        if(index){
+            index--
+        } else {
+            index = $scope.activeImgs
+
+        }
+        $scope.vehicle.items[i]['images'].splice(index,1)
+        if($scope.activeImgs >= $scope.vehicle.items[i]['images'].length - 1 && $scope.activeImgs > 0) $scope.activeImgs--
+    }
+    //拍照
+    $scope.snapshotImgs = function (i) {
+        $webcam.upload(function (success,filename) {
+            $scope.$apply(function(){
+                if(success){
+                    $scope.vehicle.items[i]['images'].push(filename)
+                    setTimeout(function(){
+                        $scope.$apply(function(){
+                            $scope.activeImgs = $scope.vehicle.items[i]['images'].length-1
+                        })
+                    },500)
+                }
+            })
+        })
+    }
+    //上传
+    $scope.uploadImgs = function($file,i){
+        Upload.upload({
+            url:"/common/upload/single",
+            file:$file
+        }).then(function (ret) {
+                $scope.vehicle.items[i]['images'].push(ret.data)
+                setTimeout(function(){
+                    $scope.$apply(function(){
+                        $scope.activeImgs = $scope.vehicle.items[i]['images'].length-1
+                    })
+                },500)
+            },
+            function (err) {
+                console.log(err)
+            },
+            function (evt) {
+                console.log(evt)
+            }
+        )
+    }
+
     //显示图片
     $scope.imgSrc = function (path) {
         return "/common/download/temp?file=" + path;
