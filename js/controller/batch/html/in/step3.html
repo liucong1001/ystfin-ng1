@@ -70,6 +70,30 @@
                         </div>
                     </ng-panel>
                 </div>
+                <div class="col-md-4">
+                    <div style="margin-left:340px;">
+                        <div>
+                            <div style="min-height: 305px" ng-if="vehicle.items[i]['images'].length > 0">
+                                <div><img ng-src="{{imgSrc(vehicle.items[i]['images'][activeImgs])}}" style="height:400px;width:auto;" /></div>
+                                <nav>
+                                    <ul class="pagination">
+                                        <li><a href="" ng-click="prevImg()">&laquo;</a></li>
+                                        <li ng-repeat="img in vehicle.items[i]['images']" ng-class="{'activeImgs':$index == activeImgs}"><a href="" ng-click="goto($index)">{{$index+1}}</a></li>
+                                        <li><a href="" ng-click="nextImg()">&raquo;</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left;width:320px;">
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        <br/><br/><br/><br/><br/><br/><br/>&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary btn-sm" ng-click="snapshotImgs(i)"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
+                        <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                                ngf-accept="'image/*'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="uploadImgs($file,i)"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                        <button class="btn btn-danger btn-sm" ng-disabled="vvehicle.items[i]['images'].length < 1" ng-click="remove(i)"><span class="glyphicon glyphicon-trash"></span> <span>删除</span></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
