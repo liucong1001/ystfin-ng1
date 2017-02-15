@@ -45,7 +45,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             $scope.seller.middleMan = '';
         }
     }
-
+    //填充委托人
     $scope.getTrustor = function (i) {
         $scope.trustor =  $scope.middleMans[i];
         if($scope.trustor){
@@ -104,7 +104,7 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
         $scope.active = 1;
         switch(val){
             case "01":
-                $scope.certCount = 3;
+                $scope.certCount = 2;
                 $scope.certs = ["cert","certBg"];
                 break;
             case "02":
@@ -140,11 +140,16 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     });
     $scope.$watch("seller.consignationType",function(val){
         switch(val) {
-            case "1":
+            case "02":
                 $scope.trustorCount = 3;
                 $scope.trustorCerts = ["trustorCert","trustorCertBg","proxy"];
                 break;
+            case "01":
+                $scope.trustorCount = 0;
+                $scope.trustorCerts = [];
+                break;
         }
+        $scope.status = {};
     })
     //身份证读卡器
     $scope.idcardReady = $idcard.init();
@@ -198,7 +203,12 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
                 count++;
             }
         }
-        if(count >= $scope.certCount){
+        for(var j in $scope.trustorCerts){
+            if($scope.seller[$scope.trustorCerts[j]]){
+                count++;
+            }
+        }
+        if(count == ($scope.certCount + $scope.trustorCount)){
             return false;
         }else{
             return true;
