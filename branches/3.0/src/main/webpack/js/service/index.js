@@ -10,5 +10,6 @@ require("./resource")(app)
 require("./filter")(app)
 require("./idcard")(app)
 require("./globalConfig")(app)
+require("./printer")(app)
 //require("./batch/batchService")(app)
 

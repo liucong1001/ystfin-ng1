@@ -7,33 +7,88 @@ var app = require("../../ngcommon")
 app.config(["$routeProvider",function($routeProvider){
     $routeProvider.when('/trans/seller/step0',{
         controller:"transSellerStep0",
-        template:require("./html/seller/sellerStep0.html")
+        template:require("./html/seller/sellerStep0.html"),
+        resolve:{
+            gconfig:["$globalConfig",function (config) {
+                return config
+            }],
+            sessionSeller: ["$seller", "$route", function ($seller) {
+                return $seller.get("/seller").$promise
+            }]
+        }
     })
 }])
 
 var utils = require("../../lib/utils")
-app.controller("transSellerStep0",["$scope","$rootScope","$location","$seller", "$http","$routeParams","$q","Upload","$webcam",
-function($scope, $rootScope,$location,$seller,$http,$routeParams,$q,$upload,$webcam) {
-    $webcam.show("280px","190px",true)
+app.controller("transSellerStep0",["$scope","$rootScope","$location","$seller", "$http","$routeParams","$q","Upload","$webcam","gconfig","sessionSeller",
+function($scope, $rootScope,$location,$seller,$http,$routeParams,$q,$upload,$webcam,gconfig,sessionSeller) {
+    //$scope.tr = sessionSeller
+    //if(sessionSeller && sessionSeller.vehicle && sessionSeller.vehicle.plateNumber){
+    //    $scope.plateNumber = sessionSeller.vehicle.plateNumber.substring(2)
+    //}
+    $scope.gconfig = gconfig
+    $webcam.show("280px","calc(100% - 280px)",true)
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
         $webcam.hide()
     })
     $rootScope.subTitle = "原车主录入"
+    $scope.snapshot = function (props,xuanzhuan) {
+        //$scope.status[img] = "正在拍照上传..."
+        $webcam.upload(function (success,filename) {
+            $scope.$apply(function(){
+//                $scope.seller[img] = filename
+                utils.setObjVal($scope,props,"temp/" + filename)
+            })
+        },xuanzhuan)
+ //       $scope.active = index + 1
+    }
     $scope.upload = function($file,props) {
         //$scope.status[type] = "正在上传..."
         $upload.upload({
             url: "/common/upload/single",
             file: $file
         }).then(function (ret) {
-            console.log(ret.data)
             utils.setObjVal($scope,props,"temp/" + ret.data)
         },
         function (err) {
-                console.log(err)
         },
         function (evt) {
-                console.log(evt)
         })
+    }
+    $scope.invalid = function () {
+        if(!$scope.plateNumber || $scope.plateNumber.length != 5) return true
+        if(!$scope.tr || !$scope.tr.vehicle || !$scope.tr.vehicleCert || !$scope.tr.vehicleCert.path
+            || !$scope.tr.vehicleCertBg || !$scope.tr.vehicleCertBg.path
+            || !$scope.tr.vehicle.registrationCert || !$scope.tr.vehicle.registrationCert.path
+            || !$scope.tr.vehicle.registrationCertBg || !$scope.tr.vehicle.registrationCertBg.path){
+            return true
+        }
+        return false
+    }
+    $scope.onSubmit = function (form) {
+        var seller = new $seller($scope.tr)
+        seller.vehicle.plateNumber = gconfig.plateNumberPrefix + $scope.plateNumber
+        seller.$save({step:'step0'}).then(function () {
+            $location.path("/trans/seller/step1")
+        },function (error) {
+            $scope.errorMessage = error.data.message
+        })
+    }
+    $scope.loadPlate = function () {
+        if(!$scope.plateNumber) return
+        var pn = gconfig.plateNumberPrefix + $scope.plateNumber
+        $seller.get({step:'step0',pn:pn},function (result) {
+            $scope.plateNumberNotFound = false
+            $scope.tr = result
+        },function (result) {
+            $scope.tr = {}
+            $scope.plateNumberNotFound = true
+        })
+    }
+    $scope.clear = function () {
+        $seller.remove()
+        $scope.tr = {}
+        $scope.plateNumber = ""
     }
 }])

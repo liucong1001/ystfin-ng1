@@ -16,20 +16,8 @@ module.exports = function (app) {
                 defaultValue:"@"
             },
             controller:["$scope","$convert",function ($scope,$convert) {
-                if(converts[$scope.code]){
-                    if(converts[$scope.code].$promise){
-                        converts[$scope.code].$promise.then(function (result) {
-                            converts[$scope.code] = result
-                            $scope.convert = converts[$scope.code]
-                        })
-                    }else{
-                        $scope.convert = converts[$scope.code]
-                    }
-                    return
-                }
-                converts[$scope.code] = $convert.get({code:$scope.code},function(result){
-                    converts[$scope.code] = result
-                    $scope.convert = converts[$scope.code]
+                $convert($scope.code).then(function (data) {
+                    $scope.convert = data
                 })
             }]
         }
@@ -44,26 +32,29 @@ module.exports = function (app) {
                 value:"@"
             },
             controller:["$scope","$convert",function($scope,$convert){
-                if(converts[$scope.code]){
-                    if(converts[$scope.code].$promise){
-                        converts[$scope.code].$promise.then(function (result) {
-                            converts[$scope.code] = result
-                            $scope.convert = converts[$scope.code]
-                        })
-                    }else{
-                        $scope.convert = converts[$scope.code]
-                    }
-                    return
-                }
-                converts[$scope.code] = $convert.get({code:$scope.code},function(result){
-                    converts[$scope.code] = result
-                    $scope.convert = converts[$scope.code]
+                $convert($scope.code).then(function (data) {
+                    $scope.convert = data
                 })
             }]
         }
     })
-    app.factory("$convert",["$resource",function ($res) {
-        return $res("/code/convert/:code")
+    app.factory("$convert",["$http","$q",function ($http,$q) {
+        return function (code) {
+            var defer = $q.defer()
+            if(converts[code]){
+                return converts[code]
+            }
+            else{
+                converts[code] = defer.promise
+                $http.get("/code/convert/" + code).then(function (res) {
+                    defer.resolve(res.data)
+                },function (res) {
+                    defer.resolve({})
+                })
+                return defer.promise
+            }
+        }
+        //("/code/convert/:code")
     }])
 }
 

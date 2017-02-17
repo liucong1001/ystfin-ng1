@@ -1,67 +1,39 @@
 <form role="form" name="step0" novalidate>
     <div class="panel panel-default">
-        <div class="panel-heading">采集车辆资料</div>
+        <div class="panel-heading">采集车辆证件</div>
         <div class="panel-body container-fluid form-inline">
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label>车牌号：</label>
                     <div class="input-group">
-                        <div class="input-group-addon">{{"plateNumberPrefix" | globalConfig}}</div>
-                        <input placeholder="车牌号后5位" maxlength="5" uppercase name="plateNumber" ng-model="plateNumber" class="form-control" required pattern="[0-9A-Z]{5}" />
+                        <div class="input-group-addon">{{gconfig.plateNumberPrefix}}</div>
+                        <input placeholder="车牌号后5位" ng-change="loadPlate()" maxlength="5" autocomplete="off" uppercase name="plateNumber" ng-model="plateNumber" class="form-control" required pattern="[0-9A-Z]{5}" />
                     </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <span ng-if="plateNumberNotFound" class="text-muted form-control-static">新流水</span>
+                    <span ng-if="tr.id" class="text-muted form-control-static">流水号：{{tr.archivesNo}}</span>
                 </div>
             </div>
             <br/>
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img ng-src="/common/download?file={{tr.vehicleCert.path}}" />
-                        <h3>行驶证正本</h3>
-                        <p>
-                            <button type="button" class="btn btn-sm btn-primary"><span class="iconfont icon-paizhao"></span> 拍照</button>
-                            <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/jpg,image/jpeg,image/png'"
-                                    ngf-accept="'image/jpg,image/jpeg,image/png'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'tr.vehicleCert.path')"><span class="icon-upload iconfont"></span> 上传</button>
-                        </p>
-                    </div>
+                    <ng-image-upload title="行驶证正本" path="tr.vehicleCert.path" uploaded="upload($file,'tr.vehicleCert.path')" snapshot="snapshot('tr.vehicleCert.path')"/>
                 </div>
                 <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img ng-src="/common/download?file={{tr.vehicleCertBg.path}}" ng-img-view />
-                        <h3>行驶证副本</h3>
-                        <p>
-                            <button type="button" class="btn btn-sm btn-primary"><span class="iconfont icon-paizhao"></span> 拍照</button>
-                            <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/jpg,image/jpeg,image/png'"
-                                    ngf-accept="'image/jpg,image/jpeg,image/png'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'tr.vehicleCertBg.path')"><span class="icon-upload iconfont"></span> 上传</button>
-                        </p>
-                    </div>
+                    <ng-image-upload title="行驶证正本" path="tr.vehicleCertBg.path" uploaded="upload($file,'tr.vehicleCertBg.path')" snapshot="snapshot('tr.vehicleCert.path')"/>
                 </div>
                 <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img ng-src="/common/download?file={{tr.vehicle.registrationCert.path}}" />
-                        <h3>车辆登记证书首页</h3>
-                        <p>
-                            <button type="button" class="btn btn-sm btn-primary"><span class="iconfont icon-paizhao"></span> 拍照</button>
-                            <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/jpg,image/jpeg,image/png'"
-                                    ngf-accept="'image/jpg,image/jpeg,image/png'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'tr.vehicle.registrationCert.path')"><span class="icon-upload iconfont"></span> 上传</button>
-                        </p>
-                    </div>
+                    <ng-image-upload title="车辆登记证书首页" path="tr.vehicle.registrationCert.path" uploaded="upload($file,'tr.vehicle.registrationCert.path')" snapshot="snapshot('tr.vehicle.registrationCert.path')"/>
                 </div>
                 <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img ng-src="/common/download?file={{tr.vehicle.registrationCertBg.path}}" />
-                        <h3>车辆登记证书末页</h3>
-                        <p>
-                            <button type="button" class="btn btn-sm btn-primary"><span class="iconfont icon-paizhao"></span> 拍照</button>
-                            <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/jpg,image/jpeg,image/png'"
-                                    ngf-accept="'image/jpg,image/jpeg,image/png'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="upload($file,'tr.vehicle.registrationCertBg.path')">
-                                <span class="icon-upload iconfont"></span> 上传</button>
-                        </p>
-                    </div>
+                    <ng-image-upload title="车辆登记证书末页" path="tr.vehicle.registrationCertBg.path" uploaded="upload($file,'tr.vehicle.registrationCertBg.path')" snapshot="snapshot('tr.vehicle.registrationCert.path')"/>
                 </div>
             </div>
         </div>
         <div class="panel-footer text-right">
-            <button class="btn btn-primary btn-sm" type="submit" ng-disabled="sellerStep1Frm.$invalid">下一步，选择联系人</button>
+            <button class="btn btn-default btn-sm" type="button" ng-click="clear()" ng-disabled="!tr">清空当前内容</button>
+            <button class="btn btn-primary btn-sm" type="submit" ng-click="onSubmit()" ng-disabled="invalid()">下一步，选择联系人</button>
         </div>
     </div>
 </form>

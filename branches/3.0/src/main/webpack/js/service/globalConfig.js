@@ -9,22 +9,23 @@ module.exports = function (app) {
             defer.resolve(gloabConfigMap)
         }else{
             $http.get("/global/config").then(function (result) {
-                defer.resolve(result.data)
+                gloabConfigMap = result.data
+                defer.resolve(gloabConfigMap)
             })
         }
         return defer.promise;
     }])
     app.filter("globalConfig", ["$globalConfig",function (gc) {
         var filter = function (properties) {
-            if(gloabConfigMap){
+            if (gloabConfigMap) {
                 var arr = properties.split(".")
                 var value = gloabConfigMap
-                for(var i in arr){
+                for (var i in arr) {
                     value = value[arr[i]]
-                    if(!value) break;
+                    if (!value) break;
                 }
                 return value
-            }else {
+            } else {
                 gc.then(function (result) {
                     gloabConfigMap = result
                 })

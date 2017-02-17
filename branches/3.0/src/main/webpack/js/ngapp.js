@@ -25,3 +25,6 @@ require("./controller/batch/inStep3")
 require("./controller/batch/inStep4")
 require("./controller/icard/details")
 require("./controller/icard/account")
+
+// 财务
+require("./controller/finance/print/print")

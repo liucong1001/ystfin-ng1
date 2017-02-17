@@ -7,13 +7,24 @@ var app = require("../../ngcommon")
 app.config(["$routeProvider",function($routeProvider){
     $routeProvider.when('/trans/seller/step1',{
         controller:"transSellerStep1",
-        template:require("./html/seller/sellerStep1.html")
+        template:require("./html/seller/sellerStep1.html"),
+        resolve: {
+            sessionSeller: ["$seller", "$route", function ($seller) {
+                return $seller.get("/seller").$promise
+            }]
+        }
     })
 }])
 
-app.controller("transSellerStep1",["$scope","$rootScope","$location","$seller", "$http","$routeParams","$q",
-function($scope, $rootScope,$location,$seller,$http,$routeParams,$q) {
+app.controller("transSellerStep1",["$scope","$rootScope","$location","$seller", "$http","$routeParams","$q","sessionSeller",
+function($scope, $rootScope,$location,$seller,$http,$routeParams,$q,sessionSeller) {
     $rootScope.subTitle = "原车主录入"
+
+    $scope.tr = sessionSeller
+
+    if(sessionSeller && sessionSeller.theContact){
+        $scope.selectedContact = sessionSeller.theContact
+    }
 
     $scope.searchContact= function(key) {
         var d = $q.defer();
@@ -33,10 +44,6 @@ function($scope, $rootScope,$location,$seller,$http,$routeParams,$q) {
         },function (error) {
             $scope.errorMessage = error.data.message
         })
-
-    }
-    $scope.imgSrc = function (path) {
-        return "/common/download/temp?file=" + window.encodeURI(path)
     }
 
 }])

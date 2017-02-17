@@ -1,5 +1,6 @@
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-3">
+    <ng-image-upload title="港澳身份证正面" path="seller.idCardFront.path" uploaded="upload($file,'seller.idCardFront.path')" snapshot="snapshot('seller.idCardFront.path')"/>
     <ng-panel title="港澳身份证正面" type="{{active != 1?'default':'primary'}}" class="img-view">
         <div ng-if="!seller.cert" class="img">{{status.cert|| "未拍照"}}</div>
         <img ng-if="seller.cert" ng-src="{{imgSrc(seller.cert)}}" />
@@ -11,7 +12,7 @@
         </div>
     </ng-panel>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
     <ng-panel title="港澳身份证背面" type="{{active != 2?'default':'primary'}}" class="img-view">
         <div ng-if="!seller.certBg" class="img">{{status.certBg|| "未拍照"}}</div>
         <img ng-if="seller.certBg" ng-src="{{imgSrc(seller.certBg)}}" />
@@ -25,7 +26,7 @@
 </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <ng-panel title="港澳通行证正面" type="{{active != 3?'default':'primary'}}"  class="img-view">
             <div ng-if="!seller.cert1" class="img">{{status.cert1|| "未拍照"}}</div>
             <img ng-if="seller.cert1" ng-src="{{imgSrc(seller.cert1)}}" />
@@ -36,7 +37,7 @@
             </div>
         </ng-panel>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <ng-panel title="港澳通行证背面" type="{{active != 4?'default':'primary'}}" class="img-view">
             <div ng-if="!seller.cert1Bg" class="img">{{status.cert1Bg|| "未拍照"}}</div>
             <img ng-if="seller.cert1Bg" ng-src="{{imgSrc(seller.cert1Bg)}}" />
