@@ -66,7 +66,17 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
             var inputScope = element.find('input').isolateScope();
 
             scope.activeItemIndex = 0;
-            scope.inputValue = '';
+            if(scope.selectedItem){
+                if (typeof scope.selectedItem === 'string') {
+                    scope.inputValue = scope.selectedItem;
+                }
+                else {
+                   scope.inputValue = scope.selectedItem[scope.textField];
+                }
+            }
+            else{
+                scope.inputValue = '';
+            }
             scope.dropdownVisible = false;
             if(scope.defaultDropdownItems && angular.isFunction(scope.defaultDropdownItems.then)){
                 scope.defaultDropdownItems.then(function (list) {
