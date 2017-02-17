@@ -1,0 +1,143 @@
+<div class="panel panel-default">
+    <div class="panel-heading container-fluid">
+        <div class="pull-right">
+            <span>选择打印机：</span>
+            <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
+        </div>
+        <h3>打印发票</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <label>流水号：</label>
+                <input class="" type="text" minlength="16" maxlength="16" ng-minlength="16" ng-maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号" ng-focus-this="true"/>
+                <span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>
+                <br/>
+                <span ng-if="trans.billNo" class="text-muted">最后使用的发票号：{{trans.billNo}}</span>
+                <span class="text-danger" ng-if="!trans && archivesNo">未找到流水</span>
+            </div>
+            <div class="col-md-8">
+                <span ng-if="trans.billStatus == '01'">
+                <button class="btn btn-primary">免费换票</button>
+                <button class="btn btn-primary">收费换票</button>
+                <button class="btn btn-primary">重新开票</button>
+                </span>
+                <button ng-click="print()" class="btn btn-primary" ng-if="!trans.billStatus || trans.billStatus == '00' || trans.billStatus == '02'">开票</button>
+                <button class="btn btn-danger" ng-if="trans.billStatus == '01'">仅作废</button>
+            </div>
+        </div>
+    </div>
+    <div>
+            <div class="bill">
+                <div class="bill-title">
+                    <p>二　手　车　销　售　统　一　发　票</p>
+                    <p>发　　票　　联</p>
+                </div>
+                <div class="bill-body">
+                    <div class="bill-row">
+                            <p class="bill-cell span4">买方单位/个人</p>
+                            <p class="bill-cell span6"><input type="text" ng-model="trans.buyer.name"/></p>
+                            <p class="bill-cell span4">单位代码/身份证号码</p>
+                            <p class="bill-cell span6"><input type="text" ng-model="trans.buyer.certCode"/></p>
+                            <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">买方单位/个人住址</p>
+                        <p class="bill-cell span10"><input type="text" ng-model="trans.buyer.address"/></p>
+                        <p class="bill-cell span1">电话</p>
+                        <p class="bill-cell span5"><input type="text" ng-model="trans.buyer.phone"/></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">卖方方单位/个人</p>
+                        <p class="bill-cell span6"><input type="text" ng-model="trans.seller.name"/></p>
+                        <p class="bill-cell span4">单位代码/身份证号码</p>
+                        <p class="bill-cell span6"><input type="text" ng-model="trans.seller.certCode"/></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">卖方单位/个人住址</p>
+                        <p class="bill-cell span10"><input type="text" ng-model="trans.seller.address"/></p>
+                        <p class="bill-cell span1">电话</p>
+                        <p class="bill-cell span5"><input type="text" ng-model="trans.seller.phone"/></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">车牌照号</p>
+                        <p class="bill-cell span3"><input type="text" ng-model="trans.vehicle.plateNumber"/></p>
+                        <p class="bill-cell span2">登记证号</p>
+                        <p class="bill-cell span4"><input type="text" ng-model="trans.vehicle.registration"/></p>
+                        <p class="bill-cell span2">车辆类型</p>
+                        <p class="bill-cell span5">
+                            <input-dropdown item-template="'{{item.name}}'" selected-item="selectedCarType"
+                                 input-required="true" text-field="name" filter-list-method="convertList('Vehicle_type')"
+                                 default-dropdown-items="carTypeList" />
+
+                            <input type="text" ng-model="trans.vehicle.vehicleType"/>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">车驾号/车辆识别代码</p>
+                        <p class="bill-cell span3"><input type="text" ng-model="trans.vehicle.frameNumber"/></p>
+                        <p class="bill-cell span2">厂牌型号</p>
+                        <p class="bill-cell span4"><input type="text" ng-model="trans.vehicle.labelCode"/></p>
+                        <p class="bill-cell span2">转入地</p>
+                        <p class="bill-cell span5">
+                            <input type="text" ng-model="trans.vehicle.vehicleManage"/>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">车价合计（大写）</p>
+                        <p class="bill-cell span10">{{trans.bargainPrice | amountHZ}}</p>
+                        <p class="bill-cell span1">小写</p>
+                        <p class="bill-cell span5"><input type="text" ng-model="trans.bargainPrice"/></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">经营、拍卖单位</p>
+                        <p class="bill-cell span16"></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">经营、拍卖单位地址</p>
+                        <p class="bill-cell span8"></p>
+                        <p class="bill-cell span3">纳税人识别号</p>
+                        <p class="bill-cell span5"></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">开户银行、帐号</p>
+                        <p class="bill-cell span12"></p>
+                        <p class="bill-cell span1">电话</p>
+                        <p class="bill-cell span3"></p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4 rowspan2">二手车市场</p>
+                        <p class="bill-cell span5 rowspan2">{{gconfig.printConfig.marketName}}</p>
+                        <p class="bill-cell span3">纳税人识别号</p>
+                        <p class="bill-cell span8">{{gconfig.printConfig.marketNo}}</p>
+                        <p class="bill-cell offset8 span3">地址</p>
+                        <p class="bill-cell span8">{{gconfig.printConfig.marketAddr}}</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span4">开户银行、帐号</p>
+                        <p class="bill-cell span12">{{gconfig.printConfig.marketAccount}}</p>
+                        <p class="bill-cell span1">电话</p>
+                        <p class="bill-cell span3">{{gconfig.printConfig.marketPhone}}</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-row">
+                        <p class="bill-cell span20">备注:</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bill-date"><span>开票日期：</span>
+                        <span class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></span>
+                        <input type="text" style="width:200px;" ng-focus="dateOpened = true" current-text="今天" clear-text="清空" uib-datepicker-popup ng-model="dt" is-open="dateOpened" datepicker-options="dateOptions" ng-required="true" close-text="隐藏" />
+                    </div>
+                    <div class="bill-no">发票号码：<input ng-model="billNo" required /></div>
+                </div>
+            </div>
+    </div>
+</div>
