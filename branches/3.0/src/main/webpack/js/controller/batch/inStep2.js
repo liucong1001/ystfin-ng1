@@ -110,30 +110,37 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             case "02":
                 $scope.certCount = 2;
                 $scope.certs = ["residence","residenceBg"];
+                $scope.middleMan = -1;
                 break;
             case "03":
                 $scope.certCount = 4;
                 $scope.certs = ["temporary1","temporary2","temporary3","temporary4"];
+                $scope.middleMan = -1;
                 break;
             case "04":
                 $scope.certCount = 2;
                 $scope.certs = ["pass","passBg"];
+                $scope.middleMan = -1;
                 break;
             case "05":
                 $scope.certCount = 1;
                 $scope.certs = ["military"];
+                $scope.middleMan = -1;
                 break;
             case "06":
                 $scope.certCount = 3;
                 $scope.certs = ["passport1","passport2","passport3"];
+                $scope.middleMan = -1;
                 break;
             case "07":
                 $scope.certCount = 1;
                 $scope.certs = ["business"];
+                $scope.middleMan = -1;
                 break;
             case "08":
                 $scope.certCount = 1;
                 $scope.certs = ["organization"];
+                $scope.middleMan = -1;
                 break;
         }
         $scope.status = {};
