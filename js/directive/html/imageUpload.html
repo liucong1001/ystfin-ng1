@@ -1,0 +1,9 @@
+<div class="thumbnail">
+    <img ng-src="/common/download?file={{path}}" ng-if="path" />
+    <h3>{{title}}</h3>
+    <p>
+        <button type="button" class="btn btn-sm btn-primary" ng-click="snapshot()"><span class="iconfont icon-paizhao"></span> 拍照</button>
+        <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/jpg,image/jpeg,image/png'"
+                ngf-accept="'image/jpg,image/jpeg,image/png'" ngf-max-size="3MB" ngf-min-height="100" ngf-change="uploaded({$file:$file})"><span class="icon-upload iconfont"></span> 上传</button>
+    </p>
+</div>

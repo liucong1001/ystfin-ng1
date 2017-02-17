@@ -1,0 +1,15 @@
+<div>
+    <button ng-click="getPolicy()">获取policy</button>
+    <div>地址：</div>
+    <div>{{data.host}}?key=temp/${filename}&name=temp/test1.png&policy={{data.policy}}&OSSAccessKeyId={{data.accessid}}&signature={{data.signature}}</div>
+    <form method="post" enctype="multipart/form-data" action="http://test-ystfin-scts-hx.oss-cn-beijing.aliyuncs.com">
+        <input name="key" value="temp/${filename}" type="text" /> <br/>
+        <input name="name" value="temp/test.png" type="text" /> <br/>
+        <input name="policy" ng-model="data.policy" type="text" /> <br/>
+        <input name="OSSAccessKeyId" ng-model="data.accessid" type="text" /> <br/>
+        <input name="signature" ng-model="data.signature" type="text" /> <br/>
+        <input name="success_action_status" value="200" type="text" /> <br/>
+        <input name="file" type="file" /> <br/>
+        <button type="submit">提交</button> <br/>
+    </form>
+</div>
