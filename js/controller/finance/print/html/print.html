@@ -133,8 +133,8 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="bill-date"><span>开票日期：</span>
-                        <span class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></span>
-                        <input type="text" style="width:200px;" ng-focus="dateOpened = true" current-text="今天" clear-text="清空" uib-datepicker-popup ng-model="dt" is-open="dateOpened" datepicker-options="dateOptions" ng-required="true" close-text="隐藏" />
+                        <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></a>
+                        <input type="text" style="width:200px;" ng-click="dateOpened = true" current-text="今天" clear-text="清空" uib-datepicker-popup="yyyy年M月d日" ng-model="billDate" is-open="dateOpened" datepicker-options="dateOptions" ng-required="true" close-text="隐藏" />
                     </div>
                     <div class="bill-no">发票号码(<span class="text-danger">将要使用</span>)：<input ng-model="nextBillNo" required /></div>
                 </div>
