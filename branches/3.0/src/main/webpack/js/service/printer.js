@@ -2,7 +2,7 @@
  * Created by 扬 on 2017/2/10.
  */"use strict"
 module.exports = function (app) {
-    app.factory("$printer", ["$convert",function ($convert) {
+    app.factory("$printer", ["$q","$convert",function ($q,$convert) {
         return {
             init: function () {
                 if ($('#__printerCtrl').length > 0) return
@@ -52,13 +52,21 @@ module.exports = function (app) {
                 }
             },
             printBill: function (data, config) {
+                var defer = $q.defer()
                 var ctrl = document.getElementById('__fingerprintCtrl')
                 $(ctrl).show()
                 var param = $.extend({}, data, {printConfig: config})
                 $convert("Vehicle_type").then(function (type) {
-                    param.vehicle.vehicleType = type.name
-                    ctrl.print(JSON.stringify(param))
+                    param.vehicle.vehicleType = type[param.vehicle.vehicleType ].name
+                    try{
+                        ctrl.print(JSON.stringify(param))
+                        defer.resolve(true)
+                    }
+                    catch (e){
+                        defer.reject(e)
+                    }
                 })
+                return defer.promise
             }
         }
     }])
