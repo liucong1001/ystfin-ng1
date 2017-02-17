@@ -16,9 +16,12 @@ app.config(["$routeProvider",function($routeProvider){
         }
     })
 }])
-app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig",function ($scope,$trans,$convert,$q,$printer,gconfig) {
+app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill",
+function ($scope,$trans,$convert,$q,$printer,gconfig,$bill) {
+    // 初始化打印控件
     $printer.init()
     $scope.gconfig = gconfig
+    // 根据流水号读取
     $scope.$watch("archivesNo",function (newVal,oldVal) {
         if(newVal){
             $trans.get({archivesNo:$scope.archivesNo},function (trans) {
@@ -31,6 +34,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             })
         }
     })
+    // 车类型下拉数据
     $scope.convertList = function(code) {
         var defer = $q.defer()
         $convert(code).then(function (data) {
@@ -44,13 +48,21 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         })
         return defer.promise
     }
+    // 打印机下拉
     $scope.printerList = $printer.getPrinters()
     $scope.selectedPrinter = $printer.getSelected()
+
     $scope.carTypeList = $scope.convertList("Vehicle_type")
+    // 打印
     $scope.print = function () {
         $printer.printBill($scope.trans,$scope.gconfig.printConfig)
     }
+    // 保存打印选择
     $scope.saveSelectedPrinter = function () {
         $printer.setSelected($scope.selectedPrinter)
     }
+    // 读取下一个发票号
+    $bill.get({action:"next"},function (next) {
+        $scope.nextBillNo = next.billNo
+    })
 }])

@@ -45,4 +45,10 @@ module.exports = function (app) {
         });
     }]);
 
+    app.factory("$bill",["$resource",function ($resource) {
+        return $resource('/bill/:action/:id',null,{
+            update: {method: 'PUT'}
+        })
+    }])
+
 }

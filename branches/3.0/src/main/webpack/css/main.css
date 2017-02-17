@@ -596,6 +596,9 @@ th{
 	top:-30px;
 	right:0;
 }
+.bill .bill-no input{
+	width:120px;
+}
 
 .bill .input-dropdown li{
 	padding:0 10px;
