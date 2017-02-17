@@ -16,8 +16,8 @@ app.config(["$routeProvider",function($routeProvider){
         }
     })
 }])
-app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill",
-function ($scope,$trans,$convert,$q,$printer,gconfig,$bill) {
+app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location",
+function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
     // 初始化打印控件
     $printer.init()
     $scope.gconfig = gconfig
@@ -55,7 +55,18 @@ function ($scope,$trans,$convert,$q,$printer,gconfig,$bill) {
     $scope.carTypeList = $scope.convertList("Vehicle_type")
     // 打印
     $scope.print = function () {
-        $printer.printBill($scope.trans,$scope.gconfig.printConfig)
+        $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
+            var bill = new $bill($scope.trans)
+            // 用户修改的车类型
+            bill.vehicle.vehicleType = $scope.selectedCarType.code
+            bill.bill = {
+                billNo:$scope.nextBillNo,
+                billDate: $filter("date")($scope.billDate,"yyyy-MM-dd")
+            }
+            bill.$save({action:"print"}).then(function () {
+//                $location.path("/finance/print/success")
+            })
+        })
     }
     // 保存打印选择
     $scope.saveSelectedPrinter = function () {
@@ -65,4 +76,5 @@ function ($scope,$trans,$convert,$q,$printer,gconfig,$bill) {
     $bill.get({action:"next"},function (next) {
         $scope.nextBillNo = next.billNo
     })
+    $scope.billDate = new Date()
 }])
