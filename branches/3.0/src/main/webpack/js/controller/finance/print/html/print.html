@@ -15,13 +15,14 @@
                 <span class="text-danger" ng-if="!trans && archivesNo">未找到流水</span>
             </div>
             <div class="col-md-8">
-                <span ng-if="trans.billStatus == '02'">
-                <button class="btn btn-primary">免费换票</button>
-                <button class="btn btn-primary">收费换票</button>
-                <button class="btn btn-primary">重新开票</button>
+                <span ng-if="trans.billStatus == '01'">
+                <button class="btn btn-primary" ng-click="print('05')">免费换票</button>
+                <button class="btn btn-primary" ng-click="print('04')">收费换票</button>
+                <button class="btn btn-primary" ng-click="print('02')">重新开票</button>
                 </span>
-                <button ng-click="print()" class="btn btn-primary" ng-if="!trans.billStatus || trans.billStatus == '01'">开票</button>
-                <button class="btn btn-danger" ng-if="trans.billStatus == '02'">仅作废</button>
+                <button ng-click="print('01')" class="btn btn-primary" ng-if="!trans.billStatus || trans.billStatus == '00' || trans.billStatus == '02'">开票</button>
+                <button class="btn btn-danger" ng-if="trans.billStatus == '01'" ng-click="remove()">仅作废</button>
+                <button class="btn btn-danger" ng-if="trans.billStatus == '01'" ng-click="back()">退票</button>
             </div>
         </div>
     </div>
@@ -50,12 +51,12 @@
                         <p class="bill-cell span4">卖方方单位/个人</p>
                         <p class="bill-cell span6"><input type="text" ng-model="trans.seller.name"/></p>
                         <p class="bill-cell span4">单位代码/身份证号码</p>
-                        <p class="bill-cell span6"><input type="text" ng-model="trans.seller.certCode"/></p>
+                        <p class="bill-cell span6"><input type="text" ng-model="trans.seller.certCode/></p>
                         <div class="clearfix"></div>
                     </div>
                     <div class="bill-row">
                         <p class="bill-cell span4">卖方单位/个人住址</p>
-                        <p class="bill-cell span10"><input type="text" ng-model="trans.seller.address"/></p>
+                        <p class="bill-cell span10"><input type="text" ng-model="trans.vehicleAddress"/></p>
                         <p class="bill-cell span1">电话</p>
                         <p class="bill-cell span5"><input type="text" ng-model="trans.seller.phone"/></p>
                         <div class="clearfix"></div>
