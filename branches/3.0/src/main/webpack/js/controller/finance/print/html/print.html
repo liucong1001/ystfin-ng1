@@ -15,13 +15,13 @@
                 <span class="text-danger" ng-if="!trans && archivesNo">未找到流水</span>
             </div>
             <div class="col-md-8">
-                <span ng-if="trans.billStatus == '01'">
+                <span ng-if="trans.billStatus == '02'">
                 <button class="btn btn-primary">免费换票</button>
                 <button class="btn btn-primary">收费换票</button>
                 <button class="btn btn-primary">重新开票</button>
                 </span>
-                <button ng-click="print()" class="btn btn-primary" ng-if="!trans.billStatus || trans.billStatus == '00' || trans.billStatus == '02'">开票</button>
-                <button class="btn btn-danger" ng-if="trans.billStatus == '01'">仅作废</button>
+                <button ng-click="print()" class="btn btn-primary" ng-if="!trans.billStatus || trans.billStatus == '01'">开票</button>
+                <button class="btn btn-danger" ng-if="trans.billStatus == '02'">仅作废</button>
             </div>
         </div>
     </div>
