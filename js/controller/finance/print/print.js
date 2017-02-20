@@ -54,9 +54,10 @@ function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
 
     $scope.carTypeList = $scope.convertList("Vehicle_type")
     // 打印
-    $scope.print = function () {
+    $scope.print = function (billType) {
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
             var bill = new $bill($scope.trans)
+            bill.billType = billType
             // 用户修改的车类型
             bill.vehicle.vehicleType = $scope.selectedCarType.code
             bill.bill = {
