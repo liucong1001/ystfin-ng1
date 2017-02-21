@@ -581,7 +581,7 @@ th{
 	margin-left:45%;
 }
 .bill .bill-body .rowspan2{
-	height:60px;line-height: 60px;
+	height:60px;line-height: 30px;
 }
 
 .bill .bill-date{
@@ -598,8 +598,4 @@ th{
 }
 .bill .bill-no input{
 	width:120px;
-}
-
-.bill .input-dropdown li{
-	padding:0 10px;
 }
