@@ -64,7 +64,7 @@ function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
                 billNo:$scope.nextBillNo,
                 billDate: $filter("date")($scope.billDate,"yyyy-MM-dd")
             }
-            bill.$save({action:"print"}).then(function () {
+            bill.$save({action:"print",nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function () {
 //                $location.path("/finance/print/success")
             })
         })
