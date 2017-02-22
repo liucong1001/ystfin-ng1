@@ -6,6 +6,10 @@ body{
 	font-family: 微软雅黑;
 	-ms-overflow-style: scrollbar;
 }
+::-ms-clear,
+::-ms-reveal{
+	display:none;
+}
 a,a:HOVER,a:FOCUS{
 	text-decoration: none;
 }
