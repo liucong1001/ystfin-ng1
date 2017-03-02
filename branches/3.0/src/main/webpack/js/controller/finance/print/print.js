@@ -26,6 +26,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             $bill.query({archivesNo:newVal},function(result){
                 $scope.arry = result;
                 $scope.length=result.length;
+                console.log(result.length);
                 if( $scope.length>0){
                     $scope.obj={
                         billnum:$scope.arry[$scope.length-1]['billNo']
