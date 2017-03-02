@@ -22,7 +22,7 @@
                      </span>
                 </span>
                 <br/>
-                <button ng-click="print('01')" class="btn btn-primary" ng-if="trans && (!trans.billStatus || trans.billStatus == '01')"  >开票</button>
+                <button ng-click="print('01')" class="btn btn-primary" ng-if="trans && (!trans.billStatus || trans.billStatus == '01')">开票</button>
                 <span ng-if="trans.billStatus == '02'">
                     <button class="btn btn-primary" ng-click="print('05')">免费换票</button>
                     <button class="btn btn-primary" ng-click="print('04')">收费换票</button>
@@ -150,8 +150,8 @@
         </div>
         <div class="row text-center" ng-show="buttom" >
             <h3>
-                打印成功，号码是:
-                <input type="text" ng-model="nextBillNo"/>
+                发票打印成功，发票号码是:
+                <input type="text" ng-model="billNo"/>
             </h3>
         </div>
         <!--<div class="row text-center" ng-show="tog3" >

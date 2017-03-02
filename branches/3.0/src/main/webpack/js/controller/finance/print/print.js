@@ -75,7 +75,8 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             bill.billType = billType;
             // 用户修改的车类型
             bill.vehicle.vehicleType = $scope.selectedCarType.code;
-            bill.$save({action:"print",billNo:$scope.obj.billnum,nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function () {
+            bill.$save({action:"print",billNo:$scope.obj.billnum,nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
+                $scope.billNo = result.billNo;
                 $scope.top=false;
                 $scope.buttom=true;
             });
