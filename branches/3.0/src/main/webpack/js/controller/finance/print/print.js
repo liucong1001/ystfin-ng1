@@ -101,24 +101,22 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
 
     //作废
     $scope.remove = function () {
-
         var bill = new $bill($scope.trans);
         bill.$save({action:"remove",billNo:$scope.obj.billnum}).then(function (result) {
             console.log($scope.obj.billnum);
             $scope.top=false;
-            $scope.buttomback=true;
+            $scope.bottomback=true;
         });
     };
+
     //退票
     $scope.back = function () {
         var bill = new $bill($scope.trans);
         bill.$save({action:"back",billNo:$scope.obj.billnum}).then(function (result) {
             console.log($scope.obj.billnum);
             $scope.top=false;
-            $scope.buttomback=true;
+            $scope.bottomback=true;
         });
-
-
     };
 
     //流水号改变
