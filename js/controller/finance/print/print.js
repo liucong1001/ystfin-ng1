@@ -68,6 +68,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     //定义发票页面切换的变量 true 显示 false隐藏
     $scope.top=true;
     $scope.buttom=false;
+    $scope.buttomback=false;
     // 打印
     $scope.print = function (billType) {
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
@@ -101,9 +102,22 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     //退票
     $scope.remove = function () {
 
-    }
+        var bill = new $bill($scope.trans);
+        bill.$save({action:"remove",billNo:$scope.obj.billnum}).then(function (result) {
+            console.log($scope.obj.billnum);
+            $scope.top=false;
+            $scope.buttomback=true;
+        });
+    };
     //作废
     $scope.back = function () {
+        var bill = new $bill($scope.trans);
+        bill.$save({action:"back",billNo:$scope.obj.billnum}).then(function (result) {
+            console.log($scope.obj.billnum);
+            $scope.top=false;
+            $scope.buttomback=true;
+        });
+
 
     };
 
