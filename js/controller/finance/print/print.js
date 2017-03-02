@@ -16,23 +16,23 @@ app.config(["$routeProvider",function($routeProvider){
         }
     })
 }])
-app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location",
-function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
+app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location", function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
     // 初始化打印控件
     $printer.init()
     $scope.gconfig = gconfig;
-    //$scope.obj={};
     // 根据流水号读取
     $scope.$watch("archivesNo",function (newVal,oldVal) {
         if(newVal){
             $bill.query({archivesNo:newVal},function(result){
-
                 $scope.arry = result;
                 $scope.length=result.length;
                 if( $scope.length>0){
-                    //$scope.billnum=$scope.arry[$scope.length-1]['billNo'];
                     $scope.obj={
                         billnum:$scope.arry[$scope.length-1]['billNo']
+                    }
+                }else{
+                    $scope.obj={
+                        billnum:null
                     }
                 }
             });
@@ -64,51 +64,51 @@ function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
     // 打印机下拉
     $scope.printerList = $printer.getPrinters();
     $scope.selectedPrinter = $printer.getSelected();
-
     $scope.carTypeList = $scope.convertList("Vehicle_type");
-    //定义发票页面切换的变量
-    $scope.tog=true;
-    $scope.tog2=false;
-    $scope.tog3=false;
-
+    //定义发票页面切换的变量 true 显示 false隐藏
+    $scope.top=true;
+    $scope.buttom=false;
     // 打印
     $scope.print = function (billType) {
-        $scope.print_com();
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
             var bill = new $bill($scope.trans);
             bill.billType = billType;
             // 用户修改的车类型
             bill.vehicle.vehicleType = $scope.selectedCarType.code;
             bill.$save({action:"print",billNo:$scope.obj.billnum,nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function () {
-
+                $scope.top=false;
+                $scope.buttom=true;
             });
         })
     };
     // 保存打印选择
     $scope.saveSelectedPrinter = function () {
-        $printer.setSelected($scope.selectedPrinter)
+        $printer.setSelected($scope.selectedPrinter);
     }
-    // 读取下一个发票号
+    // 获取当前发票号
     $bill.get({action:"next"},function (next) {
-        $scope.nextBillNo = next.billNo
+        $scope.nextBillNo = next.billNo;
     })
-    $scope.billDate = new Date()
+    //获取开票时间
+    $scope.billDate = new Date();
 
-
-
-    //弹出框
-    $scope.print_com=function(){
-        $scope.tog=false;
-        $scope.tog2=true;
-    };
-    $scope.print_com1=function(){
-        $scope.tog=false;
-        $scope.tog3=true;
+    //保存打印选择
+    $scope.saveSelectedPrinter = function () {
+        $printer.setSelected($scope.selectedPrinter);
     }
 
+    //退票
+    $scope.remove = function () {
+
+    }
+    //作废
+    $scope.back = function () {
+
+    };
 
     //流水号改变
     $scope.numchange=function(){
         $scope.trans = undefined;
     }
+
 }])
