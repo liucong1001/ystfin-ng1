@@ -67,7 +67,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.carTypeList = $scope.convertList("Vehicle_type");
     //定义发票页面切换的变量 true 显示 false隐藏
     $scope.top=true;
-    $scope.buttom=false;
+    $scope.bottom=false;
     $scope.buttomback=false;
     // 打印
     $scope.print = function (billType) {
@@ -79,7 +79,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             bill.$save({action:"print",billNo:$scope.obj.billnum,nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
                 $scope.billNo = result.billNo;
                 $scope.top=false;
-                $scope.buttom=true;
+                $scope.bottom=true;
             });
         })
     };
@@ -99,7 +99,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         $printer.setSelected($scope.selectedPrinter);
     }
 
-    //退票
+    //作废
     $scope.remove = function () {
 
         var bill = new $bill($scope.trans);
@@ -109,7 +109,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             $scope.buttomback=true;
         });
     };
-    //作废
+    //退票
     $scope.back = function () {
         var bill = new $bill($scope.trans);
         bill.$save({action:"back",billNo:$scope.obj.billnum}).then(function (result) {
