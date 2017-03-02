@@ -22,7 +22,7 @@
                      </span>
                 </span>
                 <br/>
-                <button ng-click="print('01')" class="btn btn-primary" ng-if="trans && (!trans.billStatus || trans.billStatus == '01')" data-toggle="modal" data-target="#myModal0" >开票</button>
+                <button ng-click="print('01')" class="btn btn-primary" ng-if="trans && (!trans.billStatus || trans.billStatus == '01')"  >开票</button>
                 <span ng-if="trans.billStatus == '02'">
                     <button class="btn btn-primary" ng-click="print('05')">免费换票</button>
                     <button class="btn btn-primary" ng-click="print('04')">收费换票</button>
@@ -31,9 +31,9 @@
                 <button class="btn btn-danger" ng-if="trans.billStatus == '02'" ng-click="remove()">仅作废</button>
                 <button class="btn btn-danger" ng-if="trans.billStatus == '02'" ng-click="back()">退票</button>
                 <br/>
+            </div>
                 <div style="height: 14px"></div>
             </div>
-        </div>
     </div>
     <div>
         <div class="bill" ng-show="top">
