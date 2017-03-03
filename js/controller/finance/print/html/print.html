@@ -11,7 +11,7 @@
                 <input class="" type="text" minlength="16" maxlength="16" ng-minlength="16" ng-maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号" ng-focus-this="true" ng-change="numchange()" />
                 <span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>
                 <br/>
-                <span class="text-danger" ng-if="!trans && archivesNo">未找到流水</span>
+                <span class="text-danger" ng-if="!trans && archivesNo">此流水状态暂无法开票！</span>
             </div>
             <div class="col-md-8">
                 <span ng-if="trans.billNo" class="text-muted" style="margin-left: 0px;font-weight: bold" >曾经用过的发票号：
