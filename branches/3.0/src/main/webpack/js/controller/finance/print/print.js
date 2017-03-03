@@ -40,12 +40,10 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             }
             });
             $trans.get({archivesNo:$scope.archivesNo},function (trans) {
-                if(trans['id']){
-                    $scope.trans = trans
-                    $convert("Vehicle_type").then(function (c) {
-                        $scope.selectedCarType = c[trans.vehicle.vehicleType]
-                    })
-                }
+                $scope.trans = trans
+                $convert("Vehicle_type").then(function (c) {
+                    $scope.selectedCarType = c[trans.vehicle.vehicleType]
+                })
             },function (err) {
                 $scope.trans = undefined;
                 console.log("找不到的流水号");
