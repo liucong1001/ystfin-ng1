@@ -26,7 +26,6 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             $bill.query({archivesNo:newVal},function(result){
                 $scope.arry = result;
                 $scope.length=result.length;
-                console.log(result.length);
                 if( $scope.length>0){
                     $scope.obj={
                         billnum:$scope.arry[$scope.length-1]['billNo']
@@ -78,8 +77,6 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.top=true;
     $scope.bottom=false;
     $scope.buttomback=false;
-
-    //$scope.billDate=
     // 打印
     $scope.print = function (billType) {
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
@@ -124,7 +121,6 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.back = function () {
         var bill = new $bill($scope.trans);
         bill.$save({action:"back",billNo:$scope.obj.billnum}).then(function (result) {
-            console.log($scope.obj.billnum);
             $scope.top=false;
             $scope.bottomback=true;
         });
