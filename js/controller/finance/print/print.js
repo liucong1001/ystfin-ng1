@@ -35,9 +35,9 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                     $scope.billDate=dt;
                 }else{
                     $scope.obj={
-                        billnum:null
-                    }
+                    billnum:null
                 }
+            }
             });
             $trans.get({archivesNo:$scope.archivesNo},function (trans) {
                 if(trans['id']){
