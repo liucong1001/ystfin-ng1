@@ -16,7 +16,7 @@
             <div class="col-md-8">
                 <span ng-if="trans.billNo" class="text-muted" style="margin-left: 0px;font-weight: bold" >曾经用过的发票号：
                      <span ng-repeat="x in arry">
-                         <label > <input type="radio"  id="{{x.id}}" value="{{x.billNo}}" ng-model="$parent.obj.billnum"  name="billno_name" />
+                         <label> <input type="radio"  id="{{x.id}}" ng-click="time(x.billDate)" value="{{x.billNo}}" ng-model="$parent.obj.billnum"   name="billno_name" />
                              {{x.billNo}}
                          </label>
                      </span>
