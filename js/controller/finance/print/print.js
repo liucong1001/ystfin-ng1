@@ -30,7 +30,10 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                 if( $scope.length>0){
                     $scope.obj={
                         billnum:$scope.arry[$scope.length-1]['billNo']
-                    }
+                    };
+                    var last=$scope.arry[$scope.length-1]['billDate'];
+                    var dt = new Date(last.replace(/-/,"/"));
+                    $scope.billDate=dt;
                 }else{
                     $scope.obj={
                         billnum:null
@@ -48,6 +51,11 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             })
         }
     })
+    $scope.time=function(value){
+        var time=value;
+        var dt = new Date(time.replace(/-/,"/"));
+        $scope.billDate=dt;
+    }
     // 车类型下拉数据
     $scope.convertList = function(code) {
         var defer = $q.defer()
@@ -70,6 +78,8 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.top=true;
     $scope.bottom=false;
     $scope.buttomback=false;
+
+    //$scope.billDate=
     // 打印
     $scope.print = function (billType) {
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
