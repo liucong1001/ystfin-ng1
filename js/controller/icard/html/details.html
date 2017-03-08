@@ -14,4 +14,4 @@
     </div>
     <ng-table url="/icard/accountRecord/pager" row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
 </div>
-账户余额:<span class="text-danger">{{balance / 100 | currency:"￥"}}</span>元&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ng#/account/manager" class="btn btn-default">返回</a>
+账户余额:<span class="text-danger">{{balance / 100 | currency:"￥"}}</span>元&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ng#/account/manager?dealersId={{dealersId}}" class="btn btn-default">返回</a>
