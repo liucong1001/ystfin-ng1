@@ -1,88 +1,115 @@
 /**
- * Created by 扬 on 2016/10/9.
+ * Created by 扬 on 2016/10/11.
  */
-"use strict"
 var app = require("../../ngcommon")
+var $ = require("jquery")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/trans/seller/step2', {
-            template: require("./html/seller/sellerStep2.html"),
-            controller: "transSellerStep2",
-            resolve: {
-                sessionSeller: ["$seller", "$route", function ($seller) {
-                    return $seller.get("/seller").$promise
-                }]
-            }
+    $routeProvider.when('/trans/seller/step2',{
+        template:require("./html/seller/sellerStep2.html"),
+        controller:"transSellerStep2",
+        resolve: {
+            sessionSeller: ["$seller", "$route", function ($seller) {
+                return $seller.get("/seller").$promise
+            }],
+            gconfig:["$globalConfig",function (config) {
+                return config
+            }],
+        }
     })
 }])
-var utils = require("../../lib/utils")
-app.controller("transSellerStep2",["$scope","$templateCache","$location","$webcam","$idcard","$seller","Upload","$routeParams","sessionSeller",
-function($scope,$tpc,$location,$webcam,$idcard,$seller,$upload,params,sessionSeller){
-    $scope.tr = sessionSeller
-    if($scope.tr && $scope.tr.seller){
-        $scope.seller = $scope.tr.seller
-        $scope.seller.certType = $scope.seller.certType || "01"
-    }
-    else{
-        $scope.seller = {
-            certType: "01"         // 01 居民身份证 02 港澳身份证 03 居住证 04 企业营业执照 05 机构代码证
-        }
-    }
-
-    $webcam.show("280px","190px",true)
+app.controller("transSellerStep2",["$scope","$rootScope","$location","$webcam","$seller","Upload","$routeParams","sessionSeller","gconfig",
+function($scope,$rootScope,$location,$webcam,$seller,Upload,$routeParams,sessionSeller,gconfig){
+    $webcam.show("280px","160px")
     $webcam.setRangeType(0)
-    $scope.$on('$destroy', function() {
-        $webcam.hide()
-    })
-    // 证件模板
-    $tpc.put("sellerCert01",require("./html/seller/sellerCert01.html"))
-    $tpc.put("sellerCert02",require("./html/seller/sellerCert02.html"))
-    $tpc.put("sellerCert03",require("./html/seller/sellerCert03.html"))
-    $tpc.put("sellerCert04",require("./html/seller/sellerCert04.html"))
-    $tpc.put("sellerCert05",require("./html/seller/sellerCert05.html"))
+    $scope.tr = sessionSeller
 
-    $scope.upload = function($file,props) {
-        //$scope.status[type] = "正在上传..."
-        $upload.upload({
-            url: "/common/upload/single",
-            file: $file
-        }).then(function (ret) {
-                utils.setObjVal($scope,props,"temp/" + ret.data)
-            },
-            function (err) {
-            },
-            function (evt) {
-            })
+    $scope.imgs = []
+    $scope.myInterval = 0
+    $scope.noWrapSlides = false
+    $scope.active = 0
+    $scope.goto = function (index) {
+        $scope.active = index
     }
-
-    $scope.snapshot = function (props,xuanzhuan) {
-        //$scope.status[img] = "正在拍照上传..."
+    $scope.nextImg = function () {
+        if($scope.active >= $scope.imgs.length - 1){
+            return
+        }
+        $scope.active++
+    }
+    $scope.prevImg = function () {
+        if($scope.active <= 0){
+            return
+        }
+        $scope.active--
+    }
+    $scope.snapshot = function () {
         $webcam.upload(function (success,filename) {
             $scope.$apply(function(){
-//                $scope.seller[img] = filename
-                utils.setObjVal($scope,props,"temp/" + filename)
+                if(success){
+                    $scope.imgs.push("temp/" + filename)
+                    setTimeout(function(){
+                        $scope.$apply(function(){
+                            $scope.active = $scope.imgs.length-1
+                        })
+                    },500)
+//                    $('.carousel').carousel()
+                }
             })
-        },xuanzhuan)
-        //       $scope.active = index + 1
-    }
-    $scope.invalid = function () {
-        var seller = $scope.seller
-        try {
-            if (seller.certType == "01" && seller.idCardFront.path && seller.idCardBg.path) return false
-            else if (seller.certType == "03" && seller.idCardFront.path && seller.idCardBg.path && seller.juzhuCertFront.path && seller.juzhuCertBack.path) return false
-            else if (seller.certType == "04" && seller.organizeCert.path) return false
-            else if (seller.certType == "05" && seller.organizeCert.path && seller.businessCert.path && seller.taxCert.path) return false
-        }catch(e){
-        }
-        return true
-    }
-
-    $scope.onSubmit = function (form) {
-        var seller = new $seller({seller:$scope.seller})
-        seller.$save({step:"step2"}).then(function (result) {
-            $location.path("/trans/seller/step3")
-        },function (result) {
-            $scope.errorMessage = result.data.message
         })
+    }
+    $scope.upload = function($file){
+        Upload.upload({
+            url:"/common/upload/single",
+            file:$file
+        }).then(function (ret) {
+                $scope.imgs.push("temp/" + ret.data)
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.active = $scope.imgs.length - 1
+                    })
+                }, 500)
+            },
+            function (err) {
+                console.log(err)
+            },
+            function (evt) {
+                console.log(evt)
+            }
+        )
+    }
+    $scope.next = function () {
+        $scope.submiting = true
+        var seller = new $seller({files:$scope.imgs})
+        seller.$save({step:"step2"}).then(function(result){
+            $scope.submiting = false
+            $webcam.hide()
+            if(gconfig.toType){
+                $location.path("/trans/seller/type/" + result.id)
+            }else{
+                $location.path("/trans/seller/complate/提交成功")
+            }
+            window.scrollTo(0,0)
+        },function (err) {
+            $scope.submiting = false
+            $rootScope.viewMask = false
+            $scope.errorMessage = "提交失败!" + err.data.message
+        })
+    }
+    $scope.prev = function () {
+        var step = new Step({images:$scope.imgs})
+        step.$save({step:"step2"})
+        $location.path("/trans/seller/step1")
+        window.scrollTo(0,0)
+    }
+    $scope.remove = function (index) {
+        if(index){
+            index--
+        }
+        else{
+           index = $scope.active
+        }
+        $scope.imgs.splice(index,1)
+        if($scope.active >= $scope.imgs.length - 1 && $scope.active > 0) $scope.active--
     }
 }])
