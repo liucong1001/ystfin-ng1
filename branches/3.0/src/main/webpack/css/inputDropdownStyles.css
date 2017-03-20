@@ -22,7 +22,7 @@
 
 .input-dropdown ul > li {
     cursor: pointer;
-    padding: 10px;
+    padding: 2px 10px;
     width:auto;
 }
 .input-dropdown ul > li > span{

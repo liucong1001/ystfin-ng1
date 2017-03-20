@@ -1,48 +1,20 @@
-<form role="form" novalidate name="sellerStep1Frm" ng-submit="onSubmit(sellerStep1Frm)">
-<div class="panel panel-default">
-    <div class="panel-heading">选择联系人</div>
+<form role="form" novalidate name="sellerStep2Frm" ng-submit="onSubmit(sellerStep2Frm)">
+    <div class="panel panel-default">
+        <div class="panel-heading">卖方证件采集</div>
 <div class="container-fluid panel-body">
-    <pre class="alert alert-danger" ng-if="errorMessage">{{errorMessage}}</pre>
-        <div class="row">
-        <div class="form-group col-sm-6" ng-class="{'has-feedback':sellerStep1Frm['theContact.name'].$dirty,'has-success':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$valid,'has-error':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$invalid}">
-            <label class="">联系人：</label>
-            <input-dropdown text-field="name" item-template="'{{item.name}}-{{item.dealers.loginName}}'" selected-item="selectedContact"
-                input-class-name="form-control input-sm" input-required="true" input-name="theContact.name"
-                input-placeholder="模糊匹配商户/联系人" input-value="selectedContact.name"
-                default-dropdown-items="contactList" filter-list-method="searchContact(userInput)"/>
-        </div>
-        <div class="form-group col-sm-6">
-            <label class="">商户：</label><span class="form-control-static">{{selectedContact.dealers.loginName + "-" + selectedContact.dealers.name}}</span>
-        </div>
-        </div>
-    <div ng-if="selectedContact">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group"><label>电话：</label><span class="form-control-static">{{selectedContact.phone}}</span></div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group"><label>身份证：</label><span class="form-control-static">{{selectedContact.idCardNo}}</span></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="thumbnail">
-                <img ng-src="/common/download/{{selectedContact.idCardFront.id}}" />
-                <h3>身份证正面</h3>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="thumbnail">
-                <img ng-src="/common/download/{{selectedContact.idCardBk.id}}" />
-                <h3>身份证背面</h3>
-            </div>
-        </div>
-    </div>
-    </div>
+                <div>
+                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 身份证</label>
+                    <label class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 居住证</label>
+                    <label class="radio-inline {{seller.certType=='04'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="04"> 企业营业执照(三证合一)</label>
+                    <label class="radio-inline {{seller.certType=='05'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="05"> 组织机构代码证(工商营业执照、税务登记证)</label>
+                </div>
+
+            <br/>
+            <ng-include src="'sellerCert' + seller.certType"></ng-include>
 </div>
 <div class="panel-footer text-right">
-    <a class="btn btn-default btn-sm" ng-disabled="submiting" href="/ng#/trans/seller/step0" type="button">返回，采集车辆证件</a>
-    <button class="btn btn-primary btn-sm" type="submit" ng-disabled="sellerStep1Frm.$invalid">下一步，上传证件</button>
+    <a class="btn btn-default btn-sm" ng-disabled="submiting" href="/ng#/trans/seller/step0" type="button">返回，选择联系人</a>
+    <button class="btn btn-primary btn-sm" ng-disabled="submiting||invalid()" type="submit">下一步，其他证件</button>
 </div>
 </div>
 </form>

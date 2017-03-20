@@ -1,5 +1,45 @@
 <form role="form" name="step0" novalidate>
     <div class="panel panel-default">
+        <div class="panel-heading">选择联系人</div>
+        <div class="container-fluid panel-body">
+            <pre class="alert alert-danger" ng-if="errorMessage">{{errorMessage}}</pre>
+            <div class="row">
+                <div class="form-group col-sm-6" ng-class="{'has-feedback':sellerStep1Frm['theContact.name'].$dirty,'has-success':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$valid,'has-error':sellerStep1Frm['theContact.name'].$dirty&&sellerStep1Frm['theContact.name'].$invalid}">
+                    <label class="">联系人：</label>
+                    <input-dropdown text-field="name" item-template="'{{item.name}}-{{item.dealers.loginName}}'" selected-item="selectedContact"
+                                    input-class-name="form-control input-sm" input-required="true" input-name="theContact.name"
+                                    input-placeholder="模糊匹配商户/联系人" input-value="selectedContact.name"
+                                    default-dropdown-items="contactList" filter-list-method="searchContact(userInput)"/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="">商户：</label><span class="form-control-static">{{selectedContact.dealers.loginName + "-" + selectedContact.dealers.name}}</span>
+                </div>
+            </div>
+            <div ng-if="selectedContact">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group"><label>电话：</label><span class="form-control-static">{{selectedContact.phone}}</span></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group"><label>身份证：</label><span class="form-control-static">{{selectedContact.idCardNo}}</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img ng-src="/common/download/{{selectedContact.idCardFront.id}}" />
+                            <h3>身份证正面</h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img ng-src="/common/download/{{selectedContact.idCardBk.id}}" />
+                            <h3>身份证背面</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="panel-heading">采集车辆证件</div>
         <div class="panel-body container-fluid form-inline">
             <div class="row">
@@ -21,13 +61,13 @@
                     <ng-image-upload title="行驶证正本" path="tr.vehicleCert.path" uploaded="upload($file,'tr.vehicleCert.path')" snapshot="snapshot('tr.vehicleCert.path')"/>
                 </div>
                 <div class="col-sm-3">
-                    <ng-image-upload title="行驶证正本" path="tr.vehicleCertBg.path" uploaded="upload($file,'tr.vehicleCertBg.path')" snapshot="snapshot('tr.vehicleCert.path')"/>
+                    <ng-image-upload title="行驶证副本" path="tr.vehicleCertBg.path" uploaded="upload($file,'tr.vehicleCertBg.path')" snapshot="snapshot('tr.vehicleCertBg.path')"/>
                 </div>
                 <div class="col-sm-3">
                     <ng-image-upload title="车辆登记证书首页" path="tr.vehicle.registrationCert.path" uploaded="upload($file,'tr.vehicle.registrationCert.path')" snapshot="snapshot('tr.vehicle.registrationCert.path')"/>
                 </div>
                 <div class="col-sm-3">
-                    <ng-image-upload title="车辆登记证书末页" path="tr.vehicle.registrationCertBg.path" uploaded="upload($file,'tr.vehicle.registrationCertBg.path')" snapshot="snapshot('tr.vehicle.registrationCert.path')"/>
+                    <ng-image-upload title="车辆登记证书末页" path="tr.vehicle.registrationCertBg.path" uploaded="upload($file,'tr.vehicle.registrationCertBg.path')" snapshot="snapshot('tr.vehicle.registrationCertBg.path')"/>
                 </div>
             </div>
         </div>

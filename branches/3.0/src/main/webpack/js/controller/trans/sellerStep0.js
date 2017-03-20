@@ -27,11 +27,23 @@ function($scope, $rootScope,$location,$seller,$http,$routeParams,$q,$upload,$web
     //    $scope.plateNumber = sessionSeller.vehicle.plateNumber.substring(2)
     //}
     $scope.gconfig = gconfig
-    $webcam.show("280px","calc(100% - 280px)",true)
+    $webcam.show("10px","calc(100% - 280px)",true)
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
         $webcam.hide()
     })
+
+    $scope.searchContact= function(key) {
+        var d = $q.defer();
+        $http.get("/contact/search",{params:{key:key}}).then(function (result) {
+            d.resolve(result.data)
+        },function () {
+            d.reject()
+        })
+        return d.promise
+    }
+    $scope.contactList = $scope.searchContact("")
+
     $rootScope.subTitle = "原车主录入"
     $scope.snapshot = function (props,xuanzhuan) {
         //$scope.status[img] = "正在拍照上传..."
@@ -68,6 +80,7 @@ function($scope, $rootScope,$location,$seller,$http,$routeParams,$q,$upload,$web
     }
     $scope.onSubmit = function (form) {
         var seller = new $seller($scope.tr)
+        seller.theContact = $scope.selectedContact
         seller.vehicle.plateNumber = gconfig.plateNumberPrefix + $scope.plateNumber
         seller.$save({step:'step0'}).then(function () {
             $location.path("/trans/seller/step1")
