@@ -1,0 +1,35 @@
+<style>
+    .midcity{
+        padding:10px 0px;
+    }
+    .btnadd{
+        padding: 15px;
+    }
+</style>
+<div class="panel panel-default" >
+    <div class="panel-heading">
+        <button type="button" class="close" ng-click="jump('/system/transferCity')"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="citySaveTitle">所属城市维护</h4>
+     </div>
+    <div class="panel-body midcity">
+                <div class="row-fluid btnadd ">
+                    <div class="span4">
+                        <a class="toolbar btn-group" href="/ng#/system/addCity?id={{idd}}">
+                            <button id="addCity" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span><span>添加城市</span></button>
+                        </a>
+                    </div>
+                    <div class="span8" style="text-align: right;" id="cityFilters" data-auto="true">
+                        <input type="hidden" id="transferCityValue" name="transferCity.id" autocomplete="off" value="1362">
+                    </div>
+                </div>
+        <div id="datatableItem" class="datatable">
+
+            <ng-table url="/citys/city/pager?id={{idd}}" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default"  ng-click="jump('/system/transferCity')"><span class="icon-remove"></span> <span>关闭</span></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<style>
+    .form-error{
+        color: red;
+    }
+</style>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>保存代码集</h3>
+
+        <form  name="codeform" ng-submit="save()" novalidate="novalidate">
+            <input name="id" type="hidden" autocomplete="off" value="">
+
+            <div class="form-group control-group">
+
+                <label class=" control-label" for="name">代码集CODE</label>
+
+                <div class="">
+                    <input data-bind="" name="code" required="required" id="" value="" type="text" style="" class="form-control " ng-model="form.code"  placeholder="代码集CODE" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="codeform.code.$invalid" > *请输入代码集CODE</p>
+
+            </div>
+
+            <div class="form-group control-group">
+
+                <label class=" control-label" for="name">代码集描述</label>
+
+                <div class="">
+                    <input data-bind="" name="name" required="required" id="Name" value="" type="text" style="" class="form-control " ng-model="form.name"  placeholder="代码集描述" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="codeform.name.$invalid" > *请输入代码集描述。</p>
+            </div>
+
+    <p style="color: red;font-weight: 900">{{errorMessage}}</p>
+            <button type="submit" id="saveUserButton"  ng-disabled="codeform.$invalid"
+                    class="btn btn-primary">
+                保存
+            </button>
+            <button type="button" class="btn btn-default"  ng-click="back()" >返回</button>
+        </form>
+    </div>
+</div>
