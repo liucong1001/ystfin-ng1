@@ -603,3 +603,11 @@ th{
 .bill .bill-no input{
 	width:120px;
 }
+
+.bill .input-dropdown li{
+	padding:0 10px;
+}
+
+.form-error{
+	color: red;
+}
