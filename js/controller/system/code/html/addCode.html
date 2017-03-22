@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>保存代码项</h2>
+    </div>
+    <div class="panel-body">
+        <form name="addCode" ng-submit="save()">
+            <div class="form-group control-group">
+                <label class=" control-label" >代码集</label>
+                <div class="">
+                    <input  disabled  type="text"  class="form-control " ng-model="val"   autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group control-group">
+                <label class=" control-label">代码值</label>
+                <div class="">
+                    <input  required="required"  name="code" class="form-control " ng-model="addCode_in.code"  placeholder="代码值" autocomplete="off">
+                </div>
+              <p ng-class="'form-error'" ng-show="addCode.code.$invalid" > *请输入代码值</p>
+            </div>
+
+            <p style="color: red;font-weight:bolder ">{{errorMessage}}</p>
+
+            <div class="form-group control-group">
+                <label class=" control-label" >代码名称</label>
+                <div class="">
+                    <input  required="required"   name="name" class="form-control " ng-model="addCode_in.name"  placeholder="代码名称" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="addCode.name.$invalid" > *请输入代码名称</p>
+
+            </div>
+            <div class="form-group control-group">
+                <label class=" control-label">顺序码</label>
+                <div class="">
+                    <input  required="required"  name="sort" class="form-control " ng-model="addCode_in.sort"  placeholder="顺序码" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="addCode.sort.$invalid" > *请输入顺序码</p>
+
+            </div>
+            <div>
+
+                <!--<div>aaa: <span >{{val}}</span></div>-->
+                <button type="submit"  class="btn btn-primary" ng-disabled="addCode.$invalid"><span class="icon-save"></span> <span>保存</span></button>
+                <button type="button" class="btn btn-default" ng-click="back()" ><span class="icon-remove"></span> <span>关闭</span></button>
+            </div>
+        </form>
+    </div>
+</div>

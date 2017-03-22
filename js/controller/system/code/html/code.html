@@ -1,0 +1,33 @@
+<style>
+    table>tbody>tr:nth-child(odd){
+        background: #f9f9f9;
+    }
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="toolbar btn-group" ng-click="jump('/system/form')">
+                    <button id="addUser" type="button" class="btn btn-default"><span class="icon iconfont icon-weibiaoti1"></span><span>添加代码集</span></button>
+                </div>
+            </div>
+            <div class="col-md-9" style="text-align: right;" id="userFilters" data-auto="true">
+                <form class="form-inline" ng-submit="ngTable.reload()">
+                    <div class="form-group">
+                        <input name="userName"  ng-model="searchinfo.code" type="text" class="form-control" placeholder="代码集CODE" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input name="userName"   ng-model="searchinfo.name" type="text" class="form-control" placeholder="代码集描述" autocomplete="off">
+                    </div>
+                    <button id="search" class="btn btn-primary btn-query" type="submit"  ><span class="glyphicon glyphicon-search"></span> <span>查询</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="">
+        <ng-table url="/cod/pager" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+    </div>
+</div>

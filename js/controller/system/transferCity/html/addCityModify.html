@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>保存城市(修改)</h2>
+    </div>
+    <div class="panel-body">
+        <form name="addCity" ng-submit="">
+            <div class="form-group control-group">
+                <label >所属城市名</label>
+                <div class="">
+                    <input  autocomplete="off"  name="city" required="required" pattern="^[，，\u4e00-\u9fa5]*$" ng-model="addCityinfo.name"
+                            placeholder="请添加所属城市名。如一次添加多个城市，请用 “  ，” 隔开。" class="form-control "/>
+                    <p  ng-class="'form-error'" ng-show="addCity.city.$invalid">*请填写中文城市名</p>
+                </div>
+            </div>
+            <div>
+                <button type="submit"  class="btn btn-primary" ng-disabled="addCity.$invalid" ng-click="save_cityinfo()"><span class="icon-save"></span> <span>保存</span></button>
+                <button type="button" class="btn btn-default" ng-click="back()" ><span class="icon-remove"></span> <span>关闭</span></button>
+            </div>
+        </form>
+    </div></div>
+</div>

@@ -1,0 +1,65 @@
+<div class="panel panel-default" >
+     <div class="panel-heading">
+         <form  name="userForm" ng-submit="" novalidate="novalidate">
+             <input name="id" type="hidden" autocomplete="off" value="">
+             <div class="form-group control-group">
+
+                 <label class="" for="type">用户类型</label>
+
+                 <select data-bind="" name="type" id="type" class="form-control ">
+
+                     <option selected="selected" value="02">市场开票员</option>
+
+                     <option value="03">市场审核员</option>
+
+                     <option value="09">市场管理员</option>
+
+                     <option value="10">领导</option>
+
+                     <option value="11">财务</option>
+
+                     <option value="12">核对员</option>
+
+                     <option value="97">账户管理员</option>
+
+                     <option value="98">离职</option>
+                 </select>
+             </div>
+             <div class="form-group control-group">
+
+                 <label class=" control-label" for="userName">用户名称</label>
+                 <div class="">
+                     <input data-bind=""  name="userName" required="required" id="userName" value="" type="text" style="" class="form-control " ng-model="managerinfo.userName"  placeholder="用户名称" autocomplete="off">
+                 </div>
+                 <p   ng-class="'form-error'" ng-show="userForm.userName.$invalid && userForm.userName.$touched" >用户名称是必须填写的.</p>
+
+             </div>
+             <div class="form-group control-group">
+
+                 <label class=" control-label" for="loginName">用户登录名</label>
+
+                 <div class="">
+                     <input data-bind=""  ng-model="managerinfo.loginName" name="loginName" required="required" id="loginName" value="" type="text" style="" class="form-control " placeholder="用户登录名" >
+                 </div>
+                 <p   ng-class="'form-error'" ng-show="userForm.loginName.$invalid && userForm.loginName.$touched" >用户登陆名是必须填写的.</p>
+
+             </div>
+             <div class="form-group control-group">
+                 <label class=" control-label" for="telephone">手机号码</label>
+                 <div class="">
+                     <input maxlength="11"  ng-model="managerinfo.telephone" ng-pattern="/1[3|5|7|8|][0-9]{9}/" data-bind="" name="telephone" id="telephone" value="" type="text" style="" class="form-control " placeholder="手机号码">
+                 </div>
+                 <p  ng-class="'form-error'" ng-show="userForm.telephone.$dirty && userForm.telephone.$invalid" >请输入正确的手机号码</p>
+
+             </div>
+             <!-- -->
+             <div class="alert" style="display: none;"></div>
+             <button type="submit" id="saveUserButton" class="btn btn-primary" ng-click="save_info()" ng-disabled="userForm.$invalid">
+                 保存
+             </button>
+             <button type="button" class="btn btn-default"  ng-click="back()" data-dismiss="modal">返回</button>
+
+         </form>
+
+     </div>
+</div>

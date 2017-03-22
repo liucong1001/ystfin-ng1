@@ -1,0 +1,49 @@
+<style>
+    .red{
+        color: red;
+        font-size: 2rem;
+        font-weight: bolder;
+    }
+    .blue{
+        color: cornflowerblue;
+    }
+</style>
+<div class="panel panel-default" >
+    <!--<form name="roleinfo">-->
+    <div class="panel-heading">
+        <form name="roleinformation"  ng-submit="save_roleinfo()" novalidate="novalidate">
+        <div class="form-group control-group">
+            <label class=" control-label" >NAME</label>
+            <div class="">
+                <input data-bind="" name="name" required="required"  value="" type="text" style="" class="form-control " ng-model="roleinfo.role.name"  placeholder="此处输入name" autocomplete="off">
+            </div>
+            <p   ng-class="'form-error'" ng-show="menu.name.$invalid" >*name是必须填写的.</p>
+        </div>
+        <div class="form-group control-group">
+            <label class=" control-label" >TYPE</label>
+            <div class="">
+                <input data-bind="" name="type" required="required"  value="" type="text" style="" class="form-control " ng-model="roleinfo.role.type"  placeholder="此处输入type" autocomplete="off">
+            </div>
+            <p   ng-class="'form-error'" ng-show="menu.type.$invalid" >*type是必须填写的.</p>
+        </div>
+        <div class="form-group control-group">
+            <p>复选框</p>
+                <ul  ng-repeat="item in checkboxs" >
+                    <li>
+                    <label >{{item.name}}--{{$index}}</label>
+                    <input type="checkbox"  id="{{item.id}}" ng-checked="isSelected(item.id)"
+                           ng-model="item.check[item.id]"
+                           ng-click="addcheck(item.id)"/>
+                    </li>
+                </ul>
+        </div>
+            <div class="alert" style="display: none;"></div>
+            <button type="submit"  ng-disabled="roleinformation.$invalid" id="saveUserButton" class="btn btn-primary" ng-click="save_info()">
+            保存</button>
+        <button type="button" class="btn btn-default text-right"  ng-click="jump('/system/role')" data-dismiss="modal">返回</button>
+        </form>
+    </div>
+
+
+    <!--</form>-->
+</div>
