@@ -8,6 +8,7 @@ require("../css/theme.css")
 require("../css/main.css")
 require("../css/ui.css")
 
+
 require("./controller/pay/createOrder")
 require("./controller/pay/queryOrder")
 require("./controller/pay/pay")
@@ -27,3 +28,43 @@ require("./controller/icard/account")
 
 // 财务
 require("./controller/finance/print/print")
+
+//用户管理
+require("./controller/system/manager/manager")
+require("./controller/system/manager/managerform")
+require("./controller/system/manager/managerinfo")
+
+//档案所在地管理
+require("./controller/system/transferCity/transferCity")
+require("./controller/system/transferCity/transferCityform")
+require("./controller/system/transferCity/transferCityinfo")
+require("./controller/system/transferCity/transcityService")
+require("./controller/system/transferCity/addCity")
+require("./controller/system/transferCity/addCityModify")
+
+
+//代码管理
+require("./controller/system/code/code")
+require("./controller/system/code/form")
+require("./controller/system/code/codeInfo")
+require("./controller/system/code/codeService")
+require("./controller/system/code/addCode")
+//require("./controller/system/code/addCodeModify")
+require("./controller/system/code/addCodeModify")
+
+//修改左侧菜单项
+require("./controller/system/modify/modify")
+require("./controller/system/modify/modifyinfo")
+require("./controller/system/modify/modifyform")
+require("./controller/system/modify/role")
+require("./controller/system/modify/roleinfo")
+require("./controller/system/modify/roleform")
+//绩效考核
+require("./controller/system/kpi/kpi")
+
+
+
+
+
+
+
