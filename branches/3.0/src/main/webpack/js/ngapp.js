@@ -29,6 +29,9 @@ require("./controller/icard/account")
 // 财务
 require("./controller/finance/print/print")
 
+//交易查询
+require("./controller/trans/query")
+
 //用户管理
 require("./controller/system/manager/manager")
 require("./controller/system/manager/managerform")
