@@ -13,9 +13,10 @@ app.config(["$routeProvider",function($routeProvider){
 }])
 
 app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
-    $scope.tableColumns = [
-        {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'}
-    ];
+    //$scope.tableColumns = [
+    //    {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'}
+    //];
+
     $scope.tableColumns_nav=$scope.tableColumns;
     $scope.tableColumns_save=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
@@ -65,8 +66,9 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.seller.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构正面",width:10},
         {template:"<img ng-src='common/download/{{row.seller.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构反面",width:10}
     ];
+    $scope.tableColumns=$scope.tableColumns_note;
     //卖家个人（true勾选，false不勾选）
-    $scope.seller_note=false;
+    $scope.seller_note=true;
 
 
 
@@ -385,7 +387,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         if($scope.type_pager==8){$scope.tableColumns=$scope.tableColumns_buyTrustor_save;}
     }
     //下拉框默认选择
-    $scope.type_pager='99';
+    $scope.type_pager='1';
 
     //选择查看图片类型下拉框的change事件
     $scope.select=function(x){
