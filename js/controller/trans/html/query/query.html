@@ -1,12 +1,191 @@
+<style>
+    .date{
+        width: 100%;
+    }
+</style>
 <div class="panel panel-default">
     <div class="panel-heading">查询条件
         <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'up':'down'}}" href="" ng-click="showFilter=!showFilter"></a>
     </div>
-    <div class="panel-body" ng-show="showFilter">
-        <div class="row">
-            <div class="col-xs-2"><input class="form-control input-sm" ng-model="filter.archivesNo" placeholder="流水号(模糊匹配)" /></div>
-            <div class="col-xs-1"><button class="btn btn-default btn-sm" ng-click="ngTable.reload()"><span class="glyphicon glyphicon-search"></span> 查询</button></div>
-        </div>
+    <!--ng-show="showFilter"-->
+    <div class="panel-body" >
+        <form action="" ng-submit="ngTable.reload()">
+             <div class="row" data-auto="true"  id="userFilters" >
+                 <div class="col-xs-3"><input class="form-control " ng-model="filter.archivesNo" placeholder="流水号(模糊匹配)" /></div>
+                 <div class="col-xs-2"><input type="text" class="form-control " ng-model="filter['vehicle.plateNumber']" placeholder="车牌号" /></div>
+                 <div class="col-xs-2">
+                     <select name=""  class="form-control " ng-model="filter.billStatus" ng-change="ngTable.reload()" >
+                         <option value="">开票状态</option>
+                         <option value="02">已开票</option>
+                         <option value="01">未开票</option>
+                     </select>
+                 </div>
+                 <div class="col-xs-3 ">
+                     <button class="btn btn-success "  type="button" ng-click="ngTable.reload()" ><span class="glyphicon glyphicon-search"></span> 查询</button>
+                 </div>
+                 <div class="col-xs-2">
+                     <select ng-show="select_carType"  class="form-control " ng-model="type_attr" ng-change="select_attr(type_attr)">
+                         <option value="999">车辆使用类型</option>
+                         <option value="11">私</option>
+                         <option value="22">公</option>
+                     </select>
+                 </div>
+             </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="text " placeholder="成交起始日期"   ng-model="startDate"  ng-change="changetime()"
+                           datepicker-options="dateOptions"  ng-click="dateOpened = true" current-text="今天"
+                           clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
+                           close-text="隐藏" alt-input-formats="altInputFormats"
+                           class="form-control "/>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="成交截止日期"   ng-model="endDate"  ng-change="changetime()"
+                           datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天"
+                           clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
+                           close-text="隐藏" alt-input-formats="altInputFormats"
+                           class="form-control "/>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="入库审核起始日"   ng-model="rukuStartDate"  ng-change="changetime()"
+                           datepicker-options="dateOptions"  ng-click="dateOpened3 = true" current-text="今天"
+                           clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened3"
+                           close-text="隐藏" alt-input-formats="altInputFormats"
+                           class="form-control"/>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="text" placeholder="入库审核截止日"   ng-model="rukuEndDate"  ng-change="changetime()"
+                           datepicker-options="dateOptions"  ng-click="dateOpened4 = true" current-text="今天"
+                           clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened4"
+                           close-text="隐藏" alt-input-formats="altInputFormats"
+                           class="form-control"/>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="成交日期"   ng-model="outReivewTime" ng-change="changetime()"
+                           datepicker-options="dateOptions"  ng-click="dateOpened5 = true" current-text="今天"
+                           clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened5"
+                           close-text="隐藏" alt-input-formats="altInputFormats"
+                           class="form-control"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                  <div class="col-md-2">
+                    <input type="text" placeholder="入库操作员"  ng-model="filter['createUser.userName']" class="form-control "/>
+                  </div>
+                  <div class="col-md-2">
+                    <input type="text" placeholder="出库操作员"  ng-model="filter['putOutUser.userName']" class="form-control "/>
+                   </div>
+                   <div class="col-md-2">
+                       <input type="text" placeholder="入库审核员" ng-model="filter['inReviewUser.userName']"  class="form-control "/>
+                   </div>
+                   <div class="col-md-2">
+                    <input type="text" placeholder="出库审核员" ng-model="filter['outReviewUser.userName']" class="form-control "/>
+                   </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="商户编号" ng-model="filter['staff.dealers.loginName']" class="form-control "/>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="商户名称" ng-model="filter['staff.dealers.name']" class="form-control "/>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-3">
+                    <select name="" id="" class="form-control " ng-model="type_pager" ng-change="select(type_pager)">
+                        <option value="99">选择查看图片类型</option>
+                        <option value="1">卖家</option>
+                        <option value="7">卖家委托人</option>
+                        <option value="2">买家</option>
+                        <option value="8">买家委托人</option>
+                        <option value="3">车辆</option>
+                        <option value="4">其他</option>
+                        <option value="5">公证书</option>
+                        <option value="6">增值税发票</option>
+                    </select>
+                </div>
+                <!--<div >-->
+                <!--</div>-->
+                <div ng-show="seller">
+                    <label > 卖家图像</label>  <input type="checkbox"  ng-model="seller_regPhoto" ng-change="toggle()"/>
+                    <label > 组织机构正面</label>  <input type="checkbox" ng-model="seller_idCardFront" ng-change="toggle()" />
+                    <label >组织机构反面</label>  <input type="checkbox" ng-model="seller_idCardBg" ng-change="toggle()"/>
+                    <label > 卖家指纹</label>  <input type="checkbox"  ng-model="seller_fingerprintImg" ng-change="toggle()"/>
+                </div>
+                <div ng-show="seller_private">
+                    <label >卖家个人图像</label> <input type="checkbox" ng-model="seller_regPhotoi" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家身份证(正)</label> <input type="checkbox" ng-model="seller_idCardFronti" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家身份证(反)</label> <input type="checkbox" ng-model="seller_idCardBgi" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家个人指纹</label> <input type="checkbox" ng-model="seller_fingerprintImgi" ng-change="toggle_sellPrivate()"/>
+                </div>
+                <div ng-show="seller_note">
+                    <!--<span style="color:red">请先选择“车辆使用类型”</span>-->
+                    <label >卖家个人图像</label> <input type="checkbox" ng-model="seller_regPhotoi" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家身份证(正)</label> <input type="checkbox" ng-model="seller_idCardFronti" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家身份证(反)</label> <input type="checkbox" ng-model="seller_idCardBgi" ng-change="toggle_sellPrivate()"/>
+                    <label >卖家个人指纹</label> <input type="checkbox" ng-model="seller_fingerprintImgi" ng-change="toggle_sellPrivate()"/>
+                    <label > 组织机构正面</label>  <input type="checkbox" ng-model="seller_businessCert" ng-change="toggle_sellPrivate()" />
+                    <label > 组织机构反面</label>  <input type="checkbox" ng-model="seller_businessCertBg" ng-change="toggle_sellPrivate()" />
+                </div>
+
+                <div ng-show="sellerTrustor">
+                    <label >卖方委托人图像</label> <input type="checkbox" ng-model="sellerTrustor_regPhoto" ng-change="toggle_sellerTrustor()"/>
+                    <label >卖方委托人指纹</label> <input type="checkbox" ng-model="sellerTrustor_fingerprintImg" ng-change="toggle_sellerTrustor()"/>
+                    <label >卖方委托人证件正面</label> <input type="checkbox" ng-model="sellerTrustor_idCardFront" ng-change="toggle_sellerTrustor()"/>
+                    <label >卖方委托人证件反面</label> <input type="checkbox" ng-model="sellerTrustor_idCardBg" ng-change="toggle_sellerTrustor()"/>
+                    <label >卖方委托书</label> <input type="checkbox" ng-model="vehicle_entrustBook" ng-change="toggle_sellerTrustor()"/>
+                </div>
+                <div ng-show="buyer">
+                    <label for="buyer_regPhoto"> 买家图像</label>  <input type="checkbox" id="buyer_regPhoto" ng-model="buyer_regPhoto" ng-change="toggle_buyer()"/>
+                    <label for="buyer_idCardFront" > 买家身份证(正)</label>  <input type="checkbox" id="buyer_idCardFront" ng-model="buyer_idCardFront"  ng-change="toggle_buyer()"/>
+                    <label for="buyer_idCardBg"> 买家身份证(反)</label>  <input type="checkbox" id="buyer_idCardBg" ng-model="buyer_idCardBg"  ng-change="toggle_buyer()"/>
+                    <label for="buyer_fingerprintImg" > 买家指纹</label> <input type="checkbox"  id="buyer_fingerprintImg" ng-model="buyer_fingerprintImg"  ng-change="toggle_buyer()"/>
+                    <label  for="buyer_businessCert"> 组织机构证书(正)</label><input type="checkbox" id="buyer_businessCert" ng-model="buyer_businessCert" ng-change="toggle_buyer()" />
+                    <label  for="buyer_businessCertBg"> 组织机构证书(反)</label><input type="checkbox" id="buyer_businessCertBg" ng-model="buyer_businessCertBg"  ng-change="toggle_buyer()"/>
+                </div>
+                <div ng-show="buyTrustor">
+                    <label >买方委托人图像</label> <input type="checkbox" ng-model="buyerTrustor_regPhoto" ng-change="toggle_buyTrustor()"/>
+                    <label >买方委托人指纹</label> <input type="checkbox" ng-model="buyerTrustor_fingerprintImg" ng-change="toggle_buyTrustor()"/>
+                    <label >买方委托人证件正面</label> <input type="checkbox" ng-model="buyerTrustor_idCardFront" ng-change="toggle_buyTrustor()"/>
+                    <label >买方委托人证件反面</label> <input type="checkbox" ng-model="buyerTrustor_idCardBg" ng-change="toggle_buyTrustor()"/>
+                    <label >买方委托书</label> <input type="checkbox" ng-model="vehicle_entrustBook" ng-change="toggle_buyTrustor()"/>
+                </div>
+                <div ng-show="car">
+                    <label >行驶证正面</label> <input type="checkbox" ng-model="vehicleCert" ng-change="toggle_car()"/>
+                    <label >行驶证反面</label> <input type="checkbox" ng-model="vehicleCertBg" ng-change="toggle_car()"/>
+                    <label >登记证书首页</label> <input type="checkbox" ng-model="vehicle_registrationCert" ng-change="toggle_car()"/>
+                    <label >登记证书末页</label> <input type="checkbox" ng-model="vehicle_registrationCertBg" ng-change="toggle_car()"/>
+                </div>
+                <div ng-show="other">
+                    <label >商户车辆转让协议</label> <input  type="checkbox" ng-model="vehicle_transferProxy" ng-change="toggle_other()"/>
+                </div>
+                <div ng-show="notarizationFile">
+                    <label >公证书第一页</label> <input type="checkbox" ng-model="notarizationFile1" ng-change="toggle_notarizationFile()"/>
+                    <label >公证书第二页</label> <input type="checkbox" ng-model="notarizationFile2" ng-change="toggle_notarizationFile()"/>
+                    <label >公证书第三页</label> <input type="checkbox" ng-model="notarizationFile3" ng-change="toggle_notarizationFile()"/>
+                    <label >公证书第四页</label> <input type="checkbox" ng-model="notarizationFile4" ng-change="toggle_notarizationFile()"/>
+                    <label >公证书第五页</label> <input type="checkbox" ng-model="notarizationFile5" ng-change="toggle_notarizationFile()"/>
+                    <label >公证书第六页</label> <input type="checkbox" ng-model="notarizationFile6" ng-change="toggle_notarizationFile()"/>
+                </div>
+                <div ng-show="vat">
+                    <label >增值税发票第一张</label> <input type="checkbox" ng-model="vat1" ng-change="toggle_vat()"/>
+                    <label >增值税发票第二张</label> <input type="checkbox" ng-model="vat2" ng-change="toggle_vat()"/>
+                    <label >增值税发票第三张</label> <input type="checkbox" ng-model="vat3" ng-change="toggle_vat()"/>
+                    <label >增值税发票第四张</label> <input type="checkbox" ng-model="vat4" ng-change="toggle_vat()"/>
+                    <label >增值税发票第五张</label> <input type="checkbox" ng-model="vat5" ng-change="toggle_vat()"/>
+                    <label >增值税发票第六张</label> <input type="checkbox" ng-model="vat6" ng-change="toggle_vat()"/>
+                </div>
+            </div>
+        </form>
     </div>
-    <ng-table url="/trans/pager" id-property ="wtr.id_"  row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
+    <div class="row ">
+        <div class="col-xs-4"></div>
+    </div>
+
+    <div >
+       <ng-table url="/trans/pager" id-property ="wtr.id_"  row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
+    </div>
+
 </div>
