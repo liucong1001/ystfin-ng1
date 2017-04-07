@@ -67,12 +67,60 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     ];
     //卖家个人（true勾选，false不勾选）
     $scope.seller_note=false;
-    $scope.seller_regPhotoi=true;
-    $scope.seller_idCardFronti=true;
-    $scope.seller_idCardBgi=true;
-    $scope.seller_fingerprintImgi=true;
-    $scope.seller_businessCert=true;
-    $scope.seller_businessCertBg=true;
+
+
+
+    $scope.init_showCheckbox=function(){
+        //卖家
+        $scope.show=true;
+        $scope.seller_regPhotoi=$scope.show;
+        $scope.seller_idCardFronti=$scope.show;
+        $scope.seller_idCardBgi=$scope.show;
+        $scope.seller_fingerprintImgi=$scope.show;
+        $scope.seller_businessCert=$scope.show;
+        $scope.seller_businessCertBg=$scope.show;
+        //买家复选框默认勾选上的项 true显示 false隐藏
+        $scope.buyer_regPhoto=$scope.show;
+        $scope.buyer_idCardFront=$scope.show;
+        $scope.buyer_idCardBg=$scope.show;
+        $scope.buyer_fingerprintImg=$scope.show;
+        $scope.buyer_businessCert=$scope.show;
+        $scope.buyer_businessCertBg=$scope.show;
+        //车辆
+        $scope.vehicleCert=true;
+        $scope.vehicleCertBg=true;
+        $scope.vehicle_registrationCert=true
+        $scope.vehicle_registrationCertBg=true;
+        //其他
+        $scope.vehicle_gongZheng=true;
+        $scope.vehicle_buyerEntrustBook=true;
+        $scope.vehicle_bill=true;
+        $scope.vehicle_transferProxy=true;
+        //卖方委托人复选框勾选情况 （true勾选，false不勾选）
+        $scope.sellerTrustor_regPhoto=true;
+        $scope.sellerTrustor_fingerprintImg=true;
+        $scope.sellerTrustor_idCardFront=true;
+        $scope.sellerTrustor_idCardBg=true;
+        $scope.vehicle_entrustBook=true;
+        //买方委托人复选框勾选情况 （true勾选，false不勾选）
+        $scope.buyerTrustor_regPhoto=true;
+        $scope.buyerTrustor_fingerprintImg=true;
+        $scope.buyerTrustor_idCardFront=true;
+        $scope.buyerTrustor_idCardBg=true;
+        $scope.vehicle_entrustBook=true;
+        //公证书复选框勾选情况；（true勾选，false不勾选）
+        $scope.notarizationFile1=true;
+        $scope.notarizationFile2=true;
+        $scope.notarizationFile3=true;
+        $scope.notarizationFile4=true;
+        $scope.notarizationFile5=true;
+        $scope.notarizationFile6=true;
+        //增值税发票复选框勾选情况（true勾选，false不勾选）
+        $scope.vat1=true; $scope.vat2=true; $scope.vat3=true;
+        $scope.vat4=true; $scope.vat5=true; $scope.vat6=true;
+    };
+    //初始化复选框选中
+    $scope.init_showCheckbox();
     $scope.toggle_sellPrivate=function(){
         $scope.tableColumns=[];
         $scope.tableColumns.push( $scope.tableColumns_note[0]);
@@ -110,13 +158,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.buyer.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(正)",width:10},
         {template:"<img ng-src='common/download/{{row.buyer.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(反)",width:10}
     ];
-    //买家复选框默认勾选上的项 true显示 false隐藏
-    $scope.buyer_regPhoto=true;
-    $scope.buyer_idCardFront=true;
-    $scope.buyer_idCardBg=true;
-    $scope.buyer_fingerprintImg=true;
-    $scope.buyer_businessCert=true;
-    $scope.buyer_businessCertBg=true;
+
     $scope.toggle_buyer=function(){
         $scope.tableColumns=[];
         $scope.tableColumns.push($scope.tableColumns_buyer_save[0]);
@@ -148,10 +190,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.vehicle.registrationCertBg.id}}' style='width: 100%;'/>",title:"登记证书末页",width:10}
     ];
     $scope.tableColumns_car=$scope.tableColumns;
-    $scope.vehicleCert=true;
-    $scope.vehicleCertBg=true;
-    $scope.vehicle_registrationCert=true
-    $scope.vehicle_registrationCertBg=true;
+
     $scope.toggle_car=function(){
         $scope.tableColumns=[];
         $scope.tableColumns.push($scope.tableColumns_car_save[0]);
@@ -173,10 +212,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
         {template:"<img ng-src='common/download/{{row.transferProxy.id}}' style='width: 100%;'/>",title:"商户车辆转让协议",width:10}
     ];
-    $scope.vehicle_gongZheng=true;
-    $scope.vehicle_buyerEntrustBook=true;
-    $scope.vehicle_bill=true;
-    $scope.vehicle_transferProxy=true;
+
     $scope.toggle_other=function(){
         $scope.tableColumns=[];
         $scope.tableColumns.push({template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'}
@@ -196,12 +232,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.sellerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"卖方委托人证件反面",width:10},
         {template:"<img ng-src='common/download/{{row.vehicle.entrustBook.id}}' style='width: 100%;'/>",title:"卖方委托书",width:10}
     ];
-    //卖方委托人复选框勾选情况 （true勾选，false不勾选）
-      $scope.sellerTrustor_regPhoto=true;
-      $scope.sellerTrustor_fingerprintImg=true;
-      $scope.sellerTrustor_idCardFront=true;
-      $scope.sellerTrustor_idCardBg=true;
-      $scope.vehicle_entrustBook=true;
+
      $scope.toggle_sellerTrustor=function(){
          $scope.tableColumns=[];
          $scope.tableColumns.push($scope.tableColumns_sellerTrustor_save[0]);
@@ -231,12 +262,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.buyerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"买方委托人证件反面",width:10},
         {template:"<img ng-src='common/download/{{row.vehicle.buyerEntrustBook.id}}' style='width: 100%;'/>",title:"买方委托书",width:10}
     ];
-    //买方委托人复选框勾选情况 （true勾选，false不勾选）
-    $scope.buyerTrustor_regPhoto=true;
-    $scope.buyerTrustor_fingerprintImg=true;
-    $scope.buyerTrustor_idCardFront=true;
-    $scope.buyerTrustor_idCardBg=true;
-    $scope.vehicle_entrustBook=true;
+
     $scope.toggle_buyTrustor=function(){
         $scope.tableColumns=[];
         $scope.tableColumns.push($scope.tableColumns_buyTrustor_save[0]);
@@ -269,13 +295,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.notarizationFile6.id}}' style='width: 100%;'/>",title:"公证书第六页",width:10},
     ];
     $scope.tableColumns_notarizationFile_save=$scope.tableColumns_notarizationFile;
-     //公证书复选框勾选情况；（true勾选，false不勾选）
-       $scope.notarizationFile1=true;
-       $scope.notarizationFile2=true;
-       $scope.notarizationFile3=true;
-       $scope.notarizationFile4=true;
-       $scope.notarizationFile5=true;
-       $scope.notarizationFile6=true;
+
        $scope.toggle_notarizationFile=function(){
            $scope.tableColumns=[];
            $scope.tableColumns.push($scope.tableColumns_notarizationFile[0]);
@@ -309,9 +329,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         {template:"<img ng-src='common/download/{{row.vat5.id}}' style='width: 100%;'/>",title:"增值税发票第五张",width:10},
         {template:"<img ng-src='common/download/{{row.vat6.id}}' style='width: 100%;'/>",title:"增值税发票第六张",width:10}
     ];
-    //增值税发票复选框勾选情况（true勾选，false不勾选）
-      $scope.vat1=true; $scope.vat2=true; $scope.vat3=true;
-      $scope.vat4=true; $scope.vat5=true; $scope.vat6=true;
+
       $scope.toggle_vat=function(){
           $scope.tableColumns=[];
           $scope.tableColumns.push($scope.tableColumns_vat[0]);
@@ -368,9 +386,12 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     }
     //下拉框默认选择
     $scope.type_pager='99';
+
     //选择查看图片类型下拉框的change事件
     $scope.select=function(x){
+
         $scope.tableColumns=[];
+        $scope.init_showCheckbox();
         if(x==99){
             //复选框全部隐藏
             $scope.seller=false; $scope.buyer=false;  $scope.car=false;$scope.other=false;$scope.seller_private=false;
@@ -426,6 +447,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
             $scope.tableColumns=$scope.tableColumns_car_save;
         }
         if(x==4){
+
             $scope.seller_note=false;//卖家
             //复选框变化
             $scope.seller=false; $scope.buyer=false;  $scope.car=false;$scope.other=true;
