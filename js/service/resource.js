@@ -51,4 +51,7 @@ module.exports = function (app) {
         })
     }])
 
+    app.factory("Archives", ["$resource", function ($resource) {
+        return $resource('/trans/seller/review')
+    }])
 }
