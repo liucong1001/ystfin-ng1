@@ -1,0 +1,32 @@
+<style>
+    .car{
+        margin-top: 8px;
+        font-weight: bolder;
+    }
+</style>
+<div>
+    <br/>
+     <div class="row">
+         <div class="col-md-2 text-right car" >输入车牌号：</div>
+         <div class="col-md-3">
+             <input type="text"   ng-model="plateNumber" ng-keyup="keyUp($event)" placeholder="请输入车牌号后回车"    class="form-control" />
+         </div>
+     </div>
+    <br/>
+    <table class="table table-striped">
+        <thead>
+        <tr> <th>序号</th> <th>流水号</th><th>状态</th></tr></thead>
+        <tbody>
+        <tr ng-repeat="r in records">
+            <td><span ng-bind = "$index+1"></span></td>
+            <td>{{r.plateNumber}}</td>
+            <td>
+                    <span class="label label-{{status[r.plateNumber].css}}">
+                    {{status[r.plateNumber].text}}
+                    </span>&nbsp;
+                <a href="" ng-click="cancel(r.plateNumber)"><span class="glyphicon-remove glyphicon"></span> 取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
