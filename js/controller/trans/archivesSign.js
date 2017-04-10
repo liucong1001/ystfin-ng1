@@ -3,7 +3,7 @@
  */
 var app = require("../../ngcommon");
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/archives/Sign',
+    $routeProvider.when('/archives/sign',
         {
             controller:"archivesSign",
             template:require("./html/archives/archivesSign.html")
