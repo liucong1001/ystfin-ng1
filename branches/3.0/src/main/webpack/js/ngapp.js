@@ -66,6 +66,12 @@ require("./controller/system/modify/roleform")
 //绩效考核
 require("./controller/system/kpi/kpi")
 
+//提档地（trans）
+require("./controller/trans/page")
+require("./controller/trans/archivesArrive")
+require("./controller/trans/archivesSign")
+
+
 
 
 
