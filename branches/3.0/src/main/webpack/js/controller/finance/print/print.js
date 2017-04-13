@@ -91,6 +91,10 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             });
         })
     };
+    //
+    $scope.sel=function(x){
+        console.log("日期"+x);
+    }
     // 保存打印选择
     $scope.saveSelectedPrinter = function () {
         $printer.setSelected($scope.selectedPrinter);
@@ -98,6 +102,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     // 获取当前发票号
     $bill.get({action:"next"},function (next) {
         $scope.nextBillNo = next.billNo;
+        $scope.lastBill=next.lastBill;
     })
     //获取开票时间
     $scope.billDate = new Date();
@@ -128,6 +133,30 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     //流水号改变
     $scope.numchange=function(){
         $scope.trans = undefined;
+    }
+    //定义修改之前的发票号
+    $scope.billNoSave=$scope.billNo;
+   $scope.saveBill=function(){
+       $http.post('/updateBillNo',$scope.billNo).success(function(data){
+           alert("数据保存成功");
+           $scope.top=true;  //返回 数据清空
+           $scope.bottomback=false;
+           $scope.archivesNo='';
+
+       });
+    }
+
+    $scope.ReturnBill=function() {
+        var bill = new $bill();
+        bill.$save({
+            action: "/returnLastBill",
+            billNo: $scope.billNo,
+            lastBill: $scope.lastBill
+        }, function (result) {
+            $scope.top = false;
+            $scope.bottomback = true;
+            $scope.archivesNo='';
+        });
     }
 
 }])
