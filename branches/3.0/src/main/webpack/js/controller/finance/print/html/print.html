@@ -151,21 +151,22 @@
         </div>
         <div class="row text-center" ng-show="bottom" >
             <h3>
-                 上一张发票号码是 <span ng-model="lastBill"></span>
+                 上一张发票号码是: <span ng-model="lastBill"></span>
                 发票打印成功，发票号码是:
                 <!--input修改-->
-                   <form editable-form name="editableForm">
+                   <form editable-form name="editableForm" onsubmit="saveBill()">
                     <div>
-                        <span editable-text="user.name" e-name="name" onbeforesave="checkName($data)" e-required>{{ billNo || 'empty' }}</span>
+                         修改之前的号码：<span ng-model="billNoSave"></span>
+                        <span editable-text="user.name" e-name="name" onbeforesave="checkName($data)" e-required>{{ billNo }}</span>
                     </div>
                     <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
                         修改发票号
                     </button>
-                      <button type="button" class="btn btn-default">
+                      <button type="button" class="btn btn-default" ng-click="ReturnBill()">
                           打印失败回退
                       </button>
                       <span  ng-show="editableForm.$visible">
-                           <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting" ng-click="">
+                           <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting" >
                                保存
                            </button>
                          <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
