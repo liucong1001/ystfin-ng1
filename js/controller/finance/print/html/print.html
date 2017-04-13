@@ -5,6 +5,7 @@
             <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
         </div>
         <h3>打印发票</h3>
+
         <div class="row">
             <div class="col-md-4">
                 <label>流水号：</label>
@@ -143,7 +144,7 @@
                 </div>
                 <div class="bill-date"><span>开票日期：</span>
                     <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></a>
-                    <input type="text" style="width:200px;" ng-click="dateOpened = true" current-text="今天" clear-text="清空" uib-datepicker-popup="yyyy年M月d日" ng-model="billDate" is-open="dateOpened" datepicker-options="dateOptions" ng-required="true" close-text="隐藏" pattern="^/d{8}&" />
+                    <input type="text"  ng-change="sel(billDate)" style="width:200px;" ng-click="dateOpened = true" current-text="今天" clear-text="清空" uib-datepicker-popup="yyyy年M月d日" ng-model="billDate" is-open="dateOpened" datepicker-options="dateOptions" ng-required="true" close-text="隐藏" pattern="^/d{8}&" />
                 </div>
                 <div class="bill-no">发票号码(<span class="text-danger">将要使用</span>)：<input ng-model="nextBillNo" required maxlength="8"/></div>
             </div>
@@ -151,7 +152,24 @@
         <div class="row text-center" ng-show="bottom" >
             <h3>
                 发票打印成功，发票号码是:
-                <input type="text" ng-model="billNo"/>
+                <!--input修改-->
+                   <form editable-form name="editableForm">
+                    <div>
+                        <span editable-text="user.name" e-name="name" onbeforesave="checkName($data)" e-required>{{ billNo || 'empty' }}</span>
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                        修改发票号
+                    </button>
+                      <span  ng-show="editableForm.$visible">
+                           <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+                               保存
+                           </button>
+                         <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                             取消
+                         </button>
+                      </span>
+                </form>
+                <!--end-->
             </h3>
         </div>
         <div class="row text-center" ng-show="bottomback" >
