@@ -104,6 +104,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         $scope.nextBillNo = next.billNo;
         $scope.lastBill=next.lastBill;
     })
+
     //获取开票时间
     $scope.billDate = new Date();
 
