@@ -136,17 +136,17 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         $scope.trans = undefined;
     }
     //定义修改之前的发票号
-    $scope.billNoSave=$scope.billNo;
+    //$scope.billNoSave=$scope.billNo;
    $scope.saveBill=function(){
-       $http.post('/updateBillNo',$scope.billNo).success(function(data){
-           alert("数据保存成功");
-           $scope.top=true;  //返回 数据清空
-           $scope.bottomback=false;
-           $scope.archivesNo='';
+       var bill = new $bill();
+       bill.$save({
+           action: "/updateBillNo",
+           billNo:$scope.nextBillNo ,
+           newNo: $scope.billNo
+       }, function (result) {
 
        });
-    }
-
+   };
     $scope.ReturnBill=function() {
         var bill = new $bill();
         bill.$save({
@@ -158,6 +158,10 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             $scope.bottomback = true;
             $scope.archivesNo='';
         });
+    }
+    //定义编辑修改发票号
+    $scope.print={
+        BillNo:$scope.nextBillNo
     }
 
 }])
