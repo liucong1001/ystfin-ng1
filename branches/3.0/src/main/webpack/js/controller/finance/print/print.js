@@ -101,7 +101,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     }
     // 获取当前发票号
     $bill.get({action:"next"},function (next) {
-        $scope.nextBillNo = next.billNo;
+        $scope.nextBillNo = next.nextBillNo;
         $scope.lastBill=next.lastBill;
     })
 
