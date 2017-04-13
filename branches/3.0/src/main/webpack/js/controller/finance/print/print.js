@@ -20,6 +20,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     // 初始化打印控件
     $printer.init()
     $scope.gconfig = gconfig;
+    $scope.num = "";
     // 根据流水号读取
     $scope.$watch("archivesNo",function (newVal,oldVal) {
         if(newVal){
@@ -84,10 +85,11 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             bill.billType = billType;
             // 用户修改的车类型
             bill.vehicle.vehicleType = $scope.selectedCarType.code;
-            bill.$save({action:"print",billNo:$scope.obj.billnum,nextBill:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
+            bill.$save({action:"print",billNo:$scope.obj.billnum,nextBillNo:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
                 $scope.billNo = result.billNo;
                 $scope.top=false;
                 $scope.bottom=true;
+                $scope.newNo =$scope.nextBillNo;
             });
         })
     };
@@ -136,32 +138,28 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         $scope.trans = undefined;
     }
     //定义修改之前的发票号
-    //$scope.billNoSave=$scope.billNo;
-   $scope.saveBill=function(){
-       var bill = new $bill();
-       bill.$save({
-           action: "/updateBillNo",
-           billNo:$scope.nextBillNo ,
-           newNo: $scope.billNo
-       }, function (result) {
 
-       });
-   };
-    $scope.ReturnBill=function() {
+    $scope.saveBill=function(){
         var bill = new $bill();
         bill.$save({
-            action: "/returnLastBill",
-            billNo: $scope.billNo,
+            action: "updateBillNo",
+            nextBillNo:$scope.nextBillNo ,
+            newNo: $scope.newNo
+        }, function (result) {
+
+        });
+    };
+    $scope.returnBill=function() {
+        var bill = new $bill();
+        bill.$save({
+            action: "returnLastBill",
+            nextBillNo: $scope.nextBillNo,
             lastBill: $scope.lastBill
         }, function (result) {
             $scope.top = false;
             $scope.bottomback = true;
             $scope.archivesNo='';
         });
-    }
-    //定义编辑修改发票号
-    $scope.print={
-        BillNo:$scope.nextBillNo
     }
 
 }])
