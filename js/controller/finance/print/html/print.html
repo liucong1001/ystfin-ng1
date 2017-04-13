@@ -4,7 +4,7 @@
             <span>选择打印机：</span>
             <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
         </div>
-        <h3>打印发票</h3>
+        <h3>打印发票 </h3>
 
         <div class="row">
             <div class="col-md-4">
@@ -151,12 +151,12 @@
         </div>
         <div class="row text-center" ng-show="bottom" >
             <h3>
-                 上一张发票号码是: <span ng-model="lastBill"></span>
+                 上一张发票号码是: <input ng-model="lastBill"/>
                 发票打印成功，发票号码是:
                 <!--input修改-->
                    <form editable-form name="editableForm" onsubmit="saveBill()">
                     <div>
-                         修改之前的号码：<span ng-model="billNoSave"></span>
+                         修改之前的号码：<input ng-model="billNoSave"> </input>
                         <span editable-text="user.name" e-name="name" onbeforesave="checkName($data)" e-required>{{ billNo }}</span>
                     </div>
                     <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
