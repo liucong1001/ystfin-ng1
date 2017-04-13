@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading container-fluid">
+    <div  ng-show="top" class="panel-heading container-fluid">
         <div class="pull-right">
             <span>选择打印机：</span>
             <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
@@ -151,6 +151,7 @@
         </div>
         <div class="row text-center" ng-show="bottom" >
             <h3>
+                 上一张发票号码是 <span ng-model="lastBill"></span>
                 发票打印成功，发票号码是:
                 <!--input修改-->
                    <form editable-form name="editableForm">
@@ -160,8 +161,11 @@
                     <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
                         修改发票号
                     </button>
+                      <button type="button" class="btn btn-default">
+                          打印失败回退
+                      </button>
                       <span  ng-show="editableForm.$visible">
-                           <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+                           <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting" ng-click="">
                                保存
                            </button>
                          <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
