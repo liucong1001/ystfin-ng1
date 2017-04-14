@@ -24,7 +24,7 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
                     $scope.archivesNo = data.archivesNo;
                     getArchives($scope.archivesNo);
                 },function (err) {
-                    $scope.status[record.archivesNo] = {text:"提交失败",css:"danger"}
+                    $scope.status[record.archivesNo] = {text:"签收失败",css:"danger"}
                 });
             } else {
                 getArchives($scope.archivesNo);
@@ -33,22 +33,22 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
     };
     function getArchives(arg) {
         var record = new archives({archivesNo:arg,status:"3"});
-        $scope.status[$scope.archivesNo] = {text:"正在提交",css:"default"};
+        $scope.status[$scope.archivesNo] = {text:"正在签收",css:"default"};
         record.$save().then(function () {
             $scope.status[record.archivesNo] = {text:"已签收",css:"success"};
             $scope.count +=1;
             $scope.plate_number=false;
             $scope.plateNumber = "鄂A";
         },function (err) {
-            $scope.status[record.archivesNo] = {text:"提交失败",css:"danger"}
+            $scope.status[record.archivesNo] = {text:"签收失败",css:"danger"}
         })
         $scope.records[record.archivesNo] = record;
         $scope.archivesNo = "";
     }
     $scope.cancel = function (archivesNo) {
         var record = $scope.records[archivesNo]
-        if($scope.status[archivesNo].text == "通过"){
-            $scope.status[archivesNo] = {text:"正在移除...",css:"default"}
+        if($scope.status[archivesNo].text == "已签收"){
+            $scope.status[archivesNo] = {text:"正在取消...",css:"default"}
             record.status = "4";
             record.$save().then(function () {
                 delete $scope.records[archivesNo]
@@ -56,7 +56,7 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
                     $scope.count -=1;
                 }
             },function (err) {
-                $scope.status[record.archivesNo] = {text:"移除失败",css:"danger"}
+                $scope.status[record.archivesNo] = {text:"取消失败",css:"danger"}
             })
         }else{
             delete $scope.records[archivesNo]
