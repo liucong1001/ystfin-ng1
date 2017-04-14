@@ -23,7 +23,7 @@ app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",fu
             console.log($scope.plateNumber);
             $scope.status[$scope.plateNumber] = {text:"正在录入",css:"default"}
             record.$save().then(function () {
-                $scope.status[record.plateNumber] = {text:"成功",css:"success"}
+                $scope.status[record.plateNumber] = {text:"已回档",css:"success"}
                 $scope.count +=1;
             },function (err) {
                 $scope.status[record.plateNumber] = {text:"录入失败",css:"danger"}
@@ -35,7 +35,7 @@ app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",fu
     }
     $scope.cancel = function (plateNumber) {
         var record = $scope.records[plateNumber]
-        if($scope.status[plateNumber].text == "成功"){
+        if($scope.status[plateNumber].text == "已回档"){
             $scope.status[plateNumber] = {text:"正在移除...",css:"default"}
             record.status = "0";
             record.$save().then(function () {
