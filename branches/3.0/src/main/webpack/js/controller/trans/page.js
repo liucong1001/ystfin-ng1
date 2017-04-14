@@ -39,4 +39,9 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     ];
     //定义查询对象
     $scope.searchinfo={};
+    $scope.SearchDate=function(time){
+        $scope.searchinfo.arriveTime=$filter('date')(time,'yyyy-MM-dd ');
+        console.log($scope.searchinfo.arriveTime);
+        $scope.ngTable.reload();
+    };
 }]);
