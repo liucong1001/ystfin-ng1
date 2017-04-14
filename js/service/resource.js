@@ -52,7 +52,7 @@ module.exports = function (app) {
     }])
 
     app.factory("Archives", ["$resource", function ($resource) {
-        return $resource('/archives/:id',null,{
+        return $resource('/archives/:action/:id',null,{
             update:{method: 'PUT'}
         })
     }])
