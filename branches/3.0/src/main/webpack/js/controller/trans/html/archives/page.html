@@ -6,12 +6,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-3">
-                <!--<div class="toolbar btn-group" ng-click="jump('/system/managerform')">-->
-                    <!--<button id="addUser" type="button" class="btn btn-default"><span class="icon-plus"></span><span>添加用户</span></button>-->
-                <!--</div>-->
-            </div>
-            <div class="col-md-9" style="text-align: right;" id="userFilters" data-auto="true">
+
+            <div class="col-md-12" style="text-align: right;" id="userFilters" data-auto="true">
                 <form class="form-inline" ng-submit="ngTable.reload()">
                     <div class="form-group">
                         <input name="userName" ng-model="searchinfo.archivesNo" type="text" class="form-control" placeholder="流水号" autocomplete="off">
@@ -19,6 +15,14 @@
                     <div class="form-group">
                         <input name="loginName" ng-model="searchinfo.plateNumber"  type="text" class="form-control" placeholder="车牌号" autocomplete="off">
                     </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="达到时间"   ng-model="arriveTime"  ng-change="SearchDate(arriveTime)"
+                               datepicker-options="dateOptions"  ng-click="dateOpened4 = true" current-text="今天"
+                               clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened4"
+                               close-text="隐藏" alt-input-formats="altInputFormats"
+                               class="form-control"/>
+                    </div>
+
                     <div class="form-group">
 
                         <div class="form-group control-group">
