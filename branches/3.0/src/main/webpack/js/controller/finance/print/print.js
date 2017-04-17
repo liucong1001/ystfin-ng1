@@ -16,7 +16,7 @@ app.config(["$routeProvider",function($routeProvider){
         }
     })
 }])
-app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location", function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location) {
+app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location", "$routeParams",function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location,$routeParams) {
     // 初始化打印控件
     $printer.init()
     $scope.gconfig = gconfig;
@@ -36,9 +36,9 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                     $scope.billDate=dt;
                 }else{
                     $scope.obj={
-                    billnum:null
+                        billnum:null
+                    }
                 }
-            }
             });
             $trans.get({archivesNo:$scope.archivesNo},function (trans) {
                 $scope.trans = trans
@@ -87,9 +87,8 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             bill.vehicle.vehicleType = $scope.selectedCarType.code;
             bill.$save({action:"print",billNo:$scope.obj.billnum,nextBillNo:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
                 $scope.billNo = result.billNo;
-                $scope.top=false;
-                $scope.bottom=true;
                 $scope.newNo =$scope.nextBillNo;
+                $location.path('/finance/printSuccess').search({newNo: $scope.nextBillNo,lastBill:$scope.lastBill,billNo:$scope.billNo});
             });
         })
     };
@@ -104,6 +103,13 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     // 获取当前发票号
     $bill.get({action:"next"},function (next) {
         $scope.nextBillNo = next.nextBillNo;
+
+        //$scope.nextBillNo=$routeParams.nextBillNo;
+     //if($routeParams!=null){
+     //    $scope.nextBillNo=$routeParams.nextBillNo;
+     //}else{
+     //    $scope.nextBillNo = next.nextBillNo;
+     //}
         $scope.lastBill=next.lastBill;
     })
 
@@ -119,8 +125,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.remove = function () {
         var bill = new $bill($scope.trans);
         bill.$save({action:"remove",billNo:$scope.obj.billnum}).then(function (result) {
-            $scope.top=false;
-            $scope.bottomback=true;
+            $location.path('/finance/remove')
         });
     };
 
@@ -128,8 +133,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.back = function () {
         var bill = new $bill($scope.trans);
         bill.$save({action:"back",billNo:$scope.obj.billnum}).then(function (result) {
-            $scope.top=false;
-            $scope.bottomback=true;
+            $location.path('/finance/remove')
         });
     };
 
@@ -154,12 +158,12 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         bill.$save({
             action: "returnLastBill",
             nextBillNo: $scope.nextBillNo,
-            lastBill: $scope.lastBill
+            lastBill: $scope.lastBill,
+            billNo:$scope.billNo
         }, function (result) {
-            $scope.top = false;
-            $scope.bottomback = true;
-            $scope.archivesNo='';
+            $location.path('/finance/remove');
         });
     }
+    //点击页面返回
 
 }])

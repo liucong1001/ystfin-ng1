@@ -1,0 +1,63 @@
+<style>
+    .sucessPrint{
+        font-size: 1.5rem;
+    }
+    .successNewNo{
+        font-size: 2rem;
+        font-weight: bolder;
+        color: #DD1146;
+    }
+    .tipError{
+        margin-left: 29%;
+        padding: 10px 20px;
+        border: 1px solid black;
+        width: 40%;
+        border-radius: 5%;
+    }
+    .link{
+        cursor: pointer;
+    }
+</style>
+<div class="panel panel-default">
+
+    <div>
+        <div class="row text-center"  >
+            <span class="sucessPrint ">发票打印成功，发票号码是:</span>
+            <!--input修改-->
+            <form editable-form name="editableForm" onaftersave = "saveBill($data)">
+                <div>
+                    <span editable-text="newNo" e-name="newNo" class="successNewNo" onbeforesave="checkName($data)" e-required>{{newNo}}</span>
+                        <span>（
+                        <span >票号错误</span>
+                        <a class="link" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                            修改
+                        </a>
+                              <span  ng-show="editableForm.$visible">
+                                  <button type="submit" class="btn btn-primary"   ng-disabled="editableForm.$waiting">
+                                      保存
+                                  </button>
+                                 <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                                     取消
+                                 </button>
+                             </span>
+                            ）</span>
+                    <br/>
+                </div>
+                <br/> <br/>
+                <button ng-click="back()" class="btn">继续打票</button>
+                <div class="panel-body">
+                    <div class="tipError">
+                        <p class="text-left">请仔细核对发票号是否正确？如有错误，请执行以下操作：</p>
+                        <div class="text-left">
+                            <span >打印失败,我要</span>
+                            <a  class="link" ng-click="returnBill()">
+                                回退
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br/>
+        </div>
+    </div>
+</div>
