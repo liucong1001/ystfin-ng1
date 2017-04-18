@@ -26,6 +26,7 @@ app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",fu
                 $scope.status[record.plateNumber] = {text:"已回档",css:"success"}
                 $scope.count +=1;
             },function (err) {
+                $scope.message = err.data.message;
                 $scope.status[record.plateNumber] = {text:"录入失败",css:"danger"}
             })
             $scope.records[record.plateNumber] = record
