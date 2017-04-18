@@ -12,7 +12,7 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }])
 app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",function($scope,$params,$rootScope,archives){
-    $rootScope.subTitle = "提档资料录入";
+    $rootScope.subTitle = "提档档案录入";
     $scope.records = {};
     $scope.status = {};
     $scope.plateNumber = "鄂A";
