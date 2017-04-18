@@ -11,8 +11,8 @@
     <div class="panel-body" >
         <form action="" ng-submit="ngTable.reload()">
              <div class="row" data-auto="true"  id="userFilters" >
-                 <div class="col-xs-3"><input class="form-control " ng-model="filter.archivesNo" placeholder="流水号(模糊匹配)" /></div>
-                 <div class="col-xs-2"><input type="text" class="form-control " ng-model="filter['vehicle.plateNumber']" placeholder="车牌号" /></div>
+                 <div class="col-xs-3"><input class="form-control " ng-model="filter.archivesNo"   ng-change="ngTable.reload()" placeholder="流水号(模糊匹配)" /></div>
+                 <div class="col-xs-2"><input type="text" class="form-control "  ng-model="filter['vehicle.plateNumber']" ng-change="ngTable.reload()" placeholder="车牌号" /></div>
                  <div class="col-xs-2">
                      <select name=""  class="form-control " ng-model="filter.billStatus" ng-change="ngTable.reload()" >
                          <option value="">开票状态</option>
@@ -21,7 +21,7 @@
                      </select>
                  </div>
                  <div class="col-xs-3 ">
-                     <button class="btn btn-success "  type="button" ng-click="ngTable.reload()" ><span class="glyphicon glyphicon-search"></span> 查询</button>
+                     <button class="btn btn-success "  type="button" ng-click="BtnSearch()" ><span class="glyphicon glyphicon-search"></span> 查询</button>
                  </div>
                  <div class="col-xs-2">
                      <select ng-show="select_carType"  class="form-control " ng-model="type_attr" ng-change="select_attr(type_attr)">
@@ -34,21 +34,21 @@
             <br/>
             <div class="row">
                 <div class="col-md-2">
-                    <input type="text " placeholder="成交起始日期"   ng-model="startDate"  ng-change="changetime()"
+                    <input type="text " placeholder="成交起始日期"   ng-model="startDate"  ng-change="Deal()"
                            datepicker-options="dateOptions"  ng-click="dateOpened = true" current-text="今天"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
                            close-text="隐藏" alt-input-formats="altInputFormats"
                            class="form-control "/>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" placeholder="成交截止日期"   ng-model="endDate"  ng-change="changetime()"
+                    <input type="text" placeholder="成交截止日期"   ng-model="endDate"  ng-change="Deal()"
                            datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
                            close-text="隐藏" alt-input-formats="altInputFormats"
                            class="form-control "/>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" placeholder="入库审核起始日"   ng-model="rukuStartDate"  ng-change="changetime()"
+                    <input type="text" placeholder="入库审核起始日期"   ng-model="rukuStartDate"  ng-change="PutStorage()"
                            datepicker-options="dateOptions"  ng-click="dateOpened3 = true" current-text="今天"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened3"
                            close-text="隐藏" alt-input-formats="altInputFormats"
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <input type="text" placeholder="入库审核截止日"   ng-model="rukuEndDate"  ng-change="changetime()"
+                    <input type="text" placeholder="入库审核截止日期"   ng-model="rukuEndDate"  ng-change="PutStorage()"
                            datepicker-options="dateOptions"  ng-click="dateOpened4 = true" current-text="今天"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened4"
                            close-text="隐藏" alt-input-formats="altInputFormats"
@@ -73,22 +73,22 @@
             <br/>
             <div class="row">
                   <div class="col-md-2">
-                    <input type="text" placeholder="入库操作员"  ng-model="filter['createUser.userName']" class="form-control "/>
+                    <input type="text" placeholder="入库操作员"  ng-change="ngTable.reload()" ng-model="filter['createUser.userName']" class="form-control "/>
                   </div>
                   <div class="col-md-2">
-                    <input type="text" placeholder="出库操作员"  ng-model="filter['putOutUser.userName']" class="form-control "/>
+                    <input type="text" placeholder="出库操作员"  ng-change="ngTable.reload()" ng-model="filter['putOutUser.userName']" class="form-control "/>
                    </div>
                    <div class="col-md-2">
-                       <input type="text" placeholder="入库审核员" ng-model="filter['inReviewUser.userName']"  class="form-control "/>
+                       <input type="text" placeholder="入库审核员" ng-change="ngTable.reload()" ng-model="filter['inReviewUser.userName']"  class="form-control "/>
                    </div>
                    <div class="col-md-2">
-                    <input type="text" placeholder="出库审核员" ng-model="filter['outReviewUser.userName']" class="form-control "/>
+                    <input type="text" placeholder="出库审核员" ng-change="ngTable.reload()" ng-model="filter['outReviewUser.userName']" class="form-control "/>
                    </div>
                 <div class="col-md-2">
-                    <input type="text" placeholder="商户编号" ng-model="filter['staff.dealers.loginName']" class="form-control "/>
+                    <input type="text" placeholder="商户编号" ng-change="ngTable.reload()" ng-model="filter['staff.dealers.loginName']" class="form-control "/>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" placeholder="商户名称" ng-model="filter['staff.dealers.name']" class="form-control "/>
+                    <input type="text" placeholder="商户名称" ng-change="ngTable.reload()" ng-model="filter['staff.dealers.name']" class="form-control "/>
                 </div>
             </div>
             <br/>
@@ -105,20 +105,6 @@
                         <option value="6">增值税发票</option>
                         <option value="4">其他</option>
                     </select>
-                </div>
-                <!--<div >-->
-                <!--</div>-->
-                <div ng-show="seller">
-                    <label > 卖家图像</label>  <input type="checkbox"  ng-model="seller_regPhoto" ng-change="toggle()"/>
-                    <label > 组织机构正面</label>  <input type="checkbox" ng-model="seller_idCardFront" ng-change="toggle()" />
-                    <label >组织机构反面</label>  <input type="checkbox" ng-model="seller_idCardBg" ng-change="toggle()"/>
-                    <label > 卖家指纹</label>  <input type="checkbox"  ng-model="seller_fingerprintImg" ng-change="toggle()"/>
-                </div>
-                <div ng-show="seller_private">
-                    <label >卖家个人图像</label> <input type="checkbox" ng-model="seller_regPhotoi" ng-change="toggle_sellPrivate()"/>
-                    <label >卖家身份证(正)</label> <input type="checkbox" ng-model="seller_idCardFronti" ng-change="toggle_sellPrivate()"/>
-                    <label >卖家身份证(反)</label> <input type="checkbox" ng-model="seller_idCardBgi" ng-change="toggle_sellPrivate()"/>
-                    <label >卖家个人指纹</label> <input type="checkbox" ng-model="seller_fingerprintImgi" ng-change="toggle_sellPrivate()"/>
                 </div>
                 <div ng-show="seller_note">
                     <!--<span style="color:red">请先选择“车辆使用类型”</span>-->
