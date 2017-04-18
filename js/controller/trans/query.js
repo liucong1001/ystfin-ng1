@@ -13,65 +13,24 @@ app.config(["$routeProvider",function($routeProvider){
 }])
 
 app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
-    //$scope.tableColumns = [
-    //    {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'}
-    //];
-
     $scope.tableColumns_nav=$scope.tableColumns;
-    $scope.tableColumns_save=[
-        {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.seller.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"卖家用户图像",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"组织机构正面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构反面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"指纹",width:10 }
-    ];
     //卖家复选框默认勾选上的项 true显示 false隐藏
     $scope.seller_regPhoto=true;
     $scope.seller_idCardFront=true;
     $scope.seller_idCardBg=true;
     $scope.seller_fingerprintImg=true;
-    $scope.toggle=function(){
-        $scope.tableColumns=[];
-        $scope.tableColumns.push({template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'});
-        if($scope.seller_regPhoto==true){
-            $scope.tableColumns.push({template:"<img ng-src='common/download/{{row.seller.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"卖家用户图像",width:10});
-        }
-        if($scope.seller_idCardFront==true){
-            $scope.tableColumns.push({template:"<img ng-src='common/download/{{row.seller.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"组织机构正面",width:10}
-            );
-        }
-        if( $scope.seller_idCardBg==true){
-            $scope.tableColumns.push({template:"<img ng-src='common/download/{{row.seller.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构反面",width:10}
-            );
-        }
-        if($scope.seller_fingerprintImg==true){
-            $scope.tableColumns.push({template:"<img ng-src='common/download/{{row.seller.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"指纹",width:10 }
-            );
-        }
-    };
-    $scope.tableColumns_private=[
-        {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.seller.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人图像",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证正面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证反面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人指纹",width:10 },
-    ];
-    //卖家分页数组（无车类型下拉框）
     $scope.tableColumns_note=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.seller.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人图像",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证正面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证反面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人指纹",width:10 },
-        {template:"<img ng-src='common/download/{{row.seller.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构正面",width:10},
-        {template:"<img ng-src='common/download/{{row.seller.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构反面",width:10}
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人图像",width:10},
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证正面",width:10},
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"卖家身份证反面",width:10},
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"卖家个人指纹",width:10 },
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构正面",width:10},
+        {template:"<img ng-img-view=''  ng-src='common/download/{{row.seller.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构反面",width:10}
     ];
     $scope.tableColumns=$scope.tableColumns_note;
     //卖家个人（true勾选，false不勾选）
     $scope.seller_note=true;
-
-
-
     $scope.init_showCheckbox=function(){
         //卖家
         $scope.show=true;
@@ -153,12 +112,12 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     //买家  公车:组织机构证书 图像 指纹  个人：身份证正反 图像 指纹
     $scope.tableColumns_buyer_save=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.buyer.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"买家用户图像",width:10},
-        {template:"<img ng-src='common/download/{{row.buyer.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"身份证正面",width:10},
-        {template:"<img ng-src='common/download/{{row.buyer.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"身份证反面",width:10},
-        {template:"<img ng-src='common/download/{{row.buyer.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"指纹",width:10},
-        {template:"<img ng-src='common/download/{{row.buyer.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(正)",width:10},
-        {template:"<img ng-src='common/download/{{row.buyer.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(反)",width:10}
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.regPhoto.id}}' style='width: 100%;height: 160px'/>",title:"买家用户图像",width:10},
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.idCardFront.id}}' style='width: 100%;height: 160px'/>",title:"身份证正面",width:10},
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.idCardBg.id}}' style='width: 100%;height: 160px'/>",title:"身份证反面",width:10},
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.fingerprintImg.id}}' style='width: 100%;height: 160px'/>",title:"指纹",width:10},
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.businessCert.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(正)",width:10},
+        {template:"<img  ng-img-view='' ng-src='common/download/{{row.buyer.businessCertBg.id}}' style='width: 100%;height: 160px'/>",title:"组织机构证书(反)",width:10}
     ];
 
     $scope.toggle_buyer=function(){
@@ -186,10 +145,10 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     //车辆 （true勾选，false不勾选）
     $scope.tableColumns_car_save=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.vehicleCert.id}}' style='width: 100%;'/>",title:"行驶证正面",width:10},
-        {template:"<img ng-src='common/download/{{row.vehicleCertBg.id}}' style='width: 100%;'/>",title:"行驶证反面",width:10},
-        {template:"<img ng-src='common/download/{{row.vehicle.registrationCert.id}}' style='width: 100%;'/>",title:"登记证书首页",width:10},
-        {template:"<img ng-src='common/download/{{row.vehicle.registrationCertBg.id}}' style='width: 100%;'/>",title:"登记证书末页",width:10}
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicleCert.id}}' style='width: 100%;'/>",title:"行驶证正面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicleCertBg.id}}' style='width: 100%;'/>",title:"行驶证反面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicle.registrationCert.id}}' style='width: 100%;'/>",title:"登记证书首页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicle.registrationCertBg.id}}' style='width: 100%;'/>",title:"登记证书末页",width:10}
     ];
     $scope.tableColumns_car=$scope.tableColumns;
 
@@ -212,7 +171,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     //其他(字段名没改)  公证书，委托书， 增值税发票，
     $scope.tableColumns_other=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.transferProxy.id}}' style='width: 100%;'/>",title:"商户车辆转让协议",width:10}
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.transferProxy.id}}' style='width: 100%;'/>",title:"商户车辆转让协议",width:10}
     ];
 
     $scope.toggle_other=function(){
@@ -228,11 +187,11 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     $scope.tableColumns_sellerTrustor=$scope.tableColumns;
     $scope.tableColumns_sellerTrustor_save=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.sellerTrustor.regPhoto.id}}' style='width: 100%;'/>",title:"卖方委托人图像",width:10},
-        {template:"<img ng-src='common/download/{{row.sellerTrustor.fingerprintImg.id}}' style='width: 100%;'/>",title:"卖方委托人指纹",width:10},
-        {template:"<img ng-src='common/download/{{row.sellerTrustor.idCardFront.id}}' style='width: 100%;'/>",title:"卖方委托人证件正面",width:10},
-        {template:"<img ng-src='common/download/{{row.sellerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"卖方委托人证件反面",width:10},
-        {template:"<img ng-src='common/download/{{row.vehicle.entrustBook.id}}' style='width: 100%;'/>",title:"卖方委托书",width:10}
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.sellerTrustor.regPhoto.id}}' style='width: 100%;'/>",title:"卖方委托人图像",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.sellerTrustor.fingerprintImg.id}}' style='width: 100%;'/>",title:"卖方委托人指纹",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.sellerTrustor.idCardFront.id}}' style='width: 100%;'/>",title:"卖方委托人证件正面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.sellerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"卖方委托人证件反面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicle.entrustBook.id}}' style='width: 100%;'/>",title:"卖方委托书",width:10}
     ];
 
      $scope.toggle_sellerTrustor=function(){
@@ -258,11 +217,11 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     $scope.tableColumns_buyTrustor=$scope.tableColumns;
     $scope.tableColumns_buyTrustor_save=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.buyerTrustor.regPhoto.id}}' style='width: 100%;'/>",title:"买方委托人图像",width:10},
-        {template:"<img ng-src='common/download/{{row.buyerTrustor.fingerprintImg.id}}' style='width: 100%;'/>",title:"买方委托人指纹",width:10},
-        {template:"<img ng-src='common/download/{{row.buyerTrustor.idCardFront.id}}' style='width: 100%;'/>",title:"买方委托人证件正面",width:10},
-        {template:"<img ng-src='common/download/{{row.buyerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"买方委托人证件反面",width:10},
-        {template:"<img ng-src='common/download/{{row.vehicle.buyerEntrustBook.id}}' style='width: 100%;'/>",title:"买方委托书",width:10}
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.buyerTrustor.regPhoto.id}}' style='width: 100%;'/>",title:"买方委托人图像",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.buyerTrustor.fingerprintImg.id}}' style='width: 100%;'/>",title:"买方委托人指纹",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.buyerTrustor.idCardFront.id}}' style='width: 100%;'/>",title:"买方委托人证件正面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.buyerTrustor.idCardBg.id}}' style='width: 100%;'/>",title:"买方委托人证件反面",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vehicle.buyerEntrustBook.id}}' style='width: 100%;'/>",title:"买方委托书",width:10}
     ];
 
     $scope.toggle_buyTrustor=function(){
@@ -289,12 +248,12 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
      //公证书
     $scope.tableColumns_notarizationFile=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.notarizationFile1.id}}' style='width: 100%;'/>",title:"公证书第一页",width:10},
-        {template:"<img ng-src='common/download/{{row.notarizationFile2.id}}' style='width: 100%;'/>",title:"公证书第二页",width:10},
-        {template:"<img ng-src='common/download/{{row.notarizationFile3.id}}' style='width: 100%;'/>",title:"公证书第三页",width:10},
-        {template:"<img ng-src='common/download/{{row.notarizationFile4.id}}' style='width: 100%;'/>",title:"公证书第四页",width:10},
-        {template:"<img ng-src='common/download/{{row.notarizationFile5.id}}' style='width: 100%;'/>",title:"公证书第五页",width:10},
-        {template:"<img ng-src='common/download/{{row.notarizationFile6.id}}' style='width: 100%;'/>",title:"公证书第六页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile1.id}}' style='width: 100%;'/>",title:"公证书第一页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile2.id}}' style='width: 100%;'/>",title:"公证书第二页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile3.id}}' style='width: 100%;'/>",title:"公证书第三页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile4.id}}' style='width: 100%;'/>",title:"公证书第四页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile5.id}}' style='width: 100%;'/>",title:"公证书第五页",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.notarizationFile6.id}}' style='width: 100%;'/>",title:"公证书第六页",width:10},
     ];
     $scope.tableColumns_notarizationFile_save=$scope.tableColumns_notarizationFile;
 
@@ -324,12 +283,12 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     //增值税发票
     $scope.tableColumns_vat=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
-        {template:"<img ng-src='common/download/{{row.vat.id}}' style='width: 100%;'/>",title:"增值税发票第一张",width:10},
-        {template:"<img ng-src='common/download/{{row.vat2.id}}' style='width: 100%;'/>",title:"增值税发票第二张",width:10},
-        {template:"<img ng-src='common/download/{{row.vat3.id}}' style='width: 100%;'/>",title:"增值税发票第三张",width:10},
-        {template:"<img ng-src='common/download/{{row.vat4.id}}' style='width: 100%;'/>",title:"增值税发票第四张",width:10},
-        {template:"<img ng-src='common/download/{{row.vat5.id}}' style='width: 100%;'/>",title:"增值税发票第五张",width:10},
-        {template:"<img ng-src='common/download/{{row.vat6.id}}' style='width: 100%;'/>",title:"增值税发票第六张",width:10}
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat.id}}' style='width: 100%;'/>",title:"增值税发票第一张",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat2.id}}' style='width: 100%;'/>",title:"增值税发票第二张",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat3.id}}' style='width: 100%;'/>",title:"增值税发票第三张",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat4.id}}' style='width: 100%;'/>",title:"增值税发票第四张",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat5.id}}' style='width: 100%;'/>",title:"增值税发票第五张",width:10},
+        {template:"<img ng-img-view='' ng-src='common/download/{{row.vat6.id}}' style='width: 100%;'/>",title:"增值税发票第六张",width:10}
     ];
 
       $scope.toggle_vat=function(){
@@ -357,41 +316,11 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     $scope.vat=false;
     $scope.type_attr='999';
     $scope.select_carType=false;  //车辆使用类型下拉框暂时隐藏
-    //车辆使用类型下拉框的change事件
-    $scope.select_attr=function(attr){
-        $scope.tableColumns=[];
-        if(attr==11 & $scope.type_pager==1){
-            $scope.seller_note=false;//提示消息
-            $scope.seller_private=true;  $scope.seller=false;
-            $scope.buyer=false;  $scope.car=false;$scope.other=false;
-            $scope.notarizationFile=false;$scope.vat=false;
-            //分页变化
-            $scope.tableColumns=$scope.tableColumns_private;
-        };
-        if(attr==22 & $scope.type_pager==1){
-            $scope.seller_note=false;//提示消息
-            $scope.seller_private=false; $scope.seller=true;
-            $scope.buyer=false;  $scope.car=false;$scope.other=false;
-            //$scope.private_sell=false; //显示列表的卖家 （公）
-            $scope.notarizationFile=false;$scope.vat=false;
-            //分页变化
-            $scope.tableColumns=$scope.tableColumns_save;
-        }
-        if($scope.type_pager==99){$scope.tableColumns=$scope.tableColumns_nav;}
-        if( $scope.type_pager==2){$scope.tableColumns=$scope.tableColumns_buyer_save;}
-        if($scope.type_pager==3){$scope.tableColumns=$scope.tableColumns_car_save;}
-        if($scope.type_pager==4){$scope.tableColumns=$scope.tableColumns_other;}
-        if($scope.type_pager==5){$scope.tableColumns=$scope.tableColumns_notarizationFile;}
-        if($scope.type_pager==6){$scope.tableColumns=$scope.tableColumns_vat;}
-        if($scope.type_pager==7){ $scope.tableColumns=$scope.tableColumns_sellerTrustor_save}
-        if($scope.type_pager==8){$scope.tableColumns=$scope.tableColumns_buyTrustor_save;}
-    }
+
     //下拉框默认选择
     $scope.type_pager='1';
-
     //选择查看图片类型下拉框的change事件
     $scope.select=function(x){
-
         $scope.tableColumns=[];
         $scope.init_showCheckbox();
         if(x==99){
@@ -417,7 +346,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
                 $scope.buyer=false;  $scope.car=false;$scope.other=false;
                 $scope.notarizationFile=false;$scope.vat=false;
                 $scope.sellerTrustor=false; $scope.buyTrustor=false;
-                $scope.tableColumns=$scope.tableColumns_private;
+                //$scope.tableColumns=$scope.tableColumns_private;
             }
             if(x==1 & $scope.type_attr==999){
                 $scope.seller_note=true;//卖家
@@ -504,4 +433,32 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         $scope.filter.outReivewTime=$filter('date')($scope.outReivewTime,'yyyy-MM-dd'); //成交日期
         $scope.ngTable.reload();
     };
+    //成交起始日期(成交截止日期)
+    $scope.Deal=function(){
+        if($scope.startDate&&$scope.endDate){$scope.changetime()}
+        if($scope.startDate==null&&$scope.endDate==null){$scope.changetime()}
+    };
+    //入库审核起始日期(入库审核截止日期)
+   $scope.PutStorage=function(){
+       if($scope.rukuStartDate&&$scope.rukuEndDate){$scope.changetime()}
+       if($scope.rukuStartDate==null&&$scope.rukuEndDate==null){$scope.changetime()}
+   };
+
+    //按钮搜索
+    $scope.BtnSearch=function(){
+        if($scope.startDate==null&&$scope.endDate){
+            alert("请选择成交起始日期");
+        }
+        if($scope.startDate&&$scope.endDate==null){
+            alert("请选择成交截止日期");
+        }
+        if($scope.rukuStartDate==null&&$scope.rukuEndDate){
+            alert("请选择入库审核起始日期");
+        }
+        if($scope.rukuStartDate&&$scope.rukuEndDate==null){
+            alert("请选择入库审核截止日期");
+        }
+        $scope.ngTable.reload();
+    }
+
 }]);
