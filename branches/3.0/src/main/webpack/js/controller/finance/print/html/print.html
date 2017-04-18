@@ -28,18 +28,18 @@
         <div class="row">
             <div class="col-md-4">
                 <label>流水号：</label>
-                <input class="" type="text" minlength="16" maxlength="16" ng-minlength="16" ng-maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号" ng-focus-this="true" ng-change="numchange()" />
+                <input class="" ng-keyUp="keyUp(archivesNo,$event)" type="text" ng-minlength="5" ng-maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号"/>
                 <span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>
                 <br/>
                 <span class="text-danger" ng-if="!trans && archivesNo">此流水状态暂无法开票！</span>
             </div>
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
                 <label>车牌号：</label>
                 <input class="" type="text" maxlength="7" required ng-model="plateNumber" placeholder="请输入车牌号" ng-focus-this="true" ng-change="plateChange()" />
-                <!--<span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>-->
+                &lt;!&ndash;<span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>&ndash;&gt;
                 <br/>
                 <span class="text-danger" ng-if="!trans && archivesNo">此流水状态暂无法开票！</span>
-            </div>
+            </div>-->
 
         </div>
         <br/>

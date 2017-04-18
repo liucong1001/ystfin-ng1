@@ -10,7 +10,7 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }]);
 app.controller("archivesSign",["$scope","$location","$rootScope","Archives",function($scope,$params,$rootScope,archives){
-    $rootScope.subTitle = "原车主审核";
+    $rootScope.subTitle = "提档档案签收";
     $scope.records = {};
     $scope.status = {};
     $scope.archivesNo = "";
@@ -24,7 +24,7 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
                     $scope.archivesNo = data.archivesNo;
                     getArchives($scope.archivesNo);
                 },function (err) {
-                    $scope.status[record.archivesNo] = {text:"签收失败",css:"danger"}
+
                 });
             } else {
                 getArchives($scope.archivesNo);
@@ -40,6 +40,7 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
             $scope.plate_number=false;
             $scope.plateNumber = "鄂A";
         },function (err) {
+            $scope.message = err.data.message;
             $scope.status[record.archivesNo] = {text:"签收失败",css:"danger"}
         })
         $scope.records[record.archivesNo] = record;
