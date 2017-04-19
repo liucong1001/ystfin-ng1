@@ -21,10 +21,22 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $printer.init()
     $scope.gconfig = gconfig;
     $scope.num = "";
-    // 根据流水号读取
-    $scope.keyUp =function (newVal,$event) {
-        if($event.keyCode ==13 && newVal){
-            $bill.query({archivesNo:newVal},function(result){
+   //根据流水号读取
+    $scope.$watch("archivesNo",function (archivesNo) {
+        getBill(archivesNo);
+    });
+    //根据车牌号读取
+    $scope.$watch("plateNumber",function (plateNumber) {
+        plateBill(plateNumber);
+    });
+
+    //流水号改变
+    $scope.numchange=function(){
+        $scope.trans = undefined;
+    };
+    function getBill(arg){
+        if(arg){
+            $bill.query({action:'archivesNo', archivesNo:arg},function(result){
                 $scope.arry = result;
                 $scope.length=result.length;
                 if( $scope.length>0){
@@ -40,46 +52,47 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                     };
                 };
             });
-            $trans.get({archivesNo:$scope.archivesNo},function (trans) {
+            $trans.get({action:'archivesNo',archivesNo:arg},function (trans) {
                 $scope.trans = trans;
                 $convert("Vehicle_type").then(function (c) {
                     $scope.selectedCarType = c[trans.vehicle.vehicleType];
                 });
             },function (err) {
                 $scope.trans = undefined;
-                console.log("找不到的流水号");
-            });
-        }
-    }
-    /*$scope.$watch("archivesNo",function (newVal,oldVal) {
-        if(newVal){
-            $bill.query({archivesNo:newVal},function(result){
-                $scope.arry = result;
-                $scope.length=result.length;
-                if( $scope.length>0){
-                    $scope.obj={
-                        billnum:$scope.arry[$scope.length-1]['billNo']
-                    };
-                    var last=$scope.arry[$scope.length-1]['billDate'];
-                    var dt = new Date(last.replace(/-/,"/"));
-                    $scope.billDate=dt;
-                }else{
-                    $scope.obj={
-                        billnum:null
-                    };
-                };
-            });
-            $trans.get({archivesNo:$scope.archivesNo},function (trans) {
-                $scope.trans = trans;
-                $convert("Vehicle_type").then(function (c) {
-                    $scope.selectedCarType = c[trans.vehicle.vehicleType];
-                });
-            },function (err) {
-                $scope.trans = undefined;
-                console.log("找不到的流水号");
+                //console.log("找不到的流水号");
             });
         };
-    });*/
+    }
+    function plateBill(arg){
+        if(arg){
+            $bill.query({action: 'plateNumber', plateNumber:arg},function(result){
+                $scope.arry = result;
+                $scope.length=result.length;
+                if( $scope.length>0){
+                    $scope.obj={
+                        billnum:$scope.arry[$scope.length-1]['billNo']
+                    };
+                    var last=$scope.arry[$scope.length-1]['billDate'];
+                    var dt = new Date(last.replace(/-/,"/"));
+                    $scope.billDate=dt;
+                }else{
+                    $scope.obj={
+                        billnum:null
+                    };
+                };
+            });
+            $trans.get({action:'plateNumber',  plateNumber:arg},function (trans) {
+                $scope.trans = trans;
+                $convert("Vehicle_type").then(function (c) {
+                    $scope.selectedCarType = c[trans.vehicle.vehicleType];
+                });
+            },function (err) {
+                $scope.trans = undefined;
+                console.log("找不到的车牌号");
+            });
+        };
+    }
+
     $scope.time=function(value){
         var time=value;
         var dt = new Date(time.replace(/-/,"/"));
@@ -115,9 +128,9 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
             // 用户修改的车类型
             bill.vehicle.vehicleType = $scope.selectedCarType.code;
             bill.$save({action:"print",billNo:$scope.obj.billnum,nextBillNo:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
-                $scope.billNo = result.billNo;
-                $scope.newNo =$scope.nextBillNo;
-                $location.path('/finance/printSuccess').search({newNo: $scope.nextBillNo,lastBill:$scope.lastBill,billNo:$scope.billNo});
+                //$scope.billNo = result.billNo;
+                //$scope.newNo =$scope.nextBillNo;
+                $location.path('/finance/printSuccess').search({newNo: $scope.nextBillNo,lastBill:$scope.lastBill,billNo:$scope.obj.billnum});
             });
         })
     };

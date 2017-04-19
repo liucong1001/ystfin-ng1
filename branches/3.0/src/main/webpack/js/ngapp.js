@@ -29,6 +29,8 @@ require("./controller/icard/account")
 
 // 财务
 require("./controller/finance/print/print")
+require("./controller/finance/print/printSuccess")
+require("./controller/finance/print/remove")
 
 //交易查询
 require("./controller/trans/query")

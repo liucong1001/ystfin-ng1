@@ -36,7 +36,6 @@ app.controller("printSuccessCtrl", ["$scope","TransRecord","$convert","$q","$pri
             newNo: $scope.newNo
         }, function (result) {
             alert("修改成功");
-            alert($scope.newNo);
             $scope.back();
 
         });
