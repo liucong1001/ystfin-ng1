@@ -25,25 +25,28 @@
             <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
         </div>
         <h3>打印发票 </h3>
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-4">
                 <label>流水号：</label>
-                <input class="" ng-keyUp="keyUp(archivesNo,$event)" type="text" ng-minlength="5" ng-maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号"/>
-                <span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>
+                <input class="" type="text" ng-minlength="5" ng-maxlength="16" maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号" ng-change="numchange()"/>
                 <br/>
-                <span class="text-danger" ng-if="!trans && archivesNo">此流水状态暂无法开票！</span>
             </div>
-            <!--<div class="col-md-4">
-                <label>车牌号：</label>
-                <input class="" type="text" maxlength="7" required ng-model="plateNumber" placeholder="请输入车牌号" ng-focus-this="true" ng-change="plateChange()" />
-                &lt;!&ndash;<span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>&ndash;&gt;
+            <div class="col-md-4">
+                <label>车牌号(鄂A)：</label>
+                <input class=""  type="text"  ng-maxlength="5"  maxlength="5" required ng-model="plateNumber" placeholder="请输入车牌号" ng-change="numchange()"/>
                 <br/>
-                <span class="text-danger" ng-if="!trans && archivesNo">此流水状态暂无法开票！</span>
-            </div>-->
-
+            </div>
+            <div style="height: 14px">
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <span class="label label-default" ng-class="" ng-if="trans"><span>发票状态：</span><span ng-convert code="billStatus" value="{{trans.billStatus}}"/></span>
+            </div>
         </div>
         <br/>
-        <div class="row">
+        <div class="row text-center ">
             <div class="col-md-8">
                 <span ng-if="trans.billNo" class="text-muted" style="margin-left: 0px;font-weight: bold" >曾经用过的发票号：
                      <span ng-repeat="x in arry">
@@ -63,7 +66,6 @@
                 <button class="btn btn-danger" ng-if="trans.billStatus == '02'" ng-click="back()">退票</button>
                 <br/>
             </div>
-            <div style="height: 14px"></div>
         </div>
     </div>
     <div>
