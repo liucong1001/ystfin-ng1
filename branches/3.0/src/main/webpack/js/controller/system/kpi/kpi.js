@@ -27,33 +27,94 @@ app.controller("kpiCtrl", ["$scope","TransRecord","$convert","$q","$printer","gc
     $scope.jump=function(path){
         $location.path(path);
     };
-    //生成2000到3000之间的随机数
-    //var num = Math.random()*1000 + 2000;
-    //$scope.num= parseInt(num, 10);
-    //
-    //var num1 = Math.random()*1000 + 2000;
-    //$scope.num1= parseInt(num1, 10);
-
-    //点击产生随机数
-    console.log($scope.kpiDate);
-    $scope.Randomnum=function(){
-
-        if($scope.kpiDate){
-            //var num = Math.random()*1000 + 2000;
-            //$scope.num= parseInt(num, 10);
-            $scope.num= 2035;
-            //var num1 = Math.random()*1000 + 2000;
-            //$scope.num1= parseInt(num1, 10);
-            //console.log("产生随机数");
-        }
-
-    };
+    //初始化PC端，手机端下拉框选择为默认状态
     $scope.selectway='0';
     //某月以上个月26号至本月25号为一个月份
     $scope.selectDate=function(dt){
-          $scope.year=$scope.kpiDate.getFullYear();
-          $scope.lastmounth=$scope.kpiDate.getMonth();
-          $scope.lastday=26;
-          console.log(dt);
-    }
+        if(dt==undefined){
+            $scope.year=null;
+            $scope.lastmounth=null;
+            $scope.lastday=null;
+        }else{
+            $scope.lastday=26;
+            if($scope.kpiDate.getMonth()==0){
+                $scope.lastmounth=12;
+                $scope.year=$scope.kpiDate.getFullYear()-1;
+                $scope.mounth=12;
+                $scope.yearD=parseInt($scope.year)+1;
+                $scope.mounthD='01';
+            }else{
+                $scope.year=$scope.kpiDate.getFullYear();
+                $scope.yearD= $scope.year;
+                if($scope.kpiDate.getMonth()>9){
+                    $scope.lastmounth=$scope.kpiDate.getMonth();
+                }else{
+                    $scope.lastmounth='0'+$scope.kpiDate.getMonth();
+                }
+                //时间
+                if($scope.mounthD>9){
+                    $scope.mounthD=parseInt($scope.lastmounth)+1;
+                }else{
+                    var lastmounth=parseInt($scope.lastmounth)+1;
+                    $scope.mounthD="0"+lastmounth;
+                }
+            }
+        }
+
+        $scope.datetime.startTime=$scope.year+"-"+ $scope.lastmounth+"-"+$scope.lastday;
+        $scope.datetime.endTime=$scope.yearD+"-"+ $scope.mounthD+"-"+"25";
+        //console.log("开始时间"+$scope.datetime.startTime);
+        //console.log(angular.isString($scope.datetime.startTime));
+        //console.log("结束时间"+$scope.datetime.endTime);
+    };
+
+    $scope.datetime={
+        'startTime':'',
+        'endTime':'',
+        'type':$scope.selectway
+    };
+    //点击查询获取后台数据
+    $scope.searchdate=function(){
+        $scope.datetime.startTime=$scope.year+"-"+ $scope.lastmounth+"-"+$scope.lastday;
+        $scope.datetime.endTime=$scope.yearD+"-"+ $scope.mounthD+"-"+"25";
+        $scope.datetime.type= $scope.selectway;
+        $http({
+            url: 'kpis/inpShow',
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            params: $scope.datetime
+        }).success(function (data) {
+            $scope.num=data.seller;
+        }).error(function(data){
+            alert(data.message);
+        });
+    };
+    //导出excel表
+    $scope.exportOrder = function () {
+        $scope.datetime.startTime=$scope.year+"-"+ $scope.lastmounth+"-"+$scope.lastday;
+        $scope.datetime.endTime=$scope.yearD+"-"+ $scope.mounthD+"-"+"25";
+        $scope.datetime.type= $scope.selectway;
+        $http({
+            url: 'kpis/export/inp',
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            params: $scope.datetime,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var blob = new Blob([data], {type: "application/vnd.ms-excel"});
+            var objectUrl = URL.createObjectURL(blob);
+            var filename="报表"+$scope.yearD+"-"+ $scope.mounthD+'.xls';
+            if (window.navigator.msSaveOrOpenBlob) {// For IE:
+                navigator.msSaveBlob(blob, filename);
+            }else{ // For other browsers:
+                URL.revokeObjectURL(objectUrl);
+            }
+        }).error(function(data){
+            alert(data.message);
+        });
+    };
 }]);

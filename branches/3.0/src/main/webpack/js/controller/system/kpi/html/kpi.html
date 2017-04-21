@@ -16,8 +16,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <!--<div class="row">-->
-            <!--<p>绩效考核</p>-->
-            <!--<button>查询</button>-->
+        <!--<p>绩效考核</p>-->
+        <!--<button>查询</button>-->
         <!--</div>-->
         <div class="form-inline">
             <div class="datatime">
@@ -27,8 +27,8 @@
                        datepicker-options="{minMode: 'month'}" datepicker-mode="'month'"
                        style="width:200px;" ng-click="dateOpened = true" current-text="今天"
                        clear-text="清空" uib-datepicker-popup="yyyy年M月"  is-open="dateOpened"
-                        ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
-                        class="form-control"/>
+                       ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
+                       class="form-control"/>
             </span>
                 <div class="form-group control-group selectway">
 
@@ -36,21 +36,22 @@
 
                         <option value="0">选择查询类型</option>
 
-                        <option value="01">PC端录入</option>
+                        <option value="1">PC端录入</option>
 
-                        <option value="02">手机端录入</option>
+                        <option value="2">手机端录入</option>
                     </select>
 
                 </div>
-            <div class="searchbtn">
-              <button id="search" class="btn btn-primary btn-query" type="button" ng-click="Randomnum()"> <span>查询</span></button>
-              <button id="exportExcel" class="btn btn-success btn-export"><span>导出</span></button>
-             </div>
+
+                <div class="searchbtn">
+                    <button id="search" class="btn btn-primary btn-query" type="button" ng-click="searchdate()"> <span>查询</span></button>
+                    <button id="exportExcel" class="btn btn-success btn-export" ng-click="exportOrder()"><span>导出</span></button>
+                </div>
             </div>
         </div>
         <div>
         </div>
-        <h2 align="center">员工KPI考核表</h2>
+        <h2 align="center">月度考核表</h2>
         <p class="text-center"> <span>{{year}}<span ng-if="kpiDate">年</span>{{lastmounth}} <span ng-if="kpiDate">月</span>{{lastday}} <span ng-if="kpiDate">日</span></span> 至  <span>{{kpiDate|date:'yyyy年MM月25日'}}</span> </p>
         <table width="85%" border="1" cellpadding="5" align="center">
             <tbody><tr>
@@ -64,14 +65,14 @@
                 <th scope="col"><div align="center">个人合计</div></th>
             </tr>
 
-            <tr ng-if="selectway==01||selectway==0">
+            <tr ng-if="selectway==1||selectway==0">
                 <th scope="row" class="text-center">hanxi</th>
                 <th height="33" scope="row" class="text-center">PC端录入</th>
                 <td><div align="center">{{num}}</div></td>
                 <td><div align="center">{{num}}</div></td>
                 <td><div align="center">{{num}}</div></td>
             </tr>
-            <tr ng-if="selectway==02||selectway==0">
+            <tr ng-if="selectway==2||selectway==0">
                 <th scope="row" class="text-center">hanxi</th>
                 <th height="33" scope="row" class="text-center">手机端录入</th>
                 <td><div align="center">{{num1}}</div></td>
