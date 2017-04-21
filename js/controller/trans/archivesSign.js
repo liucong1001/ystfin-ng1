@@ -18,49 +18,49 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
     $scope.plateNumber = "鄂A";
     $scope.keyUp = function ($event) {
         if($event.keyCode == 13){
-            if($scope.plateNumber !="鄂A"){
+            if($scope.plateNumber =="鄂A"){
                 var arc = new archives();
-                arc.$save({action:"findByPlateNumber",plateNumber:$scope.plateNumber}).then(function (data) {
-                    $scope.archivesNo = data.archivesNo;
-                    getArchives($scope.archivesNo);
+                arc.$save({action:"findByArchivesNo",archivesNo:$scope.archivesNo}).then(function (data) {
+                    $scope.plateNumber = data.plateNumber;
+                    getArchives($scope.plateNumber);
                 },function (err) {
 
                 });
             } else {
-                getArchives($scope.archivesNo);
+                getArchives($scope.plateNumber);
             }
         }
     };
     function getArchives(arg) {
-        var record = new archives({archivesNo:arg,status:"3"});
-        $scope.status[$scope.archivesNo] = {text:"正在签收",css:"default"};
+        var record = new archives({plateNumber:arg,status:"3"});
+        $scope.status[$scope.plateNumber] = {text:"正在签收",css:"default"};
         record.$save().then(function () {
-            $scope.status[record.archivesNo] = {text:"已签收",css:"success"};
+            $scope.status[record.plateNumber] = {text:"已签收",css:"success"};
             $scope.count +=1;
             $scope.plate_number=false;
             $scope.plateNumber = "鄂A";
         },function (err) {
             $scope.message = err.data.message;
-            $scope.status[record.archivesNo] = {text:"签收失败",css:"danger"}
+            $scope.status[record.plateNumber] = {text:"签收失败",css:"danger"}
         })
-        $scope.records[record.archivesNo] = record;
+        $scope.records[record.plateNumber] = record;
         $scope.archivesNo = "";
     }
-    $scope.cancel = function (archivesNo) {
-        var record = $scope.records[archivesNo]
-        if($scope.status[archivesNo].text == "已签收"){
-            $scope.status[archivesNo] = {text:"正在取消...",css:"default"}
+    $scope.cancel = function (plateNumber) {
+        var record = $scope.records[plateNumber]
+        if($scope.status[plateNumber].text == "已签收"){
+            $scope.status[plateNumber] = {text:"正在取消...",css:"default"}
             record.status = "4";
             record.$save().then(function () {
-                delete $scope.records[archivesNo]
+                delete $scope.records[plateNumber]
                 if($scope.count>0){
                     $scope.count -=1;
                 }
             },function (err) {
-                $scope.status[record.archivesNo] = {text:"取消失败",css:"danger"}
+                $scope.status[record.plateNumber] = {text:"取消失败",css:"danger"}
             })
         }else{
-            delete $scope.records[archivesNo]
+            delete $scope.records[plateNumber]
         }
     }
     //按照车牌号查询

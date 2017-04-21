@@ -20,7 +20,6 @@ app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",fu
     $scope.keyUp = function ($event) {
         if($event.keyCode == 13 && $scope.plateNumber){
             var record = new archives({plateNumber:$scope.plateNumber,status:"1"});
-            console.log($scope.plateNumber);
             $scope.status[$scope.plateNumber] = {text:"正在录入",css:"default"}
             record.$save().then(function () {
                 $scope.status[record.plateNumber] = {text:"已回档",css:"success"}
@@ -46,6 +45,7 @@ app.controller("archivesArrive",["$scope","$location","$rootScope","Archives",fu
                 }
             },function (err) {
                 $scope.status[record.plateNumber] = {text:"移除失败",css:"danger"}
+                $scope.message = err.data.message;
             })
         }else{
             delete $scope.records[plateNumber]
