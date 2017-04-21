@@ -66,7 +66,7 @@ require("./controller/system/modify/role")
 require("./controller/system/modify/roleinfo")
 require("./controller/system/modify/roleform")
 //绩效考核
-require("./controller/system/kpi/kpi")
+require("./controller/system/inp/inp")
 
 //提档地（trans）
 require("./controller/trans/page")
