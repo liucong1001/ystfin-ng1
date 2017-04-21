@@ -63,9 +63,6 @@ app.controller("inpCtrl", ["$scope","TransRecord","$convert","$q","$printer","gc
 
         $scope.datetime.startTime=$scope.year+"-"+ $scope.lastmounth+"-"+$scope.lastday;
         $scope.datetime.endTime=$scope.yearD+"-"+ $scope.mounthD+"-"+"25";
-        //console.log("开始时间"+$scope.datetime.startTime);
-        //console.log(angular.isString($scope.datetime.startTime));
-        //console.log("结束时间"+$scope.datetime.endTime);
     };
 
     $scope.datetime={
