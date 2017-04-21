@@ -26,16 +26,17 @@
     </div>
     <br/>
     <table class="table table-striped">
-        <thead><tr> <th>序号</th><th>流水号</th><th>状态</th></tr></thead>
+        <thead><tr> <th>序号</th><th>流水号</th><th>车牌号</th><th>状态</th></tr></thead>
         <tbody>
         <tr ng-repeat="r in records">
             <td>  <span ng-bind = "$index+1" ></span></td>
             <td>{{r.archivesNo}}</td>
+            <td>{{r.plateNumber}}</td>
             <td>
-                    <span class="label label-{{status[r.archivesNo].css}}">
-                    {{status[r.archivesNo].text}}
+                    <span class="label label-{{status[r.plateNumber].css}}">
+                    {{status[r.plateNumber].text}}
                     </span>&nbsp;
-                <a href="" ng-click="cancel(r.archivesNo)"><span class="glyphicon-remove glyphicon"></span> 取消</a>
+                <a href="" ng-click="cancel(r.plateNumber)"><span class="glyphicon-remove glyphicon"></span> 取消</a>
             </td>
         </tr>
         </tbody>
