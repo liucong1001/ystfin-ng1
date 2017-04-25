@@ -61,14 +61,16 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         }
         $scope.ngTable.reload();
     };
+    $scope.datetime={
+        startTime:'',
+        endTime:''
+    };
     //导出报表
     $scope.exportOrder = function () {
-        $scope.datetime.startTime=$scope.startTime;
-        $scope.datetime.endTime=$scope.endTime;
-
-
+        $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
+        $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
         $http({
-            url: 'kpis/export/inp',
+            url: 'archives/export/excel',
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
