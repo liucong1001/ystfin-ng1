@@ -49,9 +49,11 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     $scope.Search=function(){
         if($scope.startTime==null&&$scope.endTime){
             alert("请选择到达开始时间");
+            return ;
         }
         if($scope.startTime &&$scope.endTime==null){
             alert("请选择到达结束时间");
+            return;
         }
         if($scope.startTime &&$scope.endTime){
             $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
