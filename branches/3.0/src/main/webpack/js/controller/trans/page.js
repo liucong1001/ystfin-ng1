@@ -35,13 +35,46 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         {title:"状态",template:"<ng-convert code='archives_status'  value='{{row.status}}' ></ng-convert>",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"到达时间",template:"{{row.arriveTime}}",width:20,thClass:"text-center",tdClass:"text-center"},
         {title:"签收时间",template:"{{row.signTime}}",width:20,thClass:"text-center",tdClass:"text-center"},
-        {title:"商户名称",template:"{{row.dealers.name}}",width:10,thClass:"text-center",tdClass:"text-center"}
+        {title:"商户名称",template:"{{row.dealers.name}}",width:20,thClass:"text-center",tdClass:"text-center"}
     ];
     //定义查询对象
     $scope.searchinfo={};
-    $scope.SearchDate=function(time){
-        $scope.searchinfo.arriveTime=$filter('date')(time,'yyyy-MM-dd ');
-        console.log($scope.searchinfo.arriveTime);
+    $scope.SearchDate=function(){
+        $scope.searchinfo.arriveTime=$filter('date')($scope.arriveTime,'yyyy-MM-dd ');
+        $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
+        $scope.searchinfo.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
+        console.log('arriveTime'+$scope.searchinfo.arriveTime);
+        console.log('statTime'+ $scope.searchinfo.startTime);
+        console.log('endTime'+ $scope.searchinfo.endTime);
         $scope.ngTable.reload();
+    };
+    //已签收，已达到的下拉框默认选择
+     $scope.searchinfo.status='';
+    //导出报表
+    $scope.exportOrder = function () {
+        $scope.datetime.startTime=$scope.startTime;
+        $scope.datetime.endTime=$scope.endTime;
+
+
+        $http({
+            url: 'kpis/export/inp',
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            params: $scope.datetime,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var blob = new Blob([data], {type: "application/vnd.ms-excel"});
+            var objectUrl = URL.createObjectURL(blob);
+            var filename="报表"+$scope.startTime+"-"+ $scope.endTime+'.xls';
+            if (window.navigator.msSaveOrOpenBlob) {// For IE:
+                navigator.msSaveBlob(blob, filename);
+            }else{ // For other browsers:
+                URL.revokeObjectURL(objectUrl);
+            }
+        }).error(function(data){
+            alert(data.message);
+        });
     };
 }]);
