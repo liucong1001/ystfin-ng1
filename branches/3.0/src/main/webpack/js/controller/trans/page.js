@@ -53,12 +53,14 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     };
     $scope.datetime={
         startTime:'',
-        endTime:''
+        endTime:'',
+        type:''
     };
     //导出报表
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
         $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
+        $scope.datetime.type=$scope.searchinfo.status;
         $http({
             url: 'archives/export/excel',
             method: "POST",
@@ -70,7 +72,7 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         }).success(function (data) {
             var blob = new Blob([data], {type: "application/vnd.ms-excel"});
             var objectUrl = URL.createObjectURL(blob);
-            var filename="报表"+$scope.startTime+"-"+ $scope.endTime+'.xls';
+            var filename="报表"+$scope.datetime.startTime+"-"+ $scope.datetime.endTime+'.xls';
             if (window.navigator.msSaveOrOpenBlob) {// For IE:
                 navigator.msSaveBlob(blob, filename);
             }else{ // For other browsers:
