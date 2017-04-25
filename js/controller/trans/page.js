@@ -54,13 +54,13 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     $scope.datetime={
         startTime:'',
         endTime:'',
-        type:''
+        status:''
     };
     //导出报表
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
         $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
-        $scope.datetime.type=$scope.searchinfo.status;
+        $scope.datetime.status=$scope.searchinfo.status;
         $http({
             url: 'archives/export/excel',
             method: "POST",
