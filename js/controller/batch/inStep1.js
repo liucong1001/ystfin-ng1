@@ -14,7 +14,7 @@ app.config(["$routeProvider",function($routeProvider){
 app.controller("batchStep1Controller",["$scope","$http","$location","batchInStep",function ($scope,$http,$location,Step) {
     //获取后台缓存数据
     Step.get({step:"step1"},function(step1,header){
-        $scope.step1 = step1
+        $scope.step1 = step1;
         console.log($scope.step1.staff);
         $scope.staff = $scope.step1.staff;
         $http.get("/batch/findTheContacts/"+$scope.staff).then(function(result){
