@@ -33,7 +33,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     //删除车辆
     $scope.removeVehicle = function (i) {
         $scope.vehicle.items.splice(i,1);
-        i--,
+        i--;
         $scope.i = i;
     }
     //修改车辆
@@ -42,7 +42,10 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         $scope.i = i;
     }
     //拍照
-    $webcam.show("280px","170px",true)
+    $scope.webcamWidth='280px';
+    $scope.webcamHeight='170px';
+    $scope.webcamTrue=true;
+    $webcam.show($scope.webcamWidth,$scope.webcamHeight,$scope.webcamTrue);
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
         $webcam.hide();

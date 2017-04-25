@@ -1,18 +1,22 @@
+<link rel="stylesheet" href="../../../../../css/iconfont.css"/>
 <div class="row">
     <div class="col-md-4">
     </div>
     <div class="col-md-8">
-        <button class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="addVehicle()">添加下一辆车</button>
         <div class="panel panel-default">
             <div class="panel-heading">车辆列表
                 <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'up':'down'}}" href="" ng-click="showFilter=!showFilter"></a>
             </div>
             <div class="panel-body" ng-show="showFilter">
-                <div class="row">
-                    <div ng-repeat="v in vehicle.items" class="col-xs-1">
-                        <button class="btn btn-default btn-sm"  ng-click="editVehicle($index)">{{$index+1}}号车</button>
-                        <a href="" ng-click="removeVehicle($index)" ng-if="$index>0">删除</a>
+                <div class="row" style="width: 100%">
+                    <div ng-repeat="v in vehicle.items"  class="col-xs-1">
+                        <button   class="btn btn-default btn-sm"  ng-click="editVehicle($index)">{{$index+1}}号车</button>
+                        <a href="" ng-click="removeVehicle($index)" ng-if="$index>0" class="text-center"><i class="iconfont icon-shanchu-copy"></i> </a>
                     </div>
+                    <div class="col-xs-1">
+                        <button style="margin-left: 10px" class="btn btn-default btn-sm" ng-disabled="submiting" ng-click="addVehicle()">添加 <i class="iconfont icon-weibiaoti1"></i> </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -27,7 +31,7 @@
                 <div class="col-md-4">
                     <ng-panel title="行驶证正本" type="{{active != certCount + 1?'default':'primary'}}" class="img-view">
                         <div ng-if="!vehicle.items[i].vehicleCert" class="img">{{status.vehicleCert|| "未拍照"}}</div>
-                        <img ng-if="vehicle.items[i].vehicleCert" ng-src="{{imgSrc(vehicle.items[i].vehicleCert)}}" />
+                        <img ng-img-view="" ng-if="vehicle.items[i].vehicleCert" ng-src="{{imgSrc(vehicle.items[i].vehicleCert)}}" />
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+1}}" ng-click="snapshot('vehicleCert',certCount+1,null,i)" class="btn btn-sm {{active != certCount+1?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
@@ -38,7 +42,7 @@
                 <div class="col-md-4">
                     <ng-panel title="行驶证副本" type="{{active != certCount + 2?'default':'primary'}}" class="img-view">
                         <div ng-if="!vehicle.items[i].vehicleCertBg" class="img">{{status.vehicleCertBg|| "未拍照"}}</div>
-                        <img ng-if="vehicle.items[i].vehicleCertBg" ng-src="{{imgSrc(vehicle.items[i].vehicleCertBg)}}" />
+                        <img ng-img-view="" ng-if="vehicle.items[i].vehicleCertBg" ng-src="{{imgSrc(vehicle.items[i].vehicleCertBg)}}" />
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+2}}" ng-click="snapshot('vehicleCertBg',certCount+2,null,i)" class="btn btn-sm {{active != certCount+2?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
@@ -51,7 +55,7 @@
                 <div class="col-md-4">
                     <ng-panel title="车辆登记证书" type="{{active != certCount + 3?'default':'primary'}}" class="img-view">
                         <div ng-if="!vehicle.items[i].registrationCert" class="img">{{status.registrationCert|| "未拍照"}}</div>
-                        <img ng-if="vehicle.items[i].registrationCert" ng-src="{{imgSrc(vehicle.items[i].registrationCert)}}" />
+                        <img ng-img-view="" ng-if="vehicle.items[i].registrationCert" ng-src="{{imgSrc(vehicle.items[i].registrationCert)}}" />
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+3}}" ng-click="snapshot('registrationCert',certCount+3,true,i)" class="btn btn-sm {{active != certCount+3?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
@@ -62,7 +66,7 @@
                 <div class="col-md-4">
                     <ng-panel title="车辆登记证书附页" type="{{active != certCount + 4?'default':'primary'}}" class="img-view">
                         <div ng-if="!vehicle.items[i].registrationCertBg" class="img">{{status.registrationCertBg|| "未拍照"}}</div>
-                        <img ng-if="vehicle.items[i].registrationCertBg" ng-src="{{imgSrc(vehicle.items[i].registrationCertBg)}}" />
+                        <img ng-img-view="" ng-if="vehicle.items[i].registrationCertBg" ng-src="{{imgSrc(vehicle.items[i].registrationCertBg)}}" />
                         <div class="panel-footer">
                             <button ng-focus-this="{{active==certCount+4}}" ng-click="snapshot('registrationCertBg',certCount+4,true,i)" class="btn btn-sm {{active != certCount+4?'btn-default':'btn-primary'}}"><span class="glyphicon glyphicon-camera"></span> <span>拍照</span></button>
                             <button class="btn btn-sm btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
@@ -75,7 +79,7 @@
                 <div class="col-md-6">
                     <ng-panel title="其他附件相册" type="default" class="img-view">
                         <div ng-if="vehicle.items[i]['images'].length > 0" class="panel-body">
-                            <img ng-src="{{imgSrc(vehicle.items[i]['images'][activeImgs])}}"/>
+                            <img ng-img-view="" ng-src="{{imgSrc(vehicle.items[i]['images'][activeImgs])}}"/>
                         </div>
                         <nav>
                             <ul class="pagination">

@@ -63,7 +63,10 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     };
 	$scope.status = {};
 	//拍照
-    $webcam.show("280px","150px",true)
+    $scope.webcamWidth='280px';
+    $scope.webcamHeight='150px';
+    $scope.webcamTrue=true;
+    $webcam.show($scope.webcamWidth,$scope.webcamHeight,$scope.webcamTrue)
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
     	$webcam.hide();
@@ -106,41 +109,49 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             case "01":
                 $scope.certCount = 2;
                 $scope.certs = ["cert","certBg"];
+                $scope.seller.consignationType='01';
                 break;
             case "02":
                 $scope.certCount = 2;
                 $scope.certs = ["residence","residenceBg"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='01';
                 break;
             case "03":
                 $scope.certCount = 4;
                 $scope.certs = ["temporary1","temporary2","temporary3","temporary4"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='01';
                 break;
             case "04":
                 $scope.certCount = 2;
                 $scope.certs = ["pass","passBg"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='01';
                 break;
             case "05":
                 $scope.certCount = 1;
                 $scope.certs = ["military"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='01';
                 break;
             case "06":
                 $scope.certCount = 3;
                 $scope.certs = ["passport1","passport2","passport3"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='01';
                 break;
             case "07":
                 $scope.certCount = 1;
                 $scope.certs = ["business"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='02';
                 break;
             case "08":
                 $scope.certCount = 1;
                 $scope.certs = ["organization"];
                 $scope.middleMan = -1;
+                $scope.seller.consignationType='02';
                 break;
         }
         $scope.status = {};
