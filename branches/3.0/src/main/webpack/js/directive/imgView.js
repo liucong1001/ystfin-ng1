@@ -4,11 +4,12 @@
 "use strict"
 require("angular-resource")
 module.exports = function (app) {
-    app.directive("ngImgView", ["$compile","$uibModal",function ($compile,$uibModal) {
+    app.directive("ngImgView", ["$compile","$uibModal","$webcam",function ($compile,$uibModal,$webcam) {
         return {
             restrict:"A",
             link:function (scope, elem, attrs) {
                 elem.addClass("clickable").on('click',function () {
+                    $webcam.hide();
                     var url = elem.attr('src')
                     var modalInstance = $uibModal.open({
                         animation: false,
@@ -27,6 +28,7 @@ module.exports = function (app) {
                     modalInstance.result.then(function(){
 
                     },function (printed) {
+                        $webcam.show(scope.webcamWidth,scope.webcamHeight,scope.webcamTrue);
                     })
                 })
             },
