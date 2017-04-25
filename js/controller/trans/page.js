@@ -41,15 +41,24 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     $scope.searchinfo={};
     $scope.SearchDate=function(){
         $scope.searchinfo.arriveTime=$filter('date')($scope.arriveTime,'yyyy-MM-dd ');
-        $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
-        $scope.searchinfo.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
-        console.log('arriveTime'+$scope.searchinfo.arriveTime);
-        console.log('statTime'+ $scope.searchinfo.startTime);
-        console.log('endTime'+ $scope.searchinfo.endTime);
         $scope.ngTable.reload();
     };
     //已签收，已达到的下拉框默认选择
      $scope.searchinfo.status='';
+    //搜索按钮查询
+    $scope.Search=function(){
+        if($scope.startTime==null&&$scope.endTime){
+            alert("请选择到达开始时间");
+        }
+        if($scope.startTime &&$scope.endTime==null){
+            alert("请选择到达结束时间");
+        }
+        if($scope.startTime &&$scope.endTime){
+            $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
+            $scope.searchinfo.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
+        }
+        $scope.ngTable.reload();
+    };
     //导出报表
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$scope.startTime;
