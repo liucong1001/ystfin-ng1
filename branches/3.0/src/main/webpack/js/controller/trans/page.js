@@ -44,8 +44,17 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         $scope.ngTable.reload();
     };
     //已达到,已签收的下拉框默认选择已到达
-     $scope.searchinfo.stat='1';
-
+     $scope.stat='1';
+   //  function init(){
+   //      $http.post('/archives/page?stat='+$scope.stat).success(function () {
+   //          $scope.ngTable.reload();
+   //          //alert("重置成功");
+   //      })
+   //  }
+   // init();
+   //$scope.Document=function(){
+   //    init();
+   //};
     //搜索按钮查询
     $scope.SearchTime=function(){
         $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
@@ -57,11 +66,15 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         endTime:'',
         stat:''
     };
+
+    $scope.SelectChange=function(x){
+        $scope.ngTable.reload();
+    };
     //导出报表web
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
         $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
-        $scope.datetime.stat=$scope.searchinfo.stat;
+        $scope.datetime.stat=$scope.stat;
         $http({
             url: 'archives/export/excel',
             method: "POST",
