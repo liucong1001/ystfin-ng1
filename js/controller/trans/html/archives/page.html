@@ -25,7 +25,7 @@
                             <input name="loginName" ng-model="searchinfo['dealers.loginName']" type="text" class="form-control" placeholder="商户编号" autocomplete="off">
                         </div>
                          <div class="form-group control-group">
-                             <select  class="form-control" ng-model="searchinfo.stat" ng-change="ngTable.reload()">
+                             <select  class="form-control"  ng-model="searchinfo.stat" ng-init="searchinfo.stat='1'"  ng-change="SelectChange(stat)">
                                  <option value="1">已到达档案</option>
                                  <option value="2">已签收档案</option>
                              </select>
@@ -60,12 +60,13 @@
                                    class="form-control"/>
                         </div>
                         <button class="btn btn-primary btn-query" id="exportExcel" ng-click="exportOrder()">导出报表</button>
+                        <p style="color: red">stat的值--{{stat}}</p>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="">
-        <ng-table url="/archives/page" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+        <ng-table url='/archives/page' row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
     </div>
 </div>
