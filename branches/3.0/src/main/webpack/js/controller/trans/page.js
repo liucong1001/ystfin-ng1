@@ -45,16 +45,7 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     };
     //已达到,已签收的下拉框默认选择已到达
      $scope.stat='1';
-   //  function init(){
-   //      $http.post('/archives/page?stat='+$scope.stat).success(function () {
-   //          $scope.ngTable.reload();
-   //          //alert("重置成功");
-   //      })
-   //  }
-   // init();
-   //$scope.Document=function(){
-   //    init();
-   //};
+
     //搜索按钮查询
     $scope.SearchTime=function(){
         $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
