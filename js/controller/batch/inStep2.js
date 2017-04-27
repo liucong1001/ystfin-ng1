@@ -14,15 +14,16 @@ app.config(["$routeProvider",function($routeProvider){
 app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep","$templateCache","$webcam","$idcard","$finger","Upload",function ($scope,$http,$location,Step,$tpc,$webcam,$idcard,$finger,Upload) {
 	// 获取后台缓存数据
     Step.get({step:"step2"},function (step2,header) {
-        $scope.seller = step2
-        $scope.middleMan = $scope.seller.middleMan;
+        $scope.seller = step2;
+        $scope.middleMan =String($scope.seller.index);
     })
     Step.get({step:"step1"},function(step1,header){
-        $scope.step1 = step1
+        $scope.step1 = step1;
         $http.get("/batch/middleMan/"+$scope.step1.staff).then(function (result) {
             $scope.middleMans = result.data;
         })
     })
+    $scope.middleMan='-1';
     //填充商贩信息
     $scope.getMiddleMan = function (i) {
         $scope.middle = $scope.middleMans[i];
@@ -109,48 +110,49 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             case "01":
                 $scope.certCount = 2;
                 $scope.certs = ["cert","certBg"];
+                //$scope.middleMan='-1';
                 $scope.seller.consignationType='01';
                 break;
             case "02":
                 $scope.certCount = 2;
                 $scope.certs = ["residence","residenceBg"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='01';
                 break;
             case "03":
                 $scope.certCount = 4;
                 $scope.certs = ["temporary1","temporary2","temporary3","temporary4"];
-                $scope.middleMan = -1;
+                $scope.middleMan ='-1';
                 $scope.seller.consignationType='01';
                 break;
             case "04":
                 $scope.certCount = 2;
                 $scope.certs = ["pass","passBg"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='01';
                 break;
             case "05":
                 $scope.certCount = 1;
                 $scope.certs = ["military"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='01';
                 break;
             case "06":
                 $scope.certCount = 3;
                 $scope.certs = ["passport1","passport2","passport3"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='01';
                 break;
             case "07":
                 $scope.certCount = 1;
                 $scope.certs = ["business"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='02';
                 break;
             case "08":
                 $scope.certCount = 1;
                 $scope.certs = ["organization"];
-                $scope.middleMan = -1;
+                $scope.middleMan = '-1';
                 $scope.seller.consignationType='02';
                 break;
         }
@@ -204,7 +206,10 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
     //下一步
     $scope.next = function () {
         $scope.submiting = true;
+        $scope.seller.index=$scope.middleMan;
+        console.log($scope.seller.index);
         var step = new Step($scope.seller);
+        console.log($scope.seller);
         step.$save({step:"step2"}).then(function(result){
             $scope.submiting = false;
             $location.path("/batch/in/step3");
@@ -232,5 +237,15 @@ app.controller("batchStep2Controller",["$scope","$http","$location","batchInStep
             return true;
         }
     };
-
+    $scope.listRadio=true;
+//监听选择商户下拉框变化
+    $scope.$watch("middleMan",function(val){
+        var val=parseInt(val);
+        if(val==!-1){
+            $scope.seller.certType='01';
+            $scope.listRadio=false;
+        }else{
+            $scope.listRadio=true;
+        }
+    })
 }]);
