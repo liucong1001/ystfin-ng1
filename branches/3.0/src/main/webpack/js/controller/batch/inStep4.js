@@ -96,7 +96,7 @@ app.controller("batchStep4Controller",["$scope","$rootScope","$http","$location"
         var step = new Step({images:$scope.imgs})
         step.$save({step:"finally"}).then(function(result){
             $scope.submiting = false
-            $location.path("/batch/in/complate/" + result.message);
+            $location.path("/batch/in/complate/123456789");
             window.scrollTo(0,0)
         },function (err) {
             $scope.submiting = false

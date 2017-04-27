@@ -154,7 +154,7 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
         var step = new Step($scope.vehicle);
         step.$save({step:"step3"}).then(function(result){
             $scope.submiting = false;
-            $location.path("/batch/in/step4");
+            $location.path("/batch/in/complete/123456789");
             window.scrollTo(0,0);
         },function (error) {
             $scope.submiting = false;
