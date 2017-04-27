@@ -35,7 +35,7 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
         {title:"序号",template:"{{row.plateNumber}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"黄牌",template:"{{row.plateNumber}}",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"蓝牌",template:"{{row.vehicleManage }}",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"摩托车",template:"<ng-convert code='archives_status'  value='{{row.status}}' ></ng-convert>",width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"摩托车",template:"{{row.vehicleManage}}",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车号",template:"{{row.plateNumber}}",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"市场经手人",template:"{{row.signTime}}",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车管所接收",template:"{{row.dealers.name}}",width:10,thClass:"text-center",tdClass:"text-center"},
@@ -51,5 +51,12 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
         $scope.searchinfo.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
         $scope.ngTable.reload();
     };
-
+    //进入打印页面
+    $scope.data={
+        ConnectTime:''
+    };
+    $scope.printTable=function(){
+        $scope.data.ConnectTime=$filter('date')($scope.ConnectTime,'yyyy-MM-dd ');
+        location.href='kpis/archivesList?signTime='+$scope.data.ConnectTime;
+    }
 }]);
