@@ -33,13 +33,13 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
 
     $scope.tableColumns = [
         {title:"序号",template:"{{row.plateNumber}}", width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"黄牌",template:"{{row.plateNumber}}",thClass:"text-center",tdClass:"text-center", width:10},
+        {title:"黄牌",template:"",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"蓝牌",template:"{{row.vehicleManage }}",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"摩托车",template:"{{row.vehicleManage}}",width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"摩托车",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车号",template:"{{row.plateNumber}}",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"市场经手人",template:"{{row.signTime}}",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"车管所接收",template:"{{row.dealers.name}}",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"备注",template:"{{row.dealers.name}}",width:20,thClass:"text-center",tdClass:"text-center"}
+        {title:"市场经手人",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"车管所接收",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"备注",template:"",width:20,thClass:"text-center",tdClass:"text-center"}
 
     ];
     //定义查询对象
