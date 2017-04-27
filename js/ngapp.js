@@ -72,6 +72,7 @@ require("./controller/system/inp/inp")
 require("./controller/trans/page")
 require("./controller/trans/archivesArrive")
 require("./controller/trans/archivesSign")
+require("./controller/trans/carList")
 
 
 
