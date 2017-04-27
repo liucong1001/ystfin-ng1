@@ -43,8 +43,9 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
         $scope.searchinfo.arriveTime=$filter('date')($scope.arriveTime,'yyyy-MM-dd ');
         $scope.ngTable.reload();
     };
-    //已签收，已达到的下拉框默认选择
-     $scope.searchinfo.status='';
+    //已达到,已签收的下拉框默认选择已到达
+     $scope.searchinfo.stat='1';
+
     //搜索按钮查询
     $scope.SearchTime=function(){
         $scope.searchinfo.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
@@ -54,13 +55,13 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     $scope.datetime={
         startTime:'',
         endTime:'',
-        status:''
+        stat:''
     };
-    //导出报表
+    //导出报表web
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
         $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
-        $scope.datetime.status=$scope.searchinfo.status;
+        $scope.datetime.stat=$scope.searchinfo.stat;
         $http({
             url: 'archives/export/excel',
             method: "POST",

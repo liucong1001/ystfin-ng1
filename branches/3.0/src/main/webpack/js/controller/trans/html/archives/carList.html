@@ -1,0 +1,21 @@
+<style>
+    table>tbody>tr:nth-child(odd){
+        background: #f9f9f9;
+    }
+
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row text-center">
+            <h2>废旧车牌统计表</h2>
+        </div>
+        <div class="row">
+           <div class="col-md-3">交接市场</div>
+
+           <div class="col-md-6">交接时间</div>
+        </div>
+    </div>
+    <div class="">
+        <ng-table url="archives/plate/page" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+    </div>
+</div>
