@@ -74,7 +74,7 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     $scope.exportOrder = function () {
         $scope.datetime.startTime=$filter('date')($scope.startTime,'yyyy-MM-dd ');
         $scope.datetime.endTime=$filter('date')($scope.endTime,'yyyy-MM-dd ');
-        $scope.datetime.stat=$scope.stat;
+        $scope.datetime.stat=$scope.searchinfo.stat;
         $http({
             url: 'archives/export/excel',
             method: "POST",
