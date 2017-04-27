@@ -20,14 +20,14 @@
 			<br/>
             <div class="row">
                 <div class="col-md-12">
-                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="01"> 身份证</label>
-                    <label class="radio-inline {{seller.certType=='02'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="02"> 暂住证</label>
-                    <label class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 临时身份证</label>
-                    <label class="radio-inline {{seller.certType=='04'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="04"> 港澳台通行证</label>
-                    <label class="radio-inline {{seller.certType=='05'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="05"> 军官证</label>
-                    <label class="radio-inline {{seller.certType=='06'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="06"> 护照</label><br/><br/>
-                    <label class="radio-inline {{seller.certType=='07'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="07"> 营业执照(三证合一)</label>
-                    <label class="radio-inline {{seller.certType=='08'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="08"> 组织机构代码证</label>
+                    <label class="radio-inline {{seller.certType=='01'?'text-primary':''}}"><input type="radio" name="certType"  autocomplete="off" ng-model="seller.certType" value="01"> 身份证</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='02'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="02"> 暂住证</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='03'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="03"> 临时身份证</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='04'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="04"> 港澳台通行证</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='05'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="05"> 军官证</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='06'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="06"> 护照</label><br/><br/>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='07'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="07"> 营业执照(三证合一)</label>
+                    <label  ng-if="listRadio" class="radio-inline {{seller.certType=='08'?'text-primary':''}}"><input type="radio" name="certType" autocomplete="off" ng-model="seller.certType" value="08"> 组织机构代码证</label>
                 </div>
             </div>
             <br/>
