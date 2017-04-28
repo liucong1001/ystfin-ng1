@@ -24,12 +24,7 @@
                         <div class="form-group">
                             <input name="loginName" ng-model="searchinfo['dealers.loginName']" type="text" class="form-control" placeholder="商户编号" autocomplete="off">
                         </div>
-                         <div class="form-group control-group">
-                             <select  class="form-control"  ng-model="searchinfo.stat" ng-init="searchinfo.stat='1'"  ng-change="SelectChange(stat)">
-                                 <option value="1">已到达档案</option>
-                                 <option value="2">已签收档案</option>
-                             </select>
-                         </div>
+
                          <button id="search" class="btn btn-primary btn-query" type="submit" ><span class="glyphicon glyphicon-search"></span> <span>查询</span></button>
                      </div>
                     <div class="row text-center search">
@@ -38,12 +33,11 @@
                                 <input name="name" ng-model="searchinfo['dealers.name']"  type="text" class="form-control" placeholder="商户名称" autocomplete="off">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="达到时间"   ng-model="arriveTime"  ng-change="SearchDate(arriveTime)"
-                                   datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天"
-                                   clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
-                                   close-text="隐藏" alt-input-formats="altInputFormats"
-                                   class="form-control"/>
+                        <div class="form-group control-group">
+                            <select  class="form-control"  ng-model="searchinfo.stat" ng-init="searchinfo.stat='1'"  ng-change="SelectChange(stat)">
+                                <option value="1">已到达档案</option>
+                                <option value="2">已签收档案</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <input type="text" placeholder="开始时间"    ng-model="startTime"  ng-change="SearchTime()"
