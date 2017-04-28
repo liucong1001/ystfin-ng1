@@ -16,21 +16,36 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
     $scope.archivesNo = "";
     $scope.count = 0;
     $scope.plateNumber = "鄂A";
-    $scope.keyUp = function ($event) {
-        if($event.keyCode == 13){
-            if($scope.plateNumber =="鄂A"){
-                var arc = new archives();
-                arc.$save({action:"findByArchivesNo",archivesNo:$scope.archivesNo}).then(function (data) {
-                    $scope.plateNumber = data.plateNumber;
-                    getArchives($scope.plateNumber);
-                },function (err) {
+    $scope.AutoSearch=function(i){
+       if($scope.plateNumber =="鄂A"){
+           if(GetLength(i)==16){
+               var arc = new archives();
+               arc.$save({action:"findByArchivesNo",archivesNo:$scope.archivesNo}).then(function (data) {
+                   $scope.plateNumber = data.plateNumber;
+                   getArchives($scope.plateNumber);
+               },function (err) {
 
-                });
-            } else {
-                getArchives($scope.plateNumber);
-            }
-        }
+               });
+           }
+       }else{
+           if(GetLength(i)==8||GetLength(i)==9){
+               getArchives($scope.plateNumber);
+               $scope.plateNumber ="鄂A";
+           }
+       }
+
     };
+     //获取字符串长度
+    function GetLength(str){
+        var realLength = 0, len = str.length, charCode = -1;
+        for (var i = 0; i < len; i++) {
+            charCode = str.charCodeAt(i);
+            if (charCode >= 0 && charCode <= 128) realLength += 1;
+            else realLength += 2;
+        }
+        return realLength;
+    }
+
     function getArchives(arg) {
         var record = new archives({plateNumber:arg,status:"3"});
         $scope.status[$scope.plateNumber] = {text:"正在签收",css:"default"};
