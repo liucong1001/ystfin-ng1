@@ -10,13 +10,13 @@
     <div class="row">
         <div class="col-md-2 text-right car">请输入流水号:</div>
         <div class="col-md-3">
-            <input type="text" ng-model="archivesNo" ng-keyup="keyUp($event)" placeholder="请输入流水号后回车" maxlength="16" pattern="^[0-9]{16}$" class="form-control" />
+            <input type="text" ng-model="archivesNo" ng-change="AutoSearch(archivesNo)" placeholder="请输入流水号后回车" maxlength="16" pattern="^[0-9]{16}$" class="form-control" />
         </div>
         <div class="col-md-2 text-right">
             <button class="btn btn-primary" ng-click="showPlate()">车牌号查询</button>
         </div>
         <div class="col-md-3" ng-show="plate_number">
-            <input type="text" ng-model="plateNumber" ng-keyup="keyUp($event)" placeholder="请输入车牌号后回车"  maxlength="7"  class="form-control" />
+            <input type="text" ng-model="plateNumber" ng-change="AutoSearch(plateNumber)"  placeholder="请输入车牌号后回车"  maxlength="7"  class="form-control" />
         </div>
     </div>
     <div class="row" ng-if="message">
