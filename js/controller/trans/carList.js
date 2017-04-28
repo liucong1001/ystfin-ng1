@@ -58,6 +58,6 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
     };
     $scope.printTable=function(){
         $scope.data.ConnectTime=$filter('date')($scope.ConnectTime,'yyyy-MM-dd ');
-        location.href='kpis/archivesList?signTime='+$scope.data.ConnectTime;
+        window.open('kpis/archivesList?signTime='+$scope.data.ConnectTime);
     }
 }]);
