@@ -52,7 +52,6 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
         record.$save().then(function () {
             $scope.status[record.plateNumber] = {text:"已签收",css:"success"};
             $scope.count +=1;
-            $scope.plate_number=false;
             $scope.plateNumber = "鄂A";
         },function (err) {
             $scope.message = err.data.message;
