@@ -31,10 +31,11 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
         $location.path(path);
     };
 
+
     $scope.tableColumns = [
-        {title:"序号",template:"{{row.plateNumber}}", width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"序号",template:"{{row.id}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"黄牌",template:"",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"蓝牌",template:"{{row.vehicleManage }}",thClass:"text-center",tdClass:"text-center", width:10},
+        {title:"蓝牌",template:"√",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"摩托车",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车号",template:"{{row.plateNumber}}",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"市场经手人",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
