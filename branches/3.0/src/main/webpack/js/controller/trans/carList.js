@@ -30,10 +30,18 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
     $scope.jump=function(path){
         $location.path(path);
     };
-
-
+    //获取交接市场
+    $scope.getUser=function(){
+        $http.get('archives//plate/findAppUser').success(function(data){
+            $scope.appUser=data.appUser;
+        }).error(function(result){
+           console.log('失败');
+        })
+    };
+    $scope.getUser();
+    //获取分页表
     $scope.tableColumns = [
-        {title:"序号",template:"{{row.id}}", width:10,thClass:"text-center",tdClass:"text-center"},
+        {title:"序号",template:"{{$parent.$index}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"黄牌",template:"",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"蓝牌",template:"√",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"摩托车",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
