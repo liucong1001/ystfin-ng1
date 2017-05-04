@@ -17,12 +17,16 @@
     .link{
         cursor: pointer;
     }
+    .setting{
+        cursor: pointer;
+    }
 </style>
 <div class="panel panel-default">
     <div  ng-show="top" class="panel-heading container-fluid">
         <div class="pull-right">
             <span>选择打印机：</span>
             <select ng-model="selectedPrinter" ng-options="p for p in printerList" ng-change="saveSelectedPrinter()"/>
+            <a  ng-click="setting()" class="setting" >打印参数设置</a>
         </div>
         <h3>打印发票 </h3>
         <div class="row text-center">
