@@ -208,4 +208,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     }
     //点击页面返回
 
+    $scope.setting=function(){
+        $printer.config();
+    }
 }])
