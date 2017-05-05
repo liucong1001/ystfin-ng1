@@ -12,7 +12,7 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }])
 
-app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
+app.controller("transQuery",["$scope","$filter","$http",function ($scope,$filter,$http) {
     $scope.tableColumns_nav=$scope.tableColumns;
     //卖家复选框默认勾选上的项 true显示 false隐藏
     $scope.seller_regPhoto=true;
@@ -303,7 +303,9 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
       }
 
     //定义复选框变化显示情况（false-隐藏；true-显示）
-    $scope.filter={};
+    $scope.filter={
+        stat:'1'
+    };
     $scope.seller=false;
     $scope.sellerTrustor=false;
     $scope.seller_private=false;
@@ -317,8 +319,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
     $scope.type_attr='999';
     $scope.select_carType=false;  //车辆使用类型下拉框暂时隐藏
 
-    //下拉框默认选择
-    $scope.type_pager='1';
+
     //选择查看图片类型下拉框的change事件
     $scope.select=function(x){
         $scope.tableColumns=[];
@@ -406,7 +407,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
            //增值税发票
             $scope.tableColumns=$scope.tableColumns_vat;
         }
-        if(x==7){
+        if(x==7){ //卖家委托人
             $scope.seller_note=false;//卖家
             $scope.seller=false; $scope.buyer=false; $scope.car=false;$scope.other=false;
             $scope.seller_private=false;$scope.private_sell=false;
@@ -414,6 +415,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
             $scope.sellerTrustor=true;$scope.buyTrustor=false;
             //卖家委托人
             $scope.tableColumns=$scope.tableColumns_sellerTrustor_save;
+
         }
         if(x==8){
             $scope.seller_note=false;//卖家
@@ -423,6 +425,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
             $scope.sellerTrustor=false;$scope.buyTrustor=true;
             $scope.tableColumns=$scope.tableColumns_buyTrustor_save;
         }
+        $scope.ngTable.reload();
     };
     //时间格式变换
     $scope.changetime=function(){
@@ -460,5 +463,7 @@ app.controller("transQuery",["$scope","$filter",function ($scope,$filter) {
         }
         $scope.ngTable.reload();
     }
+
+
 
 }]);
