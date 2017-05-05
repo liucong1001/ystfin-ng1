@@ -45,11 +45,11 @@ app.controller("batchStep3Controller",["$scope","$http","$location","batchInStep
     $scope.webcamWidth='280px';
     $scope.webcamHeight='170px';
     $scope.webcamTrue=true;
-    $webcam.show($scope.webcamWidth,$scope.webcamHeight,$scope.webcamTrue);
     //点击放大图片，摄像头的显示
     $scope.imgViewEnd=function(data){
         $webcam.show($scope.webcamWidth,$scope.webcamHeight,$scope.webcamTrue);
     };
+    $scope.imgViewEnd();
     $webcam.setRangeType(0)
     $scope.$on('$destroy', function() {
         $webcam.hide();
