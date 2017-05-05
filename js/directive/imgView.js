@@ -28,7 +28,13 @@ module.exports = function (app) {
                     modalInstance.result.then(function(){
 
                     },function (printed) {
-                        $webcam.show(scope.webcamWidth,scope.webcamHeight,scope.webcamTrue);
+
+                        var value=scope.imgViewEnd;
+                        if(angular.isFunction(value)){
+                            scope.imgViewEnd();
+                        }else{
+                            return
+                        }
                     })
                 })
             },
