@@ -15,7 +15,7 @@
                 <div class="row">
                        <div class="col-md-4 text-right">交接时间</div>
                        <div class=" col-md-4" style="margin-top: -8px;">
-                          <input type="text" placeholder="交接时间"   ng-model="ConnectTime"
+                          <input type="text" placeholder="交接时间"  ng-model="ConnectTime" ng-change="SearchTime(ConnectTime)"
                                  datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天"
                                  clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
                                  close-text="隐藏" alt-input-formats="altInputFormats"
