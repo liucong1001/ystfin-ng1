@@ -9,11 +9,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-
             <div class="col-md-12" style="text-align: right;" id="userFilters" data-auto="true">
                 <form class="form-inline" ng-submit="ngTable.reload()">
-
-
                     <div class="row text-center  search">
                          <div class="form-group">
                              <input name="userName" ng-model="searchinfo.archivesNo" type="text" class="form-control" placeholder="流水号" autocomplete="off">
@@ -61,6 +58,6 @@
         </div>
     </div>
     <div class="">
-        <ng-table url='/archives/page' row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+        <ng-table url='/archives/page' row-class="rowClass" page-size="10" page="0"  columns="tableColumns" filter="searchinfo" instance="ngTable" />
     </div>
 </div>
