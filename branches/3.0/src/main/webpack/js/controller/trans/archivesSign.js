@@ -9,7 +9,7 @@ app.config(["$routeProvider",function($routeProvider){
             template:require("./html/archives/archivesSign.html")
         })
 }]);
-app.controller("archivesSign",["$scope","$location","$rootScope","Archives",function($scope,$params,$rootScope,archives){
+app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$http",function($scope,$params,$rootScope,archives,$http){
     $rootScope.subTitle = "提档档案签收";
     $scope.records = {};
     $scope.status = {};
@@ -82,4 +82,12 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives",func
     $scope.showPlate=function(){
             $scope.plate_number=true;
     };
+    //黄牌标记
+
+    $scope.signYellow=function(x){
+        $http.post('/archives/yellowMark?archivesNo='+x).success(function () {
+
+        })
+
+    }
 }])
