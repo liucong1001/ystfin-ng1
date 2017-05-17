@@ -42,8 +42,8 @@ app.controller("carListCtrl", ["$scope","TransRecord","$convert","$q","$printer"
     //获取分页表
     $scope.tableColumns = [
         {title:"序号",template:"{{$parent.$index+1}}", width:10,sortable:true,sorting:true,sortProperty:'signTime',thClass:"text-center",tdClass:"text-center"},
-        {title:"黄牌",template:"",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"蓝牌",template:"√",thClass:"text-center",tdClass:"text-center", width:10},
+        {title:"黄牌",template:"{{row.yellowMark ==1 ? '√':''}}",thClass:"text-center",tdClass:"text-center", width:10},
+        {title:"蓝牌",template:"{{row.yellowMark ==null ? '√':''}}",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"摩托车",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车号",template:"{{row.plateNumber}}",width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"市场经手人",template:"",width:10,thClass:"text-center",tdClass:"text-center"},
