@@ -85,9 +85,12 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
     //黄牌标记
 
     $scope.signYellow=function(x){
-        $http.post('/archives/yellowMark?archivesNo='+x).success(function () {
+        if(confirm("是否确定黄牌标记此车")){
+            $http.post('/archives/yellowMark?archivesNo='+x).success(function () {
 
-        })
+            })
+        }
+
 
     }
 }])
