@@ -48,8 +48,8 @@
 
         <div class="panel-footer">
             <div class="pull-right">
+                共<span class="text-danger">{{order.items.length}}</span>张发票 合计:<span class="text-danger" style="font-size: 32px;">{{order.amount / 100 | currency:"￥"}}</span>元
                 <button class="btn btn-lg btn-danger" ng-click="pay()" ng-show="order.status == '01'" ng-disabled="order.status != '01' || !account.dealers || account.dealers.balance - order.amount <= 0">确定扣款</button>
-                共<span class="text-danger">{{order.items.length}}</span>张发票 合计:<span class="text-danger">{{order.amount / 100 | currency:"￥"}}</span>元
             </div>
             <div class="clearfix"></div>
         </div>
@@ -58,7 +58,7 @@
         {{payMessage}}
     </div>
     <div class="alert alert-success" ng-if="payMessage && payMessage == 'success'">
-        <span style="font-size: 20px;">扣款成功!</span>
+        <span style="font-size: 32px;">扣款成功!账户余额：{{balance / 100 | currency:"￥"}}</span>
     </div>
     <a href="/ng#/pay/order/query" class="btn btn-default">返回</a>
 </div>
