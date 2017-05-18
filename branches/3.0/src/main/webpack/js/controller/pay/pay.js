@@ -86,7 +86,7 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
             $scope.cardMessage = "扣款失败"
             scanCard()
         }else{*/
-            $http.post("/icard/pay",{cardNo:$scope.cardNo,amount:amount,tac:tag, date:date,time:time,orderNo:$scope.order.orderNo}).then(function (result) {
+            $http.post("/icard/pay",{cardNo:$scope.cardNo,amount:amount, date:date,time:time,orderNo:$scope.order.orderNo}).then(function (result) {
                 $scope.account = result.data
                 $scope.payMessage = "success"
                 $scope.order.status = "02"

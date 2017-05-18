@@ -74,7 +74,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
             $scope.cardMessage = "充值失败"
             scanCard()
         }else{*/
-            $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,tac:tag,date:date,time:time}).then(function (result) {
+            $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,date:date,time:time}).then(function (result) {
                 $scope.account = result.data
                 $scope.rechargeMessage = "success"
                 $scope.amount = ""
