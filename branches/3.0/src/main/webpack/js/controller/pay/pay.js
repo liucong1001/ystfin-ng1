@@ -80,12 +80,12 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         var date = $filter("date")(Date.now(),"yyyyMMdd")
         var time = $filter("date")(Date.now(),"HHmmss")
         var amount = $scope.order.amount;
-        var tag = $icard.pay(amount,time,date,time)
+        /*var tag = $icard.pay(amount,time,date,time)
         if(!tag){
             $scope.payMessage = "写卡失败"
             $scope.cardMessage = "扣款失败"
             scanCard()
-        }else{
+        }else{*/
             $http.post("/icard/pay",{cardNo:$scope.cardNo,amount:amount,tac:tag, date:date,time:time,orderNo:$scope.order.orderNo}).then(function (result) {
                 $scope.account = result.data
                 $scope.payMessage = "success"
@@ -97,6 +97,6 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                 $scope.cardMessage = "扣款失败"
                 scanCard()
             })
-        }
+       /*}*/
     }
 }])
