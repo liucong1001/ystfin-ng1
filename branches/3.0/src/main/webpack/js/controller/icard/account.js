@@ -19,7 +19,7 @@ app.controller("accountController",["$scope","$routeParams","$http",function ($s
         {title:"余额",template:"{{row.dealers.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"状态",template:"<ng-convert code='account_status' value='{{row.status}}' ></ng-convert>",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"详情",template:"<a href='/ng#/icard/{{row.id}}/details?balance={{row.dealers.balance}}&dealersId={{row.dealers.id}}'>查看</a>",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"操作",template:"<a href='/ng#/icard/recharge' ng-if='row.status != 02'>充值</a>&nbsp;&nbsp;<a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a>",width:10,thClass:"text-center",tdClass:"text-center"}
+        {title:"操作",template:"<!--<a href='/ng#/icard/recharge' ng-if='row.status != 02'>充值</a>&nbsp;&nbsp;--><a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a>",width:10,thClass:"text-center",tdClass:"text-center"}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){
