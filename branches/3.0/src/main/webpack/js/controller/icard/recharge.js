@@ -34,12 +34,12 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
         $scope.intv = $icard.scanCard(function (cardNo,balance) {
             $scope.$apply(function () {
                 $scope.cardNo = cardNo
-                if(cardNo){
-                    $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
-                }
-                else{
+                // if(cardNo){
+                //     $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
+                // }
+                // else{
                     $scope.cardMessage = ""
-                }
+                // }
             })
         })
     }
@@ -51,6 +51,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
             $http.get("/icard/cardNo/" + val).then(function (result) {
                 $scope.account = result.data
                 $scope.accountLoadMessge = ""
+                $scope.cardMessage = "当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
             },function (result) {
                 $scope.accountLoadMessge = result.data.message
             })
