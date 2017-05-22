@@ -122,6 +122,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     $scope.buttomback=false;
     // 打印
     $scope.print = function (billType) {
+        $scope.trans.printDate = $filter("date")($scope.billDate,"yyyy-MM-dd");
         $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
             var bill = new $bill($scope.trans);
             bill.billType = billType;
