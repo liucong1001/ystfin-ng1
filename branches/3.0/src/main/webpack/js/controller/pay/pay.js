@@ -38,8 +38,8 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                     $scope.cardBalance = balance
                     $scope.cardNo = cardNo
                     if(cardNo){
-                        $scope.cardMessage = "待缴金额:" + $filter("currency")(order.amount/100) +
-                            "\n当前余额:" + $filter("currency")(balance / 100)
+                        // $scope.cardMessage = "待缴金额:" + $filter("currency")(order.amount/100) +
+                        //     "\n当前余额:" + $filter("currency")(balance / 100)
                     }
                     else{
                         $scope.cardMessage = "待缴金额:" + $filter("currency")(order.amount/100)
@@ -57,6 +57,8 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                 $http.get("/icard/cardNo/" + val).then(function (result) {
                     $scope.account = result.data
                     $scope.accountLoadMessge = ""
+                    $scope.cardMessage = "待缴金额:" + $filter("currency")($scope.order.amount/100) +
+                        "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
                 }, function (result) {
                     $scope.accountLoadMessge = result.data.message
                 })
@@ -90,11 +92,12 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                 $scope.account = result.data
                 $scope.payMessage = "success"
                 $scope.order.status = "02"
-                $scope.cardMessage = "扣款成功"
+                // $scope.cardMessage = "扣款成功"
+                $scope.cardMessage = "扣款成功\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
                 scanCard()
             },function (result) {
                 $scope.payMessage =  result.data.message
-                $scope.cardMessage = "扣款失败"
+                $scope.cardMessage = "扣款失败\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
                 scanCard()
             })
        /*}*/

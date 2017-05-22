@@ -38,8 +38,11 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
                 //     $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
                 // }
                 // else{
-                    $scope.cardMessage = ""
+                //     $scope.cardMessage = ""
                 // }
+                if(!cardNo){
+                    $scope.cardMessage = ""
+                }
             })
         })
     }
@@ -79,7 +82,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
                 $scope.account = result.data
                 $scope.rechargeMessage = "success"
                 $scope.amount = ""
-                $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.balance / 100)
+                $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
                 scanCard()
             },function (result) {
                 $scope.cardMessage = "充值失败"
