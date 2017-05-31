@@ -81,7 +81,6 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         $scope.intv = 0
         $icard.playVoice(4)
         $icard.getPassword().then(function (pwd) {
-            console.log(pwd)
             // TODO:后台比较密码，并将密码验证结果保存到session，在下一步扣款时检查
             if(pwd != $scope.account.password){
                 $icard.playVoice(5)
