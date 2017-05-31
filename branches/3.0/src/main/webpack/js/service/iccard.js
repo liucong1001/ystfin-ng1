@@ -24,6 +24,7 @@ module.exports = function (app) {
                     try {
                         if ($('#__icCardWriterCtrl')[0].Init(market,maker,0x11,txnSlot)) {
                             inited = true
+
                             deferred.resolve(true)
                         }
                     }
@@ -65,9 +66,37 @@ module.exports = function (app) {
                 }, 1000)
                 return intv
             },
+            beep:function () {
+                var ctrl = document.getElementById("__icCardWriterCtrl")
+                ctrl.Beep()
+            },
+            /**
+             * 播放语音
+             * @param index 1、请插卡 2、请刷卡 3、读卡错误 4、请输入密码 5、密码错误
+             *  6、操作成功 7、操作超时 8、操作失败 9、请取回卡
+             *  10、请重新输入密码 11、请再次输入密码 12、请输入新密码 13、请输入旧密码 14、请确认新密码
+             */
+            playVoice:function (index) {
+                var ctrl = document.getElementById("__icCardWriterCtrl")
+                ctrl.PlaySound(index)
+            },
+
             showText:function (text) {
                 var ctrl = document.getElementById("__icCardWriterCtrl")
                 ctrl.ShowText(text);
+            },
+            getPassword:function () {
+                var ctrl = document.getElementById("__icCardWriterCtrl")
+                var deferred = $q.defer()
+                var promise = deferred.promise
+                ctrl.GetPassword(300,function (status, pwd) {
+                   if(status == "success"){
+                       deferred.resolve(pwd)
+                   }else{
+                       deferred.reject()
+                   }
+                })
+                return promise
             },
             stopScan:function () {
                scan = false
