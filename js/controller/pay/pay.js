@@ -10,7 +10,7 @@ app.config(["$routeProvider",function($routeProvider){
         template:require("./html/order/pay.html")
     })
 }])
-app.controller("payOrderController",["$scope","Order","$routeParams","$http","$icard","$filter",function ($scope,Order,$routeParams,$http,$icard,$filter) {
+app.controller("payOrderController",["$scope","Order","$routeParams","$http","$icard","$filter","md5",function ($scope,Order,$routeParams,$http,$icard,$filter,md5) {
     Order.get({id:$routeParams.id},function (order) {
         $scope.order = order
         if(order.status != "01") return
@@ -82,7 +82,8 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
         $icard.playVoice(4)
         $icard.getPassword().then(function (pwd) {
             // TODO:后台比较密码，并将密码验证结果保存到session，在下一步扣款时检查
-            if(pwd != $scope.account.password){
+            var password = md5.createHash(pwd);
+            if(password != $scope.account.password){
                 $icard.playVoice(5)
                 return
             }
@@ -100,18 +101,18 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                 amount: amount,
                 date: date,
                 time: time,
-                orderNo: $scope.order.orderNo
+                orderNo: $scope.order.orderNo,
+                password:$scope.account.password
             }).then(function (result) {
-                $scope.account = result.data
+                console.log(result);
                 $scope.payMessage = "success"
                 $scope.order.status = "02"
-                // $scope.cardMessage = "扣款成功"
-                $scope.cardMessage = "扣款成功\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
-                scanCard()
+                $scope.cardMessage = "扣款成功\n当前余额:" + $filter("currency")(result.data.dealers.balance / 100);
+                //scanCard()
             }, function (result) {
                 $scope.payMessage = result.data.message
-                $scope.cardMessage = "扣款失败\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
-                scanCard()
+                $scope.cardMessage = "扣款失败\n当前余额:" + $filter("currency")(result.data.dealers.balance / 100)
+                //scanCard()
             })
             /*}*/
         },function () {
