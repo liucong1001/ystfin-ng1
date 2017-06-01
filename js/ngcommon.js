@@ -16,7 +16,7 @@ require("../css/inputDropdownStyles.css")
 
 require("./directive/index")
 require("./service/index")
-var app = angular.module("sctsApp",["ngRoute","xeditable","ngResource","ngFileUpload","ngAnimate","inputDropdown","ui.bootstrap","ys.ng.ui","ys.ng.service"])
+var app = angular.module("sctsApp",["ngRoute","ngMd5","xeditable","ngResource","ngFileUpload","ngAnimate","inputDropdown","ui.bootstrap","ys.ng.ui","ys.ng.service"])
 
 app.run(["editableOptions",function(editableOptions) {
     editableOptions.theme = 'bs3'
