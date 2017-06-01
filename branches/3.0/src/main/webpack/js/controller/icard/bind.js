@@ -59,7 +59,7 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
             if(pwd.length!=6){
                 $icard.playVoice(8);
             }else{
-                $icard.playVoice(14);
+                $icard.playVoice(11);
                 $icard.getPassword().then(function(repwd){
                     if(repwd!=pwd){
                         $icard.playVoice(5);
