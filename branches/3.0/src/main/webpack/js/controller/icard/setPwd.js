@@ -49,7 +49,7 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
             $scope.accountLoadMessge = ""
         }
     })
-
+$scope.success=true;
     $scope.cardPwd = function () {
         if(!this.cardNo) return false
         var delars=this.dealersId;
@@ -69,8 +69,9 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
                     }else{
                         var pwdMd5=md5.createHash(pwd);
                         $http.post("/icard/changePwd",{cardNo:$scope.cardNo,password:pwdMd5}).then(function () {
-                            $scope.bindMessage = "success";
+
                             $icard.playVoice(6);
+                            //$scope.
                         },function (result) {
                             $scope.bindMessage = result.data.message
                         })
