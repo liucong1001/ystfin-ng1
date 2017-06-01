@@ -10,7 +10,10 @@ app.config(["$routeProvider",function($routeProvider){
     });
 }]);
 
-app.controller("accountController",["$scope","$routeParams","$http",function ($scope,$routeParams,$http) {
+app.controller("accountController",["$scope","$routeParams","$http","$icard","$location",function ($scope,$routeParams,$http,$icard,$location) {
+    $scope.jump=function(path){
+        $location.path(path);
+    };
     $scope.filter = {"dealers.id":$routeParams.id};
     $scope.tableColumns = [
         {title:"卡号",template:"{{row.cardNo}}", width:20,thClass:"text-center",tdClass:"text-center"},
@@ -19,7 +22,7 @@ app.controller("accountController",["$scope","$routeParams","$http",function ($s
         {title:"余额",template:"{{row.dealers.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"状态",template:"<ng-convert code='account_status' value='{{row.status}}' ></ng-convert>",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"详情",template:"<a href='/ng#/icard/{{row.id}}/details?balance={{row.dealers.balance}}&dealersId={{row.dealers.id}}'>查看</a>",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"操作",template:"<!--<a href='/ng#/icard/recharge' ng-if='row.status != 02'>充值</a>&nbsp;&nbsp;--><a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a>",width:10,thClass:"text-center",tdClass:"text-center"}
+        {title:"操作",template:"<!--<a href='/ng#/icard/recharge' ng-if='row.status != 02'>充值</a>&nbsp;&nbsp;--><a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a> <a href='' ng-click='instance.setPwd(row.cardNo)'> 修改密码</a> ",width:10,thClass:"text-center",tdClass:"text-center"}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){
@@ -34,5 +37,9 @@ app.controller("accountController",["$scope","$routeParams","$http",function ($s
                 $scope.ngTable.reload();
             })
         }
+    }}
+
+    $scope.ngTable={setPwd:function(cardNo){
+        $location.path('/icard/setPwd').search({cardNo:cardNo});
     }}
 }]);
