@@ -62,6 +62,7 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
                     if(repwd!=pwd){
                         $icard.playVoice(5);
                     }else{
+                        $icard.playVoice(6);
                         alert("绑卡成功，密码是"+pwd);
                         //$http.post("/icard/bind",{delars:this.dealersId,cardNo:this.cardNo}).then(function () {
                         //    $scope.bindMessage = "success"
