@@ -16,46 +16,51 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5","$location",function ($scope,$http,$routeParams,$icard,md5,$location) {
     //$scope.dealersId = $routeParams.dealersId;
-    $scope.intv = 0;
-    $scope.initCardWriter = function () {
-        $icard.init().then(function () {
-            $scope.icardWriterReady = true
-        },function () {
-            $scope.icardWriterReady = false
-        })
-    }
-    $scope.$watch("cardMessage",function (val) {
-        $icard.showText(val)
-    })
-    $scope.initCardWriter()
-    $scope.$watch("intv",function (val,old) {
-        if(old) clearInterval(old)
-    })
-    $scope.$on("$destroy",function () {
-        if($scope.intv) clearInterval($scope.intv)
-    })
-    function scanCard() {
-        $scope.intv = $icard.scanCard(function (cardNo,balance) {
-            $scope.$apply(function () {
-                $scope.cardNo = cardNo
-                // if(cardNo){
-                //     $scope.cardMessage = "µ±Ç°Óà¶î:" + $filter("currency")(balance / 100)
-                // }
-                // else{
-                //     $scope.cardMessage = ""
-                // }
-                if(!cardNo){
-                    $scope.cardMessage = ""
-                }
+
+
+    $scope.initCard=function(){
+        $scope.intv = 0;
+        $scope.initCardWriter = function () {
+            $icard.init().then(function () {
+                $scope.icardWriterReady = true
+            },function () {
+                $scope.icardWriterReady = false
             })
+        }
+        $scope.$watch("cardMessage",function (val) {
+            $icard.showText(val)
         })
+        $scope.initCardWriter()
+        $scope.$watch("intv",function (val,old) {
+            if(old) clearInterval(old)
+        })
+        $scope.$on("$destroy",function () {
+            if($scope.intv) clearInterval($scope.intv)
+        })
+        function scanCard() {
+            $scope.intv = $icard.scanCard(function (cardNo,balance) {
+                $scope.$apply(function () {
+                    $scope.cardNo = cardNo;
+                    if(!cardNo){
+                        $scope.cardMessage = ""
+                    }
+                })
+            })
+        }
+        $scope.$watch("icardWriterReady", function (val,old) {
+            scanCard()
+        })
+        $scope.$on("$destroy",function () {
+            if($scope.intv) clearInterval($scope.intv)
+        })
+    };
+
+    if($routeParams.cardNo.length>0){
+
+    }else{
+        $scope.initCard();
     }
-    $scope.$watch("icardWriterReady", function (val,old) {
-        scanCard()
-    })
-    $scope.$on("$destroy",function () {
-        if($scope.intv) clearInterval($scope.intv)
-    })
+
 
     $scope.jump=function(path){
         $location.path(path);
