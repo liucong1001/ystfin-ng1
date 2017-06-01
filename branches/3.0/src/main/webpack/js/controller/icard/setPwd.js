@@ -55,11 +55,14 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
         })
     };
 
-    if($routeParams.cardNo.length>0){
+    $scope.init=function(){
+        if($routeParams.cardNo.length>0){
 
-    }else{
-        $scope.initCard();
+        }else{
+            $scope.initCard();
+        }
     }
+    $scope.init();
 
 
     $scope.jump=function(path){
