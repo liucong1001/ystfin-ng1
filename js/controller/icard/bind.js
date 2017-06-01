@@ -49,6 +49,8 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
     })
     $scope.bindCard = function () {
         if(!this.cardNo) return false
+        var delars=this.dealersId;
+        var cardNo=this.cardNo;
         clearInterval($scope.intv);
         $scope.intv = 0;
         $icard.playVoice(4);
@@ -62,7 +64,7 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
                     if(repwd!=pwd){
                         $icard.playVoice(5);
                     }else{
-                        $http.post("/icard/bind",{delars:this.dealersId,cardNo:this.cardNo,password:pwd}).then(function () {
+                        $http.post("/icard/bind",{delars:delars,cardNo:cardNo,password:pwd}).then(function () {
                             $scope.bindMessage = "success";
                             $icard.playVoice(6);
                         },function (result) {
