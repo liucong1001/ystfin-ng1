@@ -73,9 +73,10 @@ require("./controller/trans/page")
 require("./controller/trans/archivesArrive")
 require("./controller/trans/archivesSign")
 require("./controller/trans/carList")
+//充值报表
+//require("./controller/system/report/card")
 
-
-
+require("./controller/icard/setPwd");
 
 
 
