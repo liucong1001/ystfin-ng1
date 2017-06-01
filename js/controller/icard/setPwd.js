@@ -31,6 +31,31 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
     $scope.$watch("intv",function (val,old) {
         if(old) clearInterval(old)
     })
+    $scope.$on("$destroy",function () {
+        if($scope.intv) clearInterval($scope.intv)
+    })
+    function scanCard() {
+        $scope.intv = $icard.scanCard(function (cardNo,balance) {
+            $scope.$apply(function () {
+                $scope.cardNo = cardNo
+                // if(cardNo){
+                //     $scope.cardMessage = "µ±«∞”‡∂Ó:" + $filter("currency")(balance / 100)
+                // }
+                // else{
+                //     $scope.cardMessage = ""
+                // }
+                if(!cardNo){
+                    $scope.cardMessage = ""
+                }
+            })
+        })
+    }
+    $scope.$watch("icardWriterReady", function (val,old) {
+        scanCard()
+    })
+    $scope.$on("$destroy",function () {
+        if($scope.intv) clearInterval($scope.intv)
+    })
 
     $scope.jump=function(path){
         $location.path(path);
@@ -49,7 +74,7 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
             $scope.accountLoadMessge = ""
         }
     })
-$scope.success=true;
+
     $scope.cardPwd = function () {
         if(!this.cardNo) return false
         var delars=this.dealersId;
@@ -71,6 +96,7 @@ $scope.success=true;
                         $http.post("/icard/changePwd",{cardNo:$scope.cardNo,password:pwdMd5}).then(function () {
 
                             $icard.playVoice(6);
+                            $scope.success=true;
                             //$scope.
                         },function (result) {
                             $scope.bindMessage = result.data.message
