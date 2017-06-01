@@ -11,7 +11,7 @@ app.config(["$routeProvider",function($routeProvider){
     })
 }])
 
-app.controller("icardBindController",["$scope","$http","$routeParams","$icard",function ($scope,$http,$routeParams,$icard) {
+app.controller("icardBindController",["$scope","$http","$routeParams","$icard","md5",function ($scope,$http,$routeParams,$icard,md5) {
     $scope.dealersId = $routeParams.dealersId
 
     $scope.$watch("cardMessage",function (val) {
@@ -64,7 +64,8 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
                     if(repwd!=pwd){
                         $icard.playVoice(5);
                     }else{
-                        $http.post("/icard/bind",{delars:delars,cardNo:cardNo,password:pwd}).then(function () {
+                         var pwdMd5=md5.createHash(pwd);
+                        $http.post("/icard/bind",{delars:delars,cardNo:cardNo,password:pwdMd5}).then(function () {
                             $scope.bindMessage = "success";
                             $icard.playVoice(6);
                         },function (result) {
