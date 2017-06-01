@@ -49,10 +49,35 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard",f
     })
     $scope.bindCard = function () {
         if(!this.cardNo) return false
-        $http.post("/icard/bind",{delars:this.dealersId,cardNo:this.cardNo}).then(function () {
-            $scope.bindMessage = "success"
-        },function (result) {
-            $scope.bindMessage = result.data.message
-        })
+        clearInterval($scope.intv);
+        $scope.intv = 0;
+        $icard.playVoice(4);
+
+        $icard.getPassword().then(function (pwd) {
+            if(pwd.length!=6){
+                $icard.playVoice(8);
+            }else{
+                $icard.playVoice(14);
+                $icard.getPassword().then(function(repwd){
+                    if(repwd!=pwd){
+                        $icard.playVoice(5);
+                    }else{
+                        alert("绑卡成功，密码是"+pwd);
+                        //$http.post("/icard/bind",{delars:this.dealersId,cardNo:this.cardNo}).then(function () {
+                        //    $scope.bindMessage = "success"
+                        //},function (result) {
+                        //    $scope.bindMessage = result.data.message
+                        //})
+
+                    }
+                })
+            }
+        },function () {
+            console.log("输入密码失败")
+        });
+
+
+
+
     }
 }])
