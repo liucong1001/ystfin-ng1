@@ -1,15 +1,15 @@
-<div class="alert alert-danger" ng-if="!icardWriterReady">
-    未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
-</div>
-<div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">
-    请将卡放置到写卡器上。
-</div>
-<div class="alert alert-success" ng-if="icardWriterReady && cardNo">
-    已检测到充值卡，请点击修改密码按钮，根据语音提示进行操作。
-</div>
-<div class="alert alert-danger" ng-if="accountLoadMessge">
-    该充值未绑定商户！
-</div>
+<!--<div class="alert alert-danger" ng-if="!icardWriterReady">-->
+    <!--未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>-->
+<!--</div>-->
+<!--<div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">-->
+    <!--请将卡放置到写卡器上。-->
+<!--</div>-->
+<!--<div class="alert alert-success" ng-if="icardWriterReady && cardNo">-->
+    <!--已检测到充值卡，请点击修改密码按钮，根据语音提示进行操作。-->
+<!--</div>-->
+<!--<div class="alert alert-danger" ng-if="accountLoadMessge">-->
+    <!--该充值未绑定商户！-->
+<!--</div>-->
 <div class="panel panel-default">
     <div class="panel-heading"><h2>充值卡修改密码</h2></div>
     <div class="panel-body form-horizontal">
