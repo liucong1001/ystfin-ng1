@@ -57,19 +57,19 @@
         <table class="table card" border="1">
             <tbody>
             <tr>
-                <th colspan="5">武汉爱之家长丰旧机动车交易市场充值报表</th>
+                <th colspan="5">武汉爱之家长丰旧机动车交易市场消费报表</th>
             </tr>
             <tr>
                 <td>商户名称</td>
-                <td>充值金额</td>
-                <td>充值时间</td>
-                <td>账户余额</td>
+                <td>消费金额</td>
+                <td>消费次数</td>
+                <td>当前账户余额</td>
             </tr>
             <tr ng-repeat="item in cardData">
-              <td>{{item.name}}</td>
-              <td>{{item.amount}}</td>
-              <td>{{item.time}}</td>
-              <td>{{item.balance}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.cishu}}</td>
+                <td>{{item.balance}}</td>
             </tr>
             </tbody>
         </table>

@@ -73,8 +73,9 @@ require("./controller/trans/page")
 require("./controller/trans/archivesArrive")
 require("./controller/trans/archivesSign")
 require("./controller/trans/carList")
-//充值报表
+//IC卡充值，消费报表
 require("./controller/icard/rechargeList");
+require("./controller/icard/consumptionList");
 
 require("./controller/icard/setPwd");
 
