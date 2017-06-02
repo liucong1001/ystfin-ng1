@@ -72,4 +72,10 @@ app.controller("consumptionList", ["$scope","$convert","$q","$filter","$location
             alert(data.message);
         });
     };
+    //点击消费次数进入消费详情页
+    $scope.detail=function(name){
+        $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期
+        $scope.monthEnd=$filter('date')($scope.cardTimeEnd,'yyyy-MM-dd');//成交起始日期
+        $location.path('/icard/consumptiondetail').search({startDate:$scope.month,endDate:$scope.monthEnd,name:name});
+    }
 }]);
