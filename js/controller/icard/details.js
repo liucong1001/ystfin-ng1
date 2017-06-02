@@ -18,6 +18,8 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
     $scope.tableColumns = [
         {title:"订单",template:"{{row.orderNo}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"金额",template:"{{row.amount / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
+        {title:"充值",template:"{{row.recharge / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
+        {title:"赠送",template:"{{row.give / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
         {title:"处理时间",template:"{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"类型",template:"<ng-convert code='account_record_type' value='{{row.type}}' ></ng-convert>",width:10,thClass:"text-left",tdClass:"text-left"},
         {title:"订单详情",template:"<a href='/ng#/pay/order/query?orderNo={{row.orderNo}}&accountId={{row.account.id}}&balance="+ $scope.balance+"'>{{row.orderNo ? '查看':''}}</a>",width:10,thClass:"text-left",tdClass:"text-left"}
