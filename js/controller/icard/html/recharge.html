@@ -32,7 +32,11 @@
             <div class="col-sm-2"><input class="form-control" type="number" ng-model="amount" /></div>
             <div class="col-sm-4 form-control-static">{{amount | amountHZ}}</div>
         </div>
-
+        <div class="form-group">
+            <div class="col-sm-2 control-label">输入赠送金额：</div>
+            <div class="col-sm-2"><input class="form-control" type="number" ng-model="give" /></div>
+            <!--<div class="col-sm-4 form-control-static">{{amount | amountHZ}}</div>-->
+        </div>
     </div>
     <div class="panel-footer">
         <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || !amount">充值</button>

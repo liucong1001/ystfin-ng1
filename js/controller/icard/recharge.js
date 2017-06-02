@@ -72,13 +72,14 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
         var date = $filter("date")(Date.now(),"yyyyMMdd")
         var time = $filter("date")(Date.now(),"HHmmss")
         var amount = parseFloat($scope.amount) * 100;
+        var give=parseFloat($scope.give)*100;
        /* var tag = $icard.recharge(amount,time,date,time)
         if(!tag){
             $scope.rechargeMessage = "写卡失败"
             $scope.cardMessage = "充值失败"
             scanCard()
         }else{*/
-            $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,date:date,time:time}).then(function (result) {
+            $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,give:give,date:date,time:time}).then(function (result) {
                 $scope.account = result.data
                 $scope.rechargeMessage = "success"
                 $scope.amount = ""
