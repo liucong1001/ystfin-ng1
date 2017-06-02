@@ -82,7 +82,8 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
             $http.post("/icard/recharge",{cardNo:$scope.cardNo,amount:amount,give:give,date:date,time:time}).then(function (result) {
                 $scope.account = result.data
                 $scope.rechargeMessage = "success"
-                $scope.amount = ""
+                $scope.amount = "";
+                $scope.give="";
                 $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
                 scanCard()
             },function (result) {
