@@ -76,6 +76,7 @@ require("./controller/trans/carList")
 //IC卡充值，消费报表
 require("./controller/icard/rechargeList");
 require("./controller/icard/consumptionList");
+require("./controller/icard/consumptionDetail");
 
 require("./controller/icard/setPwd");
 
