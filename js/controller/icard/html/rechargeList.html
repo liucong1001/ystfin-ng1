@@ -1,0 +1,87 @@
+<style>
+    .datatime{
+        position: relative;
+    }
+    .selectway{
+        position: absolute;
+        left: 25%;
+        top:0%;
+    }
+    .searchbtn{
+        position: absolute;
+        left: 42%;
+        top:0%;
+    }
+    table.card tbody tr>th,table.card tbody tr>td{
+        text-align: center;
+        border: 1px solid black;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>开始日期</label>
+            <span class="">
+                <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></a>
+                <input type="text" placeholder="请选择年，月"   ng-model="cardTime"
+                       datepicker-options="dateOptions"
+                       style="width:200px;" ng-click="dateOpened = true" current-text="今天"
+                       clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
+                       ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
+                       class="form-control"/>
+            </span>
+            </div>
+            <div class="col-md-3">
+                <label>截止日期</label>
+            <span class="">
+                <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened2 = true"></a>
+                <input type="text" placeholder="请选择年，月,日"   ng-model="cardTimeEnd"
+                       datepicker-options="dateOptions"
+                       style="width:200px;" ng-click="dateOpened2 = true" current-text="今天"
+                       clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
+                       ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
+                       class="form-control"/>
+            </span>
+            </div>
+            <div class="col-md-3">
+                <label >请选择商户：</label>
+                <select   ng-model="company"   ng-init="company=merchant[0]"  ng-options="x for x in merchant" class="form-control">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="btn" style="padding-top: 23px">
+                    <button id="search" class="btn btn-primary btn-query" type="button" ng-click="searchdate()"> <span>查询</span></button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button id="exportExcel" class="btn btn-success btn-export" ng-click="exportOrder()"><span>导出</span></button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+        </div>
+        <br/>
+        <br/>
+        <table class="table card" border="1">
+            <tbody>
+            <tr>
+                <th colspan="5">武汉爱之家长丰旧机动车交易市场充值报表</th>
+            </tr>
+            <tr>
+                <td>商户名称</td>
+                <td>充值金额</td>
+                <td>充值时间</td>
+                <td>账户余额</td>
+            </tr>
+            <tr ng-repeat="item in cardData">
+              <td>{{item.name}}</td>
+              <td>{{item.amount}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.balance}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
