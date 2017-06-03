@@ -79,7 +79,8 @@ require("./controller/icard/consumptionList");
 require("./controller/icard/consumptionDetail");
 
 require("./controller/icard/setPwd");
-
+//流水号查询
+require("./controller/system/trans/archives");
 
 
 
