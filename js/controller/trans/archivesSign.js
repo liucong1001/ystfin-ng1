@@ -11,7 +11,7 @@ app.config(["$routeProvider",function($routeProvider){
 }]);
 app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$http",function($scope,$params,$rootScope,archives,$http){
     $rootScope.subTitle = "提档档案签收";
-    $scope.records = {};
+    $scope.records ={};
     $scope.status = {};
     $scope.archivesNo = "";
     $scope.count = 0;
@@ -94,3 +94,4 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
 
     }
 }])
+
