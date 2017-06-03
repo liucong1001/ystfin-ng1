@@ -13,7 +13,7 @@ var app = require("../../../ngcommon")
 var $ = require("jquery")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/system/archives',{
+    $routeProvider.when('/evaluation/list',{
         template:require("./html/archives.html"),
         controller:"archivesCtrl",
         resolve: {
