@@ -61,17 +61,19 @@
             </tr>
             <tr>
                 <td>商户名称</td>
+                <td>充值前账户余额</td>
                 <td>充值金额</td>
                 <td>赠送金额</td>
-                <td>当前账户余额</td>
+                <td>充值后账户余额</td>
                 <td>充值时间</td>
             </tr>
             <tr ng-repeat="item in cardData">
-              <td>{{item.name}}</td>
-              <td>{{item.recharge}}</td>
-              <td>{{item.give}}</td>
-              <td>{{item.balance}}</td>
-              <td>{{item.time}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.oldBalance}}</td>
+                <td>{{item.recharge}}</td>
+                <td>{{item.give}}</td>
+                <td>{{item.newBalance}}</td>
+                <td>{{item.time}}</td>
             </tr>
             </tbody>
         </table>
