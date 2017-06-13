@@ -108,6 +108,7 @@ app.controller("payOrderController",["$scope","Order","$routeParams","$http","$i
                 $scope.payMessage = "success"
                 $scope.order.status = "02"
                 $scope.cardMessage = "扣款成功\n当前余额:" + $filter("currency")(result.data.dealers.balance / 100);
+                $icard.playVoice(6);
                 //scanCard()
             }, function (result) {
                 $scope.payMessage = result.data.message

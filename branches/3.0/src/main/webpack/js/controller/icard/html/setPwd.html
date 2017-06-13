@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2 control-label">商户号：</div><div class="col-sm-6 form-control-static">{{account.dealers.loginName}}</div>
+            <div class="col-sm-2 control-label">商户号：</div><div class="col-sm-6 form-control-static" ng-if="account.dealers.loginName">{{account.dealers.loginName}}</div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2 control-label">商户名称：</div><div class="col-sm-6 form-control-static">{{account.dealers.name}}</div>
+            <div class="col-sm-2 control-label">商户名称：</div><div class="col-sm-6 form-control-static" ng-if="account.dealers.name">{{account.dealers.name}}</div>
         </div>
 
     </div>

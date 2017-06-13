@@ -2,7 +2,7 @@
  * Created by 10973 on 2017/6/1.
  */
 /**
- * Created by —Ô on 2016/11/30.
+ * Created by Êâ¨ on 2016/11/30.
  */
 "use strict"
 var app = require("../../ngcommon")
@@ -16,59 +16,47 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5","$location",function ($scope,$http,$routeParams,$icard,md5,$location) {
     //$scope.dealersId = $routeParams.dealersId;
-
-
-    $scope.initCard=function(){
-        $scope.intv = 0;
-        $scope.initCardWriter = function () {
-            $icard.init().then(function () {
-                $scope.icardWriterReady = true
-            },function () {
-                $scope.icardWriterReady = false
-            })
-        }
-        $scope.$watch("cardMessage",function (val) {
-            $icard.showText(val)
+    $scope.intv = 0;
+    $scope.initCardWriter = function () {
+        $icard.init().then(function () {
+            $scope.icardWriterReady = true
+        },function () {
+            $scope.icardWriterReady = false
         })
-        $scope.initCardWriter()
-        $scope.$watch("intv",function (val,old) {
-            if(old) clearInterval(old)
-        })
-        $scope.$on("$destroy",function () {
-            if($scope.intv) clearInterval($scope.intv)
-        })
-        function scanCard() {
-            $scope.intv = $icard.scanCard(function (cardNo,balance) {
-                $scope.$apply(function () {
-                    $scope.cardNo = cardNo;
-                    if(!cardNo){
-                        $scope.cardMessage = ""
-                    }
-                })
-            })
-        }
-        $scope.$watch("icardWriterReady", function (val,old) {
-            scanCard()
-        })
-        $scope.$on("$destroy",function () {
-            if($scope.intv) clearInterval($scope.intv)
-        })
-    };
-
-    $scope.init=function(){
-        if($routeParams.cardNo.length>0){
-
-        }else{
-            $scope.initCard();
-        }
     }
-    $scope.init();
-
+    $scope.$watch("cardMessage",function (val) {
+        $icard.showText(val)
+    })
+    $scope.initCardWriter()
+    $scope.$watch("intv",function (val,old) {
+        if(old) clearInterval(old)
+    })
+    $scope.$on("$destroy",function () {
+        if($scope.intv) clearInterval($scope.intv)
+    })
+    function scanCard() {
+        $scope.intv = $icard.scanCard(function (cardNo,balance) {
+            $scope.$apply(function () {
+                if(cardNo) $scope.cardNo = cardNo;
+                if(!cardNo){
+                    $scope.cardMessage = ""
+                }
+            })
+        })
+    }
+    $scope.$watch("icardWriterReady", function (val,old) {
+        scanCard()
+    })
+    $scope.$on("$destroy",function () {
+        if($scope.intv) clearInterval($scope.intv)
+    })
 
     $scope.jump=function(path){
         $location.path(path);
     };
+
     $scope.cardNo=$routeParams.cardNo;
+
     $scope.$watch("cardNo",function (val) {
         if(val&&val != null){
             $http.get("/icard/cardNo/" + val).then(function (result) {
@@ -114,11 +102,7 @@ app.controller("setPwdController",["$scope","$http","$routeParams","$icard","md5
                 })
             }
         },function () {
-            console.log(" ‰»Î√‹¬Î ß∞‹")
+            console.log("ËæìÂÖ•ÂØÜÁ†ÅÂ§±Ë¥•ÔºÅ")
         });
-
-
-
-
     }
 }])
