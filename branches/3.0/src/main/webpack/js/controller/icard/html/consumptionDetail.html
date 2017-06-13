@@ -18,7 +18,7 @@
         <table class="table card" border="1">
             <tbody>
             <tr>
-                <th colspan="8">武汉爱之家长丰旧机动车交易市场IC卡消费明细报表</th>
+                <th colspan="9">武汉爱之家长丰旧机动车交易市场IC卡消费明细报表</th>
             </tr>
             <tr>
                 <td>订单号</td>
@@ -26,9 +26,10 @@
                 <td>商户名称</td>
                 <td>卡号</td>
                 <td>车牌号</td>
+                <td>消费前账户余额</td>
                 <td>消费金额</td>
-                <!--<td>充值消费金额</td>-->
                 <td>消费时间</td>
+                <td>消费后账户余额</td>
             </tr>
             <tr ng-repeat="item in cardData">
                 <td>{{item.orderNo}}</td>
@@ -36,9 +37,10 @@
                 <td>{{item.name}}</td>
                 <td>{{item.cardNo}}</td>
                 <td>{{item.plateNumber}}</td>
+                <td>{{item.oldBalance}}</td>
                 <td>{{item.tprice}}</td>
-                <!--<td>{{item.amount}}</td>-->
                 <td>{{item.createTime}}</td>
+                <td>{{item.newBalance}}</td>
             </tr>
             </tbody>
         </table>
