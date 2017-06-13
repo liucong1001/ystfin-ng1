@@ -22,7 +22,7 @@ app.controller("accountController",["$scope","$routeParams","$http","$icard","$l
         {title:"余额",template:"{{row.dealers.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"状态",template:"<ng-convert code='account_status' value='{{row.status}}' ></ng-convert>",thClass:"text-center",tdClass:"text-center", width:10},
         {title:"详情",template:"<a href='/ng#/icard/{{row.id}}/details?balance={{row.dealers.balance}}&dealersId={{row.dealers.id}}'>查看</a>",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"操作",template:"<!--<a href='/ng#/icard/recharge' ng-if='row.status != 02'>充值</a>&nbsp;&nbsp;--><a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a> <a href='' ng-click='instance.setPwd(row.cardNo)'> 修改密码</a> ",width:10,thClass:"text-center",tdClass:"text-center"}
+        {title:"操作",template:"<a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a> <a href='' ng-click='instance.setPwd(row.cardNo)'> 修改密码</a> ",width:10,thClass:"text-center",tdClass:"text-center"}
     ]
     $scope.rowClass = function (row) {
         switch(row.status){
@@ -31,15 +31,18 @@ app.controller("accountController",["$scope","$routeParams","$http","$icard","$l
             default: return "info"
         }
     }
-    $scope.ngTable = {lossCard:function (delars,cardNo) {
-        if(confirm("是否确定此操作？")){
-            $http.post("/icard/cardLoss",{delars:delars,cardNo:cardNo}).then(function () {
-                $scope.ngTable.reload();
-            })
-        }
-    }}
 
-    $scope.ngTable={setPwd:function(cardNo){
-        $location.path('/icard/setPwd').search({cardNo:cardNo});
-    }}
+    $scope.ngTable={
+        setPwd:function(cardNo){
+            $location.path('/icard/setPwd').search({cardNo:cardNo});
+        },
+        lossCard:function (delars,cardNo) {
+            if(confirm("是否确定此操作？")){
+                $http.post("/icard/cardLoss",{delars:delars,cardNo:cardNo}).then(function () {
+                    $scope.ngTable.reload();
+                })
+            }
+        }
+    };
+
 }]);
