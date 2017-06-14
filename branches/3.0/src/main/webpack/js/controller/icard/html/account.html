@@ -1,8 +1,9 @@
 <div class="panel panel-default">
+    <div class="panel-heading"><h2>卡片管理</h2></div>
     <div class="panel-heading">查询条件
         <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'down':'up'}}" href="" ng-click="showFilter=!showFilter"></a>
     </div>
-    <div class="panel-body" ng-show="showFilter">
+    <div class="panel-body" ng-show="!showFilter">
         <div class="row">
             <div class="col-xs-2"><input class="form-control input-sm" ng-model="filter.cardNo" placeholder="卡号(模糊匹配)" /></div>
             <div class="col-xs-2">

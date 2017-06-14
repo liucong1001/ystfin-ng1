@@ -1,11 +1,11 @@
 
 <div>
-    <div>
-        <input placeholder="扫描流水或输入流水按回车" type="text" maxlength="16" size="32" ng-model="archivesNo" ng-keyup="archivesNoKeyUp($event)" />
-        <span class="label label-danger">{{archivesNoError}}</span>
-    </div>
-    <br/>
     <div class="panel panel-default">
+        <div class="panel-heading"><h2>缴费支付</h2></div>
+        <div style="width: 30%;">
+            <input class="form-control" placeholder="扫描流水或输入流水按回车" type="text" maxlength="16" size="32" ng-model="archivesNo" ng-keyup="archivesNoKeyUp($event)" />
+            <span class="label label-danger">{{archivesNoError}}</span>
+        </div>
         <div class="panel-heading">
             <h4 class="pull-left">订单详情</h4>
             <div class="clearfix"></div>
