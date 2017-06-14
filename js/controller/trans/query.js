@@ -12,12 +12,12 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }])
 
-app.controller("transQuery",["$scope","$filter","$http",function ($scope,$filter,$http) {
+app.controller("transQuery",["$scpe","$filter","$http",function ($scope,$filter,$http) {
     $scope.tableColumns_nav=$scope.tableColumns;
     //卖家复选框默认勾选上的项 true显示 false隐藏
     $scope.seller_regPhoto=true;
     $scope.seller_idCardFront=true;
-    $scope.seller_idCardBg=true;
+    $scope.seller_idCardBg=true;o
     $scope.seller_fingerprintImg=true;
     $scope.tableColumns_note=[
         {template:"{{row.archivesNo}}",title:"流水号", width:10,sortable:true,sorting:true,sortProperty:'wtr.archives_no'},
