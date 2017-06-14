@@ -30,8 +30,11 @@ app.controller("consumptionDetail", ["$scope","$convert","$q","$filter","$locati
             params:{startDate:$scope.startTime,endDate:$scope.endTime,name:$scope.name},
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }).success(function(data){
-            console.log(data);
             $scope.cardData=data;
+            $scope.x=0;
+            for(var i=0;i<data.length;i++){
+                $scope.x += data[i].tprice;
+            }
         })
     };
     $scope.cardDetail();

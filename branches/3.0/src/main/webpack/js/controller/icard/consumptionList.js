@@ -38,8 +38,15 @@ app.controller("consumptionList", ["$scope","$convert","$q","$filter","$location
                 params:{startDate:$scope.month,endDate:$scope.monthEnd,name:$scope.company},
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             }).success(function(data){
-                console.log(data);
                 $scope.cardData=data;
+                $scope.x=0;
+                $scope.y=0;
+                $scope.z=0;
+                for(var i=0;i<data.length;i++){
+                    $scope.x += data[i].amount;
+                    $scope.y += data[i].recharge;
+                    $scope.z += data[i].give;
+                }
             })
         }else if($scope.cardTime==null&&$scope.cardTimeEnd){
             alert("请选择开始时间");

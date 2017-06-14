@@ -56,23 +56,30 @@
         <br/>
         <table class="table card" border="1">
             <tbody>
-            <tr>
-                <th colspan="5">武汉爱之家长丰旧机动车交易市场消费报表</th>
-            </tr>
-            <tr>
-                <td>商户名称</td>
-                <td>消费金额</td>
-                <td>充值消费</td>
-                <td>赠送消费</td>
-                <td>消费次数</td>
-            </tr>
-            <tr ng-repeat="item in cardData">
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.recharge}}</td>
-                <td>{{item.give}}</td>
-                <td><a href="" ng-click="detail(item.name)"> {{item.cishu}}</a></td>
-            </tr>
+                <tr>
+                    <th colspan="5">武汉爱之家长丰旧机动车交易市场消费报表</th>
+                </tr>
+                <tr>
+                    <td>商户名称</td>
+                    <td>消费金额</td>
+                    <td>充值消费</td>
+                    <td>赠送消费</td>
+                    <td>消费次数</td>
+                </tr>
+                <tr ng-repeat="item in cardData">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.recharge}}</td>
+                    <td>{{item.give}}</td>
+                    <td><a href="" ng-click="detail(item.name)"> {{item.cishu}}</a></td>
+                </tr>
+                <tr>
+                    <td>总计</td>
+                    <td>{{x}}</td>
+                    <td>{{y}}</td>
+                    <td>{{z}}</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>

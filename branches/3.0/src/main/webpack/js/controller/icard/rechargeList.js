@@ -42,8 +42,13 @@ $scope.searchdate=function(){
             params:{startDate:$scope.month,endDate:$scope.monthEnd,name:$scope.company},
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }).success(function(data){
-            console.log(data);
             $scope.cardData=data;
+            $scope.x = 0;
+            $scope.y = 0;
+            for (var i=0;i<data.length;i++){
+                $scope.x += data[i].recharge;
+                $scope.y += data[i].give;
+            }
         })
     }else if($scope.cardTime==null&&$scope.cardTimeEnd){
         alert("请选择开始时间");
