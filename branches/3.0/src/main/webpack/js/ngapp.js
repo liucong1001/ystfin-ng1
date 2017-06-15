@@ -7,6 +7,9 @@ require("../css/theme.css")
 require("../css/iconfont.css")
 require("../css/main.css")
 require("../css/ui.css")
+require("../css/font-awesome.css")
+require("../css/style.css")
+
 
 
 require("./controller/pay/createOrder")
