@@ -2,10 +2,11 @@
     <div>
         <h2>{{msg}},world</h2>
         <div>
+            <button :disabled="year <= minYear" @click="year--">上一年</button>
             <select v-model="year">
                 <option v-for="y in yearList">{{y}}</option>
             </select>
-            <button v-on:click="initData()">数据</button>
+            <button :disabled="year >= maxYear" @click="year++">下一年</button>
         </div>
         <div class="testChart">
             <chart :options="chartData"></chart>
@@ -60,8 +61,8 @@
             for(var i = 0; i < 10; i++){
                 this.yearList.push(now.getFullYear() - i)
             }
-            this.year = now.getFullYear()
-
+            this.maxYear = this.year = now.getFullYear()
+            this.minYear = this.year - 9
         },
         data()
         {
@@ -71,6 +72,8 @@
                 curDataFee: [],
                 preDataFee: [],
                 year: 0,
+                maxYear:0,
+                minYear:0,
                 yearList:[]
             }
         },
