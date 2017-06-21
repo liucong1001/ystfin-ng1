@@ -1,15 +1,21 @@
 <template>
     <div>
         <h2>{{msg}},world</h2>
-        <div><button v-on:click="initData()">数据</button></div>
         <div>
+            <select v-model="year">
+                <option v-for="y in yearList">{{y}}</option>
+            </select>
+            <button v-on:click="initData()">数据</button>
+        </div>
+        <div class="testChart">
             <chart :options="chartData"></chart>
          </div>
     </div>
 </template>
 <style>
-    .echarts {
-        height: 300px;
+    .testChart .echarts {
+        width: 100%;
+        height: 400px;
     }
 </style>
 <script>
@@ -26,35 +32,46 @@
         components: {
             chart
         },
-        methods:{
-            initData(event){
-                for (let i = 0; i <= 360; i++) {
-                    let t = i / 180 * Math.PI
-                    let r = Math.sin(2 * t) * Math.cos(2 * t)
-                    this.dataArray.push([r, i])
-                }
+        watch:{
+            year(val){
+                this.loadData()
             }
+        },
+        methods:{
+           loadData(){
+               if(this.year == 0) return
+               this.$http.get("/mobile/billTimeData?type=year&year=" + this.year).then(function (res) {
+                   this.curData = res.body.countTotal
+                   this.curDataFee = res.body.fillTotal
+               }, function (e) {
+                   console.log(e)
+               })
+               this.$http.get("/mobile/billTimeData?type=year&year=" + (this.year - 1)).then(function (res) {
+                   this.preData = res.body.countTotal
+                   this.preDataFee = res.body.fillTotal
+               }, function (e) {
+                   console.log(e)
+               })
+           }
         },
         created()
         {
-            // 组件创建完后获取数据，
-            // 此时 data 已经被 observed 了
-            this.$http.get("/mobile/billTimeData?type=year&year=2016").then(function (res) {
-                this.data16 = res.body.countTotal
-            }, function (e) {
-                console.log(e)
-            })
-            this.$http.get("/mobile/billTimeData?type=year&year=2017").then(function (res) {
-                this.data17 = res.body.countTotal
-            }, function (e) {
-                console.log(e)
-            })
+            var now = new Date()
+            for(var i = 0; i < 10; i++){
+                this.yearList.push(now.getFullYear() - i)
+            }
+            this.year = now.getFullYear()
+
         },
         data()
         {
             return {
-                data16: [],
-                data17: []
+                curData: [],
+                preData: [],
+                curDataFee: [],
+                preDataFee: [],
+                year: 0,
+                yearList:[]
             }
         },
         computed:{
@@ -73,7 +90,7 @@
                         }
                     },
                     legend: {
-                        data:['2017年','2016年']
+                        data:[this.year + '年交易量', (this.year - 1) + '年交易量',this.year + '年交易额', (this.year - 1) + '年交易额']
                     },
                     toolbox: {
                         feature: {
@@ -96,22 +113,47 @@
                     yAxis : [
                         {
                             type : 'value'
+                        },
+                        {
+                            type: 'value'
                         }
                     ],
                     series : [
                         {
-                            name:'2017年',
+                            name:this.year + '年交易量',
                             type:'line',
 //                            stack: '交易量',
-                            areaStyle: {normal: {}},
-                            data:this.data17
+                            //areaStyle: {normal: {}},
+                            data:this.curData,
+                            connectNulls:true,
+                            yAxisIndex:0
                         },
                         {
-                            name:'2016年',
+                            name:(this.year - 1) + '年交易量',
                             type:'line',
 //                            stack: '交易量',
-                            areaStyle: {normal: {}},
-                            data:this.data16
+                            //areaStyle: {normal: {}},
+                            data:this.preData,
+                            connectNulls:true,
+                            yAxisIndex:0
+                        },
+                        {
+                            name:this.year + '年交易额',
+                            type:'line',
+//                            stack: '交易量',
+//                            areaStyle: {normal: {}},
+                            data:this.curDataFee,
+                            connectNulls:true,
+                            yAxisIndex:1
+                        },
+                        {
+                            name:(this.year - 1) + '年交易额',
+                            type:'line',
+//                            stack: '交易量',
+//                            areaStyle: {normal: {}},
+                            data:this.preDataFee,
+                            connectNulls:true,
+                            yAxisIndex:1
                         },
                     ]
                 }
