@@ -7,6 +7,7 @@ var CssSourcemapPlugin = require('css-sourcemaps-webpack-plugin')
 module.exports = {
     entry: {
       app:  './js/ngapp.js',
+      leadapp:  './js/leaderapp.js',
     },
     output: {
         path: '../webapp/assets',
@@ -18,6 +19,10 @@ module.exports = {
     module: {
         loaders: [
             {test: /\.html$/, loader: 'raw'},
+            {
+                test: /\.vue$/,
+                loader: 'vue'
+            },
             // Transpile any JavaScript file:
             {
                 test: /\.js$/,
@@ -38,6 +43,12 @@ module.exports = {
             }*/
         ]
     },
+    // vue-loader configurations
+    vue: {
+        loaders: {
+            css: ExtractTextPlugin.extract("css"),
+        }
+    },
     watch: true,
     watchOptions:{
         aggregateTimeout:300,
@@ -51,6 +62,9 @@ module.exports = {
         "jquery":"jQuery",
         "bootstrap":"'bootstarp'",
         "angular":"angular",
+        "vue":"Vue",
+        "vue-chartjs":"VueChartJs",
+        "vue-resource":"VueResource",
         "angular-route":"'angular-route'",
         "angular-animate":"'angular-animate'",
         "angular-resource":"'angular-resource'",
