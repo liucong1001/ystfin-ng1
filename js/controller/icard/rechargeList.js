@@ -45,9 +45,11 @@ $scope.searchdate=function(){
             $scope.cardData=data;
             $scope.x = 0;
             $scope.y = 0;
+            $scope.z = 0;
             for (var i=0;i<data.length;i++){
                 $scope.x += data[i].recharge;
                 $scope.y += data[i].give;
+                $scope.z += data[i].amount;
             }
         })
     }else if($scope.cardTime==null&&$scope.cardTimeEnd){
@@ -58,6 +60,9 @@ $scope.searchdate=function(){
         alert("请选择日期");
     }
 };
+    $scope.detail = function (name,startDate,endDate) {
+        $location.path('/recordList').search({name:name,startDate:$filter('date')(startDate,'yyyy-MM-dd'),endDate:$filter('date')(endDate,'yyyy-MM-dd'),type:'01'});
+    }
     //导出excel表
     $scope.exportOrder = function () {
         $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期

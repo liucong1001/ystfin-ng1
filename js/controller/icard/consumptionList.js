@@ -43,9 +43,9 @@ app.controller("consumptionList", ["$scope","$convert","$q","$filter","$location
                 $scope.y=0;
                 $scope.z=0;
                 for(var i=0;i<data.length;i++){
-                    $scope.x += data[i].amount;
-                    $scope.y += data[i].recharge;
-                    $scope.z += data[i].give;
+                    $scope.x += data[i].recharge;
+                    $scope.y += data[i].give;
+                    $scope.z += data[i].amount;
                 }
             })
         }else if($scope.cardTime==null&&$scope.cardTimeEnd){
@@ -79,10 +79,14 @@ app.controller("consumptionList", ["$scope","$convert","$q","$filter","$location
             alert(data.message);
         });
     };
+
+    $scope.detail = function (name,startDate,endDate) {
+        $location.path('/recordList').search({name:name,startDate:$filter('date')(startDate,'yyyy-MM-dd'),endDate:$filter('date')(endDate,'yyyy-MM-dd'),type:'02'});
+    }
     //点击消费次数进入消费详情页
-    $scope.detail=function(name){
+    /*$scope.detail=function(name){
         $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期
         $scope.monthEnd=$filter('date')($scope.cardTimeEnd,'yyyy-MM-dd');//成交起始日期
         $location.path('/icard/consumptiondetail').search({startDate:$scope.month,endDate:$scope.monthEnd,name:name});
-    }
+    }*/
 }]);

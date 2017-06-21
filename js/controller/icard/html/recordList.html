@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-heading">查询条件
+        <a class="pull-right glyphicon glyphicon-chevron-{{showFilter?'up':'down'}}" href="" ng-click="showFilter=!showFilter"></a>
+    </div>
+    <div class="panel-body" ng-show="!showFilter">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text " placeholder="起始日期"   ng-model="startDate" ng-init="startDate=''"
+                       datepicker-options="dateOptions"  ng-click="dateOpened = true" current-text="今天" ng-change="Deal()"
+                       clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
+                       close-text="隐藏" alt-input-formats="altInputFormats"
+                       class="form-control "/>
+            </div>
+            <div class="col-md-2">
+                <input type="text" placeholder="截止1日期"   ng-model="endDate"  ng-init="endDate=''"
+                       datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天" ng-change="Deal()"
+                       clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
+                       close-text="隐藏" alt-input-formats="altInputFormats"
+                       class="form-control "/>
+            </div>
+            <!--<div class="col-xs-2"><input class="form-control input-sm" ng-model="filter.account.dealers.loginName" placeholder="商户名称"/></div>
+            <div class="col-xs-2">
+                <select class="form-control input-sm" ng-convert-select  ng-model="filter.type" code="account_record_type" default-text="类型">
+                </select>
+            </div>-->
+            <div class="col-xs-1"><button class="btn btn-default btn-sm" ng-click="ngTable.reload()"><span class="glyphicon glyphicon-search"></span> 查询</button></div>
+        </div>
+    </div>
+    <ng-table url="/icard/accountRecord/pager" row-class="rowClass" page-size="10" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
+</div>
