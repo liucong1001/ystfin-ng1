@@ -80,6 +80,7 @@ require("./controller/trans/carList")
 require("./controller/icard/rechargeList");
 require("./controller/icard/consumptionList");
 require("./controller/icard/consumptionDetail");
+require("./controller/icard/recordList");
 
 require("./controller/icard/setPwd");
 //流水号查询

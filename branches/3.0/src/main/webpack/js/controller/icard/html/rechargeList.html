@@ -6,6 +6,12 @@
         text-align: center;
         border: 1px solid black;
     }
+    .over{
+        cursor: pointer;
+    }
+    .activedbackgroundcolor{
+        background-color: #dddddd;
+    }
 </style>
 <div class="panel panel-default">
     <div class="panel-heading"><h2>IC卡充值记录</h2></div>
@@ -36,10 +42,11 @@
             </span>
             </div>
             <div class="col-md-3">
-                <label >请选择商户：</label>
-                <select   ng-model="company"   ng-init="company=merchant[0]"  ng-options="x for x in merchant" class="form-control">
-                    <option value="">--请选择--</option>
-                </select>
+                <label >商户编号：</label>
+               <!-- <select   ng-model="company"   ng-init="company=merchant[0]"  ng-options="x for x in merchant" class="form-control">
+                    <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                </select>-->
+                <input ng-model = 'company' class="form-control" placeholder="请输入商户编号" />
             </div>
             <div class="col-md-3">
                 <div class="btn" style="padding-top: 23px">
@@ -57,31 +64,27 @@
         <table class="table card" border="1">
             <tbody>
             <tr>
-                <th colspan="6">武汉爱之家长丰旧机动车交易市场充值报表</th>
+                <th colspan="5">武汉爱之家长丰旧机动车交易市场充值报表</th>
             </tr>
             <tr>
+                <td>商户编号</td>
                 <td>商户名称</td>
-                <td>充值前账户余额</td>
                 <td>充值金额</td>
                 <td>赠送金额</td>
-                <td>充值后账户余额</td>
-                <td>充值时间</td>
+                <td>合计金额</td>
             </tr>
-            <tr ng-repeat="item in cardData">
+            <tr ng-repeat="item in cardData" ng-click="detail(item.loginName,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':showtimes}"  ng-mouseenter="showtimes = true"  ng-mouseleave="showtimes = false">
+                <td>{{item.loginName}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.oldBalance}}</td>
                 <td>{{item.recharge}}</td>
                 <td>{{item.give}}</td>
-                <td>{{item.newBalance}}</td>
-                <td>{{item.time}}</td>
+                <td>{{item.amount}}</td>
             </tr>
-            <tr>
-                <td>总计</td>
-                <td></td>
+            <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
+                <th colspan="2">总计</th>
                 <td>{{x}}</td>
                 <td>{{y}}</td>
-                <td></td>
-                <td></td>
+                <td>{{z}}</td>
             </tr>
             </tbody>
         </table>
