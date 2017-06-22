@@ -21,15 +21,13 @@ app.controller("rechargeList", ["$scope","$convert","$q","$filter","$location","
         $location.path(path);
     };
     //从后台获取商户
-    $scope.shanghu=function(){
+    /*$scope.shanghu=function(){
         //bill /getDealers
         $http.get('bill/getDealers').success(function(data){
-            console.log("获取商户信息");
             $scope.merchant=data;
-            console.log(data);
         })
     };
-    $scope.shanghu();
+    $scope.shanghu();*/
 
     //点击查询获取后台数据
 $scope.searchdate=function(){

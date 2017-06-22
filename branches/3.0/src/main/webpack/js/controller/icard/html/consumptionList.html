@@ -73,14 +73,14 @@
                     <td>赠送消费</td>
                     <td>消费金额</td>
                 </tr>
-                <tr ng-repeat="item in cardData" ng-click="detail(item.loginName,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':showtimes}"  ng-mouseenter="showtimes = true"  ng-mouseleave="showtimes = false">
+                <tr ng-repeat="item in cardData" ng-click="detail(item.loginName,cardTime,cardTimeEnd)" class="over" title="点击查看消费明细" ng-class="{'activedbackgroundcolor':showtimes}"  ng-mouseenter="showtimes = true"  ng-mouseleave="showtimes = false">
                     <td>{{item.loginName}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.recharge}}</td>
                     <td>{{item.give}}</td>
                     <td>{{item.amount}}</td>
                 </tr>
-                <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
+                <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看消费明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
                     <th colspan="2">总计</th>
                     <td>{{x}}</td>
                     <td>{{y}}</td>
