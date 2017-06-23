@@ -33,15 +33,15 @@
                 <div class="col-sm-2 control-label">充值卡号：</div><div class="col-sm-6 form-control-static">{{cardNo}}</div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">充值卡所属商户号：</div><div class="col-sm-6 form-control-static">{{account.dealers.loginName}}</div>
+                <div class="col-sm-2 control-label">充值卡所属商户：</div><div class="col-sm-6 form-control-static">{{account.icCard.dealers.name}}</div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">充值卡所属商户名称：</div><div class="col-sm-6 form-control-static">{{account.dealers.name}}</div>
+                <div class="col-sm-2 control-label">充值卡所属账户：</div><div class="col-sm-6 form-control-static">{{account.icCard.name}}</div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2 control-label">当前余额：</div>
-                <div class="col-sm-2 form-control-static">{{account.dealers.balance / 100 | currency:"￥"}}<span class="text-danger" ng-if="account.dealers.balance && account.dealers.balance-order.amount<0">余额不足</span></div>
-                <div class="col-sm-4 form-control-static">{{account.dealers.balance / 100 | amountHZ}}</div>
+                <div class="col-sm-2 form-control-static">{{account.icCard.balance / 100 | currency:"￥"}}<span class="text-danger" ng-if="account.icCard.balance && account.icCard.balance-order.amount<0">余额不足</span></div>
+                <div class="col-sm-4 form-control-static">{{account.icCard.balance / 100 | amountHZ}}</div>
             </div>
 
         </div>
@@ -49,7 +49,7 @@
         <div class="panel-footer">
             <div class="pull-right">
                 共<span class="text-danger">{{order.items.length}}</span>张发票 合计:<span class="text-danger" style="font-size: 32px;">{{order.amount / 100 | currency:"￥"}}</span>元
-                <button class="btn btn-lg btn-danger" ng-click="pay()" ng-show="order.status == '01'" ng-disabled="order.status != '01' || !account.dealers || account.dealers.balance - order.amount < 0">确定扣款</button>
+                <button class="btn btn-lg btn-danger" ng-click="pay()" ng-show="order.status == '01'" ng-disabled="order.status != '01' || !account.icCard || account.icCard.balance - order.amount < 0">确定扣款</button>
             </div>
             <div class="clearfix"></div>
         </div>
