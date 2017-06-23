@@ -72,20 +72,47 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
     $scope.$on("$destroy",function () {
         if($scope.intv) clearInterval($scope.intv)
     })
+
+
+    //»ñÈ¡×Ö·û´®³¤¶È
+    function GetLength(str){
+        var realLength = 0, len = str.length, charCode = -1;
+        for (var i = 0; i < len; i++) {
+            charCode = str.charCodeAt(i);
+            if (charCode >= 0 && charCode <= 128) realLength += 1;
+            else realLength += 2;
+        }
+        return realLength;
+    }
+    //¼àÌý·¢Æ±ºÅ
+    $scope.$watch("billNo",function(val){
+        var billNo = $scope.billNo;
+
+      if(GetLength(val)==8){
+          console.log(val);
+          $http({
+              method:"post",
+              url:"/icard/getRedAmount",
+              params:{'billNo':billNo}
+          }).success(function(data){
+              console.log(data);
+              $scope.redAmount=data.redAmount;
+          }).error(function(data){
+               console.log("ÇëÇóÊ§°Ü£¡");
+          });
+
+      }
+
+    });
     $scope.recharge = function () {
         clearInterval($scope.intv);
         $scope.intv = 0;
         var date = $filter("date")(Date.now(),"yyyyMMdd");
         var time = $filter("date")(Date.now(),"HHmmss");
-        var amount = $scope.amount;
-        //var give=parseFloat($scope.give)*100;
-        /* var tag = $icard.recharge(amount,time,date,time)
-         if(!tag){
-         $scope.rechargeMessage = "Ð´¿¨Ê§°Ü"
-         $scope.cardMessage = "³äÖµÊ§°Ü"
-         scanCard()
-         }else{*/
-        $http.post("/icard/payRed",{cardNo:$scope.cardNo,billNo:amount,date:date,time:time}).then(function (result) {
+        var billNo = $scope.billNo;
+        //var  redAmount=$scope.redAmount;
+        var redAmount=parseFloat($scope.redAmount)*100;
+        $http.post("/icard/payRed",{cardNo:$scope.cardNo,billNo:billNo,redAmount:redAmount,date:date,time:time}).then(function (result) {
             console.log(result);
             console.log($scope.account);
             $scope.account = result.data;
