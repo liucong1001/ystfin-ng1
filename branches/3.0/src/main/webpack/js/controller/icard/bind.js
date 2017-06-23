@@ -12,8 +12,8 @@ app.config(["$routeProvider",function($routeProvider){
 }])
 
 app.controller("icardBindController",["$scope","$http","$routeParams","$icard","md5",function ($scope,$http,$routeParams,$icard,md5) {
-    $scope.dealersId = $routeParams.dealersId
-
+    $scope.dealersId = $routeParams.dealersId;
+    console.log($routeParams.dealersId);
     $scope.$watch("cardMessage",function (val) {
         $icard.showText(val)
     })
