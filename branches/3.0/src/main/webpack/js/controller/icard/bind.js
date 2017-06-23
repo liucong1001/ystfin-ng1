@@ -13,15 +13,38 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("icardBindController",["$scope","$http","$routeParams","$icard","md5",function ($scope,$http,$routeParams,$icard,md5) {
     $scope.dealersId = $routeParams.dealersId;
-    console.log($routeParams.dealersId);
+    console.log($scope.dealersId);
+
+
     $scope.$watch("cardMessage",function (val) {
         $icard.showText(val)
-    })
+    });
 
     $http.get("/dealers/" + $scope.dealersId).then(function (result) {
         $scope.dealers = result.data
         $scope.cardMessage = result.data.name
-    })
+    });
+
+    //$http.post("/icard/query"  ,{id:$scope.dealersId}).then(function (result) {
+    //    $scope.abc = result.data;
+    //    console.log($scope.abc);
+    //    console.log("账户结束");
+    //    //$scope.cardMessage = result.data.name
+    //});
+
+
+    $http({
+        method:"post",    　
+        url:"/icard/query", 　　 
+        params:{'id':$scope.dealersId}　　　　
+    }).success(function(data){
+        console.log(data);
+        $scope.icCards=data.icCards;
+        $scope.contactList=data.contactList;
+    }).error(function(data){
+
+    });
+
 
     $scope.intv = 0
     $scope.initCardWriter = function () {
@@ -49,8 +72,11 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
     })
     $scope.bindCard = function () {
         if(!this.cardNo) return false
-        var delars=this.dealersId;
+        var delars=this.icCards.dealers.id;
         var cardNo=this.cardNo;
+        var  icCardId=this.icCards.id;
+        var  contactId=this.contactList.id;
+        console.log(delars,cardNo,icCardId,contactId);
         clearInterval($scope.intv);
         $scope.intv = 0;
         $icard.playVoice(4);
@@ -65,7 +91,7 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
                         $icard.playVoice(5);
                     }else{
                          var pwdMd5=md5.createHash(pwd);
-                        $http.post("/icard/bind",{delars:delars,cardNo:cardNo,password:pwdMd5}).then(function () {
+                        $http.post("/icard/bind",{delars:delars,cardNo:cardNo,icCard:icCardId,theContact:contactId,password:pwdMd5}).then(function () {
                             $scope.bindMessage = "success";
                             $icard.playVoice(6);
                         },function (result) {

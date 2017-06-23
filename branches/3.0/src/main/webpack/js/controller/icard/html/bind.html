@@ -12,15 +12,15 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-2 text-right">商户：</div>
-            <div class="col-sm-6">{{dealers.name}}</div>
+            <div class="col-sm-6">{{icCards.dealers.name}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">账户编号：</div>
-            <div class="col-sm-6">{{dealers.loginName}}</div>
+            <div class="col-sm-6">{{icCards.accountNo}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">账户名称：</div>
-            <div class="col-sm-6">{{dealers.loginName}}</div>
+            <div class="col-sm-6">{{icCards.name}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">充值卡号号：</div>
@@ -29,9 +29,9 @@
         <div class="row">
             <div class="col-sm-2 text-right">联系人：</div>
             <div class="col-sm-2">
-                <select name="" id="" class="form-control form-control-sm" ng-model="car.id"  >
+                <select name="" id="" class="form-control form-control-sm" ng-model="contactList.id"  >
                     <option value="">--请选择联系人--</option>
-                    <option  ng-if="x.type=='1'||x.type=='3'"  ng-repeat="x in doorlist track by $index" value="{{x.id}}"></option>
+                    <option ng-repeat="x in contactList track by $index" value="{{x.id}}">{{x.name}}</option>
                 </select>
             </div>
         </div>
