@@ -2,7 +2,7 @@
  * Created by 10973 on 2017/6/23.
  */
 /**
- * Created by —Ô on 2016/12/1.
+ * Created by Êâ¨ on 2016/12/1.
  */
 "use strict"
 var app = require("../../ngcommon")
@@ -39,7 +39,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
                 $scope.cardNo = cardNo;
                 //console.log($scope.account);
                 // if(cardNo){
-                //     $scope.cardMessage = "µ±«∞”‡∂Ó:" + $filter("currency")(balance / 100)
+                //     $scope.cardMessage = "ÂΩìÂâç‰ΩôÈ¢ù:" + $filter("currency")(balance / 100)
                 // }
                 // else{
                 //     $scope.cardMessage = ""
@@ -60,7 +60,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
                 $scope.account = result.data;
                 console.log($scope.account);
                 $scope.accountLoadMessge = ""
-                $scope.cardMessage = "µ±«∞”‡∂Ó:" + $filter("currency")($scope.account.dealers.balance / 100)
+                $scope.cardMessage = "ÂΩìÂâç‰ΩôÈ¢ù:" + $filter("currency")($scope.account.dealers.balance / 100)
             },function (result) {
                 $scope.accountLoadMessge = result.data.message
             })
@@ -74,7 +74,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
     })
 
 
-    //ªÒ»°◊÷∑˚¥Æ≥§∂»
+    //Ëé∑ÂèñÂ≠óÁ¨¶‰∏≤ÈïøÂ∫¶
     function GetLength(str){
         var realLength = 0, len = str.length, charCode = -1;
         for (var i = 0; i < len; i++) {
@@ -84,7 +84,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
         }
         return realLength;
     }
-    //º‡Ã˝∑¢∆±∫≈
+    //ÁõëÂê¨ÂèëÁ•®Âè∑
     $scope.$watch("billNo",function(val){
         var billNo = $scope.billNo;
 
@@ -98,7 +98,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
               console.log(data);
               $scope.redAmount=data.redAmount;
           }).error(function(data){
-               console.log("«Î«Û ß∞‹£°");
+               console.log("ËØ∑Ê±ÇÂ§±Ë¥•ÔºÅ");
           });
 
       }
@@ -119,12 +119,12 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
             $scope.rechargeMessage = "success";
             $scope.amount = "";
             $scope.give="";
-            $scope.cardMessage = "≥‰÷µΩ∂Ó:" + $filter("currency")(amount / 100) + "\nµ±«∞”‡∂Ó:" + $filter("currency")($scope.account.dealers.balance / 100)
+            $scope.cardMessage = "ÂÖÖÂÄºÈáëÈ¢ù:" + $filter("currency")(amount / 100) + "\nÂΩìÂâç‰ΩôÈ¢ù:" + $filter("currency")($scope.account.dealers.balance / 100)
             scanCard();
             $icard.playVoice(6);
-            console.log("ø€øÓ≥…π¶£°");
+            console.log("Êâ£Ê¨æÊàêÂäüÔºÅ");
         },function (result) {
-            $scope.cardMessage = "≥‰÷µ ß∞‹"
+            $scope.cardMessage = "ÂÖÖÂÄºÂ§±Ë¥•"
             $scope.rechargeMessage =  result.data.message
             scanCard()
         })
