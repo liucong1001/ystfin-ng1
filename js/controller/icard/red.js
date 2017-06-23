@@ -95,6 +95,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
             $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
             scanCard();
             $icard.playVoice(6);
+            console.log("扣款成功！");
         },function (result) {
             $scope.cardMessage = "充值失败"
             $scope.rechargeMessage =  result.data.message
