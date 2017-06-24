@@ -64,7 +64,7 @@
         <table class="table card" border="1">
             <tbody>
                 <tr>
-                    <th colspan="5">武汉爱之家长丰旧机动车交易市场消费报表</th>
+                    <th colspan="7">武汉爱之家长丰旧机动车交易市场消费报表</th>
                 </tr>
                 <tr>
                     <td>商户编号</td>
@@ -72,6 +72,8 @@
                     <td>充值消费</td>
                     <td>赠送消费</td>
                     <td>消费金额</td>
+                    <td>冲红</td>
+                    <td>结算</td>
                 </tr>
                 <tr ng-repeat="item in cardData" ng-click="detail(item.loginName,cardTime,cardTimeEnd)" class="over" title="点击查看消费明细" ng-class="{'activedbackgroundcolor':showtimes}"  ng-mouseenter="showtimes = true"  ng-mouseleave="showtimes = false">
                     <td>{{item.loginName}}</td>
@@ -79,12 +81,16 @@
                     <td>{{item.recharge}}</td>
                     <td>{{item.give}}</td>
                     <td>{{item.amount}}</td>
+                    <td>{{item.red}}</td>
+                    <td>{{item.amount-item.red}}</td>
                 </tr>
                 <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看消费明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
                     <th colspan="2">总计</th>
                     <td>{{x}}</td>
                     <td>{{y}}</td>
                     <td>{{z}}</td>
+                    <td>{{r}}</td>
+                    <td>{{z-r}}</td>
                 </tr>
             </tbody>
         </table>
