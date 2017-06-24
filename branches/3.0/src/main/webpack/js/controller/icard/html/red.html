@@ -34,7 +34,6 @@
         <div class="form-group">
             <div class="col-sm-2 control-label">发票号：</div>
             <div class="col-sm-2"><input class="form-control" type="text" ng-model="billNo"  maxlength="8"  ng-init="billNo=''" /></div>
-            <div class="col-sm-4 form-control-static">{{billNo}}</div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">冲红金额：</div>
@@ -43,7 +42,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || amount ==null ">确定</button>
+        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.icCard || billNo ==null ">确定</button>
         <!--<button class="btn btn-lg btn-default" ng-click="back()">返回</button>-->
     </div>
 </div>

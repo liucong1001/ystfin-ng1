@@ -54,7 +54,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
             $http.get("/icard/cardNo/" + val).then(function (result) {
                 $scope.account = result.data
                 $scope.accountLoadMessge = ""
-                $scope.cardMessage = "当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
+                $scope.cardMessage = "当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
             },function (result) {
                 $scope.accountLoadMessge = result.data.message
             })
@@ -84,7 +84,7 @@ app.controller("icardRechargeController",["$scope","$http","$icard","$filter","$
                 $scope.rechargeMessage = "success"
                 $scope.amount = "";
                 $scope.give="";
-                $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
+                $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
                 scanCard();
                 $icard.playVoice(6);
             },function (result) {

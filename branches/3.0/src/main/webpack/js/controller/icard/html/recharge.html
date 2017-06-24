@@ -16,16 +16,17 @@
         <div class="form-group">
             <div class="col-sm-2 control-label">卡号：</div><div class="col-sm-6 form-control-static">{{cardNo}} </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-2 control-label">商户号：</div><div class="col-sm-6 form-control-static">{{account.dealers.loginName}}</div>
-        </div>
+
         <div class="form-group">
             <div class="col-sm-2 control-label">商户名称：</div><div class="col-sm-6 form-control-static">{{account.dealers.name}}</div>
         </div>
         <div class="form-group">
+            <div class="col-sm-2 control-label">账户名称：</div><div class="col-sm-6 form-control-static">{{account.icCard.name}}</div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-2 control-label">当前余额：</div>
-            <div class="col-sm-2 form-control-static">{{account.dealers.balance / 100 | currency:"￥"}}</div>
-            <div class="col-sm-4 form-control-static">{{account.dealers.balance / 100 | amountHZ}}</div>
+            <div class="col-sm-2 form-control-static">{{account.icCard.balance / 100 | currency:"￥"}}</div>
+            <div class="col-sm-4 form-control-static">{{account.icCard.balance / 100 | amountHZ}}</div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">输入充值金额：</div>
@@ -39,7 +40,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.dealers || amount ==null || give ==null ">充值</button>
+        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.icCard || amount ==null || give ==null ">充值</button>
         <!--<button class="btn btn-lg btn-default" ng-click="back()">返回</button>-->
     </div>
 </div>
