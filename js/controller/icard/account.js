@@ -19,11 +19,11 @@ app.controller("accountController",["$scope","$routeParams","$http","$icard","$l
         {title:"卡号",template:"{{row.cardNo}}", width:15,thClass:"text-center",tdClass:"text-center"},
         {title:"商户编号",template:"{{row.dealers.loginName}}", width:8,thClass:"text-center",tdClass:"text-center"},
         {title:"商户名称",template:"{{row.dealers.name}}", width:29,thClass:"text-center",tdClass:"text-center"},
-        {title:"账户余额",template:"{{row.dealers.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
-        {title:"充值余额",template:"{{row.dealers.recharge / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
-        {title:"赠送余额",template:"{{row.dealers.give / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
+        {title:"账户余额",template:"{{row.icCard.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
+        {title:"充值余额",template:"{{row.icCard.recharge / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
+        {title:"赠送余额",template:"{{row.icCard.give / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
         {title:"状态",template:"<ng-convert code='account_status' value='{{row.status}}' ></ng-convert>",thClass:"text-center",tdClass:"text-center", width:8},
-        {title:"账户详情",template:"<a href='/ng#/icard/{{row.id}}/details?balance={{row.dealers.balance}}&dealersId={{row.dealers.id}}'>查看</a>",width:8,thClass:"text-center",tdClass:"text-center"},
+        {title:"账户详情",template:"<a href='/ng#/icard/{{row.id}}/details?balance={{row.icCard.balance}}&dealersId={{row.dealers.id}}'>查看</a>",width:8,thClass:"text-center",tdClass:"text-center"},
         {title:"操作",template:"<a href='' ng-if='row.status != 02' ng-click='instance.lossCard(row.dealers.id,row.cardNo)'>挂失</a> <!--<a href='' ng-click='instance.setPwd(row.cardNo)'> 修改密码</a>--> ",width:8,thClass:"text-center",tdClass:"text-center"}
     ]
     $scope.rowClass = function (row) {
