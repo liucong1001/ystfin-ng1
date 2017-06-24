@@ -87,9 +87,8 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
     //监听发票号
     $scope.$watch("billNo",function(val){
         var billNo = $scope.billNo;
-
-      if(GetLength(val)==8){
-          console.log(val);
+        if(GetLength(val)==8){
+         /* console.log(val);
           $http({
               method:"post",
               url:"/icard/getRedAmount",
@@ -99,10 +98,14 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
               $scope.redAmount=data.redAmount;
           }).error(function(data){
                console.log("请求失败！");
-          });
-
-      }
-
+          });*/
+          $http.post('/icard/getRedAmount',{billNo:billNo}).success(function (data) {
+              $scope.redAmount = data.redAmount/100;
+          }).error(function (data) {
+              console.log(data);
+              $scope.rechargeMessage = data.message;
+          })
+        }
     });
     $scope.recharge = function () {
         clearInterval($scope.intv);
@@ -112,17 +115,16 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
         var billNo = $scope.billNo;
         //var  redAmount=$scope.redAmount;
         var redAmount=parseFloat($scope.redAmount)*100;
-        $http.post("/icard/payRed",{cardNo:$scope.cardNo,billNo:billNo,redAmount:redAmount,date:date,time:time}).then(function (result) {
+        $http.post("/icard/payRed",{cardNo:$scope.cardNo,billNo:billNo,amount:redAmount,date:date,time:time}).then(function (result) {
             console.log(result);
             console.log($scope.account);
             $scope.account = result.data;
             $scope.rechargeMessage = "success";
             $scope.amount = "";
             $scope.give="";
-            $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
+            $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
             scanCard();
             $icard.playVoice(6);
-            console.log("扣款成功！");
         },function (result) {
             $scope.cardMessage = "充值失败"
             $scope.rechargeMessage =  result.data.message
