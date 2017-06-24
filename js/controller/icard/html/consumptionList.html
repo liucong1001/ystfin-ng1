@@ -82,15 +82,15 @@
                     <td>{{item.give}}</td>
                     <td>{{item.amount}}</td>
                     <td>{{item.red}}</td>
-                    <td>{{item.amount-item.red}}</td>
+                    <td>{{item.amount+item.red}}</td>
                 </tr>
                 <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看消费明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
-                    <th colspan="2">总计</th>
+                    <td colspan="2">总计</td>
                     <td>{{x}}</td>
                     <td>{{y}}</td>
                     <td>{{z}}</td>
                     <td>{{r}}</td>
-                    <td>{{z-r}}</td>
+                    <td>{{z+r}}</td>
                 </tr>
             </tbody>
         </table>
