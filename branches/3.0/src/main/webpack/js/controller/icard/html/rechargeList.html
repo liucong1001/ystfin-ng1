@@ -64,14 +64,13 @@
         <table class="table card" border="1">
             <tbody>
             <tr>
-                <th colspan="6">武汉爱之家长丰旧机动车交易市场充值报表</th>
+                <th colspan="5">武汉爱之家长丰旧机动车交易市场充值报表</th>
             </tr>
             <tr>
                 <td>商户编号</td>
                 <td>商户名称</td>
                 <td>充值金额</td>
                 <td>赠送金额</td>
-                <td>冲红金额</td>
                 <td>合计金额</td>
             </tr>
             <tr ng-repeat="item in cardData" ng-click="detail(item.loginName,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':showtimes}"  ng-mouseenter="showtimes = true"  ng-mouseleave="showtimes = false">
@@ -79,14 +78,12 @@
                 <td>{{item.name}}</td>
                 <td>{{item.recharge}}</td>
                 <td>{{item.give}}</td>
-                <td>{{item.red}}</td>
                 <td>{{item.amount}}</td>
             </tr>
             <tr ng-click="detail(null,cardTime,cardTimeEnd)" class="over" title="点击查看充值明细" ng-class="{'activedbackgroundcolor':show}"  ng-mouseenter="show = true"  ng-mouseleave="show = false">
                 <th colspan="2">总计</th>
                 <td>{{x}}</td>
                 <td>{{y}}</td>
-                <td>{{r}}</td>
                 <td>{{z}}</td>
             </tr>
             </tbody>
