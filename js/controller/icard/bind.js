@@ -5,7 +5,7 @@
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when("/icard/bind/:dealersId",{
+    $routeProvider.when("/icard/bind/:dealersId/:icCardId",{
         controller:"icardBindController",
         template:require("./html/bind.html")
     })
@@ -13,8 +13,7 @@ app.config(["$routeProvider",function($routeProvider){
 
 app.controller("icardBindController",["$scope","$http","$routeParams","$icard","md5",function ($scope,$http,$routeParams,$icard,md5) {
     $scope.dealersId = $routeParams.dealersId;
-    console.log($scope.dealersId);
-
+    $scope.icCardId = $routeParams.icCardId;
 
     $scope.$watch("cardMessage",function (val) {
         $icard.showText(val)
@@ -25,26 +24,16 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
         $scope.cardMessage = result.data.name
     });
 
-    //$http.post("/icard/query"  ,{id:$scope.dealersId}).then(function (result) {
-    //    $scope.abc = result.data;
-    //    console.log($scope.abc);
-    //    console.log("账户结束");
-    //    //$scope.cardMessage = result.data.name
-    //});
-
-
     $http({
         method:"post",    　
         url:"/icard/query", 　　 
-        params:{'id':$scope.dealersId}　　　　
+        params:{'id':$scope.icCardId}　　　　
     }).success(function(data){
-        console.log(data);
-        $scope.icCards=data.icCards;
+        $scope.icCard=data.icCard;
         $scope.contactList=data.contactList;
     }).error(function(data){
 
     });
-
 
     $scope.intv = 0
     $scope.initCardWriter = function () {
@@ -54,6 +43,7 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
             $scope.icardWriterReady = false
         })
     }
+
     $scope.initCardWriter()
 
     $scope.$watch("intv",function (val,old) {
@@ -72,15 +62,14 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
     })
     $scope.bindCard = function () {
         if(!this.cardNo) return false
-        var delars=this.icCards.dealers.id;
+        var delars=this.icCard.dealers.id;
         var cardNo=this.cardNo;
-        var  icCardId=this.icCards.id;
-        var  contactId=this.contactList.id;
+        var icCardId=this.icCard.id;
+        var contactId=this.contactList.id;
         console.log(delars,cardNo,icCardId,contactId);
         clearInterval($scope.intv);
         $scope.intv = 0;
         $icard.playVoice(4);
-
         $icard.getPassword().then(function (pwd) {
             if(pwd.length!=6){
                 $icard.playVoice(8);
@@ -97,16 +86,12 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
                         },function (result) {
                             $scope.bindMessage = result.data.message
                         })
-
                     }
                 })
             }
         },function () {
             console.log("输入密码失败")
         });
-
-
-
-
     }
+
 }])
