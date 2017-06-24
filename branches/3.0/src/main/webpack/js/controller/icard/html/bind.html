@@ -12,15 +12,15 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-2 text-right">商户：</div>
-            <div class="col-sm-6">{{icCards.dealers.name}}</div>
+            <div class="col-sm-6">{{icCard.dealers.name}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">账户编号：</div>
-            <div class="col-sm-6">{{icCards.accountNo}}</div>
+            <div class="col-sm-6">{{icCard.accountNo}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">账户名称：</div>
-            <div class="col-sm-6">{{icCards.name}}</div>
+            <div class="col-sm-6">{{icCard.name}}</div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">充值卡号号：</div>
@@ -37,8 +37,14 @@
         </div>
     </div>
     <div class="panel-footer">
-        <!--<div><button class="btn btn-large btn-danger" ng-disabled="!cardNo || dealers.icardNo" ng-click="bindCard()">确定绑定</button></div>-->
-        <div><button class="btn btn-large btn-danger" ng-click="bindCard()">确定绑定</button></div>
+        <div class="row">
+            <div class="col-md-2">
+                <div><button class="btn btn-large btn-danger" ng-disabled="!cardNo || contactList.id ==null" ng-click="bindCard()">确定绑定</button></div>
+            </div>
+            <div class="col-md-2">
+                <div><a href="/icCard/manager/{{dealersId}}" class="btn btn-large btn-default">返回列表</a></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -46,5 +52,5 @@
     {{bindMessage}}
 </div>
 <div class="alert alert-success" ng-if="bindMessage && bindMessage == 'success'">
-    绑定充值卡成功!<a href="/dealers/manager" class="">返回列表</a>
+    绑定充值卡成功!<a href="/icCard/manager/{{dealersId}}" class="">返回列表</a>
 </div>
