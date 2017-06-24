@@ -1,0 +1,49 @@
+
+<style>
+    .car{
+        margin-top: 8px;
+        font-weight: bolder;
+    }
+</style>
+<div>
+    <br/>
+    <div class="row">
+        <div class="col-md-2 text-right car">请输入号码:</div>
+        <div class="col-md-4">
+            <input type="text" ng-model="archivesCode" ng-change="AutoSearch(archivesCode)" placeholder="请扫码后输入流水号" maxlength="29"   class="form-control" />
+        </div>
+        <div class="col-md-2 text-right">
+            <button class="btn btn-primary" ng-click="showPlate()">档案自提</button>
+        </div>
+        <div class="col-md-3" ng-show="plate_number">
+            <input type="text" ng-model="plateNumber" ng-change="AutoSearch_plat(plateNumber)"  placeholder="请输入车牌号后回车"  maxlength="8"  class="form-control" />
+        </div>
+
+
+
+    </div>
+    <div class="row" ng-if="message">
+        <div class="col-md-2">
+            <span class="label label-danger">{{message}}</span>
+        </div>
+    </div>
+    <br/>
+    <table class="table table-striped">
+        <thead><tr> <th>序号</th><th>车管所流水号</th><th>流水号</th><th>车牌号</th><th>状态</th></tr></thead>
+        <tbody>
+        <tr ng-repeat="r in records  | toArray : false | orderBy : '-sendTime'">
+            <td>  <span ng-bind = "$index+1" ></span></td>
+            <td>{{r.code}}</td>
+            <td>{{r.archivesNo}}</td>
+            <td>{{r.plateNumber}}</td>
+            <td>
+                    <span class="label label-{{status[r.plateNumber].css}}">
+                    {{status[r.plateNumber].text}}
+                    </span>&nbsp;
+                <a href="" ng-click="cancel(r.plateNumber)"><span class="glyphicon-remove glyphicon"></span> 取消</a> &nbsp;
+                <!--<a href="" ng-click="signYellow(r.archivesNo)"><span class="glyphicon glyphicon-info-sign "> 黄牌标记</span></a>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
