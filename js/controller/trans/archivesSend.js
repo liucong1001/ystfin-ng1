@@ -1,54 +1,55 @@
 /**
- * Created by Administrator on 2017/4/10 0010.
+ * Created by 10973 on 2017/6/24.
  */
+
 var app = require("../../ngcommon");
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/archives/sign',
+    $routeProvider.when('/archives/send',
         {
-            controller:"archivesSign",
-            template:require("./html/archives/archivesSign.html")
+            controller:"archivesSend",
+            template:require("./html/archives/archivesSend.html")
         })
 }]);
-app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$http",function($scope,$params,$rootScope,archives,$http){
-    $rootScope.subTitle = "提档档案签收";
+app.controller("archivesSend",["$scope","$location","$rootScope","Archives","$http",function($scope,$params,$rootScope,archives,$http){
+    $rootScope.subTitle = "提档档案送出";
     $scope.records ={};
     $scope.status = {};
     $scope.archivesNo = "";
-    $scope.Car_archivesNo="";//车管所流水号
+    $scope.archivesCode="";  //码和流水号一起28位数据
     $scope.count = 0;
     $scope.plateNumber = "鄂A";
-    $scope.AutoSearch=function(i){
-       if($scope.plateNumber =="鄂A"){
-           if(GetLength(i)==16){
-               var arc = new archives();
-               arc.$save({action:"findByArchivesNo",archivesNo:$scope.archivesNo}).then(function (data) {
-                   $scope.plateNumber = data.plateNumber;
-                   getArchives($scope.plateNumber);
-               },function (err) {
-
-               });
-           }
-       }else{
-           if(GetLength(i)==8||GetLength(i)==9){
-               getArchives($scope.plateNumber);
-               $scope.plateNumber ="鄂A";
-           }
-       }
-    };
-    //车管所13位流水号
-    $scope.AutoSearch_car=function(i){
-        if(GetLength(i)==13){
-            console.log("车管所流水号"+i);
+    $scope.AutoSearch=function(code){
+        //console.log(code);
+        console.log(code.length);
+        if(GetLength(code)==29){
+            console.log(code);
+            var  ma=code.substring(0,13); //车管所13位码
+            var  arcNo=code.substring(13,29); //交易流水号
+            console.log("扫码"+ma);
+            console.log("流水号"+arcNo);
             var arc = new archives();
-            arc.$save({action:"findByCode",code:$scope.Car_archivesNo}).then(function (data) {
-                $scope.plateNumber = data.plateNumber;
-                getArchives($scope.plateNumber);
-            },function (err) {
+            arc.$save({action:"findByArchives",archivesNo:arcNo}).then(function (data) {
+                           $scope.plateNumber = data.vehicle.plateNumber;
+                            console.log($scope.plateNumber);
+                            getArchives(arcNo,$scope.plateNumber,ma);
+                        },function (err) {
 
-            });
+                        });
+        }else{
+            $scope.AutoSearch_plat();
         }
     };
-     //获取字符串长度
+
+    //档案自提按车牌号
+    $scope.AutoSearch_plat=function(i){
+        console.log(i);
+        if((GetLength($scope.plateNumber)==8||GetLength($scope.plateNumber)==9)&&GetLength($scope.archivesCode)==13){
+                   getArchives(null,$scope.plateNumber,$scope.archivesCode);
+                    $scope.plateNumber ="鄂A";
+                }
+    };
+
+    //获取字符串长度
     function GetLength(str){
         var realLength = 0, len = str.length, charCode = -1;
         for (var i = 0; i < len; i++) {
@@ -59,25 +60,26 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
         return realLength;
     }
 
-    function getArchives(arg) {
-        var record = new archives({plateNumber:arg,status:"3"});
-        $scope.status[$scope.plateNumber] = {text:"正在签收",css:"default"};
+    function getArchives(arg,plat,codema) {
+        var record = new archives({archivesNo:arg,plateNumber:plat,code:codema,status:"6"});
+        $scope.status[$scope.plateNumber] = {text:"正在送出",css:"default"};
         record.$save().then(function () {
-            $scope.status[record.plateNumber] = {text:"已签收",css:"success"};
+            $scope.status[record.plateNumber] = {text:"已送出",css:"success"};
             $scope.count +=1;
             $scope.plateNumber = "鄂A";
         },function (err) {
             $scope.message = err.data.message;
-            $scope.status[record.plateNumber] = {text:"签收失败",css:"danger"}
+            $scope.status[record.plateNumber] = {text:"送出失败",css:"danger"}
         })
         $scope.records[record.plateNumber] = record;
-        $scope.archivesNo = "";
+        //console.log($scope.records);
+        //$scope.archivesNo = "";
     }
     $scope.cancel = function (plateNumber) {
-        var record = $scope.records[plateNumber]
-        if($scope.status[plateNumber].text == "已签收"){
+        var record = $scope.records[plateNumber];
+        if($scope.status[plateNumber].text == "已送出"){
             $scope.status[plateNumber] = {text:"正在取消...",css:"default"}
-            record.status = "4";
+            record.status = "7";
             record.$save().then(function () {
                 delete $scope.records[plateNumber]
                 if($scope.count>0){
@@ -89,11 +91,11 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
         }else{
             delete $scope.records[plateNumber]
         }
-    }
+    };
     //按照车牌号查询
     $scope.plate_number=false;
     $scope.showPlate=function(){
-            $scope.plate_number=true;
+        $scope.plate_number=true;
     };
     //黄牌标记
 
@@ -124,4 +126,3 @@ app.filter('toArray', function () {
         }
     };
 });
-

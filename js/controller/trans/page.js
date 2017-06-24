@@ -29,13 +29,15 @@ app.controller("pageCtrl", ["$scope","TransRecord","$convert","$q","$printer","g
     };
 
     $scope.tableColumns = [
+        {title:"车管流水号",template:"{{row.code}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"流水号",template:"{{row.archivesNo}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"车牌号",template:"{{row.plateNumber}}",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"提档地车管所",template:"{{row.vehicleManage }}",thClass:"text-center",tdClass:"text-center", width:10},
-        {title:"状态",template:"<ng-convert code='archives_status'  value='{{row.status}}' ></ng-convert>",width:10,thClass:"text-center",tdClass:"text-center"},
-        {title:"到达时间",template:"{{row.arriveTime}}",width:20,thClass:"text-center",tdClass:"text-center",sortable:true,sorting:true,sortProperty:'arriveTime'},
-        {title:"签收时间",template:"{{row.signTime}}",width:20,thClass:"text-center",tdClass:"text-center"},
-        {title:"商户名称",template:"{{row.dealers.name}}",width:20,thClass:"text-center",tdClass:"text-center"}
+        //{title:"提档地车管所",template:"{{row.vehicleManage }}",thClass:"text-center",tdClass:"text-center", width:10},
+        {title:"状态",template:"<ng-convert code='archives_status'  value='{{row.status}}' ></ng-convert>",width:5,thClass:"text-center",tdClass:"text-center"},
+        {title:"送出时间",template:"{{row.sendTime}}",width:10,thClass:"text-center",tdClass:"text-center",sortable:true,sorting:true,sortProperty:'sendTime'},
+        {title:"到达时间",template:"{{row.arriveTime}}",width:10,thClass:"text-center",tdClass:"text-center",sortable:true,sorting:true,sortProperty:'arriveTime'},
+        {title:"签收时间",template:"{{row.signTime}}",width:10,thClass:"text-center",tdClass:"text-center",sortable:true,sorting:true,sortProperty:'signTime'},
+        {title:"商户名称",template:"{{row.dealers.loginName}}--{{row.dealers.name}}",width:20,thClass:"text-center",tdClass:"text-center"}
     ];
     //定义查询对象
     $scope.searchinfo={};
