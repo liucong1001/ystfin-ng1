@@ -38,13 +38,12 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
             $scope.$apply(function () {
                 $scope.cardNo = cardNo;
                 //console.log($scope.account);
-                // if(cardNo){
-                //     $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
-                // }
-                // else{
-                //     $scope.cardMessage = ""
-                // }
-
+                /*if(cardNo){
+                    $scope.cardMessage = "当前余额:" + $filter("currency")(balance / 100)
+                }
+                else{
+                    $scope.cardMessage = ""
+                }*/
                 if(!cardNo){
                     $scope.cardMessage = ""
                 }
@@ -101,8 +100,10 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
           });*/
           $http.post('/icard/getRedAmount',{billNo:billNo}).success(function (data) {
               $scope.redAmount = data.redAmount/100;
+              $scope.rechargeMessage = "";
           }).error(function (data) {
               console.log(data);
+              $scope.redAmount = "";
               $scope.rechargeMessage = data.message;
           })
         }
@@ -116,12 +117,11 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
         //var  redAmount=$scope.redAmount;
         var redAmount=parseFloat($scope.redAmount)*100;
         $http.post("/icard/payRed",{cardNo:$scope.cardNo,billNo:billNo,amount:redAmount,date:date,time:time}).then(function (result) {
-            console.log(result);
-            console.log($scope.account);
             $scope.account = result.data;
             $scope.rechargeMessage = "success";
             $scope.amount = "";
-            $scope.give="";
+            $scope.billNo="";
+            $scope.redAmount="";
             $scope.cardMessage = "冲红金额:" + $filter("currency")(redAmount / 100) + "\n当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
             scanCard();
             $icard.playVoice(6);

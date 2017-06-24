@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.icCard || billNo ==null ">确定</button>
+        <button class="btn btn-lg btn-danger" ng-click="recharge()" ng-disabled="!account.icCard || billNo ==null || rechargeMessage != '' ">确定</button>
         <!--<button class="btn btn-lg btn-default" ng-click="back()">返回</button>-->
     </div>
 </div>
