@@ -60,7 +60,7 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
                 $scope.account = result.data;
                 console.log($scope.account);
                 $scope.accountLoadMessge = ""
-                $scope.cardMessage = "当前余额:" + $filter("currency")($scope.account.dealers.balance / 100)
+                $scope.cardMessage = "当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
             },function (result) {
                 $scope.accountLoadMessge = result.data.message
             })
@@ -122,11 +122,11 @@ app.controller("icardRedController",["$scope","$http","$icard","$filter","$locat
             $scope.rechargeMessage = "success";
             $scope.amount = "";
             $scope.give="";
-            $scope.cardMessage = "充值金额:" + $filter("currency")(amount / 100) + "\n当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
+            $scope.cardMessage = "冲红金额:" + $filter("currency")(redAmount / 100) + "\n当前余额:" + $filter("currency")($scope.account.icCard.balance / 100)
             scanCard();
             $icard.playVoice(6);
         },function (result) {
-            $scope.cardMessage = "充值失败"
+            $scope.cardMessage = "冲红失败"
             $scope.rechargeMessage =  result.data.message
             scanCard()
         })

@@ -44,12 +44,10 @@ $scope.searchdate=function(){
             $scope.x = 0;
             $scope.y = 0;
             $scope.z = 0;
-            $scope.r = 0;
             for (var i=0;i<data.length;i++){
                 $scope.x += data[i].recharge;
                 $scope.y += data[i].give;
                 $scope.z += data[i].amount;
-                $scope.r += data[i].red;
             }
         })
     }else if($scope.cardTime==null&&$scope.cardTimeEnd){
