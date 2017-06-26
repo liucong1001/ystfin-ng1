@@ -18,7 +18,8 @@ app.controller("accountController",["$scope","$routeParams","$http","$icard","$l
     $scope.tableColumns = [
         {title:"卡号",template:"{{row.cardNo}}", width:15,thClass:"text-center",tdClass:"text-center"},
         {title:"商户编号",template:"{{row.dealers.loginName}}", width:8,thClass:"text-center",tdClass:"text-center"},
-        {title:"商户名称",template:"{{row.dealers.name}}", width:29,thClass:"text-center",tdClass:"text-center"},
+        {title:"商户名称",template:"{{row.dealers.name}}", width:19,thClass:"text-center",tdClass:"text-center"},
+        {title:"商户名称",template:"{{row.icCard.name}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"账户余额",template:"{{row.icCard.balance / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
         {title:"充值余额",template:"{{row.icCard.recharge / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
         {title:"赠送余额",template:"{{row.icCard.give / 100 | currency:'￥'}}",thClass:"text-center",tdClass:"text-center", width:8},
