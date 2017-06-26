@@ -11,7 +11,7 @@ app.config(["$routeProvider",function($routeProvider){
     });
 }]);
 
-app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords",function ($scope,$routeParams,AccountRecords) {
+app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords","$http","$filter",function ($scope,$routeParams,AccountRecords,$http,$filter) {
     $scope.filter = {"account.id":$routeParams.id};
     $scope.balance = $routeParams.balance;
     $scope.dealersId = $routeParams.dealersId;
@@ -22,7 +22,8 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
         {title:"赠送",template:"{{row.give / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
         {title:"处理时间",template:"{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"类型",template:"<ng-convert code='account_record_type' value='{{row.type}}' ></ng-convert>",width:10,thClass:"text-left",tdClass:"text-left"},
-        {title:"订单详情",template:"<a href='/ng#/pay/order/query?orderNo={{row.orderNo}}&accountId={{row.account.id}}&balance="+ $scope.balance+"'>{{row.orderNo ? '查看':''}}</a>",width:10,thClass:"text-left",tdClass:"text-left"}
+        {title:"订单详情",template:"<a href='/ng#/pay/order/query?orderNo={{row.orderNo}}&accountId={{row.account.id}}&balance="+ $scope.balance+"'>{{row.orderNo ? '查看':''}}</a>",width:10,thClass:"text-left",tdClass:"text-left"},
+        {title:"管理",template:"<a href='' ng-init='instance.getblan(row)'   ng-click='instance.cancel(row.createTime,row)'  ng-hide='row.type==05||row.orderNo'> 撤销 </a> <span class='form-error'>{{row.type=='05' ? '已撤销':''}}</span>",width:10,thClass:"text-left",tdClass:"text-left"}
     ];
     $scope.rowClass = function (row) {
         switch(row.type){
@@ -30,5 +31,28 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
             case "02":return "success text-success"
             default: return "info"
         }
+    };
+
+    $scope.ngTable={
+              cancel:function(time,row){
+                      if(confirm("是否确定要撤销此项费用？")){
+                          $http({
+                              method:'post',
+                              url:'icard/revoke',
+                              params:{'id':row.id}
+                          }).success(function(){
+                              alert("撤销成功");
+                              $scope.ngTable.reload();
+                          }).error(function(result){
+                              alert(result.message);
+                          })
+                      }
+              },
+              show:function(time){
+
+              },
+              getblan:function(row){
+                  $scope.blan=row.account.icCard.balance;
+              }
     }
-}]);
+}])
