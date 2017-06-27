@@ -20,20 +20,12 @@ app.controller("rechargeList", ["$scope","$convert","$q","$filter","$location","
     $scope.jump=function(path){
         $location.path(path);
     };
-    //从后台获取商户
-    /*$scope.shanghu=function(){
-        //bill /getDealers
-        $http.get('bill/getDealers').success(function(data){
-            $scope.merchant=data;
-        })
-    };
-    $scope.shanghu();*/
-
-    //点击查询获取后台数据
-$scope.searchdate=function(){
-    if($scope.cardTime&&$scope.cardTimeEnd){
-        $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期
-        $scope.monthEnd=$filter('date')($scope.cardTimeEnd,'yyyy-MM-dd');//成交起始日期
+    $scope.month =  $routeParams.startDate == null?new Date():$routeParams.startDate;
+    $scope.monthEnd = $routeParams.endDate == null?new Date():$routeParams.endDate;
+    $scope.start = new Date($scope.month);
+    $scope.end = new Date($scope.monthEnd);
+    getResult();
+    function getResult() {
         $http({
             method:'POST',
             url:'/bill/account',
@@ -50,14 +42,30 @@ $scope.searchdate=function(){
                 $scope.z += data[i].amount;
             }
         })
-    }else if($scope.cardTime==null&&$scope.cardTimeEnd){
-        alert("请选择开始时间");
-    }else if($scope.cardTime&&$scope.cardTimeEnd==null){
-        alert("请选择截止日期");
-    }else{
-        alert("请选择日期");
-    }
-};
+    };
+
+    //从后台获取商户
+    /*$scope.shanghu=function(){
+        //bill /getDealers
+        $http.get('bill/getDealers').success(function(data){
+            $scope.merchant=data;
+        })
+    };
+    $scope.shanghu();*/
+    //点击查询获取后台数据
+    $scope.searchdate=function(){
+        if($scope.cardTime&&$scope.cardTimeEnd){
+            $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期
+            $scope.monthEnd=$filter('date')($scope.cardTimeEnd,'yyyy-MM-dd');//成交起始日期
+            getResult();
+        }else if($scope.cardTime==null&&$scope.cardTimeEnd){
+            alert("请选择开始时间");
+        }else if($scope.cardTime&&$scope.cardTimeEnd==null){
+            alert("请选择截止日期");
+        }else{
+            alert("请选择日期");
+        }
+    };
     $scope.detail = function (name,startDate,endDate) {
         $location.path('/recordList').search({name:name,startDate:$filter('date')(startDate,'yyyy-MM-dd'),endDate:$filter('date')(endDate,'yyyy-MM-dd'),type:'01'});
     }
@@ -84,4 +92,8 @@ $scope.searchdate=function(){
             alert(data.message);
         });
     };
+    //获取当日时间
+    /*$scope.today=function(){
+        $scope.cardTime=new Date();
+    };*/
 }]);

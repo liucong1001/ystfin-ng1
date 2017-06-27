@@ -8,7 +8,7 @@
                 <label>开始日期</label>
                 <span class="">
                     <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></a>
-                    <input type="text " placeholder="起始日期"   ng-model="startDate" ng-init="startDate=''"
+                    <input type="text " placeholder="起始日期"   ng-model="startDate" ng-init="startDate=start"
                            datepicker-options="dateOptions"  ng-click="dateOpened = true" current-text="今天" ng-change="Deal()"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
                            close-text="隐藏" alt-input-formats="altInputFormats"
@@ -19,7 +19,7 @@
                 <label>截止日期</label>
                 <span class="">
                     <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened2 = true"></a>
-                    <input type="text" placeholder="截止日期"   ng-model="endDate"  ng-init="endDate=''"
+                    <input type="text" placeholder="截止日期"   ng-model="endDate"  ng-init="endDate=end"
                            datepicker-options="dateOptions"  ng-click="dateOpened2 = true" current-text="今天" ng-change="Deal()"
                            clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
                            close-text="隐藏" alt-input-formats="altInputFormats"
@@ -43,4 +43,4 @@
     </div>
     <ng-table url="/icard/record/pager" row-class="rowClass" page-size="20" page="0" columns="tableColumns" filter="filter" instance="ngTable" />
 </div>
-<a href="/ng#/{{filter.type == '01'?'icard/rechargelist':'icard/consumptionlist'}}" class="btn btn-default">返回</a>
+<a href="/ng#/{{filter.type == '01'?'icard/rechargelist':'icard/consumptionlist'}}?startDate={{filter.startDate}}&endDate={{filter.endDate}}" class="btn btn-default">返回</a>

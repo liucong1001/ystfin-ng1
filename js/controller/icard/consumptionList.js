@@ -16,40 +16,37 @@ app.controller("consumptionList", ["$scope","$convert","$q","$filter","$location
     $scope.jump=function(path){
         $location.path(path);
     };
-    //从后台获取商户
-    $scope.shanghu=function(){
-        //bill /getDealers
-        $http.get('bill/getDealers').success(function(data){
-            console.log("获取商户信息");
-            $scope.merchant=data;
-            console.log(data);
+    $scope.month =  $routeParams.startDate == null?new Date():$routeParams.startDate;
+    $scope.monthEnd = $routeParams.endDate == null?new Date():$routeParams.endDate;
+    $scope.start = new Date($scope.month);
+    $scope.end = new Date($scope.monthEnd);
+    getResult();
+    function getResult() {
+        $http({
+            method:'POST',
+            url:'/bill/consum',
+            params:{startDate:$scope.month,endDate:$scope.monthEnd,name:$scope.company},
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        }).success(function(data){
+            $scope.cardData=data;
+            $scope.x=0;
+            $scope.y=0;
+            $scope.z=0;
+            $scope.r=0;
+            for(var i=0;i<data.length;i++){
+                $scope.x += data[i].recharge;
+                $scope.y += data[i].give;
+                $scope.z += data[i].amount;
+                $scope.r += data[i].red;
+            }
         })
-    };
-    $scope.shanghu();
-
+    }
     //点击查询获取后台数据
     $scope.searchdate=function(){
         if($scope.cardTime&&$scope.cardTimeEnd){
             $scope.month=$filter('date')($scope.cardTime,'yyyy-MM-dd');//成交起始日期
             $scope.monthEnd=$filter('date')($scope.cardTimeEnd,'yyyy-MM-dd');//成交起始日期
-            $http({
-                method:'POST',
-                url:'/bill/consum',
-                params:{startDate:$scope.month,endDate:$scope.monthEnd,name:$scope.company},
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-            }).success(function(data){
-                $scope.cardData=data;
-                $scope.x=0;
-                $scope.y=0;
-                $scope.z=0;
-                $scope.r=0;
-                for(var i=0;i<data.length;i++){
-                    $scope.x += data[i].recharge;
-                    $scope.y += data[i].give;
-                    $scope.z += data[i].amount;
-                    $scope.r += data[i].red;
-                }
-            })
+            getResult();
         }else if($scope.cardTime==null&&$scope.cardTimeEnd){
             alert("请选择开始时间");
         }else if($scope.cardTime&&$scope.cardTimeEnd==null){
