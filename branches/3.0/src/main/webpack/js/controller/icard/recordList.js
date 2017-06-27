@@ -11,6 +11,8 @@ app.config(["$routeProvider",function($routeProvider){
 }]);
 
 app.controller("recordListController",["$scope","$http","$routeParams","$filter",function ($scope,$http,$routeParams,$filter) {
+    $scope.start = new Date($routeParams.startDate);
+    $scope.end = new Date($routeParams.endDate);
     $scope.filter = {
         "account.dealers.loginName":$routeParams.name,
         "type":$routeParams.type,

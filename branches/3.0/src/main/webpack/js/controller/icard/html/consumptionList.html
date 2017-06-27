@@ -22,7 +22,7 @@
             <span class="">
                 <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened = true"></a>
                 <input type="text" placeholder="请选择年，月"   ng-model="cardTime"
-                       datepicker-options="dateOptions"
+                       datepicker-options="dateOptions" ng-init="cardTime=start"
                        style="width:200px;" ng-click="dateOpened = true" current-text="今天"
                        clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened"
                        ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
@@ -34,7 +34,7 @@
             <span class="">
                 <a href="" class="glyphicon glyphicon-calendar" ng-click="dateOpened2 = true"></a>
                 <input type="text" placeholder="请选择年，月,日"   ng-model="cardTimeEnd"
-                       datepicker-options="dateOptions"
+                       datepicker-options="dateOptions" ng-init="cardTimeEnd=end"
                        style="width:200px;" ng-click="dateOpened2 = true" current-text="今天"
                        clear-text="清空" uib-datepicker-popup="yyyy年M月d日"  is-open="dateOpened2"
                        ng-required="true" close-text="隐藏" alt-input-formats="altInputFormats"
