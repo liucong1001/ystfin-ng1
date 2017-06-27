@@ -48,9 +48,6 @@ app.controller("iCardDetailsController",["$scope","$routeParams","AccountRecords
                           })
                       }
               },
-              show:function(time){
-
-              },
               getblan:function(row){
                   $scope.blan=row.account.icCard.balance;
               },
