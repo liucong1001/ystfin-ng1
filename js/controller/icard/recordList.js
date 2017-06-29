@@ -22,6 +22,7 @@ app.controller("recordListController",["$scope","$http","$routeParams","$filter"
     $scope.tableColumns = [
         {title:"订单号",template:"{{row.orderNo}}", width:10,thClass:"text-center",tdClass:"text-center"},
         {title:"卡号",template:"{{row.account.cardNo}}",thClass:"text-right",tdClass:"text-right", width:10},
+        {title:"账户名称",template:"{{row.account.icCard.name}}",thClass:"text-right",tdClass:"text-right", width:10},
         {title:"金额",template:"{{row.amount / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
         {title:"充值",template:"{{row.recharge / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
         {title:"赠送",template:"{{row.give / 100 | currency:''}}",thClass:"text-right",tdClass:"text-right", width:10},
