@@ -27,7 +27,8 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                query: { presets: ['es2015']}
             }, {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader")
@@ -48,6 +49,10 @@ module.exports = {
         loaders: {
             css: ExtractTextPlugin.extract("css"),
         }
+    },
+    babel: {
+        presets: ['es2015'],
+//        plugins: ['transform-runtime']
     },
     watch: true,
     watchOptions:{

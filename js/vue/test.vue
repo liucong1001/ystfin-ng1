@@ -21,12 +21,12 @@
 </style>
 <script>
     // requiring the UMD module
-    var chart = require('vue-echarts')
+    import chart from 'vue-echarts'
     // or with vue-loader you can require the src directly
     // and import ECharts modules manually to reduce bundle size
-//    var ECharts = require('vue-echarts/components/ECharts.vue')
-//    require('echarts/lib/chart/bar')
-//    require('echarts/lib/component/tooltip')
+//    import chart from 'vue-echarts/components/ECharts.vue'
+ //   import bar from 'echarts/lib/chart/bar'
+  //  import tooltip from 'echarts/lib/component/tooltip'
     module.exports = {
         name: "test",
         props: ["msg"],
@@ -124,7 +124,7 @@
                     series : [
                         {
                             name:this.year + '年交易量',
-                            type:'line',
+                            type:'bar',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
                             data:this.curData,
