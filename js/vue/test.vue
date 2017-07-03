@@ -1,16 +1,18 @@
 <template>
     <div>
-        <h2>{{msg}},world</h2>
-        <div>
-            <button :disabled="year <= minYear" @click="year--">上一年</button>
-            <select v-model="year">
-                <option v-for="y in yearList">{{y}}</option>
-            </select>
-            <button :disabled="year >= maxYear" @click="year++">下一年</button>
+        <div style="font-size: 30px;width:100%">
+            <table  align="center">
+                <tr>
+                    <td>汉西二手车交易量</td>
+                </tr>
+            </table>
         </div>
+        开始时间：  <input  v-model="start"  type="date"/>
+        结束时间：  <input  v-model="end"  type="date" />
+        <button class="btn btn-success" type="button" v-on:click="search(start,end)"> 查询</button>
         <div class="testChart">
             <chart :options="chartData"></chart>
-         </div>
+        </div>
     </div>
 </template>
 <style>
@@ -33,27 +35,23 @@
         components: {
             chart
         },
-        watch:{
-            year(val){
-                this.loadData()
-            }
-        },
         methods:{
-           loadData(){
-               if(this.year == 0) return
-               this.$http.get("/mobile/billTimeData?type=year&year=" + this.year).then(function (res) {
-                   this.curData = res.body.countTotal
-                   this.curDataFee = res.body.fillTotal
-               }, function (e) {
-                   console.log(e)
-               })
-               this.$http.get("/mobile/billTimeData?type=year&year=" + (this.year - 1)).then(function (res) {
-                   this.preData = res.body.countTotal
-                   this.preDataFee = res.body.fillTotal
-               }, function (e) {
-                   console.log(e)
-               })
-           }
+            search: function(startDate,endDate) {
+                if(startDate&&endDate){
+                    this.$http.get("/statistics/yearMonth?startDate="+startDate+"&endDate=" + endDate).then(function (res) {
+                        this.datamap=res.body['map'];
+                        this.datalist=res.body['list'];
+                        for(var i=0;i<this.datalist.length;i++){
+                            this.curDataFee.push(this.datamap[this.datalist[i]].count);
+                            this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
+                        }
+                    }, function (e) {
+                        console.log(e)
+                    });
+                }else{
+                    alert("请选择开始时间或结束时间");
+                }
+            }
         },
         created()
         {
@@ -74,7 +72,11 @@
                 year: 0,
                 maxYear:0,
                 minYear:0,
-                yearList:[]
+                yearList:[],
+                start:"",
+                end:"",
+                datalist:[],
+                datamap:{}
             }
         },
         computed:{
@@ -93,7 +95,7 @@
                         }
                     },
                     legend: {
-                        data:[this.year + '年交易量', (this.year - 1) + '年交易量',this.year + '年交易额', (this.year - 1) + '年交易额']
+                        data:['交易量','交易额']
                     },
                     toolbox: {
                         feature: {
@@ -110,7 +112,7 @@
                         {
                             type : 'category',
                             boundaryGap : false,
-                            data : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                            data : this.datalist,
                         }
                     ],
                     yAxis : [
@@ -123,38 +125,21 @@
                     ],
                     series : [
                         {
-                            name:this.year + '年交易量',
+                            name:'交易量',
                             type:'bar',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
-                            data:this.curData,
-                            connectNulls:true,
-                            yAxisIndex:0
-                        },
-                        {
-                            name:(this.year - 1) + '年交易量',
-                            type:'line',
-//                            stack: '交易量',
-                            //areaStyle: {normal: {}},
-                            data:this.preData,
-                            connectNulls:true,
-                            yAxisIndex:0
-                        },
-                        {
-                            name:this.year + '年交易额',
-                            type:'line',
-//                            stack: '交易量',
-//                            areaStyle: {normal: {}},
                             data:this.curDataFee,
                             connectNulls:true,
-                            yAxisIndex:1
+                            yAxisIndex:0
                         },
+
                         {
-                            name:(this.year - 1) + '年交易额',
+                            name:'交易额',
                             type:'line',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},
-                            data:this.preDataFee,
+                            data:this.curData,
                             connectNulls:true,
                             yAxisIndex:1
                         },

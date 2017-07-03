@@ -1,7 +1,5 @@
 <template>
     <div>
-        <h1 class="alert">{{message}}, hello！</h1>
-        <input v-model="message" type="text" />
         <test :msg="message"></test>
     </div>
 </template>
