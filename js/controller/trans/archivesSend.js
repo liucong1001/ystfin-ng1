@@ -71,6 +71,8 @@ app.controller("archivesSend",["$scope","$location","$rootScope","Archives","$ht
             $scope.message = err.data.message;
             $scope.status[record.plateNumber] = {text:"送出失败",css:"danger"}
         })
+        $scope.archivesCode = "";
+        $("#archivesCode").focus();
         $scope.records[record.plateNumber] = record;
         //console.log($scope.records);
         //$scope.archivesNo = "";
