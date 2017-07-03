@@ -34,11 +34,11 @@
                 <label>流水号：</label>
                 <input class="" type="text" ng-minlength="5" ng-maxlength="16" maxlength="16" required ng-model="archivesNo" placeholder="请输入或扫描流水号" ng-change="numchange()"/>
                 <br/>
-                <span ng-if="trans" style="color: red;">手续费：{{trans.fee}}</span>
+                <span ng-if="trans" style="color: red;">手续费：{{trans.fee}}</span><span style="color: red;">{{msg}}</span>
             </div>
             <div class="col-md-4">
                 <label>车牌号(鄂A)：</label>
-                <input class=""  type="text"  ng-maxlength="5"  maxlength="5" required ng-model="plateNumber" placeholder="请输入车牌号" ng-change="numchange()"/>
+                <input class="" type="text"  ng-maxlength="5"  maxlength="5" required ng-model="plateNumber" placeholder="请输入车牌号" ng-change="numchange()"/>
                 <br/>
             </div>
             <div class="col-md-4" style="height: 14px">

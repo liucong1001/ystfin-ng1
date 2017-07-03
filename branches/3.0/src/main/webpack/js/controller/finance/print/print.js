@@ -59,7 +59,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                 });
             },function (err) {
                 $scope.trans = undefined;
-                //console.log("找不到的流水号");
+                $scope.msg = err.data.message;
             });
         };
     }
@@ -88,7 +88,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                 });
             },function (err) {
                 $scope.trans = undefined;
-                console.log("找不到的车牌号");
+                $scope.msg = err.data.message;
             });
         };
     }
