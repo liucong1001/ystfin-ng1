@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-2 text-right car">请输入号码:</div>
         <div class="col-md-4">
-            <input type="text" ng-model="archivesCode" ng-change="AutoSearch(archivesCode)" placeholder="请扫码车管所业务流水号后再扫描交易流水号" maxlength="29"   class="form-control" />
+            <input id= "archivesCode" type="text" ng-model="archivesCode" ng-change="AutoSearch(archivesCode)" placeholder="请扫码车管所业务流水号后再扫描交易流水号" maxlength="29"   class="form-control" />
         </div>
         <div class="col-md-2 text-right">
             <button class="btn btn-primary" ng-click="showPlate()">档案自提</button>
