@@ -37,17 +37,21 @@
         },
         methods:{
             search: function(startDate,endDate) {
-                if(startDate&&endDate){
-                    this.$http.get("/statistics/yearMonth?startDate="+startDate+"&endDate=" + endDate).then(function (res) {
-                        this.datamap=res.body['map'];
-                        this.datalist=res.body['list'];
-                        for(var i=0;i<this.datalist.length;i++){
-                            this.curDataFee.push(this.datamap[this.datalist[i]].count);
-                            this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
-                        }
-                    }, function (e) {
-                        console.log(e)
-                    });
+                if(startDate&&endDate) {
+                    if (endDate < startDate) {
+                        alert("结束时间不能小于开始时间")
+                    } else {
+                        this.$http.get("/statistics/yearMonth?startDate=" + startDate + "&endDate=" + endDate).then(function (res) {
+                            this.datamap = res.body['map'];
+                            this.datalist = res.body['list'];
+                            for (var i = 0; i < this.datalist.length; i++) {
+                                this.curDataFee.push(this.datamap[this.datalist[i]].count);
+                                this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
+                            }
+                        }, function (e) {
+                            console.log(e)
+                        });
+                    }
                 }else{
                     alert("请选择开始时间或结束时间");
                 }
@@ -66,17 +70,17 @@
         {
             return {
                 curData: [],
-                preData: [],
+//                preData: [],
                 curDataFee: [],
-                preDataFee: [],
-                year: 0,
+//                preDataFee: [],
+//                year: 0,
                 maxYear:0,
                 minYear:0,
                 yearList:[],
                 start:"",
                 end:"",
-                datalist:[],
-                datamap:{}
+                datalist:[],//时间年月
+                datamap:{}  //相对应时间数据
             }
         },
         computed:{
