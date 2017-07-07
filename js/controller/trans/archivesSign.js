@@ -69,7 +69,9 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
         },function (err) {
             $scope.message = err.data.message;
             $scope.status[record.plateNumber] = {text:"签收失败",css:"danger"}
-        })
+        });
+        $scope.Car_archivesNo = "";
+        $("#car_archives_no").focus();
         $scope.records[record.plateNumber] = record;
         $scope.archivesNo = "";
     }
