@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>{{msg}}</h2>
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
@@ -49,7 +48,6 @@
             loadData(){
                 if(this.year == 0) return
                 this.$http.get("/statistics/yearOnYear?type=year&year=" + this.year).then(function (res) {
-                    console.log(res);
                     this.cList = res.body.cList;
                     this.sList = res.body.sList;
                     this.list = res.body.list;
@@ -65,9 +63,6 @@
                     for (var k = 0; k < this.list.length; k++) {
                         this.perDataFee.push(this.list[k]);
                     }
-                    console.log(this.curData);
-                    console.log(this.curDataFee);
-                    console.log(this.perDataFee);
                 }, function (e) {
                     console.log(e)
                 })

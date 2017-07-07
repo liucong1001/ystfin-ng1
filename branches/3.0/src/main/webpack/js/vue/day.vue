@@ -3,17 +3,13 @@
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
-                    <td>每月交易量及同比上月比值（%）</td>
+                    <td>每日交易量查询</td>
                 </tr>
             </table>
         </div>
-        <div>
-            <button :disabled="year <= minYear" @click="year--">上一年</button>
-            <select v-model="year">
-                <option v-for="y in yearList">{{y}}</option>
-            </select>
-            <button :disabled="year >= maxYear" @click="year++">下一年</button>
-        </div>
+        开始时间：  <input  v-model="start"  type="date"/>
+        结束时间：  <input  v-model="end"  type="date" />
+        <button class="btn btn-success" type="button" v-on:click="search(start,end)"> 查询</button>
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
@@ -30,37 +26,36 @@
     import chart from 'vue-echarts'
     // or with vue-loader you can require the src directly
     // and import ECharts modules manually to reduce bundle size
-    //    import chart from 'vue-echarts/components/ECharts.vue'
-    //   import bar from 'echarts/lib/chart/bar'
-    //  import tooltip from 'echarts/lib/component/tooltip'
+//    import chart from 'vue-echarts/components/ECharts.vue'
+ //   import bar from 'echarts/lib/chart/bar'
+  //  import tooltip from 'echarts/lib/component/tooltip'
     module.exports = {
         name: "test",
         props: ["msg"],
         components: {
             chart
         },
-        watch:{
-            year(val){
-                this.loadData()
-            }
-        },
         methods:{
-            loadData(){
-                if(this.year == 0) return
-                this.$http.get("/statistics/monthOnMonth?type=year&year=" + this.year).then(function (res) {
-                    this.cList = res.body.cList;
-                    this.sList = res.body.sList;
-                    this.curData=[];
-                    this.curDataFee=[];
-                    for (var i = 0; i < this.cList.length; i++) {
-                        this.curData.push(this.cList[i]);
+            search: function(startDate,endDate) {
+                if(startDate&&endDate) {
+                    if (endDate < startDate) {
+                        alert("结束时间不能小于开始时间")
+                    } else {
+                        this.$http.get("/statistics/day?startDate=" + startDate + "&endDate=" + endDate).then(function (res) {
+                            this.datamap = res.body['map'];
+                            this.datalist =this.datamap['dateList'];
+                            this.newMap=this.datamap['newMap'];
+                            for( var i=0;i<this.datalist.length;i++){
+                                this.curDataFee.push(this.newMap[this.datalist[i]].dayCount);
+                                this.curData.push(this.newMap[this.datalist[i]].dayServiceCharge);
+                            }
+                        }, function (e) {
+                            console.log(e)
+                        });
                     }
-                    for (var j = 0; j < this.sList.length; j++) {
-                        this.curDataFee.push(this.sList[j]);
-                    }
-                }, function (e) {
-                    console.log(e)
-                })
+                }else{
+                    alert("请选择开始时间或结束时间");
+                }
             }
         },
         created()
@@ -76,13 +71,18 @@
         {
             return {
                 curData: [],
+//                preData: [],
                 curDataFee: [],
-                year: 0,
+//                preDataFee: [],
+//                year: 0,
                 maxYear:0,
                 minYear:0,
                 yearList:[],
-                cList:[],
-                sList:[]
+                start:"",
+                end:"",
+                datalist:[],//时间年月日
+                datamap:{},  //相对应时间数据
+                newMap:{}
             }
         },
         computed:{
@@ -101,7 +101,7 @@
                         }
                     },
                     legend: {
-                        data:[this.year + '年交易量每月同比上个月（%）',this.year + '年交易量']
+                        data:['交易量','交易额']
                     },
                     toolbox: {
                         feature: {
@@ -117,8 +117,9 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : true,
-                            data : [ '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                            boundaryGap : false,
+                            data : this.datalist,
+                            xAxisIndex:0
                         }
                     ],
                     yAxis : [
@@ -131,20 +132,21 @@
                     ],
                     series : [
                         {
-                            name:this.year + '年交易量每月同比上个月（%）',
-                            type:'line',
+                            name:'交易量',
+                            type:'bar',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
-                            data:this.curData,
+                            data:this.curDataFee,
                             connectNulls:true,
                             yAxisIndex:0
                         },
+
                         {
-                            name:this.year + '年交易量',
-                            type:'bar',
+                            name:'交易额',
+                            type:'line',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},
-                            data:this.curDataFee,
+                            data:this.curData,
                             connectNulls:true,
                             yAxisIndex:1
                         },
