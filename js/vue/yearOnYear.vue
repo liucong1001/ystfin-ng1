@@ -3,7 +3,7 @@
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
-                    <td>每月交易量及同比去年同月比值（%）</td>
+                    <td>交易量及同比去年比值（%）</td>
                 </tr>
             </table>
         </div>
@@ -107,7 +107,7 @@
                         }
                     },
                     legend: {
-                        data:[this.year + '每月交易量同比去年（%）',this.year + '每月交易量',(this.year - 1) + '每月交易量']
+                        data:[this.year + '交易量同比去年（%）',this.year + '交易量',(this.year - 1) + '交易量']
                     },
                     toolbox: {
                         feature: {
@@ -137,7 +137,7 @@
                     ],
                     series : [
                         {
-                            name:this.year + '每月交易量同比去年（%）',
+                            name:this.year + '交易量同比去年（%）',
                             type:'line',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
@@ -146,8 +146,8 @@
                             yAxisIndex:0
                         },
                         {
-                            name:this.year + '每月交易量',
-                            type:'line',
+                            name:this.year + '交易量',
+                            type:'bar',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},
                             data:this.curDataFee,
@@ -155,8 +155,8 @@
                             yAxisIndex:1
                         },
                         {
-                            name:(this.year - 1) + '每月交易量',
-                            type:'line',
+                            name:(this.year - 1) + '交易量',
+                            type:'bar',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},
                             data:this.perDataFee,
