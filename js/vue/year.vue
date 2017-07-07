@@ -3,7 +3,7 @@
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
-                    <td>每月交易量及同比上月比值（%）</td>
+                    <td>年交易量查询</td>
                 </tr>
             </table>
         </div>
@@ -47,17 +47,15 @@
         methods:{
             loadData(){
                 if(this.year == 0) return
-                this.$http.get("/statistics/monthOnMonth?type=year&year=" + this.year).then(function (res) {
-                    this.cList = res.body.cList;
-                    this.sList = res.body.sList;
-                    this.curData=[];
-                    this.curDataFee=[];
-                    for (var i = 0; i < this.cList.length; i++) {
-                        this.curData.push(this.cList[i]);
-                    }
-                    for (var j = 0; j < this.sList.length; j++) {
-                        this.curDataFee.push(this.sList[j]);
-                    }
+                this.$http.get("/mobile/billTimeData?type=year&year=" + this.year).then(function (res) {
+                    this.curData = res.body.countTotal
+                    this.curDataFee = res.body.fillTotal
+                }, function (e) {
+                    console.log(e)
+                })
+                this.$http.get("/mobile/billTimeData?type=year&year=" + (this.year - 1)).then(function (res) {
+                    this.preData = res.body.countTotal
+                    this.preDataFee = res.body.fillTotal
                 }, function (e) {
                     console.log(e)
                 })
@@ -76,13 +74,13 @@
         {
             return {
                 curData: [],
+                preData: [],
                 curDataFee: [],
+                preDataFee: [],
                 year: 0,
                 maxYear:0,
                 minYear:0,
-                yearList:[],
-                cList:[],
-                sList:[]
+                yearList:[]
             }
         },
         computed:{
@@ -101,7 +99,7 @@
                         }
                     },
                     legend: {
-                        data:[this.year + '年交易量每月同比上个月（%）',this.year + '年交易量']
+                        data:[this.year + '年交易量', this.year + '年交易额']
                     },
                     toolbox: {
                         feature: {
@@ -117,8 +115,8 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : true,
-                            data : [ '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                            boundaryGap : false,
+                            data : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                         }
                     ],
                     yAxis : [
@@ -131,17 +129,18 @@
                     ],
                     series : [
                         {
-                            name:this.year + '年交易量每月同比上个月（%）',
-                            type:'line',
+                            name:this.year + '年交易量',
+                            type:'bar',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
                             data:this.curData,
                             connectNulls:true,
                             yAxisIndex:0
                         },
+
                         {
-                            name:this.year + '年交易量',
-                            type:'bar',
+                            name:this.year + '年交易额',
+                            type:'line',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},
                             data:this.curDataFee,
