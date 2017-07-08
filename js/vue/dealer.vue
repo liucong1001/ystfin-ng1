@@ -44,6 +44,40 @@
                     </tr>
                 </table>
             </section>
+            <div class="mint-tabbar is-fixed">
+                <a class="mint-tab-item is-selected">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/graph chart.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        报表查询
+                    </div>
+                </a>
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_detail.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        交易明细
+                    </div>
+                </a>
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_pencil.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        领导审批
+                    </div>
+                </a>
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_settings.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        设置
+                    </div>
+                </a>
+            </div>
         </div>
 </template>
 <script>

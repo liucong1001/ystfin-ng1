@@ -8,7 +8,43 @@
         <router-link to="/monthOnMonth">环比</router-link><br>
         <router-link to="/dealer">商户交易明细表</router-link>
 
+        <!--固定底部-->
+        <div class="mint-tabbar is-fixed">
+            <a class="mint-tab-item is-selected">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/graph chart.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    报表查询
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_detail.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    交易明细
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_pencil.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    领导审批
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_settings.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    设置
+                </div>
+            </a>
+        </div>
     </div>
+
 </template>
 <style>
     .testChart .echarts {
