@@ -7,9 +7,9 @@
                 </tr>
             </table>
         </div>
-        开始时间：  <input  v-model="start"  type="date"/>
-        结束时间：  <input  v-model="end"  type="date" />
-        <button class="btn btn-success" type="button" v-on:click="search(start,end)"> 查询</button>
+        开始时间：  <input  v-model="start"  type="date"/> <br/>
+        结束时间：  <input  v-model="end"  type="date" /> <br/>
+        <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(start,end)"> 查询</button>
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
