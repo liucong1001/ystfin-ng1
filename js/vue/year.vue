@@ -1,11 +1,5 @@
 <template>
     <div>
-     <!--固定头部-->
-    <header class="mint-header is-fixed">
-        <div class="mint-header-button is-left"></div>
-        <h1 class="mint-header-title">报表查询</h1>
-        <div class="mint-header-button is-right"></div>
-    </header>
 
         <div style="font-size: 30px;width:100%">
             <table  align="center">
@@ -15,11 +9,14 @@
             </table>
         </div>
         <div>
-            <button :disabled="year <= minYear" @click="year--">上一年</button>
-            <select v-model="year">
+            <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
+
+            <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="normal">上一年</mt-button>
+            <select v-model="year" >
                 <option v-for="y in yearList">{{y}}</option>
             </select>
-            <button :disabled="year >= maxYear" @click="year++">下一年</button>
+            <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="normal">下一年</mt-button>
+
         </div>
         <div class="testChart">
             <chart :options="chartData"></chart>

@@ -15,9 +15,11 @@ import year from "./vue/year.vue"
 import month from "./vue/month.vue"
 import day from "./vue/day.vue"
 import dealer from "./vue/dealer.vue"
+import main from "./vue/main.vue"
 const NotFound = { template: '<p>Page not found</p>' }
 const About = { template: '<p>二手车报表查询</p>' }
 const routes = [
+    {path:'/',component:main},
     {path:'/about',component:About},
     {path:'/dealer',component:dealer},
     {path:'/monthOnMonth',component:monthOnMonth},

@@ -3,9 +3,9 @@
             <section class="well" style="padding: 10px 0px 0px 0px;">
                 <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                     <div class="form-inline">
-                        开始时间：  <input  v-model="start"  type="date"/>
-                        结束时间：  <input  v-model="end"  type="date" />
-                        <button class="btn btn-success" type="button" v-on:click="search(start,end)"> 查询</button>
+                        开始时间：  <input  v-model="start"  type="date"/> <br/>
+                        结束时间：  <input  v-model="end"  type="date" /> <br/>
+                        <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(start,end)"> 查询</button>
                     </div>
                 </div>
             </section>
