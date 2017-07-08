@@ -16,6 +16,9 @@ import month from "./vue/month.vue"
 import day from "./vue/day.vue"
 import dealer from "./vue/dealer.vue"
 import main from "./vue/main.vue"
+
+import vheader from './vue/vheader.vue';
+
 const NotFound = { template: '<p>Page not found</p>' }
 const About = { template: '<p>二手车报表查询</p>' }
 const routes = [

@@ -8,14 +8,52 @@
             </table>
         </div>
         <div>
-            <button :disabled="year <= minYear" @click="year--">上一年</button>
+            <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
+            <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="normal">上一年</mt-button>
+
             <select v-model="year">
                 <option v-for="y in yearList">{{y}}</option>
             </select>
-            <button :disabled="year >= maxYear" @click="year++">下一年</button>
+            <!--<button :disabled="year >= maxYear" @click="year++">下一年</button>-->
+            <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="normal">下一年</mt-button>
+
         </div>
         <div class="testChart">
             <chart :options="chartData"></chart>
+        </div>
+        <div class="mint-tabbar is-fixed">
+            <a class="mint-tab-item is-selected">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/graph chart.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    报表查询
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_detail.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    交易明细
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_pencil.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    领导审批
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_settings.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    设置
+                </div>
+            </a>
         </div>
     </div>
 </template>
