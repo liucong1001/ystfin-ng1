@@ -20,8 +20,8 @@ app.controller("icardBindController",["$scope","$http","$routeParams","$icard","
     });
 
     $http.get("/dealers/" + $scope.dealersId).then(function (result) {
-        $scope.dealers = result.data
-        $scope.cardMessage = result.data.name
+        $scope.dealers = result.data;
+        $scope.cardMessage = result.data.name;
     });
 
     $http({

@@ -18,9 +18,9 @@ app.config(["$routeProvider",function($routeProvider){
 }])
 app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","gconfig","$bill","$filter","$location", "$routeParams",function ($scope,$trans,$convert,$q,$printer,gconfig,$bill,$filter,$location,$routeParams) {
     // 初始化打印控件
-    $printer.init()
+    $printer.init();
     $scope.gconfig = gconfig;
-    $scope.num = "";
+    $scope.num = "";arry
    //根据流水号读取
     $scope.$watch("archivesNo",function (archivesNo) {
         getBill(archivesNo);

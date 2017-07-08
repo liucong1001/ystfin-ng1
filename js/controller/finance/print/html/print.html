@@ -68,7 +68,7 @@
                     <button class="btn btn-primary" ng-click="print('02')">重新开票</button>
                 </span>
                 <button class="btn btn-danger" ng-if="trans.billStatus == '02'" ng-click="remove()">仅作废</button>
-                <button class="btn btn-danger" ng-if="trans.billStatus == '02'" ng-click="back()">退票</button>
+                <button class="btn btn-danger" ng-if="trans.billStatus == '02'"  ng-click="back()">退票</button>
                 <br/>
             </div>
         </div>
@@ -185,7 +185,7 @@
                 </div>
                 <div class="bill-no">发票号码(<span class="text-danger">将要使用</span>)：<input ng-model="nextBillNo" required maxlength="8"/></div>
             </div>
-        </div>
+
         <div class="row text-center" ng-show="bottom" >
             <span class="sucessPrint ">发票打印成功，发票号码是:</span>
             <!--input修改-->
