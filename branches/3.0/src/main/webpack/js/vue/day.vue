@@ -71,6 +71,7 @@
         },
         methods:{
             search: function(startDate,endDate) {
+                console.log(this.endDate);
                 if(startDate&&endDate) {
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
@@ -187,6 +188,33 @@
                     ]
                 }
             }
-        }
+        },
+        mounted (){
+            if(this.startDate==null&&this.endDate==null){
+                var now = new Date()
+                var year = now.getFullYear();       //年
+                var month = now.getMonth() + 1;     //月
+                var day = now.getDate();            //日
+                this.endDate=now.getFullYear()+"-";
+                if(month<10)
+                this.endDate+="0";
+                this.endDate+=month+"-";
+                if(day<10)
+                this.endDate+="0";
+                this.endDate+=day;
+                this.startDate=this.endDate;
+                this.$http.get("/statistics/day?startDate=" + this.startDate + "&endDate=" + this.endDate).then(function (res) {
+                    this.datamap = res.body['map'];
+                    this.datalist =this.datamap['dateList'];
+                    this.newMap=this.datamap['newMap'];
+                    for( var i=0;i<this.datalist.length;i++){
+                        this.curDataFee.push(this.newMap[this.datalist[i]].dayCount);
+                        this.curData.push(this.newMap[this.datalist[i]].dayServiceCharge);
+                    }
+                }, function (e) {
+                    console.log(e)
+                });
+            }
+        },
     }
 </script>
