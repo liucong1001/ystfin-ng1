@@ -1,12 +1,52 @@
 <template>
     <div>
-        <router-link to="/about">首页 </router-link><br>
-        <router-link to="/year">按年查询</router-link><br>
-        <router-link to="/month">按月查询</router-link><br>
-        <router-link to="/day">按天查询</router-link><br>
-        <router-link to="/yearOnYear">同比</router-link><br>
-        <router-link to="/monthOnMonth">环比</router-link><br>
-        <router-link to="/dealer">商户交易明细表</router-link>
+        <div class="bg_color">
+            <router-link to="/about">首页 </router-link>
+        </div>
+        <div class="bg_color">
+            <router-link to="/year">按年查询</router-link>
+        </div>
+        <div class="bg_color">
+            <router-link to="/month">按月查询</router-link><br>
+         </div>
+        <div class="bg_color">
+            <router-link to="/day">按天查询</router-link><br>
+         </div>
+        <div class="bg_color">
+            <router-link to="/yearOnYear">同比</router-link><br>
+         </div>
+        <div class="bg_color">
+            <router-link to="/monthOnMonth">环比</router-link><br>
+         </div>
+        <div class="bg_color">
+           <router-link to="/dealer">商户交易明细表</router-link>
+        </div>
+
+        <div class="page-actionsheet"><h1 class="page-title">Action Sheet</h1>
+
+            <div class="page-actionsheet-wrapper">
+                <button class="mint-button mint-button--default mint-button--large"><!----> <label
+                        class="mint-button-text">点击上拉 action sheet</label></button>
+                <button class="mint-button mint-button--default mint-button--large"><!----> <label
+                        class="mint-button-text">不带取消按钮的 action sheet</label></button>
+            </div>
+            <div class="mint-actionsheet" style="z-index: 2003; display: none;">
+                <ul class="mint-actionsheet-list" style="margin-bottom: 5px;">
+                    <li class="mint-actionsheet-listitem">拍照</li>
+                    <li class="mint-actionsheet-listitem">从相册中选择</li>
+                </ul>
+                <a class="mint-actionsheet-button">取消</a></div>
+            <div class="mint-actionsheet" style="display: none;">
+                <ul class="mint-actionsheet-list" style="margin-bottom: 0px;">
+                    <li class="mint-actionsheet-listitem">确定</li>
+                    <li class="mint-actionsheet-listitem">返回上一步</li>
+                </ul>
+                <!----></div>
+        </div>
+        <!--<mt-actionsheet-->
+                <!--:actions="actions"-->
+                <!--v-model="sheetVisible">-->
+        <!--</mt-actionsheet>-->
 
         <!--固定底部-->
         <div class="mint-tabbar is-fixed">
@@ -51,6 +91,16 @@
         width: 100%;
         height: 400px;
     }
+    .bg_color{
+        color: #fff;
+        background-color: #26a2ff;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    .bg_color a{
+        color: white !important;
+        text-decoration:none;
+    }
 </style>
 <script>
     // requiring the UMD module
@@ -60,6 +110,9 @@
     //    import chart from 'vue-echarts/components/ECharts.vue'
     //   import bar from 'echarts/lib/chart/bar'
     //  import tooltip from 'echarts/lib/component/tooltip'
+    import { Actionsheet } from 'mint-ui';
+
+    Vue.component(Actionsheet.name, Actionsheet);
     module.exports = {
         name: "test",
         props: ["msg"],

@@ -1,67 +1,57 @@
 <template>
     <div>
-        <vheader></vheader>
-        <div style="font-size: 30px;width:100%">
-            <table  align="center">
-                <tr>
-                    <td>年交易量查询</td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
+        <header>
+            <vheader></vheader>
+        </header>
+        <div class="page-wrap">
+            <div class="mint-tab-container page-tabbar-container">
+                <div class="main-list">
+                    <div style="font-size: 30px;width:100%">
+                        <table  align="center">
+                            <tr>
+                                <td>年交易量查询</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
 
-            <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="normal">上一年</mt-button>
-            <select v-model="year" >
-                <option v-for="y in yearList">{{y}}</option>
-            </select>
-            <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="normal">下一年</mt-button>
-
+                        <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">上一年</mt-button>
+                        <select v-model="year" class="select">
+                            <option v-for="y in yearList">{{y}}</option>
+                        </select>
+                        <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="small">下一年</mt-button>
+                        <selectlist></selectlist>
+                    </div>
+                    <div class="testChart">
+                        <chart :options="chartData"></chart>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="testChart">
-            <chart :options="chartData"></chart>
-        </div>
-        <!--固定底部-->
-       <div class="mint-tabbar is-fixed">
-        <a class="mint-tab-item is-selected">
-            <div class="mint-tab-item-icon">
-               <img src="./img/graph chart.png">
-            </div>
-            <div class="mint-tab-item-label">
-                报表查询
-            </div>
-        </a>
-        <a class="mint-tab-item">
-            <div class="mint-tab-item-icon">
-                 <img src="./img/unselected_detail.png">
-            </div>
-            <div class="mint-tab-item-label">
-                交易明细
-            </div>
-        </a>
-        <a class="mint-tab-item">
-            <div class="mint-tab-item-icon">
-              <img src="./img/unselected_pencil.png">
-            </div>
-            <div class="mint-tab-item-label">
-                领导审批
-            </div>
-        </a>
-        <a class="mint-tab-item">
-            <div class="mint-tab-item-icon">
-              <img src="./img/unselected_settings.png">
-            </div>
-            <div class="mint-tab-item-label">
-                设置
-            </div>
-        </a>
-    </div>
+      <vfooter></vfooter>
     </div>
 </template>
 <style>
+    .select{
+        height: 30px;
+        /*-webkit-appearance: none;*/
+        /*appearance: none;*/
+        /*border: none;*/
+        font-size: 18px;
+        padding: 0px 5px;
+        display: inline-block;
+        /*width: 100%;*/
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #FFFFFF;
+        color: #333333;
+        border-radius: 4px;
+    }
     .testChart .echarts {
         width: 100%;
-        height: 400px;
+        height: 441px;
+        background-color: grey;
     }
    .mint-tab-item {
     display: block;
@@ -93,25 +83,21 @@
 
 </style>
 <script>
-    // requiring the UMD module
     import chart from 'vue-echarts'
-
-
-    // or with vue-loader you can require the src directly
-    // and import ECharts modules manually to reduce bundle size
-    //    import chart from 'vue-echarts/components/ECharts.vue'
-    //   import bar from 'echarts/lib/chart/bar'
-    //  import tooltip from 'echarts/lib/component/tooltip'
     import Button from 'mint-ui/lib/button';
     import 'mint-ui/lib/button/style.css';
     import 'mint-ui/lib/button/style.css';
+    import vheader from './vheader.vue';
+    import vfooter from './vfooter.vue';
+    import selectlist from './selectlist.vue';
+
 
     Vue.component(Button.name, Button);
     module.exports = {
         name: "test",
         props: ["msg"],
         components: {
-            chart
+            chart,vheader,vfooter,selectlist
         },
         watch:{
             year(val){
@@ -119,6 +105,15 @@
             }
         },
         methods:{
+            handleClick: function() {
+                this.$toast('Hello world!')
+            },
+            chooseList:function(val){
+                if(val=='1'){this.$router.push({path:'/year'})}
+                if(val=='2'){this.$router.push({path:'/month'})}
+                if(val=='3'){this.$router.push({path:'/yearOnYear'});}
+                if(val=='4'){this.$router.push({path:'/monthOnMonth'});}
+            },
             loadData(){
                 if(this.year == 0) return
                 this.$http.get("/mobile/billTimeData?type=year&year=" + this.year).then(function (res) {
@@ -147,6 +142,7 @@
         data()
         {
             return {
+//                headermsg:"year",
                 curData: [],
                 preData: [],
                 curDataFee: [],
@@ -154,7 +150,8 @@
                 year: 0,
                 maxYear:0,
                 minYear:0,
-                yearList:[]
+                yearList:[],
+                queryList:""
             }
         },
         computed:{
@@ -227,3 +224,4 @@
         }
     }
 </script>
+
