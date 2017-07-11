@@ -1,5 +1,6 @@
 <template>
         <div>
+             <vheader></vheader>
             <section class="well" style="padding: 10px 0px 0px 0px;">
                 <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                     <div class="form-inline">
@@ -11,7 +12,7 @@
             </section>
             <section class="well">
                 <h2 align="center">商户交易明细报表</h2>
-                <table width="85%" border="1" cellPadding="5" align="center">
+                <table width="100%" border="1" cellpadding="0" cellspacing="0" align="center">
                     <tr>
                         <th rowspan="2" scope="col">编号</th>
                         <th rowspan="2" scope="col">商户名称</th>
@@ -44,44 +45,15 @@
                     </tr>
                 </table>
             </section>
-            <div class="mint-tabbar is-fixed">
-                <a class="mint-tab-item is-selected">
-                    <div class="mint-tab-item-icon">
-                        <img src="./img/graph chart.png">
-                    </div>
-                    <div class="mint-tab-item-label">
-                        报表查询
-                    </div>
-                </a>
-                <a class="mint-tab-item">
-                    <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_detail.png">
-                    </div>
-                    <div class="mint-tab-item-label">
-                        交易明细
-                    </div>
-                </a>
-                <a class="mint-tab-item">
-                    <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_pencil.png">
-                    </div>
-                    <div class="mint-tab-item-label">
-                        领导审批
-                    </div>
-                </a>
-                <a class="mint-tab-item">
-                    <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_settings.png">
-                    </div>
-                    <div class="mint-tab-item-label">
-                        设置
-                    </div>
-                </a>
-            </div>
+           <vfooter></vfooter>
         </div>
 </template>
 <script>
+    import vheader from './vheader.vue';
+    import vfooter from './vfooter.vue';
+
     module.exports = {
+        components:{vheader,vfooter},
         methods:{
             search: function(startDate,endDate) {
                 if(startDate&&endDate) {
@@ -126,7 +98,8 @@
                 money:'',
                 money1:0,
                 ServiceCharge:'',
-                ServiceCharge1:0
+                ServiceCharge1:0,
+                headermsg:"123"
             }
 
         },
@@ -165,8 +138,14 @@
                     console.log(e)
                 });
             }
-        },
+        }
 
     }
 </script>
+<style>
+    table tr td{
+        text-align: center;
+    }
+
+</style>
 

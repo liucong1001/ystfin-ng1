@@ -1,5 +1,6 @@
 <template>
     <div>
+        <vheader></vheader>
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
@@ -10,43 +11,11 @@
         开始时间：  <input  v-model="start"  type="date"/> <br/>
         结束时间：  <input  v-model="end"  type="date" /> <br/>
         <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(start,end)"> 查询</button>
+        <selectlist></selectlist>
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
-        <div class="mint-tabbar is-fixed">
-            <a class="mint-tab-item is-selected">
-                <div class="mint-tab-item-icon">
-                    <img src="./img/graph chart.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    报表查询
-                </div>
-            </a>
-            <a class="mint-tab-item">
-                <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_detail.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    交易明细
-                </div>
-            </a>
-            <a class="mint-tab-item">
-                <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_pencil.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    领导审批
-                </div>
-            </a>
-            <a class="mint-tab-item">
-                <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_settings.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    设置
-                </div>
-            </a>
-        </div>
+        <vfooter></vfooter>
     </div>
 </template>
 <style>
@@ -57,17 +26,16 @@
 </style>
 <script>
     // requiring the UMD module
-    import chart from 'vue-echarts'
-    // or with vue-loader you can require the src directly
-    // and import ECharts modules manually to reduce bundle size
-//    import chart from 'vue-echarts/components/ECharts.vue'
- //   import bar from 'echarts/lib/chart/bar'
-  //  import tooltip from 'echarts/lib/component/tooltip'
+    import chart from 'vue-echarts';
+    import vheader from './vheader.vue';
+    import vfooter from './vfooter.vue';
+    import selectlist from './selectlist.vue';
+
     module.exports = {
         name: "test",
         props: ["msg"],
         components: {
-            chart
+            chart,vheader,vfooter,selectlist
         },
         methods:{
             search: function(startDate,endDate) {
