@@ -151,7 +151,7 @@
                 maxYear:0,
                 minYear:0,
                 yearList:[],
-                queryList:""
+                queryList:"1"
             }
         },
         computed:{

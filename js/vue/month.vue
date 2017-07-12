@@ -8,9 +8,9 @@
                 </tr>
             </table>
         </div>
-        开始时间：  <input  v-model="start"  type="date"/> <br/>
-        结束时间：  <input  v-model="end"  type="date" /> <br/>
-        <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(start,end)"> 查询</button>
+        开始时间：  <input  v-model="start"  type="date"  /> <br/>
+        结束时间：  <input  v-model="end"  type="date"  @change="search(start,end)"/> <br/>
+        <!--<button class="mint-button mint-button&#45;&#45;primary mint-button&#45;&#45;normal" type="button" v-on:click="search(start,end)"> 查询</button>-->
         <selectlist></selectlist>
         <div class="testChart">
             <chart :options="chartData"></chart>
@@ -29,6 +29,10 @@
     import vheader from './vheader.vue';
     import vfooter from './vfooter.vue';
     import selectlist from './selectlist.vue';
+    import { DatetimePicker } from 'mint-ui';
+
+    Vue.component(DatetimePicker.name, DatetimePicker);
+
     module.exports = {
         name: "test",
         props: ["msg"],
@@ -36,7 +40,12 @@
             chart,vheader,vfooter,selectlist
         },
         methods:{
+            openPicker() {
+                this.$refs.picker.open();
+            },
             search: function(startDate,endDate) {
+
+                console.log(  this.$route.params.i);
                 if(startDate&&endDate) {
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
@@ -64,7 +73,11 @@
                 this.yearList.push(now.getFullYear() - i)
             }
             this.maxYear = this.year = now.getFullYear()
-            this.minYear = this.year - 9
+            this.minYear = this.year - 9;
+            console.log("creatderimg");
+            console.log("end"+new Date());
+//            this.end='2016-03-01';
+
         },
         data()
         {
@@ -81,7 +94,8 @@
                 end:"",
                 datalist:[],//时间年月
                 datamap:{},  //相对应时间数据
-                queryList:""
+                queryList:"2",
+                pickerValue:""
             }
         },
         computed:{
@@ -151,6 +165,10 @@
                     ]
                 }
             }
+        },
+        ready:function () {
+            console.log("i"+this.$route.params.i);
+            console.log("route");
         }
     }
 </script>

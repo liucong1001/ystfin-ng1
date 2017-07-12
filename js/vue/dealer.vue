@@ -1,6 +1,12 @@
 <template>
         <div>
-             <vheader></vheader>
+            <div class="page-header-main header">
+                <header class="mint-header is-fixed">
+                    <div class="mint-header-button is-left"></div>
+                    <h1 class="mint-header-title">交易明细</h1>
+                    <div class="mint-header-button is-right"></div>
+                </header>
+            </div>
             <section class="well" style="padding: 10px 0px 0px 0px;">
                 <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                     <div class="form-inline">
@@ -45,7 +51,42 @@
                     </tr>
                 </table>
             </section>
-           <vfooter></vfooter>
+            <div class="mint-tabbar is-fixed" style="margin-top: 50px">
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_graph chart.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        <router-link to="/year"> 报表查询</router-link>
+                    </div>
+                </a>
+                <a class="mint-tab-item  is-selected">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/detail.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+
+                        <router-link to="/dealer">交易明细</router-link>
+                    </div>
+                </a>
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_pencil.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        领导审批
+                    </div>
+                </a>
+                <a class="mint-tab-item">
+                    <div class="mint-tab-item-icon">
+                        <img src="./img/unselected_settings.png">
+                    </div>
+                    <div class="mint-tab-item-label">
+                        设置
+                    </div>
+                </a>
+            </div>
+
         </div>
 </template>
 <script>
@@ -98,8 +139,7 @@
                 money:'',
                 money1:0,
                 ServiceCharge:'',
-                ServiceCharge1:0,
-                headermsg:"123"
+                ServiceCharge1:0
             }
 
         },
