@@ -43,11 +43,12 @@
     },
         methods:{
             chooseList:function(val){
-                if(val=='1'){this.$router.push({path:'/year'})}
-                if(val=='2'){this.$router.push({path:'/month'})}
-                if(val=='3'){this.$router.push({path:'/yearOnYear'});}
-                if(val=='4'){this.$router.push({path:'/monthOnMonth'});}
-                if(val=='5'){this.$router.push({path:'/day'});}
+                if(val=='1'){this.queryList='1';this.$router.push({path:'/year?i='+1});}
+                if(val=='2'){this.queryList='2';this.$router.push({path:'/month?i='+2});}
+                if(val=='3'){this.queryList='3';this.$router.push({path:'/yearOnYear?i='+3});}
+                if(val=='4'){this.queryList='4';this.$router.push({path:'/monthOnMonth?i='+4});}
+                if(val=='5'){this.queryList='5';this.$router.push({path:'/day'});}
+                console.log(this.queryList);
             },
         },
         watch:{

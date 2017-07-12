@@ -1,61 +1,61 @@
 <template>
     <div>
         <!--固定底部-->
-        <!--<div class="mint-tabbar is-fixed" style="margin-top: 50px">-->
-            <!--<a class="mint-tab-item is-selected">-->
-                <!--<div class="mint-tab-item-icon">-->
-                    <!--<img src="./img/graph chart.png">-->
-                <!--</div>-->
-                <!--<div class="mint-tab-item-label">-->
-                    <!--<router-link to="/year"> 报表查询</router-link>-->
-                <!--</div>-->
-            <!--</a>-->
-            <!--<a class="mint-tab-item">-->
-                <!--<div class="mint-tab-item-icon">-->
-                    <!--<img src="./img/unselected_detail.png">-->
-                <!--</div>-->
-                <!--<div class="mint-tab-item-label">-->
+        <div class="mint-tabbar is-fixed" style="margin-top: 50px">
+            <a class="mint-tab-item is-selected">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/graph chart.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    <router-link to="/year"> 报表查询</router-link>
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_detail.png">
+                </div>
+                <div class="mint-tab-item-label">
 
-                    <!--<router-link to="/dealer">交易明细</router-link>-->
-                <!--</div>-->
-            <!--</a>-->
-            <!--<a class="mint-tab-item">-->
-                <!--<div class="mint-tab-item-icon">-->
-                    <!--<img src="./img/unselected_pencil.png">-->
-                <!--</div>-->
-                <!--<div class="mint-tab-item-label">-->
-                    <!--领导审批-->
-                <!--</div>-->
-            <!--</a>-->
-            <!--<a class="mint-tab-item">-->
-                <!--<div class="mint-tab-item-icon">-->
-                    <!--<img src="./img/unselected_settings.png">-->
-                <!--</div>-->
-                <!--<div class="mint-tab-item-label">-->
-                    <!--设置-->
-                <!--</div>-->
-            <!--</a>-->
-        <!--</div>-->
+                    <router-link to="/dealer">交易明细</router-link>
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_pencil.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    领导审批
+                </div>
+            </a>
+            <a class="mint-tab-item">
+                <div class="mint-tab-item-icon">
+                    <img src="./img/unselected_settings.png">
+                </div>
+                <div class="mint-tab-item-label">
+                    设置
+                </div>
+            </a>
+        </div>
 
-        <mt-tabbar v-model="selected">
-            <mt-tab-item id="chart">
-                <img slot="icon"  class="static" v-bind:class="{img_chart: noActive, 'img_chart2': isActive1 }">
+        <!--<mt-tabbar v-model="selected">-->
+            <!--<mt-tab-item id="chart">-->
+                <!--<img slot="icon"  class="static" v-bind:class="{img_chart: noActive, 'img_chart2': isActive1 }">-->
 
-                <span >报表查询</span>
-            </mt-tab-item>
-            <mt-tab-item id="detail">
-                <img slot="icon" class="static" v-bind:class="{img_detail: noActive, 'img_detail2': isActive2 }"  >
-                交易明细
-            </mt-tab-item>
-            <mt-tab-item id="发现">
-                <img slot="icon" src="./img/unselected_pencil.png">
-                领导审批
-            </mt-tab-item>
-            <mt-tab-item id="我的">
-                <img slot="icon" src="./img/unselected_settings.png">
-                设置
-            </mt-tab-item>
-        </mt-tabbar>
+                <!--<span >报表查询</span>-->
+            <!--</mt-tab-item>-->
+            <!--<mt-tab-item id="detail">-->
+                <!--<img slot="icon" class="static" v-bind:class="{img_detail: noActive, 'img_detail2': isActive2 }"  >-->
+                <!--交易明细-->
+            <!--</mt-tab-item>-->
+            <!--<mt-tab-item id="发现">-->
+                <!--<img slot="icon" src="./img/unselected_pencil.png">-->
+                <!--领导审批-->
+            <!--</mt-tab-item>-->
+            <!--<mt-tab-item id="我的">-->
+                <!--<img slot="icon" src="./img/unselected_settings.png">-->
+                <!--设置-->
+            <!--</mt-tab-item>-->
+        <!--</mt-tabbar>-->
 
     </div>
 </template>
