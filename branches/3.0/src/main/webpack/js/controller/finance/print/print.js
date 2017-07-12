@@ -20,7 +20,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
     // 初始化打印控件
     $printer.init();
     $scope.gconfig = gconfig;
-    $scope.num = "";arry
+    $scope.num = "";
    //根据流水号读取
     $scope.$watch("archivesNo",function (archivesNo) {
         getBill(archivesNo);
