@@ -6,10 +6,10 @@ module.exports = function (app) {
         return {
             init: function () {
                 if ($('#__printerCtrl').length > 0) return
-                $('body').append('<OBJECT style="display:none;width:200px;height:100px;bottom:300px;;left:-600px;position:absolute;" ID="__fingerprintCtrl" CLASSID="CLSID:7A5FA77D-2C6D-4C7D-A9C1-2A5D3959A86C"></OBJECT>')
+                $('body').append('<OBJECT style="display:none;width:200px;height:100px;bottom:300px;;left:-600px;position:absolute;" ID="__printBillCtrl" CLASSID="CLSID:7A5FA77D-2C6D-4C7D-A9C1-2A5D3959A86C"></OBJECT>')
             },
             config: function () {
-                var ctrl = document.getElementById('__fingerprintCtrl')
+                var ctrl = document.getElementById('__printBillCtrl')
                 try {
                     $(ctrl).show()
                     ctrl.config()
@@ -19,7 +19,7 @@ module.exports = function (app) {
                 }
             },
             getPrinters: function () {
-                var ctrl = document.getElementById('__fingerprintCtrl')
+                var ctrl = document.getElementById('__printBillCtrl')
                 try {
                     $(ctrl).show()
                     var list = ctrl.getPrinters()
@@ -31,7 +31,7 @@ module.exports = function (app) {
                 return []
             },
             getSelected: function () {
-                var ctrl = document.getElementById('__fingerprintCtrl')
+                var ctrl = document.getElementById('__printBillCtrl')
                 try {
                     $(ctrl).show()
                     return ctrl.getSelectedPrinter() || ""
@@ -42,7 +42,7 @@ module.exports = function (app) {
                 return ""
             },
             setSelected: function (printer) {
-                var ctrl = document.getElementById('__fingerprintCtrl')
+                var ctrl = document.getElementById('__printBillCtrl')
                 try {
                     $(ctrl).show()
                     ctrl.setSelectedPrinter(printer)
@@ -53,7 +53,7 @@ module.exports = function (app) {
             },
             printBill: function (data, config) {
                 var defer = $q.defer()
-                var ctrl = document.getElementById('__fingerprintCtrl')
+                var ctrl = document.getElementById('__printBillCtrl')
                 $(ctrl).show()
                 var param = $.extend({}, data, {printConfig: config})
                 $convert("Vehicle_type").then(function (type) {
