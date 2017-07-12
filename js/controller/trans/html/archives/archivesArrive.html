@@ -29,6 +29,9 @@
                     {{status[r.plateNumber].text}}
                     </span>&nbsp;
                 <a href="" ng-click="cancel(r.plateNumber)"><span class="glyphicon-remove glyphicon"></span> 移除</a>
+                <span>
+                      <span ng-show="r.queryMark==2">已存在</span>
+                </span>&nbsp;
             </td>
         </tr>
         </tbody>

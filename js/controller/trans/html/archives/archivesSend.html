@@ -41,6 +41,9 @@
                     {{status[r.plateNumber].text}}
                     </span>&nbsp;
                 <a href="" ng-click="cancel(r.plateNumber)"><span class="glyphicon-remove glyphicon"></span> 取消</a> &nbsp;
+                  <span>
+                      <span ng-show="r.queryMark==1">已存在</span>
+                  </span>&nbsp;
                 <!--<a href="" ng-click="signYellow(r.archivesNo)"><span class="glyphicon glyphicon-info-sign "> 黄牌标记</span></a>-->
             </td>
         </tr>
