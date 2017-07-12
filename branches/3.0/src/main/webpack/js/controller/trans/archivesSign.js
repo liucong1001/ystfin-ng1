@@ -38,7 +38,6 @@ app.controller("archivesSign",["$scope","$location","$rootScope","Archives","$ht
     //车管所13位流水号
     $scope.AutoSearch_car=function(i){
         if(GetLength(i)==13){
-            console.log("车管所流水号"+i);
             var arc = new archives();
             arc.$save({action:"findByCode",code:$scope.Car_archivesNo}).then(function (data) {
                 $scope.plateNumber = data.plateNumber;
