@@ -19,18 +19,12 @@ app.controller("archivesSend",["$scope","$location","$rootScope","Archives","$ht
     $scope.count = 0;
     $scope.plateNumber = "鄂A";
     $scope.AutoSearch=function(code){
-        //console.log(code);
-        console.log(code.length);
         if(GetLength(code)==29){
-            console.log(code);
             var  ma=code.substring(0,13); //车管所13位码
             var  arcNo=code.substring(13,29); //交易流水号
-            console.log("扫码"+ma);
-            console.log("流水号"+arcNo);
             var arc = new archives();
             arc.$save({action:"findByArchives",archivesNo:arcNo}).then(function (data) {
                            $scope.plateNumber = data.vehicle.plateNumber;
-                            console.log($scope.plateNumber);
                             getArchives(arcNo,$scope.plateNumber,ma);
                         },function (err) {
 
@@ -42,7 +36,6 @@ app.controller("archivesSend",["$scope","$location","$rootScope","Archives","$ht
 
     //档案自提按车牌号
     $scope.AutoSearch_plat=function(i){
-        console.log(i);
         if((GetLength($scope.plateNumber)==8||GetLength($scope.plateNumber)==9)&&GetLength($scope.archivesCode)==13){
                    getArchives(null,$scope.plateNumber,$scope.archivesCode);
                     $scope.plateNumber ="鄂A";
@@ -74,8 +67,6 @@ app.controller("archivesSend",["$scope","$location","$rootScope","Archives","$ht
         $scope.archivesCode = "";
         $("#archivesCode").focus();
         $scope.records[record.plateNumber] = record;
-        //console.log($scope.records);
-        //$scope.archivesNo = "";
     }
     $scope.cancel = function (plateNumber) {
         var record = $scope.records[plateNumber];
