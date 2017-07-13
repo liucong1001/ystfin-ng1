@@ -1,12 +1,7 @@
 <template>
         <div>
-            <div class="page-header-main header">
-                <header class="mint-header is-fixed">
-                    <div class="mint-header-button is-left"></div>
-                    <h1 class="mint-header-title">交易明细</h1>
-                    <div class="mint-header-button is-right"></div>
-                </header>
-            </div>
+            <vheader :headermsg="header"></vheader>
+
             <section class="well" style="padding: 10px 0px 0px 0px;">
                 <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                     <div class="form-inline">
@@ -74,15 +69,7 @@
                         <img src="./img/unselected_pencil.png">
                     </div>
                     <div class="mint-tab-item-label">
-                        领导审批
-                    </div>
-                </a>
-                <a class="mint-tab-item">
-                    <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_settings.png">
-                    </div>
-                    <div class="mint-tab-item-label">
-                        设置
+                        <router-link to="/exam">领导审批</router-link>
                     </div>
                 </a>
             </div>
@@ -129,6 +116,7 @@
         },
         data(){
             return{
+                header:"交易",
                 start:'',//開始時間
                 end:'',//結束時間
                 datalist:[],

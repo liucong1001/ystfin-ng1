@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <vheader></vheader>
+            <vheader :headermsg="header"></vheader>
         </header>
         <div class="page-wrap">
             <div class="mint-tab-container page-tabbar-container">
@@ -21,7 +21,7 @@
                             <option v-for="y in yearList">{{y}}</option>
                         </select>
                         <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="small">下一年</mt-button>
-                        <selectlist></selectlist>
+                        <selectlist  :queryList="select_list"></selectlist>
                     </div>
                     <div class="testChart">
                         <chart :options="chartData"></chart>
@@ -95,7 +95,9 @@
     Vue.component(Button.name, Button);
     module.exports = {
         name: "test",
-        props: ["msg"],
+//        props:{
+//            select_list:"1"
+//        },
         components: {
             chart,vheader,vfooter,selectlist
         },
@@ -143,6 +145,8 @@
         {
             return {
 //                headermsg:"year",
+                select_list:'1',
+                header:"列表",
                 curData: [],
                 preData: [],
                 curDataFee: [],
@@ -151,7 +155,7 @@
                 maxYear:0,
                 minYear:0,
                 yearList:[],
-                queryList:"1"
+//                queryList:"1"
             }
         },
         computed:{

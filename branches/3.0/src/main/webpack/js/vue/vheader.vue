@@ -15,11 +15,14 @@
 <script>
     module.exports = {
         components:{},
-        data:function(){
-            return{
-                headermsg:"列表"
-            }
+        props: {
+            headermsg: String  //定义传值的类型<br>    }
         },
+//        data:function(){
+////            return{
+////                headermsg:"列表"
+////            }
+//        },
 
        watch:{
 
