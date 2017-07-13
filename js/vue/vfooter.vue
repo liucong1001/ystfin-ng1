@@ -24,15 +24,8 @@
                     <img src="./img/unselected_pencil.png">
                 </div>
                 <div class="mint-tab-item-label">
-                    领导审批
-                </div>
-            </a>
-            <a class="mint-tab-item">
-                <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_settings.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    设置
+
+                    <router-link to="/exam">领导审批</router-link>
                 </div>
             </a>
         </div>

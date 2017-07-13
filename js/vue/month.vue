@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vheader></vheader>
+        <vheader :headermsg="header"></vheader>
         <div style="font-size: 1.5rem;width:100%">
             <table  align="center">
                 <tr>
@@ -8,10 +8,21 @@
                 </tr>
             </table>
         </div>
-        开始时间：  <input  v-model="start"  type="date"  /> <br/>
-        结束时间：  <input  v-model="end"  type="date"  @change="search(start,end)"/> <br/>
+        开始时间：  <input  v-model="start"  type="month"  /> <br/>
+        结束时间：  <input  v-model="end"  type="month"  @change="search(start,end)"/> <br/>
+        <!--自定义： <button @click="openPicker()" >ada</button>-->
+
+
+        <datetime-picker
+                v-model="pickerVisible"
+                ref="picker"
+                type="date"
+                year-format="{value} 年"
+                month-format="{value} 月"
+                date-format="{value} 日">
+        </datetime-picker>
         <!--<button class="mint-button mint-button&#45;&#45;primary mint-button&#45;&#45;normal" type="button" v-on:click="search(start,end)"> 查询</button>-->
-        <selectlist></selectlist>
+        <selectlist :queryList="select_list"></selectlist>
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
@@ -33,11 +44,15 @@
 
     Vue.component(DatetimePicker.name, DatetimePicker);
 
+    console.log("12");
+    console.log(DatetimePicker.name);
     module.exports = {
         name: "test",
-        props: ["msg"],
+//        props:{
+//            select_list:"2"
+//        },
         components: {
-            chart,vheader,vfooter,selectlist
+            chart,vheader,vfooter,selectlist,DatetimePicker
         },
         methods:{
             openPicker() {
@@ -82,6 +97,8 @@
         data()
         {
             return {
+                header:"列表",
+                select_list:"2",
                 curData: [],
 //                preData: [],
                 curDataFee: [],
@@ -94,8 +111,10 @@
                 end:"",
                 datalist:[],//时间年月
                 datamap:{},  //相对应时间数据
-                queryList:"2",
-                pickerValue:""
+//                queryList:"2",
+//                pickerValue:"",
+                pickerVisible:"",
+
             }
         },
         computed:{

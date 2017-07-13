@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vheader></vheader>
+        <vheader :headermsg="header"></vheader>
         <div style="font-size:1.5rem;width:100%">
             <table  align="center">
                 <tr>
@@ -17,7 +17,7 @@
             </select>
             <!--<button :disabled="year >= maxYear" @click="year++">下一年</button>-->
             <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="small">下一年</mt-button>
-            <selectlist></selectlist>
+            <selectlist :queryList="select_list"></selectlist>
         </div>
         <div class="testChart">
             <chart :options="chartData"></chart>
@@ -54,7 +54,6 @@
 
     module.exports = {
         name: "test",
-        props: ["msg"],
         components: {
             chart,vheader,vfooter,selectlist
         },
@@ -99,6 +98,8 @@
         data()
         {
             return {
+                header:"列表",
+                select_list:"3",
                 curData: [],
                 curDataFee: [],
                 perDataFee: [],

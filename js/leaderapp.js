@@ -16,8 +16,8 @@ import month from "./vue/month.vue"
 import day from "./vue/day.vue"
 import dealer from "./vue/dealer.vue"
 import main from "./vue/main.vue"
-
-import vheader from './vue/vheader.vue';
+import exam from "./vue/exam.vue"
+//import vheader from './vue/vheader.vue';
 
 const NotFound = { template: '<p>Page not found</p>' }
 const About = { template: '<p>二手车报表查询</p>' }
@@ -30,6 +30,7 @@ const routes = [
     {path:'/year',component:year},
     {path:'/month',component:month},
     {path:'/day',component:day},
+    {path:'/exam',component:exam},
 ]
 const router = new VueRouter({
     routes // （缩写）相当于 routes: routes

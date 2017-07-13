@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vheader></vheader>
+        <vheader :headermsg="header"></vheader>
         <div style="font-size: 30px;width:100%">
             <table  align="center">
                 <tr>
@@ -11,7 +11,7 @@
         开始时间：  <input  v-model="start"  type="date"/> <br/>
         结束时间：  <input  v-model="end"  type="date" @change="search(start,end)" /> <br/>
         <!--<button class="mint-button mint-button&#45;&#45;primary mint-button&#45;&#45;normal" type="button" v-on:click="search(start,end)"> 查询</button>-->
-        <selectlist></selectlist>
+        <selectlist :queryList="select_list"></selectlist>
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
@@ -33,13 +33,13 @@
 
     module.exports = {
         name: "test",
-        props: ["msg"],
         components: {
             chart,vheader,vfooter,selectlist
         },
         methods:{
             search: function(startDate,endDate) {
-                console.log(this.endDate);
+                console.log("开始"+this.startDate);
+                console.log("结束"+this.endDate);
                 if(startDate&&endDate) {
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
@@ -73,6 +73,8 @@
         data()
         {
             return {
+                header:"列表",
+                select_list:"5",
                 curData: [],
 //                preData: [],
                 curDataFee: [],
@@ -158,6 +160,7 @@
             }
         },
         mounted (){
+//            console.log("daying");
             if(this.startDate==null&&this.endDate==null){
                 var now = new Date()
                 var year = now.getFullYear();       //年
@@ -171,6 +174,8 @@
                 this.endDate+="0";
                 this.endDate+=day;
                 this.startDate=this.endDate;
+                console.log("开始时间"+this.startDate);
+                console.log("结束时间"+this.endDate);
                 this.$http.get("/statistics/day?startDate=" + this.startDate + "&endDate=" + this.endDate).then(function (res) {
                     this.datamap = res.body['map'];
                     this.datalist =this.datamap['dateList'];
