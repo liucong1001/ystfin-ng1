@@ -1,0 +1,36 @@
+<style>
+    .car{
+        margin-top: 8px;
+        font-weight: bolder;
+    }
+</style>
+<div>
+    <br/>
+    <div class="row">
+        <div class="col-md-2 text-right car" >输入车管所流水号：</div>
+        <div class="col-md-3">
+            <input type="text" ng-model="code"  ng-change="AutoSearch(code)"  maxlength="13" placeholder="请输入流水号后回车" class="form-control" />
+        </div>
+        <div class="col-md-3" ng-if="message">
+            <span class="label label-danger">{{message}}</span>
+        </div>
+    </div>
+    <br/>
+    <table class="table table-striped">
+        <thead>
+        <tr> <th>序号</th> <th>流水号</th><th>状态</th></tr></thead>
+        <tbody>
+        <!--orderBy : '-arriveTime'-->
+        <tr ng-repeat="r in records track by r.code | toArray : false | orderBy : '-createTime'">
+            <td><span ng-bind = "$index+1"></span></td>
+            <td>{{r.code}}</td>
+            <td>
+                    <span class="label label-{{status[r.code].css}}">
+                    {{status[r.code].text}}
+                    </span>&nbsp;
+                <a href="" ng-click="cancel(r.code)"><span class="glyphicon-remove glyphicon"></span>删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

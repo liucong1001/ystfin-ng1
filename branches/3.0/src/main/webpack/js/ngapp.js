@@ -15,6 +15,12 @@ require("../css/style.css")
 require("./controller/pay/createOrder")
 require("./controller/pay/queryOrder")
 require("./controller/pay/pay")
+require("./controller/pay/code")
+require("./controller/pay/createCode")
+require("./controller/pay/exchangePay")
+require("./controller/pay/codePage")
+
+
 require("./controller/icard/bind")
 require("./controller/icard/recharge")
 require("./controller/batch/inStep1")
