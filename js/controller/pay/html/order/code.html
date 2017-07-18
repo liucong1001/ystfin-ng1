@@ -1,0 +1,97 @@
+<div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-3">输入车管所流水号:</div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" ng-model="code" placeholder="输入车管所流水号" maxlength="13" ng-change="addTable(code)">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="panel-body" >
+            <table class="table table-bordered table-hover table-condensed">
+                <tr style="font-weight: bold">
+                    <td style="width:20%">车流水号</td>
+                    <td style="width:20%">费用类型</td>
+                    <td style="width:15%">金额</td>
+                    <td style="width:20%">车牌号</td>
+                    <td style="width:15%">编辑</td>
+                </tr>
+                <tr ng-repeat="user in users">
+                      <!--流水号-->
+                    <td >
+                          {{user.codeReplace}}
+
+                        <span ng-show="false">
+                                    <span editable-text="user.code" ng-disabled="true" e-name="code" e-form="rowform">
+                                    {{user.code}}
+                                </span>
+                                  <span editable-text="user.id" ng-init="$hide()" e-name="id" e-form="rowform">
+                                      {{ user.id  }}
+                                   </span>
+                        </span>
+
+                    </td>
+                    <td>
+                        <!-- 费用类型-->
+                        <span editable-select="user.type"  e-name="type" e-form="rowform"
+                              e-ng-options="s.value as s.text for s in statuses"  onbeforesave="checkType($data, user.id)">
+                          {{ showStatus(user) }}
+                        </span>
+                    </td>
+                    <td>
+                        <!--金额 -->
+                        <span editable-text="user.fee" e-name="fee" e-form="rowform"
+                              onbeforesave="checkPrice($data, user.id)">
+                          {{ user.fee || '无' }}
+                        </span>
+                    </td>
+                    <td>
+                         <!--车牌号 -->
+                        <span editable-text="user.plateNumber" e-name="plateNumber" e-form="rowform"
+                              onbeforesave="checkName($data, user.id)">
+                          {{ user.plateNumber|| '无' }}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap">
+                        <!-- form -->
+                        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id,users)"
+                              ng-show="rowform.$visible" class="form-buttons form-inline"
+                              shown="inserted == user">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"
+                                    class="btn btn-default">
+                                取消
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button type="button" class="btn btn-primary" ng-click="rowform.$show()">修改</button>
+                            <button type="button" class="btn btn-danger" ng-click="removeUser($index,user)">移除</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="panel-footer">
+             <div class="row">
+                 <div class="col-md-3">
+                     <button  ng-click="createdOrder()" class="btn btn-success">生成订单</button>
+                 </div>
+                 <div class="col-md-4 text-center" style="font-size: 2rem">
+                     合计 :<span class="form-error"> ￥{{totalPrice}}</span>
+                 </div>
+             </div>
+
+
+        </div>
+    </div>
+
+
+</div>
