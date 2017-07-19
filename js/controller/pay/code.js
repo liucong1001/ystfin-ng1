@@ -169,7 +169,7 @@ app.controller("codeController",["$scope","$http","$filter","TransRecord","Order
             console.log(result.data.id);
             var Id=result.data.id;
             // $location.path('/pay/order/:id/exchangepay').search({newNo: $scope.nextBillNo,});
-            $location.path('/pay/'+Id+'/exchangepay');
+            $location.path('/pay/order/'+Id+'/pay');
 
         },function (err) {
             console.log(err);

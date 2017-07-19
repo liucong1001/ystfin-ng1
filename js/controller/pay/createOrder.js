@@ -63,7 +63,7 @@ app.controller("createOrderController",["$scope","TransRecord","Order","$locatio
         for(var i in $scope.items){
             var item = $scope.items[i]
             if(!item.orderNo){
-                order.items.push({billNo:item.billNo,archivesNo:item.archivesNo,productType:"01",productName:"交易手续费",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
+                order.items.push({billNo:item.billNo,archivesNo:item.archivesNo,productType:"01",productName:"二手车交易",number:1, uprice:item.fee * 100,tprice:item.fee * 100})
             }
         }
         order.$save().then(function (result) {
