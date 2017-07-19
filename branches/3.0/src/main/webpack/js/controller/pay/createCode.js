@@ -11,8 +11,8 @@ app.config(["$routeProvider",function($routeProvider){
             template:require("./html/order/createCode.html")
         })
 }])
-app.controller("createCodeCtr",["$scope","$http","$location","$rootScope","Archives",function($scope,$http,$params,$rootScope,archives){
-    $rootScope.subTitle = "车管所流水录入";
+app.controller("createCodeCtr",[ "$scope","$http","$location","$rootScope","Archives",function($scope,$http,$params,$rootScope,archives){
+    $rootScope.subTitle = "创建市场业务";
     $scope.records = {};
     $scope.status = {};
     $scope.count = 0;
