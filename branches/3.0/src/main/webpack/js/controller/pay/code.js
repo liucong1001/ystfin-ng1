@@ -15,7 +15,7 @@ app.config(["$routeProvider",function($routeProvider){
 }])
 
 app.controller("codeController",["$rootScope","$scope","$http","$filter","TransRecord","Order","$location",function ($rootScope,$scope,$http,$filter,TransRecord,Order,$location,) {
-    $rootScope.subTitle = "市场业务收费";
+
     $scope.users=[];
     $scope.createList=[];
     $scope.totalPrice=0;

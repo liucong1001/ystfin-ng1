@@ -12,7 +12,7 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }])
 app.controller("createCodeCtr",[ "$scope","$http","$location","$rootScope","Archives",function($scope,$http,$params,$rootScope,archives){
-    $rootScope.subTitle = "创建市场业务";
+
     $scope.records = {};
     $scope.status = {};
     $scope.count = 0;

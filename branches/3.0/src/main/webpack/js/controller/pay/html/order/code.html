@@ -1,9 +1,19 @@
-<div>
+<style>
+    .inputCode{
+        font-size: 1.5rem;
+        padding-top: 5px;
+    }
+</style>
 
+<div>
     <div class="panel panel-default">
         <div class="panel-heading">
+            <h2>市场业务收费</h2>
+        </div>
+        <div class="panel-heading">
+            <!--<h2>市场业务收费</h2>-->
             <div class="row">
-                <div class="col-md-3 text-center"><label>输入车管所流水号:</label> </div>
+                <div class="col-md-3 text-right inputCode">输入车管所流水号: </div>
                 <div class="col-md-3">
                     <input type="text" class="form-control" ng-model="code" placeholder="输入车管所流水号" maxlength="13" ng-change="addTable(code)">
                 </div>
@@ -95,6 +105,4 @@
 
         </div>
     </div>
-
-
 </div>
