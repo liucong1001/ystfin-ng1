@@ -12,41 +12,40 @@ app.config(["$routeProvider",function($routeProvider){
         })
 }])
 app.controller("createCodeCtr",[ "$scope","$http","$location","$rootScope","Archives",function($scope,$http,$params,$rootScope,archives){
-
     $scope.records = {};
     $scope.status = {};
     $scope.count = 0;
     $scope.AutoSearch=function(i){
-
         if(GetLength(i)==13){
-            console.log("adcing");
             if($scope.code){
-                // $scope.records[record.code] = record
                 var record = {code:$scope.code,payStatus:"01"};
                 $scope.status[$scope.code] = {text:"正在录入",css:"default"};
                 $http.post("exchange/findByCode?code="+$scope.code).then(
                     function (result) {
                         if(result.data){
                             $scope.records[record.code] = result.data;
-                            $scope.status[record.code] = {text:"已录入",css:"success"}
+                            $scope.status[record.code] = {text:"已录入",css:"success"};
+                            $scope.code='';
                         }
                         else {
                             $http.post("exchange/save",record).then(function (ret) {
                                 var result = ret.data;
                                 $scope.status[record.code] = {text:"录入成功",css:"success"}
                                 $scope.count +=1;
-                                $scope.records[record.code] =result;
+                                $scope.records[record.code] = result ;
+
                                 console.log($scope.records);
+                                $scope.code='';
                             },function (err) {
                                 $scope.message = err.data.message;
-                                $scope.status[record.code] = {text:"录入失败",css:"danger"}
+                                $scope.status[record.code] = {text:"录入失败",css:"danger"};
+                                $scope.code='';
                             });
 
                         }
 
                     }
-                )
-
+                );
 
             }
 
@@ -82,20 +81,4 @@ app.controller("createCodeCtr",[ "$scope","$http","$location","$rootScope","Arch
         }
     }
 }])
-app.filter('toArray', function () {
-    return function (obj, addKey) {
-        if (!angular.isObject(obj)) return obj;
-        if ( addKey === false ) {
-            return Object.keys(obj).map(function(key) {
-                return obj[key];
-            });
-        } else {
-            return Object.keys(obj).map(function (key) {
-                var value = obj[key];
-                return angular.isObject(value) ?
-                    Object.defineProperty(value, '$key', { enumerable: false, value: key}) :
-                    { $key: key, $value: value };
-            });
-        }
-    };
-});
+
