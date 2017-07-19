@@ -3,9 +3,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-3">输入车管所流水号:</div>
-                <div class="col-md-5">
+                <div class="col-md-3 text-center"><label>输入车管所流水号:</label> </div>
+                <div class="col-md-3">
                     <input type="text" class="form-control" ng-model="code" placeholder="输入车管所流水号" maxlength="13" ng-change="addTable(code)">
+                </div>
+                <div class="col-md-4">
+                    <span class="form-error">{{msg}}</span>
                 </div>
             </div>
 

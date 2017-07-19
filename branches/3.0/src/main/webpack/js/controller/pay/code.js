@@ -20,6 +20,7 @@ app.controller("codeController",["$scope","$http","$filter","TransRecord","Order
     $scope.users=[];
     $scope.createList=[];
     $scope.totalPrice=0;
+    $scope.msg="";
     /*费用类型默认选择*/
     $scope.statuses = [
         {value:"0" , text: '请选择'},
@@ -35,22 +36,7 @@ app.controller("codeController",["$scope","$http","$filter","TransRecord","Order
         }
 
     });
-    // $scope.groups = [];
-    //
-    // $scope.loadGroups = function() {
-    //     return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
-    //         $scope.groups = data;
-    //     });
-    // };
-    //
-    // $scope.showGroup = function(user) {
-    //     if(user.group && $scope.groups.length) {
-    //         var selected = $filter('filter')($scope.groups, {id: user.group});
-    //         return selected.length ? selected[0].text : 'Not set';
-    //     } else {
-    //         return user.groupName || 'Not set';
-    //     }
-    // };
+
     $scope.showStatus = function(user) {
         var selected = [];
         if(user.type) {
@@ -140,12 +126,19 @@ app.controller("codeController",["$scope","$http","$filter","TransRecord","Order
             $http.get('exchange/findByCode?code='+code).then(function (result) {
                   var item=result.data;
                   console.log(result.data);
-
                   if(result.data){
-                      $scope.addUser(item);
+
+                      if(result.data.orderNo){
+                          // alert("该流水号已创建订单！");
+                          $scope.msg='该流水号已创建订单！';
+                      }else{
+                          $scope.addUser(item);
+                          $scope.msg='';
+                      }
                   }
                   else{
-                      alert("该流水号未录入!");
+                      $scope.msg='该流水号未录入!';
+                      // alert("该流水号未录入!");
                   }
 
             },function (err) {
@@ -169,7 +162,7 @@ app.controller("codeController",["$scope","$http","$filter","TransRecord","Order
             console.log(result.data.id);
             var Id=result.data.id;
             // $location.path('/pay/order/:id/exchangepay').search({newNo: $scope.nextBillNo,});
-            $location.path('/pay/order/'+Id+'/pay');
+            $location.path('/pay/'+Id+'/exchangepay/');
 
         },function (err) {
             console.log(err);
