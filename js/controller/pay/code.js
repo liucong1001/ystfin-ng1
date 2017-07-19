@@ -76,7 +76,6 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
     };
     //校验费用类型选择
     $scope.checkType=function (data) {
-
       if(data=='0'){
           return "请选择费用类型"
       }

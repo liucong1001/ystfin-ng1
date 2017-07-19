@@ -56,4 +56,6 @@ module.exports = function (app) {
             update:{method: 'PUT'}
         })
     }])
+
+
 }
