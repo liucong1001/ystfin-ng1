@@ -17,7 +17,8 @@ app.config(["$routeProvider",function($routeProvider){
         }
     })
 }])
-app.controller("OrderCodePageCtrl", ["$scope","$convert","$q","gconfig","$filter","$location","$routeParams","$http" ,function ($scope,$convert,$q,gconfig,$filter,$location,$routeParams,$http) {
+app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gconfig","$filter","$location","$routeParams","$http" ,function ( $rootScope,$scope,$convert,$q,gconfig,$filter,$location,$routeParams,$http) {
+    $rootScope.subTitle = "市场订单查询";
     //页面跳转
     $scope.jump=function(path){
         $location.path(path);
