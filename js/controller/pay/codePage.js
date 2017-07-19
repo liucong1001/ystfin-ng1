@@ -7,7 +7,7 @@ var app = require("../../ngcommon")
 var $ = require("jquery")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/pay/codePage',{
+    $routeProvider.when('/exchange/page',{
         template:require("./html/order/codePage.html"),
         controller:"OrderCodePageCtrl",
         resolve: {

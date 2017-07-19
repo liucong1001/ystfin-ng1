@@ -5,7 +5,7 @@
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when('/pay/order/createcode',
+    $routeProvider.when('/exchange/create',
         {
             controller:"createCodeCtr",
             template:require("./html/order/createCode.html")
