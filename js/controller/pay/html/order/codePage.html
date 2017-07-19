@@ -7,11 +7,34 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-
-            <div class="col-md-9" style="text-align: right;" id="userFilters" data-auto="true">
+            <div class="col-md-9"  id="userFilters" data-auto="true">
                 <form class="form-inline" ng-submit="ngTable.reload()">
                     <div class="form-group">
-                        <input name="userName"  ng-model="searchinfo.code" type="text" class="form-control" placeholder="车管所流水号" autocomplete="off">
+                        <input name="code"  ng-model="searchinfo.code" type="text" class="form-control" placeholder="车管所流水号" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group control-group">
+
+                            <select data-bind="" name="type" id="type" ng-model="searchinfo.type" ng-change="ngTable.reload()" class="form-control ">
+                                <option value="">费用类型</option>
+                                <option value="01">未支付</option>
+                                <option value="02">已支付</option>
+                                <option value="03">已支付</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group control-group">
+
+                            <select data-bind="" name="payStatus" id="payStatus" ng-model="searchinfo.payStatus" ng-change="ngTable.reload()" class="form-control ">
+                                <option value="">支付状态</option>
+                                <option value="01">未支付</option>
+                                <option value="02">已支付</option>
+                            </select>
+
+                        </div>
                     </div>
 
                     <button id="search" class="btn btn-primary btn-query" type="submit"  ><span class="glyphicon glyphicon-search"></span> <span>查询</span></button>
