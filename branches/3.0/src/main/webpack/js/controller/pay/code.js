@@ -8,7 +8,7 @@
 var app = require("../../ngcommon")
 
 app.config(["$routeProvider",function($routeProvider){
-    $routeProvider.when("/pay/order/code",{
+    $routeProvider.when("/exchange/order",{
         controller:"codeController",
         template:require("./html/order/code.html")
     })
