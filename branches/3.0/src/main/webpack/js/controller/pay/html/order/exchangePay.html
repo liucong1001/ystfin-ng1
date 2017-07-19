@@ -19,9 +19,10 @@
             <div class="clearfix"></div>
         </div>
         <table class="table table-striped">
-            <thead><tr><th>车管流水</th><th>车牌号</th><th>手续费</th></tr></thead>
+            <thead><tr><th>产品名称</th><th>车管流水</th><th>车牌号</th><th>手续费</th></tr></thead>
             <tbody>
             <tr ng-repeat="item in order.items">
+                <td>{{item.productName}}</td>
                 <td>{{item.archivesNo}}</td>
                 <td>{{item.plateNumber}}</td>
                 <td>{{item.tprice / 100 | currency:"￥"}}</td>
