@@ -159,7 +159,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         }
 
         $http.post('exchange/createOrder',{items:$scope.users}).then(function (result) {
-            alert("成功创建订单！");
+            // alert("成功创建订单！");
             console.log(result.data.id);
             var Id=result.data.id;
             // $location.path('/pay/order/:id/exchangepay').search({newNo: $scope.nextBillNo,});
