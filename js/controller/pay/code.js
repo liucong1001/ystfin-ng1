@@ -49,7 +49,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
     $scope.saveUser = function(data, id,allData) {
         // console.log(JSON.parse(JSON.stringify(data)));
         // console.log(data);
-        if(data.type=='0'||data.fee==null){
+        if(data.type=='0'||data.marketFee==null||data.otherFee==null){
             console.log(data['type']);
             alert("请填写完整后保存！");
         }
@@ -58,11 +58,11 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
            console.log(data);
             console.log("id++"+id);
             $http.post('/exchange/save', data).then(function (ret) {
-                console.log("结果");
+                console.log("结果费"+ret.data.fee);
                 console.log(ret);
                 // 计算费用
                 for(var i=0;i<$scope.users.length;i++){
-                    $scope.totalPrice += parseFloat($scope.users[i]['fee']);
+                    $scope.totalPrice += parseFloat($scope.users[i]['marketFee'])+parseFloat($scope.users[i]['otherFee']);
                 }
 
 
@@ -108,7 +108,9 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
             code:item.code,
             codeReplace:item.code,
             // status: null,
-            fee: item.fee,
+            marketFee: item.marketFee,
+            otherFee:item.otherFee,
+            // fee:item.fee,
             type:item.type,
             plateNumber:item.plateNumber
             // group: null
@@ -150,7 +152,8 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         console.log($scope.users);
         var reg=/^[0-9]+.?[0-9]*$/;
         for(var i=0;i<$scope.users.length;i++){
-             if($scope.users[i].type=='0'||$scope.users[i].fee==null||!reg.test($scope.users[i].fee)){
+             if($scope.users[i].type=='0'||$scope.users[i].marketFee==null|| $scope.users[i].otherFee==null||!reg.test($scope.users[i].marketFee)||!reg.test($scope.users[i].otherFee)){
+                  console.log($scope.users);
                  alert("请检查订单是否填写完整！");
              }
         }

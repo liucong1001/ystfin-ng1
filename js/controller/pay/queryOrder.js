@@ -23,7 +23,7 @@ app.controller("queryOrderController",["$scope","TransRecord","Order","$location
         {title:"状态",template:"<ng-convert code='order_status' value='{{row.status}}' ></ng-convert>",width:20,thClass:"text-center",tdClass:"text-center"},
         {title:"创建时间",template:"{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}",width:20,thClass:"text-center",tdClass:"text-center"},
         // {title:"",template:"<a href='/ng#/pay/order/{{row.id}}/pay'>{{row.status==\"01\"?'收款':'查看'}}</a>",width:20}
-        {title:"",template:"<a ng-click='instance.link(row)'>{{row.status==\"01\"?'收款':'查看'}}</a>",width:20}
+        {title:"",template:"<a ng-click='instance.link(row)' class='point'>{{row.status==\"01\"?'收款':'查看'}}</a>",width:20}
 
     ]
     $scope.rowClass = function (row) {
