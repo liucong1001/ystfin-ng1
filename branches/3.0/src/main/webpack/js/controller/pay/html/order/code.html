@@ -53,7 +53,7 @@
                     <td>
                         <!-- 费用类型-->
                         <span editable-select="user.type"  e-name="type" e-form="rowform"
-                              e-ng-options="s.value as s.text for s in statuses"  onbeforesave="checkType($data, user.id)">
+                              e-ng-options="s.value as s.text for s in statuses" onbeforesave="checkType($data, user.id)">
                           {{ showStatus(user) }}
                         </span>
                     </td>
