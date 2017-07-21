@@ -108,15 +108,23 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
             plateNumber:item.plateNumber
             // group: null
         };
+        for(var i in $scope.users){
+            if($scope.users[i].code == $scope.inserted.code){
+                $scope.msg='此流水不能重复录入！';
+                return;
+            }
+        }
         $scope.users.push($scope.inserted);
+        $scope.msg='';
     };
 
     //添加一行数据
     $scope.addTable=function(code){
         if(code.length==13){
-            console.log("流水号"+code);
+            //console.log("流水号"+code);
             $http.get('exchange/findByCode?code='+code).then(function (result) {
                 var item=result.data;
+                if(!item.type) item.type = '0';
                 //console.log(result.data);
                 if(result.data){
                     if(result.data.orderNo){
@@ -124,14 +132,12 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
                       $scope.msg='该流水号已创建订单！';
                     }else{
                       $scope.addUser(item);
-                      $scope.msg='';
                     }
                 } else {
                   $scope.msg='该流水号未录入!';
                   // alert("该流水号未录入!");
                 }
                 $scope.code = '';
-
             },function (err) {
                 console.log(err);
             })
