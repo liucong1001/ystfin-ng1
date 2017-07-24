@@ -35,5 +35,4 @@ app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gco
     //定义查询对象
     $scope.searchinfo={};
 
-
 }])
