@@ -19,6 +19,7 @@ require("./controller/pay/code")
 require("./controller/pay/createCode")
 require("./controller/pay/exchangePay")
 require("./controller/pay/codePage")
+require("./controller/pay/feeType")
 
 
 require("./controller/icard/bind")

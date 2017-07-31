@@ -1,0 +1,19 @@
+<style>
+    table>tbody>tr:nth-child(odd){
+        background: #f9f9f9;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="toolbar btn-group" ng-click="jump('/')">
+                    <button id="addUser" type="button" class="btn btn-default"><span class="icon-plus"></span><span>添加收费项</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <ng-table url="/chargeItem/pager" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+    </div>
+</div>
