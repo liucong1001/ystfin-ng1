@@ -28,17 +28,17 @@
             <table class="table table-bordered table-hover table-condensed">
                 <tr style="font-weight: bold">
                     <td style="width:20%">车流水号</td>
-                    <td style="width:20%">费用类型</td>
+                    <td style="width:15%">费用类型</td>
                     <td style="width:15%">金额一</td>
                     <td style="width:15%">金额二</td>
-                    <td style="width:20%">车牌号</td>
+                    <td style="width:15%">金额三</td>
+                    <td style="width:10%">车牌号</td>
                     <td style="width:15%">编辑</td>
                 </tr>
                 <tr ng-repeat="user in users">
                       <!--流水号-->
-                    <td >
+                    <td>
                           {{user.codeReplace}}
-
                         <span ng-show="false">
                                     <span editable-text="user.code" ng-disabled="true" e-name="code" e-form="rowform">
                                     {{user.code}}
@@ -52,23 +52,33 @@
                     </td>
                     <td>
                         <!-- 费用类型-->
-                        <span editable-select="user.type"  e-name="type" e-form="rowform"
-                              e-ng-options="s.value as s.text for s in statuses" onbeforesave="checkType($data, user.id)">
-                          {{ showStatus(user) }}
-                        </span>
+                        <!--{{ showStatus1(user) }}-->
+                        <!--<span editable-select="user.type"  e-name="type" e-form="rowform"-->
+                              <!--e-ng-options="s.value as s.text for s in statuses" >-->
+                        <!--</span>-->
+                        <select ng-options="size as size.text for size in statuses" class="form-control"
+                                ng-model="user.type" ng-change="update(user.type)"></select>
                     </td>
                     <td>
-                        <!--金额 -->
+                        <!--金额一 -->
                         <span editable-text="user.marketFee" e-name="marketFee" e-form="rowform"
                               onbeforesave="checkPrice($data, user.id)">
                           {{ user.marketFee || '无' }}
                         </span>
+
                     </td>
                     <td>
-                        <!--金额 -->
+                        <!--金额二-->
                         <span editable-text="user.otherFee" e-name="otherFee" e-form="rowform"
                               onbeforesave="checkPrice($data, user.id)">
                           {{ user.otherFee || '无' }}
+                        </span>
+                    </td>
+                    <td>
+                        <!--金额三-->
+                        <span editable-text="user.divideFee" e-name="divideFee" e-form="rowform"
+                              onbeforesave="checkPrice($data, user.id)">
+                          {{ user.divideFee || '无' }}
                         </span>
                     </td>
 

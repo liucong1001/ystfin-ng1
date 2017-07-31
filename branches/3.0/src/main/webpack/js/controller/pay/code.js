@@ -25,14 +25,20 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         {value:"0" , text: '请选择'},
     ];
     /*从后台回去费用类型*/
-    $http.post('exchange/getTypes').then(function (result) {
+    $http.post('chargeItem/findAll').then(function (result) {
+         console.log(result);
         for(var i=0;i<result.data.length;i++){
              var item={
-                 value:result.data[i].code,
-                 text:result.data[i].name
+                 text:result.data[i].name,
+                 value:i+1,
+                 marketFee:result.data[i].marketFee,
+                 otherFee:result.data[i].otherFee,
+                 divideFee:result.data[i].divideFee,
              };
             $scope.statuses.push(item);
         }
+        console.log("下拉框选择");
+        console.log($scope.statuses);
     });
 
     $scope.showStatus = function(user) {
@@ -42,6 +48,9 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         }
         return selected.length ? selected[0].text : 'Not set';
     };
+    // $scope.listType=function (i) {
+    //     console.log("选中"+i);
+    // }
 
     /*点击“保存”*/
     $scope.saveUser = function(data, id,allData) {
@@ -121,11 +130,11 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
     //添加一行数据
     $scope.addTable=function(code){
         if(code.length==13){
-            //console.log("流水号"+code);
+            console.log("流水号"+code);
             $http.get('exchange/findByCode?code='+code).then(function (result) {
                 var item=result.data;
                 if(!item.type) item.type = '0';
-                //console.log(result.data);
+                console.log(result.data);
                 if(result.data){
                     if(result.data.orderNo){
                       // alert("该流水号已创建订单！");
@@ -162,6 +171,14 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         },function (err) {
             console.log(err);
         })
+    }
+
+    $scope.update=function (i) {
+        console.log("下拉框改变");
+        console.log(i);
+        $scope.user.marketFee=i.marketFee;
+        $scope.user.otherFee=i.otherFee;
+        $scope.user.divideFee=i.divideFee;
     }
 
 }])
