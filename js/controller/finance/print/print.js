@@ -57,6 +57,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
                 $convert("Vehicle_type").then(function (c) {
                     $scope.selectedCarType = c[trans.vehicle.vehicleType];
                 });
+                $scope.msg = "";
             },function (err) {
                 $scope.trans = undefined;
                 $scope.msg = err.data.message;
