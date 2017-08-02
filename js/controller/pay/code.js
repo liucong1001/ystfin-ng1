@@ -130,7 +130,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
 
     //添加一行数据
     $scope.addTable=function(code){
-        if(code.length==$scope.otherId){
+        if(code.length==13){
             console.log("流水号"+code);
             $http.get('exchange/findByCode?code='+code).then(function (result) {
                 var item=result.data;
