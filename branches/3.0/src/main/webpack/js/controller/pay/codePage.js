@@ -22,6 +22,26 @@ app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gco
     $scope.jump=function(path){
         $location.path(path);
     };
+    /*从后台回去费用类型*/
+    $http.post('chargeItem/findAll').then(function (result) {
+        console.log(result);
+        $scope.feeType=result.data;
+        console.log($scope.feeType);
+        // for(var i=0;i<result.data.length;i++){
+        //     if(result.data[i].name=="其他"){ $scope.otherId=result.data[i].id}
+        //     var item={
+        //         text:result.data[i].name,
+        //         value:result.data[i].id,
+        //         marketFee:result.data[i].marketFee,
+        //         otherFee:result.data[i].otherFee,
+        //         divideFee:result.data[i].divideFee,
+        //     };
+        //     $scope.statuses.push(item);
+        // }
+        // console.log("其他"+$scope.otherId);
+        // console.log("下拉框选择");
+        // console.log($scope.statuses);
+    });
     $scope.filter = {};
     $scope.balance = $routeParams.balance;
     $scope.tableColumns = [
@@ -34,5 +54,10 @@ app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gco
     ];
     //定义查询对象
     $scope.searchinfo={};
+    $scope.selectType=function (x) {
+        console.log("费用");
+        console.log(x);
+        $scope.ngTable.reload();
+    }
 
 }])
