@@ -28,7 +28,7 @@ app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gco
         {title:"车管所流水",template:"{{row.code }}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"创建时间",template:"{{row.createTime }}",thClass:"text-center",tdClass:"text-center", width:20,sortable:true,sorting:true,sortProperty:'createTime'},
         {title:"费用金额(单位:元)",template:"{{row.fee}}",width:10,thClass:"text-left",tdClass:"text-center"},
-        {title:"费用类型",template:"<ng-convert code='exchange_type'  value='{{row.type}}' ></ng-convert>",width:10,thClass:"text-left",tdClass:"text-left"},
+        {title:"费用类型",template:"{{row.type.name}}",width:10,thClass:"text-left",tdClass:"text-left"},
         {title:"支付状态",template:"<ng-convert code='order_status'  value='{{row.payStatus}}' ></ng-convert>",width:10,thClass:"text-left",tdClass:"text-left"},
 
     ];

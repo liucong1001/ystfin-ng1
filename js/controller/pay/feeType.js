@@ -29,7 +29,7 @@ app.controller("feeTypeCtrl", ["$scope","$convert","$q","gconfig","$filter","$lo
         {title:"金额一",template:"{{row.marketFee }}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"金额二",template:"{{row.otherFee }}",thClass:"text-center",tdClass:"text-center", width:20},
         {title:"金额三",template:"{{row.divideFee }}",thClass:"text-center",tdClass:"text-center", width:20},
-        {title:"",template:"<a href='/ng#/system/managerinfo?id={{row.id}}'>修改</a>",width:10,thClass:"text-left",tdClass:"text-left"},
+        {title:"",template:"<a href='/ng#/chargeItem/addlistmodify?id={{row.id}}'>修改</a>",width:10,thClass:"text-left",tdClass:"text-left"},
         // {title:"",template:"<span ng-click='instance.reset(row.id)'>重置密码</span>",width:10,thClass:"text-left",tdClass:"text-left"}
 
     ];
