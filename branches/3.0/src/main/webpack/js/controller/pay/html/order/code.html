@@ -21,9 +21,7 @@
                     <span class="form-error">{{msg}}</span>
                 </div>
             </div>
-
         </div>
-
         <div class="panel-body" >
             <table class="table table-bordered table-hover table-condensed">
                 <tr style="font-weight: bold">
@@ -48,20 +46,17 @@
                                    </span>
 
                         </span>
-
                     </td>
                     <td>
                         <!-- 费用类型-->
-                        <!--{{ showStatus1(user) }}-->
-                        <!--<span editable-select="user.type"  e-name="type" e-form="rowform"-->
-                              <!--e-ng-options="s.value as s.text for s in statuses" >-->
-                        <!--</span>-->
-                        <select ng-options="size as size.text for size in statuses" class="form-control"
-                                ng-model="user.type" ng-change="update(user.type)"></select>
+                        <span editable-select="user.type"    e-name="type" e-form="rowform"  e-ng-change="getPrice($data,$index)"
+                              e-ng-options="s.value as s.text for s in statuses" >
+                             {{ showStatus(user) }}
+                        </span>
                     </td>
                     <td>
                         <!--金额一 -->
-                        <span editable-text="user.marketFee" e-name="marketFee" e-form="rowform"
+                        <span editable-text="user.marketFee" e-name="marketFee" e-form="rowform" ng-init="ae=true" e-ng-disabled="disablelist"
                               onbeforesave="checkPrice($data, user.id)">
                           {{ user.marketFee || '无' }}
                         </span>
@@ -69,16 +64,16 @@
                     </td>
                     <td>
                         <!--金额二-->
-                        <span editable-text="user.otherFee" e-name="otherFee" e-form="rowform"
+                        <span editable-text="user.otherFee" e-name="otherFee" e-form="rowform"  e-ng-disabled="disablelist" e-ng-click="disablelist||dis()"
                               onbeforesave="checkPrice($data, user.id)">
                           {{ user.otherFee || '无' }}
                         </span>
                     </td>
-                    <td>
+                    <td ng-click="pass()">
                         <!--金额三-->
-                        <span editable-text="user.divideFee" e-name="divideFee" e-form="rowform"
+                        <span editable-text="user.divideFee" e-name="divideFee" e-form="rowform"   e-ng-readonly="disablelist || leader"
                               onbeforesave="checkPrice($data, user.id)">
-                          {{ user.divideFee || '无' }}
+                          {{ user.divideFee }}
                         </span>
                     </td>
 
@@ -132,3 +127,19 @@
         <button class="btn btn-primary"    ng-click="createdOrder()">生成订单</button>
     </div>
 </div>
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <!--<h3 class="modal-title" id="modal-title">提示框</h3>-->
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="form-group">
+            <h3>输入密码</h3>
+            <input type="password" class="form-control" ng-model="password">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">确认</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">取消</button>
+    </div>
+</script>

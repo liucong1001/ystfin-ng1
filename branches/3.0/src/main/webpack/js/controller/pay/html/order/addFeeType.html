@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>添加收费项</h2>
+    </div>
+    <div class="panel-body">
+        <form name="feeList" ng-submit="save()">
+            <div class="form-group control-group">
+                <label class=" control-label">费用名称</label>
+                <div class="">
+                    <input  required="required"  name="name" class="form-control " ng-model="feeListInfo.name"  placeholder="费用名称" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="feeList.name.$invalid" > *请输入费用名称</p>
+            </div>
+
+            <div class="form-group control-group">
+                <label class=" control-label" >金额一</label>
+                <div class="">
+                    <input   required="required"  name="marketFee" class="form-control " ng-model="feeListInfo.marketFee"  placeholder="金额一" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="feeList.marketFee.$invalid" > *请输入金额一</p>
+            </div>
+            <div class="form-group control-group">
+                <label class=" control-label" >金额二</label>
+                <div class="">
+                    <input   required="required"   name="otherFee" class="form-control " ng-model="feeListInfo.otherFee"  placeholder="金额二" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="feeList.otherFee.$invalid" > *请输入金额二</p>
+            </div>
+            <div class="form-group control-group">
+                <label class=" control-label" >金额三</label>
+                <div class="">
+                    <input  required="required"  name="divideFee" class="form-control " ng-model="feeListInfo.divideFee"  placeholder="金额三" autocomplete="off">
+                </div>
+                <p ng-class="'form-error'" ng-show="feeList.divideFee.$invalid" > *请输入金额三</p>
+            </div>
+
+            <div>
+                <button type="submit"  class="btn btn-primary" ng-disabled="feeList.$invalid"><span class="icon-save"></span> <span>保存</span></button>
+                <button type="button" class="btn btn-default" ng-click="back()" ><span class="icon-remove"></span> <span>关闭</span></button>
+            </div>
+        </form>
+    </div>
+</div>

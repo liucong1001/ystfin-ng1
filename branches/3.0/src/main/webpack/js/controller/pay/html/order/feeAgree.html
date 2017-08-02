@@ -1,0 +1,18 @@
+<style>
+    table>tbody>tr:nth-child(odd){
+        background: #f9f9f9;
+    }
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>费用类型同意</h2>
+    </div>
+    <div class="panel-heading">
+
+    </div>
+
+    <div class="">
+        <ng-table url="chargeApply/pager" row-class="rowClass" page-size="10" page="0"  columns="tableColumns"    filter="searchinfo" instance="ngTable" />
+    </div>
+</div>
