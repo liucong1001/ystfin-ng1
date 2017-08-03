@@ -37,5 +37,16 @@ const router = new VueRouter({
 })
 
 const app = new Vue({
-    router
+    router,
+    created(){
+        Vue.http.interceptors.push(function (request,next) {
+            next(function (response) {
+                if(response.status != 200 && response.body.code == "9901"){ // 未登录
+                    console.log(this.$router)
+                    this.$router.push('/')
+                }
+                return response
+            })
+        })
+    }
 }).$mount('#app')
