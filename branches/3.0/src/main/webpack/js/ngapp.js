@@ -80,6 +80,9 @@ require("./controller/system/modify/roleinfo")
 require("./controller/system/modify/roleform")
 //绩效考核
 require("./controller/system/inp/inp")
+//zip导出信息
+require("./controller/system/export/export")
+
 
 //提档地（trans）
 require("./controller/trans/page")

@@ -1,26 +1,25 @@
 <template>
-        <div>
+        <div class="dealer">
             <vheader :headermsg="header"></vheader>
 
             <section class="well" style="padding: 10px 0px 0px 0px;">
                 <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                     <div class="form-inline">
-                        开始时间：  <input  v-model="start"  type="date"/> <br/>
-                        结束时间：  <input  v-model="end"  type="date" /> <br/>
-                        <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(start,end)"> 查询</button>
+                        开始时间：  <input  v-model="start"  type="date" @change="search(start,end)"/> <br/>
+                        结束时间：  <input  v-model="end"  type="date"  @change="search(start,end)"/> <br/>
                     </div>
                 </div>
             </section>
             <section class="well">
-                <h2 align="center">商户交易明细报表</h2>
+                <p class="Dealer_title">商户交易明细报表</p>
                 <table width="100%" border="1" cellpadding="0" cellspacing="0" align="center">
                     <tr>
-                        <th rowspan="2" scope="col">编号</th>
-                        <th rowspan="2" scope="col">商户名称</th>
-                        <th scope="col">交易量</th>
-                        <th scope="col">预审量</th>
-                        <th scope="col">交易额</th>
-                        <th scope="col">手续费</th>
+                        <td rowspan="2" scope="col">编号</td>
+                        <td rowspan="2" scope="col">商户名称</td>
+                        <td scope="col">交易量</td>
+                        <td scope="col">预审量</td>
+                        <td scope="col">交易额</td>
+                        <td scope="col">手续费</td>
                     </tr>
                     <tr>
                         <td><div align="center">（辆）</div></td>
@@ -37,7 +36,7 @@
                         <td>{{x.f}}</td>
                     </tr>
                     <tr>
-                        <th height="33" scope="row"><div align="center">合计</div></th>
+                        <td height="33" scope="row"><div >合计</div></td>
                         <td></td>
                         <td>{{count1==0?null:count1}}</td>
                         <td>{{yushenliang1==0?null:yushenliang1}}</td>
@@ -47,29 +46,33 @@
                 </table>
             </section>
             <div class="mint-tabbar is-fixed" style="margin-top: 50px">
-                <a class="mint-tab-item">
+                <a class="mint-tab-item " href="#/year">
                     <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_graph chart.png">
+                        <img class="img_chart2">
                     </div>
                     <div class="mint-tab-item-label">
-                        <router-link to="/year"> 报表查询</router-link>
+                        报表查询
+                        <!--<router-link to="/year"> 报表查询</router-link>-->
                     </div>
                 </a>
-                <a class="mint-tab-item  is-selected">
+                <a class="mint-tab-item" href="#/dealer">
                     <div class="mint-tab-item-icon">
-                        <img src="./img/detail.png">
+                        <img  class="img_detail2">
                     </div>
                     <div class="mint-tab-item-label">
+                        交易明细
+                        <!--<router-link to="/dealer">交易明细</router-link>-->
+                    </div>
+                </a>
+                <a class="mint-tab-item" href="#/exam">
+                    <mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>
 
-                        <router-link to="/dealer">交易明细</router-link>
-                    </div>
-                </a>
-                <a class="mint-tab-item">
                     <div class="mint-tab-item-icon">
-                        <img src="./img/unselected_pencil.png">
+                        <img  class="img_pencil">
                     </div>
                     <div class="mint-tab-item-label">
-                        <router-link to="/exam">领导审批</router-link>
+                        领导审批
+                        <!--<router-link to="/exam">领导审批</router-link>-->
                     </div>
                 </a>
             </div>
@@ -86,7 +89,7 @@
             search: function(startDate,endDate) {
                 if(startDate&&endDate) {
                     if (endDate < startDate) {
-                        alert("结束时间不能小于开始时间")
+                        alert("结束时间不能小于开始时间");
                     } else {
                         this.$http.get("/statistics/dealer?startDate=" + startDate + "&endDate=" + endDate).then(function (res) {
                             this.datalist =res.body['list'];
@@ -96,11 +99,11 @@
                                 this.money=this.datalist[i].b;
                                 this.ServiceCharge=this.datalist[i].f;
                                 this.count1=parseFloat(this.count)+ parseFloat( this.count1);
-                                this.money1=(parseFloat(this.money1)+parseFloat(this.money))
+                                this.money1=(parseFloat(this.money1)+parseFloat(this.money));
                                 this.ServiceCharge1=parseFloat(this.ServiceCharge1)+parseFloat(this.ServiceCharge);
                                 if(this.yushenliang){
                                     this.yushenliang1=parseFloat(this.yushenliang1)+parseFloat(this.yushenliang);
-                                };
+                                }
                                 if(this.money1){
                                    this.money1=parseInt(this.money1);
                                 }
@@ -110,8 +113,23 @@
                         });
                     }
                 }else{
-                    alert("请选择开始时间或结束时间");
+                    alert("请选择时间");
                 }
+            },
+            getTip:function () {
+                this.$http.post("/evaluation/list",{}).then(function(result){
+                    console.log(result.data);
+                    function getHsonLength(json){
+                        var jsonLength=0;
+                        for (var i in json) {
+                            jsonLength++;
+                        }
+                        return jsonLength;
+                    }
+                    this.examNum=getHsonLength(result.data);
+                },function(response){
+                    console.info(response);
+                });
             }
         },
         data(){
@@ -127,25 +145,40 @@
                 money:'',
                 money1:0,
                 ServiceCharge:'',
-                ServiceCharge1:0
+                ServiceCharge1:0,
+                examNum:0
             }
 
         },
         mounted (){
-            if(this.startDate==null&&this.endDate==null){
-                var now = new Date()
-                var year = now.getFullYear();       //年
-                var month = now.getMonth() + 1;     //月
-                var day = now.getDate();            //日
-                this.endDate=now.getFullYear()+"-";
-                if(month<10)
-                    this.endDate+="0";
-                this.endDate+=month+"-";
-                if(day<10)
-                    this.endDate+="0";
-                this.endDate+=day;
-                this.startDate=this.endDate;
-                this.$http.get("/statistics/dealer?startDate=" + this.startDate + "&endDate=" + this.endDate).then(function (res) {
+
+                var now = new Date();
+//                var year = now.getFullYear();       //年
+//                var month = now.getMonth() + 1;     //月
+//                var day = now.getDate();            //日
+//                this.endDate=now.getFullYear()+"-";
+//                if(month<10)
+//                    this.endDate+="0";
+//                this.endDate+=month+"-";
+//                if(day<10)
+//                    this.endDate+="0";
+//
+//                this.endDate+=day;
+                var dd = now.getDate();
+                var mm = now.getMonth()+1;
+                var yyyy = now.getFullYear();
+
+                if(dd<10) {
+                    dd = '0'+dd
+                }
+
+                if(mm<10) {
+                    mm = '0'+mm
+                }
+                this.end=yyyy+"-"+mm+"-"+dd;
+                this.start=yyyy+"-"+mm+"-"+dd;
+                console.log( "开始时间"+this.start, "最后的时间"+this.end);
+                this.$http.get("/statistics/dealer?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
                     this.datalist =res.body['list'];
                     for(var i=0;i<this.datalist.length;i++){
                         this.count=this.datalist[i].c;
@@ -153,11 +186,11 @@
                         this.money=this.datalist[i].b;
                         this.ServiceCharge=this.datalist[i].f;
                         this.count1=parseFloat(this.count)+ parseFloat( this.count1);
-                        this.money1=(parseFloat(this.money1)+parseFloat(this.money))
+                        this.money1=(parseFloat(this.money1)+parseFloat(this.money));
                         this.ServiceCharge1=parseFloat(this.ServiceCharge1)+parseFloat(this.ServiceCharge);
                         if(this.yushenliang){
                             this.yushenliang1=parseFloat(this.yushenliang1)+parseFloat(this.yushenliang);
-                        };
+                        }
                         if(this.money1){
                             this.money1=parseInt(this.money1);
                         }
@@ -165,14 +198,50 @@
                 }, function (e) {
                     console.log(e)
                 });
-            }
+            },
+        created(){
+            //TIP数量
+            this.getTip();
         }
+
 
     }
 </script>
 <style>
+    .dealer{
+        padding: 8px;
+        margin-bottom: 55px;
+    }
+    .Dealer_title{
+        font-size: 1.2rem;
+        text-align: center;
+    }
     table tr td{
         text-align: center;
+    }
+    .img_chart{
+        background:url("./img/graph chart.png")  center no-repeat;
+        background-size:contain;
+    }
+    .img_chart2{
+        background:url("./img/unselected_graph chart.png")  center no-repeat;
+        background-size:contain;
+    }
+    .img_detail{
+        background:url("img/unselected_detail.png")  center no-repeat;
+        background-size:contain;
+    }
+    .img_detail2{
+        background:url("img/detail.png")  center no-repeat;
+        background-size:contain;
+    }
+    .img_pencil{
+        background:url("img/unselected_pencil.png")  center no-repeat;
+        background-size:contain;
+    }
+    .img_pencil2{
+        background:url("img/pencil.png")  center no-repeat;
+        background-size:contain;
     }
 
 </style>

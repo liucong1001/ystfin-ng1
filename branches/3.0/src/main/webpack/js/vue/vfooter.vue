@@ -2,53 +2,34 @@
     <div>
         <!--固定底部-->
         <div class="mint-tabbar is-fixed" style="margin-top: 50px">
-            <a class="mint-tab-item is-selected">
+            <a class="mint-tab-item " href="#/year">
                 <div class="mint-tab-item-icon">
-                    <img src="./img/graph chart.png">
+                    <img class="img_chart">
                 </div>
                 <div class="mint-tab-item-label">
-                    <router-link to="/year"> 报表查询</router-link>
+                     报表查询
                 </div>
             </a>
-            <a class="mint-tab-item">
+            <a class="mint-tab-item" href="#/dealer">
                 <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_detail.png">
+                    <img  class="img_detail">
                 </div>
                 <div class="mint-tab-item-label">
-
-                    <router-link to="/dealer">交易明细</router-link>
+                    交易明细
+                    <!--<router-link to="/dealer">交易明细</router-link>-->
                 </div>
             </a>
-            <a class="mint-tab-item">
+            <a class="mint-tab-item" href="#/exam">
+                <mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>
                 <div class="mint-tab-item-icon">
-                    <img src="./img/unselected_pencil.png">
+                    <img  class="img_pencil">
                 </div>
                 <div class="mint-tab-item-label">
-
-                    <router-link to="/exam">领导审批</router-link>
+                    领导审批
+                    <!--<router-link to="/exam">领导审批</router-link>-->
                 </div>
             </a>
         </div>
-
-        <!--<mt-tabbar v-model="selected">-->
-            <!--<mt-tab-item id="chart">-->
-                <!--<img slot="icon"  class="static" v-bind:class="{img_chart: noActive, 'img_chart2': isActive1 }">-->
-
-                <!--<span >报表查询</span>-->
-            <!--</mt-tab-item>-->
-            <!--<mt-tab-item id="detail">-->
-                <!--<img slot="icon" class="static" v-bind:class="{img_detail: noActive, 'img_detail2': isActive2 }"  >-->
-                <!--交易明细-->
-            <!--</mt-tab-item>-->
-            <!--<mt-tab-item id="发现">-->
-                <!--<img slot="icon" src="./img/unselected_pencil.png">-->
-                <!--领导审批-->
-            <!--</mt-tab-item>-->
-            <!--<mt-tab-item id="我的">-->
-                <!--<img slot="icon" src="./img/unselected_settings.png">-->
-                <!--设置-->
-            <!--</mt-tab-item>-->
-        <!--</mt-tabbar>-->
 
     </div>
 </template>
@@ -57,20 +38,33 @@
        color: #000000;
        text-decoration: none;
    }
+   .tipmsg{
+     position: absolute;
+       right: 10px;
+       bottom: 30px;
+   }
    .img_chart{
-       background:url(./img/graph chart.png)  center no-repeat;
+       background:url("./img/graph chart.png")  center no-repeat;
        background-size:contain;
    }
    .img_chart2{
-       background:url(./img/unselected_graph chart.png)  center no-repeat;
+       background:url("./img/unselected_graph chart.png")  center no-repeat;
        background-size:contain;
    }
     .img_detail{
-        background:url(./img/unselected_detail.png)  center no-repeat;
+        background:url("img/unselected_detail.png")  center no-repeat;
         background-size:contain;
     }
    .img_detail2{
-       background:url(./img/detail.png)  center no-repeat;
+       background:url("img/detail.png")  center no-repeat;
+       background-size:contain;
+   }
+   .img_pencil{
+       background:url("img/unselected_pencil.png")  center no-repeat;
+       background-size:contain;
+   }
+   .img_pencil2{
+       background:url("img/pencil.png")  center no-repeat;
        background-size:contain;
    }
 </style>
@@ -85,6 +79,7 @@
                 noActive:true,
                 isActive1:false,
                 isActive2:false,
+                examNum:0,
             }
          },
         watch:{
@@ -109,7 +104,23 @@
                 },
                 deep: true
             }
-        }
+        },
+        created(){
+            this.$http.post("/evaluation/list",{}).then(function(result){
+                console.log(result.data);
+                function getHsonLength(json){
+                    var jsonLength=0;
+                    for (var i in json) {
+                        jsonLength++;
+                    }
+                    return jsonLength;
+                }
+                this.examNum=getHsonLength(result.data);
+            },function(response){
+                console.info(response);
+            });
+
+        },
     }
 
 </script>

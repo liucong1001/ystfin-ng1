@@ -1,10 +1,12 @@
 <template>
-    <div>
-        <vheader></vheader>
-        <div style="font-size:1.5rem;width:100%">
+    <div class="monthOnMonth">
+        <vheader :headermsg="header"></vheader>
+        <div style="font-size:1.2rem;width:100%">
             <table  align="center">
                 <tr>
-                    <td>每月交易量及同比上月比值</td>
+                    <td>  <selectlist  :queryList="select_list"></selectlist> </td>
+
+                    <!--<td>每月交易量及同比上月比值</td>-->
                 </tr>
             </table>
         </div>
@@ -17,7 +19,6 @@
             </select>
             <!--<button :disabled="year >= maxYear" @click="year++">下一年</button>-->
             <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="small">下一年</mt-button>
-            <selectlist :queryList="select_list"></selectlist>
         </div>
         <div class="testChart">
             <chart :options="chartData"></chart>
@@ -26,6 +27,10 @@
     </div>
 </template>
 <style>
+    .monthOnMonth{
+        padding: 8px;
+        margin-bottom: 55px;
+    }
     .testChart .echarts {
         width: 100%;
         height: 400px;
@@ -67,7 +72,7 @@
         },
         methods:{
             loadData(){
-                if(this.year == 0) return
+                if(this.year == 0) return;
                 this.$http.get("/statistics/monthOnMonth?type=year&year=" + this.year).then(function (res) {
                     this.cList = res.body.cList;
                     this.sList = res.body.sList;
@@ -86,17 +91,17 @@
         },
         created()
         {
-            var now = new Date()
+            var now = new Date();
             for(var i = 0; i < 10; i++){
                 this.yearList.push(now.getFullYear() - i)
             }
-            this.maxYear = this.year = now.getFullYear()
+            this.maxYear = this.year = now.getFullYear();
             this.minYear = this.year - 9
         },
         data()
         {
             return {
-                head:"列表",
+                header:"每月交易量及同比上月比",
                 select_list:"4",
                 curData: [],
                 curDataFee: [],
