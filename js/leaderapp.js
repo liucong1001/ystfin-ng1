@@ -7,7 +7,7 @@ import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 
 Vue.use(MintUI);
-Vue.use(VueResource)
+Vue.use(VueResource);
 
 import monthOnMonth from "./vue/monthOnMonth.vue"
 import yearOnYear from "./vue/yearOnYear.vue"
@@ -17,12 +17,17 @@ import day from "./vue/day.vue"
 import dealer from "./vue/dealer.vue"
 import main from "./vue/main.vue"
 import exam from "./vue/exam.vue"
+import examDetail from "./vue/examDetail.vue";
+import  login from "./vue/login.vue"
+import  price from "./vue/price.vue"
+import  carType from "./vue/carType.vue"
+
 //import vheader from './vue/vheader.vue';
 
-const NotFound = { template: '<p>Page not found</p>' }
-const About = { template: '<p>二手车报表查询</p>' }
+const NotFound = { template: '<p>Page not found</p>' };
+const About = { template: '<p>二手车报表查询</p>' };
 const routes = [
-    {path:'/',component:main},
+    {path:'/',component:login},
     {path:'/about',component:About},
     {path:'/dealer',component:dealer},
     {path:'/monthOnMonth',component:monthOnMonth},
@@ -31,11 +36,17 @@ const routes = [
     {path:'/month',component:month},
     {path:'/day',component:day},
     {path:'/exam',component:exam},
-]
+    {path:'/examDetail',component:examDetail},
+    {path:'/price',component:price},
+    {path:'/carType',component:carType}
+];
 const router = new VueRouter({
     routes // （缩写）相当于 routes: routes
-})
+});
 
+// const app = new Vue({
+//     router
+// }).$mount('#app');
 const app = new Vue({
     router,
     created(){

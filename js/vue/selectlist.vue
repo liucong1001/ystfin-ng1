@@ -7,6 +7,8 @@
             <option value="5">天查询 </option>
             <option value="3">同比 </option>
             <option value="4">环比</option>
+            <option value="6">交易均价</option>
+            <option value="7">交易车型</option>
         </select>
     </div>
 </template>
@@ -16,10 +18,11 @@
         text-decoration: none;
     }
     .select{
+        /*margin-top: 10px;*/
         height: 30px;
         /*-webkit-appearance: none;*/
         /*appearance: none;*/
-        /*border: none;*/
+        border: none;
         font-size: 18px;
         padding: 0px 5px;
         display: inline-block;
@@ -50,6 +53,8 @@
                 if(val=='3'){this.$router.push({path:'/yearOnYear'});}
                 if(val=='4'){this.$router.push({path:'/monthOnMonth'});}
                 if(val=='5'){this.$router.push({path:'/day'});}
+                if(val=='6'){this.$router.push({path:'/price'});}
+                if(val=='7'){this.$router.push({path:'/carType'});}
                 console.log(this.queryList);
             },
         },

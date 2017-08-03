@@ -1,27 +1,29 @@
 <template>
-    <div>
+    <div class="year">
         <header>
             <vheader :headermsg="header"></vheader>
         </header>
         <div class="page-wrap">
             <div class="mint-tab-container page-tabbar-container">
                 <div class="main-list">
-                    <div style="font-size: 30px;width:100%">
+                    <div style="font-size: 1.2rem;width:100%">
                         <table  align="center">
                             <tr>
-                                <td>年交易量查询</td>
+
+                                <td>   <selectlist  :queryList="select_list"></selectlist> </td>
+                                <!--<td>(年交易量)</td>-->
                             </tr>
                         </table>
                     </div>
                     <div>
                         <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
 
-                        <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">上一年</mt-button>
+                        <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">1上一年</mt-button>
                         <select v-model="year" class="select">
                             <option v-for="y in yearList">{{y}}</option>
                         </select>
                         <mt-button type="primary" :disabled="year >= maxYear" @click="year++" size="small">下一年</mt-button>
-                        <selectlist  :queryList="select_list"></selectlist>
+
                     </div>
                     <div class="testChart">
                         <chart :options="chartData"></chart>
@@ -33,6 +35,10 @@
     </div>
 </template>
 <style>
+    .year{
+        padding: 8px;
+        margin-bottom: 55px;
+    }
     .select{
         height: 30px;
         /*-webkit-appearance: none;*/
@@ -50,7 +56,7 @@
     }
     .testChart .echarts {
         width: 100%;
-        height: 441px;
+        height: 300px;
         background-color: grey;
     }
    .mint-tab-item {
@@ -110,6 +116,10 @@
             handleClick: function() {
                 this.$toast('Hello world!')
             },
+            getHigth:function () {
+                var height=document.documentElement.clientHeight;
+                console.log("屏幕高度"+height);
+            },
             chooseList:function(val){
                 if(val=='1'){this.$router.push({path:'/year'})}
                 if(val=='2'){this.$router.push({path:'/month'})}
@@ -117,15 +127,15 @@
                 if(val=='4'){this.$router.push({path:'/monthOnMonth'});}
             },
             loadData(){
-                if(this.year == 0) return
+                if(this.year == 0) return;
                 this.$http.get("/mobile/billTimeData?type=year&year=" + this.year).then(function (res) {
-                    this.curData = res.body.countTotal
+                    this.curData = res.body.countTotal;
                     this.curDataFee = res.body.fillTotal
                 }, function (e) {
                     console.log(e)
-                })
+                });
                 this.$http.get("/mobile/billTimeData?type=year&year=" + (this.year - 1)).then(function (res) {
-                    this.preData = res.body.countTotal
+                    this.preData = res.body.countTotal;
                     this.preDataFee = res.body.fillTotal
                 }, function (e) {
                     console.log(e)
@@ -134,19 +144,21 @@
         },
         created()
         {
-            var now = new Date()
+            var now = new Date();
             for(var i = 0; i < 10; i++){
                 this.yearList.push(now.getFullYear() - i)
             }
-            this.maxYear = this.year = now.getFullYear()
-            this.minYear = this.year - 9
+            this.maxYear = this.year = now.getFullYear();
+            this.minYear = this.year - 9;
+            //移动端屏幕高度
+            this.getHigth();
         },
         data()
         {
             return {
 //                headermsg:"year",
                 select_list:'1',
-                header:"列表",
+                header:"年交易量",
                 curData: [],
                 preData: [],
                 curDataFee: [],
@@ -184,7 +196,7 @@
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '3%',
+                        bottom: '15%',
                         containLabel: true
                     },
                     xAxis : [

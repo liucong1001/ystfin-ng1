@@ -1,38 +1,38 @@
 <template>
-    <div>
+    <div class="month">
         <vheader :headermsg="header"></vheader>
-        <div style="font-size: 1.5rem;width:100%">
+        <div style="font-size: 1.2rem;width:100%">
             <table  align="center">
                 <tr>
-                    <td>月交易量查询</td>
+                    <td>  <selectlist  :queryList="select_list"></selectlist> </td>
                 </tr>
             </table>
         </div>
-        开始时间：  <input  v-model="start"  type="month"  /> <br/>
+        开始时间：  <input  v-model="start"  type="month"  @change="search(start,end)" /> <br/>
         结束时间：  <input  v-model="end"  type="month"  @change="search(start,end)"/> <br/>
-        <!--自定义： <button @click="openPicker()" >ada</button>-->
 
-
-        <datetime-picker
-                v-model="pickerVisible"
-                ref="picker"
-                type="date"
-                year-format="{value} 年"
-                month-format="{value} 月"
-                date-format="{value} 日">
-        </datetime-picker>
         <!--<button class="mint-button mint-button&#45;&#45;primary mint-button&#45;&#45;normal" type="button" v-on:click="search(start,end)"> 查询</button>-->
-        <selectlist :queryList="select_list"></selectlist>
+
+
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
-       <vfooter></vfooter>
+        <vfooter></vfooter>
     </div>
 </template>
 <style>
     .testChart .echarts {
         width: 100%;
         height: 400px;
+    }
+    .selectList{
+        position: absolute;
+        right: 0;
+        top: 3rem;
+    }
+    .month{
+        padding: 8px;
+        margin-bottom: 55px;
     }
 </style>
 <script>
@@ -59,8 +59,6 @@
                 this.$refs.picker.open();
             },
             search: function(startDate,endDate) {
-
-                console.log(  this.$route.params.i);
                 if(startDate&&endDate) {
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
@@ -83,21 +81,64 @@
         },
         created()
         {
-            var now = new Date()
+            var now = new Date();
             for(var i = 0; i < 10; i++){
                 this.yearList.push(now.getFullYear() - i)
             }
-            this.maxYear = this.year = now.getFullYear()
+            this.maxYear = this.year = now.getFullYear();
             this.minYear = this.year - 9;
-            console.log("creatderimg");
-            console.log("end"+new Date());
-//            this.end='2016-03-01';
+            var year=now.getFullYear();
+            var month=now.getMonth()+1;
+            if(month<10){
+                month="0"+month;
+            }
+//            console.log("end"+new Date());
+            this.end=year+"-"+month;
+
+            function get3MonthBefor(){
+                var resultDate,year,month,date,hms;
+                var currDate = new Date();
+                year = currDate.getFullYear();
+                month = currDate.getMonth()+1;
+                date = currDate.getDate();
+                hms = currDate.getHours() + ':' + currDate.getMinutes() + ':' + (currDate.getSeconds() < 10 ? '0'+currDate.getSeconds() : currDate.getSeconds());
+                switch(month)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                        month += 9;
+                        year--;
+                        break;
+                    default:
+                        month -= 3;
+                        break;
+                }
+                month = (month < 10) ? ('0' + month) : month;
+//                resultDate = year + '-'+month+'-'+date+' ' + hms;
+                resultDate = year + '-'+month;
+
+                return resultDate;
+            }
+            this.start=get3MonthBefor();
+            this.$http.get("/statistics/yearMonth?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
+                this.datamap = res.body['map'];
+                this.datalist = res.body['list'];
+                for (var i = 0; i < this.datalist.length; i++) {
+                    this.curDataFee.push(this.datamap[this.datalist[i]].count);
+                    this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
+                }
+            }, function (e) {
+                console.log(e)
+            });
+//            console.log()
+           this.search( this.start,this.end);
 
         },
         data()
         {
             return {
-                header:"列表",
+                header:"月交易量",
                 select_list:"2",
                 curData: [],
 //                preData: [],
@@ -143,7 +184,7 @@
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '3%',
+                        bottom: '15%',
                         containLabel: true
                     },
                     xAxis : [
@@ -184,10 +225,6 @@
                     ]
                 }
             }
-        },
-        ready:function () {
-            console.log("i"+this.$route.params.i);
-            console.log("route");
         }
     }
 </script>

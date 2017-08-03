@@ -1,15 +1,20 @@
 <template>
     <div class="page-header-main header">
-        <header class="mint-header is-fixed">
+        <header class="mint-header is-fixed topheader">
             <div class="mint-header-button is-left"></div>
-            <h1 class="mint-header-title">{{headermsg}}</h1>
+            <h1 class="mint-header-title topheader"><br>  {{headermsg}}</h1>
             <div class="mint-header-button is-right"></div>
         </header>
     </div>
 </template>
 <style>
   .header{
+      /*padding-top: 3px;*/
       margin-bottom: 40px;
+  }
+  .topheader{
+      padding: 0px;
+      margin: 0px;
   }
 </style>
 <script>
