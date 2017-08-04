@@ -96,8 +96,8 @@ require("./controller/icard/consumptionList");
 require("./controller/icard/consumptionDetail");
 require("./controller/icard/recordList");
 require("./controller/icard/red");
-
 require("./controller/icard/setPwd");
+require("./controller/icard/transferAccounts")
 //流水号查询
 require("./controller/system/trans/archives");
 

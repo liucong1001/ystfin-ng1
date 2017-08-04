@@ -1,0 +1,101 @@
+<div class="alert alert-danger" ng-if="!icardWriterReady">
+    未找到写卡器，请检查是否已连接。请连接写卡器后点击 <button class="btn btn-sm btn-default" ng-click="initCardWriter()">启用读卡器</button>
+</div>
+<div class="alert alert-warning" ng-if="icardWriterReady && !cardNo">
+    请将卡放置到写卡器上。
+</div>
+<div class="alert alert-success" ng-if="icardWriterReady && cardNo">
+    已检测到充值卡，请点击修改密码按钮，根据语音提示进行操作。
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>IC卡转账</h2></div>
+    <div class="alert alert-danger" ng-if="accountLoadMessge">
+        {{accountLoadMessge}}
+    </div>
+    <div class="panel-body form-horizontal">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-sm-4 control-label">转出卡号：</div>
+                    <div class="col-sm-8 form-control-static">
+                        <input type="text" ng-model="cardNo" class="form-control" maxlength="16"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 control-label">商户名称：</div><div class="col-sm-8 form-control-static">{{account.dealers.name}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 control-label">账户名称：</div><div class="col-sm-8 form-control-static">{{account.icCard.name}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 control-label">当前余额：</div>
+                    <div class="col-sm-4 form-control-static">{{account.icCard.balance / 100 | currency:"￥"}}</div>
+                    <div class="col-sm-4 form-control-static">{{account.icCard.balance / 100 | amountHZ}}</div>
+                </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">充值余额：</div>
+                      <div class="col-sm-4 form-control-static">{{account.icCard.recharge / 100 | currency:"￥"}}</div>
+                      <div class="col-sm-4 form-control-static">{{account.icCard.recharge / 100 | amountHZ}}</div>
+                  </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">赠送余额：</div>
+                      <div class="col-sm-4 form-control-static">{{account.icCard.give / 100 | currency:"￥"}}</div>
+                      <div class="col-sm-4 form-control-static">{{account.icCard.give / 100 | amountHZ}}</div>
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">转入卡号：</div>
+                      <div class="col-sm-8 form-control-static">
+                          <input type="text" ng-model="cardNoIn" class="form-control" maxlength="16"/>
+                      </div>
+                </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">商户名称：</div><div class="col-sm-8 form-control-static">{{accountIn.dealers.name}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 control-label">账户名称：</div><div class="col-sm-8 form-control-static">{{accountIn.icCard.name}}</div>
+                </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">当前余额：</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.balance / 100 | currency:"￥"}}</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.balance / 100 | amountHZ}}</div>
+                </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">充值余额：</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.recharge / 100 | currency:"￥"}}</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.recharge / 100 | amountHZ}}</div>
+                </div>
+                <div class="form-group">
+                      <div class="col-sm-4 control-label">赠送余额：</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.give / 100 | currency:"￥"}}</div>
+                      <div class="col-sm-4 form-control-static">{{accountIn.icCard.give / 100 | amountHZ}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">转账充值金额：</div>
+            <div class="col-sm-2"><input class="form-control" type="number" ng-model="amount" /></div>
+            <div class="col-sm-4 form-control-static">{{amount | amountHZ}}</div>
+        </div>
+        <div class="form-group" ng-if="amountMessge">
+            <div class="col-sm-4 control-label">{{amountMessge}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">转账赠送金额：</div>
+            <div class="col-sm-2"><input class="form-control" type="number" ng-model="give" /></div>
+            <div class="col-sm-4 form-control-static">{{give | amountHZ}}</div>
+        </div>
+        <div class="form-group" ng-if="giveMessge">
+            <div class="col-sm-4 control-label">{{giveMessge}}</div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-lg btn-danger" ng-click="transferAccounts()" ng-disabled="!account.icCard || !accountIn.icCard || amount ==null || give ==null ">转账</button>
+    </div>
+</div>
+
+<div class="alert alert-success" ng-if="success">
+
+    <span style="font-size: 3rem">转账成功!</span>
+</div>
