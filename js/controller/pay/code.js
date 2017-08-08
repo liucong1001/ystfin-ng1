@@ -22,7 +22,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
     $scope.msg="";
     /*费用类型默认选择*/
     $scope.statuses = [
-        {value:0 , text: '请选择'},
+        {value:0 , name: '请选择',id:0},
     ];
     //得到“其他”这项费用的id
 
@@ -32,11 +32,12 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         for(var i=0;i<result.data.length;i++){
             if(result.data[i].name=="其他"){ $scope.otherId=result.data[i].id}
              var item={
-                 text:result.data[i].name,
+                 name:result.data[i].name,
                  value:result.data[i].id,
                  marketFee:result.data[i].marketFee,
                  otherFee:result.data[i].otherFee,
                  divideFee:result.data[i].divideFee,
+                 id:result.data[i].id
              };
             $scope.statuses.push(item);
         }
@@ -45,38 +46,38 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         console.log($scope.statuses);
     });
 
-    $scope.showStatus = function(user) {
+    $scope.showStatus = function(user,index) {
         var selected = [];
         if(user.type) {
             selected = $filter('filter')($scope.statuses, {value: user.type});
+            // selected[0]=user.type;
+            // selected = $filter('filter')($scope.statuses, {value: user.status});
         }
-        return selected.length ? selected[0].text : 'Not set';
+        console.log('显示下拉框',user, selected);
+        return selected.length ? selected[index].name : 'Not set';
+        // return selected[0].name
     };
 
     /*点击“保存”*/
-    $scope.saveUser = function(data, id,allData) {
-        console.log("点击了保存");
-        var id=data.type;
-        console.log(data.type);
-        data.type={
-            id:id
-        };
-        console.log(data);
-        if(data.marketFee==null||data.otherFee==null){
-            alert("请填写完整后保存！");
-        }
-        else{
-            $scope.totalPrice = 0;
-            $http.post('/exchange/save', data).then(function (ret) {
-                console.log(ret);
-                // 计算费用
-                for(var i=0;i<$scope.users.length;i++){
-                    $scope.totalPrice += parseFloat($scope.users[i]['marketFee'])+parseFloat($scope.users[i]['otherFee']);
-                }
-            },function (err) {
-                 alert("请检查信息填写是否有误！");
-            });
-        }
+    $scope.saveUser = function (data, index, arc) {
+
+        $scope.users[index] = angular.extend(data, {code: arc});
+
+
+        console.log("点击了保存,原来data", data);
+        console.log("下拉框的id为", data.type);
+
+        $scope.totalPrice = 0;
+        $http.post('/exchange/save', $scope.users[index]).then(function (ret) {
+            console.log("后台返回的", ret);
+            // 计算费用
+            for (var i = 0; i < $scope.users.length; i++) {
+                $scope.totalPrice += parseFloat($scope.users[i]['marketFee']) + parseFloat($scope.users[i]['otherFee']);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+
     };
 
     //校验费用类型选择
@@ -85,12 +86,28 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
             return "请选择费用类型";
         }
     };
+    $scope.checkType=function (data) {
+         if(data.id=='0'){
+             return "请选择费用类型"
+         }
+    };
    // 校验金额是否输入
     $scope.checkPrice=function (data) {
         var reg=/^[0-9]+.?[0-9]*$/;
         if(data==null||!reg.test(data)){
             return "请填写正确金额"
         }
+    };
+    //校验车牌号的长度（有正确车牌号或者不填写）
+    $scope.checkName=function (data) {
+        var reg = new RegExp("鄂A[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}");//车牌号
+
+        if(data){
+            if(!reg.test(data)){
+                return "请填写正确车牌"
+            }
+        }
+
     };
 
     // remove user  移除
@@ -114,10 +131,11 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
             marketFee: item.marketFee,
             otherFee:item.otherFee,
             divideFee:item.divideFee,
-            type:item.type.id,
+            type:item.type,
             plateNumber:item.plateNumber
             // group: null
         };
+        console.log("添加的type",$scope.inserted.type);
         for(var i in $scope.users){
             if($scope.users[i].code == $scope.inserted.code){
                 $scope.msg='此流水不能重复录入！';
@@ -134,21 +152,22 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
             console.log("流水号"+code);
             $http.get('exchange/findByCode?code='+code).then(function (result) {
                 var item=result.data;
-
+                console.log("增加列表数据",item);
                 if(!item.type){
                     item.type={
                         id:0
                     };
+                    console.log("增加item",item.type);
                 }else{
 
                 }
 
-                if(item.type.id==$scope.otherId){
-                    $scope.disablelist=false;
-                      $rootScope.leader=true;
+                if (item.type.id == $scope.otherId) {
+                    $scope.disablelist = false;
+                    $rootScope.leader = true;
                 } else {
-                    $scope.disablelist=true;
-                      $rootScope.leader=true;
+                    $scope.disablelist = true;
+                    $rootScope.leader = true;
                 }
 
                 console.log(result.data);
@@ -172,7 +191,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         console.log($scope.users);
         var reg=/^[0-9]+.?[0-9]*$/;
         for(var i=0;i<$scope.users.length;i++){
-             if($scope.users[i].type=='0'||$scope.users[i].marketFee==null|| $scope.users[i].otherFee==null||!reg.test($scope.users[i].marketFee)||!reg.test($scope.users[i].otherFee)){
+             if($scope.users[i].type.id=='0'||$scope.users[i].marketFee==null|| $scope.users[i].otherFee==null||!reg.test($scope.users[i].marketFee)||!reg.test($scope.users[i].otherFee)){
                   console.log($scope.users);
                  alert("请检查订单是否填写完整！");
              }
@@ -188,9 +207,9 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
     $scope.getPrice=function (data,index) {
         console.log("下拉框改变");
         console.log(data);
-        $scope.selectId=data;
+        $scope.selectId=data.id;
        console.log(index);
-        if(data==$scope.otherId){
+        if(data.id==$scope.otherId){
             $scope.disablelist=false;
               $rootScope.leader=true;
         }else{
@@ -200,7 +219,7 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
         }
 
         for (var i = 0; i < $scope.statuses.length; i++) {
-            if($scope.statuses[i].value==data){
+            if($scope.statuses[i].value==data.id){
                 $scope.users[index].marketFee=$scope.statuses[i].marketFee;
                 $scope.users[index].otherFee=$scope.statuses[i].otherFee;
                 $scope.users[index].divideFee=$scope.statuses[i].divideFee;
