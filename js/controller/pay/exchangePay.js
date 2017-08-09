@@ -115,5 +115,9 @@ app.controller("exchangePayController",["$scope","Order","$routeParams","$http",
         },function () {
             console.log("密码获取失败");
         })
-    }
+    };
+    //返回
+    $scope.back=function(){
+        history.back();
+    };
 }])
