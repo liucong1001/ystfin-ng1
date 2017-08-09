@@ -134,7 +134,7 @@ app.controller("printCtrl", ["$scope","TransRecord","$convert","$q","$printer","
         bill.$save({action:"print",billNo:$scope.obj.billnum,nextBillNo:$scope.nextBillNo,billDate:$filter("date")($scope.billDate,"yyyy-MM-dd")}).then(function (result) {
             $location.path('/finance/printSuccess').search({newNo: $scope.nextBillNo,lastBill:$scope.lastBill,billNo:$scope.obj.billnum});
             $printer.printBill($scope.trans,$scope.gconfig.printConfig).then(function () {
-                alert("打印成功！");
+
             })
         });
     };
