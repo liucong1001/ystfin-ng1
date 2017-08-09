@@ -43,7 +43,7 @@ app.controller("addFeeTypeModifyCtr", ["$scope","$convert","$q","gconfig","$filt
     //提交表单
     $scope.save=function(){
         delete $scope.feeListInfo.id;
-        delete $scope.feeListInfo.name;
+        // delete $scope.feeListInfo.name;
         $scope.feeListInfo.chargeItem ={id:$routeParams.id};
 
         console.log($scope.feeListInfo);
