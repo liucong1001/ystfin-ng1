@@ -5,6 +5,7 @@
         <section class="well" style="padding: 10px 0px 0px 0px;">
             <div class="panel-heading"  id="merchantDetailFilters" data-auto="true">
                 <div class="form-inline">
+                    <!--<label>冀F</label>-->
                     <input type="text"  class="plateNum" v-model="carNum" placeholder="车牌号">
                     <button class="mint-button mint-button--primary mint-button--normal" type="button" v-on:click="search(carNum)"> 查询</button>
                 </div>
@@ -50,14 +51,22 @@
                     <!--<router-link to="/dealer">交易明细</router-link>-->
                 </div>
             </a>
-            <a class="mint-tab-item" href="#/exam">
-                <mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>
+            <!--<a class="mint-tab-item" href="#/exam">-->
+                <!--<mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>-->
+                <!--<div class="mint-tab-item-icon">-->
+                    <!--<img  class="img_pencil2">-->
+                <!--</div>-->
+                <!--<div class="mint-tab-item-label">-->
+                    <!--领导审批-->
+                    <!--&lt;!&ndash;<router-link to="/exam">领导审批</router-link>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</a>-->
+            <a class="mint-tab-item" href="#/person">
                 <div class="mint-tab-item-icon">
-                    <img  class="img_pencil2">
+                    <img  class="img_person">
                 </div>
                 <div class="mint-tab-item-label">
-                    领导审批
-                    <!--<router-link to="/exam">领导审批</router-link>-->
+                    我
                 </div>
             </a>
         </div>
@@ -88,21 +97,21 @@
                  console.log("车牌号："+item.plateNumber);
                 this.$router.push({path:'/examDetail', query: {data: item}});
             },
-            getTip:function () {
-                this.$http.post("/evaluation/list",{}).then(function(result){
-                    console.log(result.data);
-                    function getHsonLength(json){
-                        var jsonLength=0;
-                        for (var i in json) {
-                            jsonLength++;
-                        }
-                        return jsonLength;
-                    }
-                    this.examNum=getHsonLength(result.data);
-                },function(response){
-                    console.info(response);
-                });
-            }
+//            getTip:function () {
+//                this.$http.post("/evaluation/list",{}).then(function(result){
+//                    console.log(result.data);
+//                    function getHsonLength(json){
+//                        var jsonLength=0;
+//                        for (var i in json) {
+//                            jsonLength++;
+//                        }
+//                        return jsonLength;
+//                    }
+//                    this.examNum=getHsonLength(result.data);
+//                },function(response){
+//                    console.info(response);
+//                });
+//            }
         },
         data(){
             return{
@@ -119,7 +128,7 @@
                 ServiceCharge:'',
                 ServiceCharge1:0,
                 examList:"",
-                carNum:"",
+                carNum:"冀F",
                 plateNumber:"",
                 examNum:0
             }
@@ -135,7 +144,7 @@
                 console.info(response);
             });
          //获取tip数量
-            this.getTip();
+//            this.getTip();
 
         },
 
@@ -152,11 +161,7 @@
         font-size: 1.2rem;
         text-align: center;
     }
-    .tipmsg{
-        position: absolute;
-        right: 10px;
-        bottom: 30px;
-    }
+
     .exam table tr td{
         text-align: center;
     }

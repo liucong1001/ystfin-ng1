@@ -19,14 +19,22 @@
                     <!--<router-link to="/dealer">交易明细</router-link>-->
                 </div>
             </a>
-            <a class="mint-tab-item" href="#/exam">
-                <mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>
+            <!--<a class="mint-tab-item" href="#/exam">-->
+                <!--<mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>-->
+                <!--<div class="mint-tab-item-icon">-->
+                    <!--<img  class="img_pencil">-->
+                <!--</div>-->
+                <!--<div class="mint-tab-item-label">-->
+                    <!--领导审批-->
+                    <!--&lt;!&ndash;<router-link to="/exam">领导审批</router-link>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</a>-->
+            <a class="mint-tab-item" href="#/person">
                 <div class="mint-tab-item-icon">
-                    <img  class="img_pencil">
+                    <img  class="img_person">
                 </div>
                 <div class="mint-tab-item-label">
-                    领导审批
-                    <!--<router-link to="/exam">领导审批</router-link>-->
+                   我
                 </div>
             </a>
         </div>
@@ -40,7 +48,7 @@
    }
    .tipmsg{
      position: absolute;
-       right: 10px;
+       right: 7rem;
        bottom: 30px;
    }
    .img_chart{
@@ -67,6 +75,11 @@
        background:url("img/pencil.png")  center no-repeat;
        background-size:contain;
    }
+   .img_person{
+       background:url("img/person.png")  center no-repeat;
+       background-size:contain;
+   }
+
 </style>
 <script>
 
@@ -106,19 +119,19 @@
             }
         },
         created(){
-            this.$http.post("/evaluation/list",{}).then(function(result){
-                console.log(result.data);
-                function getHsonLength(json){
-                    var jsonLength=0;
-                    for (var i in json) {
-                        jsonLength++;
-                    }
-                    return jsonLength;
-                }
-                this.examNum=getHsonLength(result.data);
-            },function(response){
-                console.info(response);
-            });
+//            this.$http.post("/evaluation/list",{}).then(function(result){
+//                console.log(result.data);
+//                function getHsonLength(json){
+//                    var jsonLength=0;
+//                    for (var i in json) {
+//                        jsonLength++;
+//                    }
+//                    return jsonLength;
+//                }
+//                this.examNum=getHsonLength(result.data);
+//            },function(response){
+//                console.info(response);
+//            });
 
         },
     }

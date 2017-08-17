@@ -21,6 +21,7 @@ import examDetail from "./vue/examDetail.vue";
 import  login from "./vue/login.vue"
 import  price from "./vue/price.vue"
 import  carType from "./vue/carType.vue"
+import  person from "./vue/person.vue"
 
 //import vheader from './vue/vheader.vue';
 
@@ -38,7 +39,9 @@ const routes = [
     {path:'/exam',component:exam},
     {path:'/examDetail',component:examDetail},
     {path:'/price',component:price},
-    {path:'/carType',component:carType}
+    {path:'/carType',component:carType},
+    {path:'/person',component:person},
+
 ];
 const router = new VueRouter({
     routes // （缩写）相当于 routes: routes
@@ -52,12 +55,13 @@ const app = new Vue({
     created(){
         Vue.http.interceptors.push(function (request,next) {
             next(function (response) {
+                console.log(response);
                 if(response.status != 200 && response.body.code == "9901"){ // 未登录
-                    console.log(this.$router)
+                    console.log(this.$router);
                     this.$router.push('/')
                 }
                 return response
             })
         })
     }
-}).$mount('#app')
+}).$mount('#app');

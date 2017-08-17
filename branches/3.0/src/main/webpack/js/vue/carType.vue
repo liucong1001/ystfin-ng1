@@ -136,7 +136,7 @@
                         }
                     },
                     legend: {
-                        data:['2017年','2016年']
+                        data:['2016年','2017年']
                     },
 
                     grid: [{
@@ -179,7 +179,7 @@
                             show:false,
 
                             type : 'category',
-                            position:'right',
+//                            position:'top',
                             data : ['低速车','挂车','摩托车','其他车型','货车','客车','基本型'],
                             axisTick: {
                                 alignWithLabel: true
@@ -189,7 +189,7 @@
 
                             type : 'category',
                             nameLocation:"middle",
-//                            position:'right',
+                            position:'left',
                             data : ['低速车','挂车','摩托车','其他车型','货车','客车','基本型'],
                             axisTick: {
                                 alignWithLabel: true

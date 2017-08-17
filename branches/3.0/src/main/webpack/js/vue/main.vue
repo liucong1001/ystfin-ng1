@@ -66,14 +66,14 @@
                     交易明细
                 </div>
             </a>
-            <a class="mint-tab-item">
-                <div class="mint-tab-item-icon">
-                    <img src="img/unselected_pencil.png">
-                </div>
-                <div class="mint-tab-item-label">
-                    领导审批
-                </div>
-            </a>
+            <!--<a class="mint-tab-item">-->
+                <!--<div class="mint-tab-item-icon">-->
+                    <!--<img src="img/unselected_pencil.png">-->
+                <!--</div>-->
+                <!--<div class="mint-tab-item-label">-->
+                    <!--领导审批-->
+                <!--</div>-->
+            <!--</a>-->
             <a class="mint-tab-item">
                 <div class="mint-tab-item-icon">
                     <img src="img/unselected_settings.png">
@@ -143,11 +143,11 @@
         },
         created()
     {
-        var now = new Date()
+        var now = new Date();
         for(var i = 0; i < 10; i++){
             this.yearList.push(now.getFullYear() - i)
         }
-        this.maxYear = this.year = now.getFullYear()
+        this.maxYear = this.year = now.getFullYear();
         this.minYear = this.year - 9
     },
     data()
@@ -187,7 +187,7 @@
                 },
                 toolbox: {
                     feature: {
-                        saveAsImage: {}
+//                        saveAsImage: {}
                     }
                 },
                 grid: {

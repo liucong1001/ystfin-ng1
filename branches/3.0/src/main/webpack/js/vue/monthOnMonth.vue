@@ -129,11 +129,11 @@
                         }
                     },
                     legend: {
-                        data:[this.year + '年交易量每月同比上个月（%）',this.year + '年交易量']
+                        data:[ '环比增长', '月交易量']
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}
                         }
                     },
                     grid: {
@@ -145,30 +145,32 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : true,
+//                            boundaryGap : true,
                             data : [ '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name:"环比增长"
                         },
                         {
-                            type: 'value'
+                            type: 'value',
+                            name:"月交易量"
                         }
                     ],
                     series : [
                         {
-                            name:this.year + '年交易量每月同比上个月（%）',
+                            name:'环比增长',
                             type:'line',
 //                            stack: '交易量',
                             //areaStyle: {normal: {}},
                             data:this.curData,
                             connectNulls:true,
-                            yAxisIndex:0
+//                            yAxisIndex:0
                         },
                         {
-                            name:this.year + '年交易量',
+                            name: '月交易量',
                             type:'bar',
 //                            stack: '交易量',
 //                            areaStyle: {normal: {}},

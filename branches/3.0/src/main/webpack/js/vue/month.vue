@@ -63,6 +63,9 @@
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
                     } else {
+                        /*清除存储数组*/
+                        this.curDataFee=[];
+                        this.curData=[];
                         this.$http.get("/statistics/yearMonth?startDate=" + startDate + "&endDate=" + endDate).then(function (res) {
                             this.datamap = res.body['map'];
                             this.datalist = res.body['list'];
@@ -70,6 +73,7 @@
                                 this.curDataFee.push(this.datamap[this.datalist[i]].count);
                                 this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
                             }
+                            console.log("count数组",this.curDataFee);
                         }, function (e) {
                             console.log(e)
                         });
@@ -121,16 +125,20 @@
                 return resultDate;
             }
             this.start=get3MonthBefor();
-            this.$http.get("/statistics/yearMonth?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
-                this.datamap = res.body['map'];
-                this.datalist = res.body['list'];
-                for (var i = 0; i < this.datalist.length; i++) {
-                    this.curDataFee.push(this.datamap[this.datalist[i]].count);
-                    this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
-                }
-            }, function (e) {
-                console.log(e)
-            });
+//            this.$http.get("/statistics/yearMonth?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
+//                /*清除存储数组*/
+//                this.curDataFee=[];
+//                this.curData=[];
+//
+//                this.datamap = res.body['map'];
+//                this.datalist = res.body['list'];
+//                for (var i = 0; i < this.datalist.length; i++) {
+//                    this.curDataFee.push(this.datamap[this.datalist[i]].count);
+//                    this.curData.push(this.datamap[this.datalist[i]].serviceCharge);
+//                }
+//            }, function (e) {
+//                console.log(e)
+//            });
 //            console.log()
            this.search( this.start,this.end);
 
@@ -178,7 +186,7 @@
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}
                         }
                     },
                     grid: {
@@ -190,16 +198,21 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : false,
+//                           boundaryGap : false,
                             data : this.datalist,
+                            axisPointer: {
+                                type: 'shadow'
+                            }
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '交易量',
                         },
                         {
-                            type: 'value'
+                            type: 'value',
+                            name: '交易额',
                         }
                     ],
                     series : [

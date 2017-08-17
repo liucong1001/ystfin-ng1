@@ -5,12 +5,10 @@
             <table  align="center">
                 <tr>
                     <td>  <selectlist  :queryList="select_list"></selectlist> </td>
-                    <!--<td>交易量同比分析</td>-->
                 </tr>
             </table>
         </div>
         <div>
-            <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
             <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">上一年</mt-button>
 
             <select v-model="year" class="select">
@@ -135,7 +133,7 @@
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}
                         }
                     },
                     grid: {
@@ -147,16 +145,18 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : true,
-                            data : [  '1月','2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月','总比值'],
+//                            boundaryGap : true,
+                            data : [  '1月','2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name:"同比增长"
                         },
                         {
-                            type: 'value'
+                            type: 'value',
+                            name:"交易量"
                         }
                     ],
                     series : [

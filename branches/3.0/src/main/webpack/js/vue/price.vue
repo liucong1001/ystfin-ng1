@@ -143,7 +143,7 @@
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}
                         }
                     },
                     grid: {

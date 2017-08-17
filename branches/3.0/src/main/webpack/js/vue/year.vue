@@ -18,7 +18,7 @@
                     <div>
                         <!--<button :disabled="year <= minYear" @click="year&#45;&#45;">上一年</button>-->
 
-                        <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">1上一年</mt-button>
+                        <mt-button type="primary"  :disabled="year <= minYear" @click="year--"  size="small">上一年</mt-button>
                         <select v-model="year" class="select">
                             <option v-for="y in yearList">{{y}}</option>
                         </select>
@@ -190,7 +190,7 @@
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}   保存为图片
                         }
                     },
                     grid: {
@@ -202,16 +202,18 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : false,
+                            boundaryGap : true,
                             data : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '交易量',
                         },
                         {
-                            type: 'value'
+                            type: 'value',
+                            name: '交易额',
                         }
                     ],
                     series : [
