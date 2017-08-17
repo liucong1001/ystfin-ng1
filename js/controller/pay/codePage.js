@@ -58,6 +58,45 @@ app.controller("OrderCodePageCtrl", ["$rootScope", "$scope","$convert","$q","gco
         console.log("费用");
         console.log(x);
         $scope.ngTable.reload();
-    }
+    };
+    //按时间查询结果
+    $scope.Deal=function () {
+        if($scope.startDate&&$scope.endDate){$scope.changeTime()}
+        if($scope.startDate==null&&$scope.endDate==null){$scope.changeTime()}
+
+    };
+    $scope.changeTime=function () {
+        $scope.searchinfo.startDate=$filter('date')($scope.startDate,'yyyy-MM-dd');//成交起始日期
+        $scope.searchinfo.endDate=$filter('date')($scope.endDate,'yyyy-MM-dd');//成交截止日期
+        console.log("开始时间", $scope.searchinfo.startDate);
+        $scope.ngTable.reload();
+    };
+
+    //导出excel表
+    $scope.exportOrder = function () {
+        // $scope.datetime.startTime=$filter('date')($scope.startDate,'yyyy-MM-dd');;
+        // $scope.datetime.endTime=$filter('date')($scope.endDate,'yyyy-MM-dd');
+
+        $http({
+            url: 'exchange/export/excel',
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            params:  $scope.searchinfo,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var blob = new Blob([data], {type: "application/vnd.ms-excel"});
+            var objectUrl = URL.createObjectURL(blob);
+            var filename="市场业务报表"+'.xls';
+            if (window.navigator.msSaveOrOpenBlob) {// For IE:
+                navigator.msSaveBlob(blob, filename);
+            }else{ // For other browsers:
+                URL.revokeObjectURL(objectUrl);
+            }
+        }).error(function(data){
+            alert(data.message);
+        });
+    };
 
 }])
