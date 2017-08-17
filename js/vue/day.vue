@@ -11,7 +11,6 @@
         </div>
         开始时间：  <input  v-model="start"  type="date" @change="search(start,end)"/> <br/>
         结束时间：  <input  v-model="end"  type="date" @change="search(start,end)" /> <br/>
-        <!--<button class="mint-button mint-button&#45;&#45;primary mint-button&#45;&#45;normal" type="button" v-on:click="search(start,end)"> 查询</button>-->
         <div class="testChart">
             <chart :options="chartData"></chart>
         </div>
@@ -46,6 +45,9 @@
                     if (endDate < startDate) {
                         alert("结束时间不能小于开始时间")
                     } else {
+                        this.curDataFee=[];
+                        this.curData=[];
+
                         this.$http.get("/statistics/day?startDate=" + startDate + "&endDate=" + endDate).then(function (res) {
                             this.datamap = res.body['map'];
                             this.datalist =this.datamap['dateList'];
@@ -98,17 +100,18 @@
                 mm = '0'+mm
             }
             this.end=yyyy+"-"+mm+"-"+dd;
-            this.$http.get("/statistics/day?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
-                this.datamap = res.body['map'];
-                this.datalist =this.datamap['dateList'];
-                this.newMap=this.datamap['newMap'];
-                for( var i=0;i<this.datalist.length;i++){
-                    this.curDataFee.push(this.newMap[this.datalist[i]].dayCount);
-                    this.curData.push(this.newMap[this.datalist[i]].dayServiceCharge);
-                }
-            }, function (e) {
-                console.log(e)
-            });
+            this.search( this.start,this.end);
+//            this.$http.get("/statistics/day?startDate=" + this.start + "&endDate=" + this.end).then(function (res) {
+//                this.datamap = res.body['map'];
+//                this.datalist =this.datamap['dateList'];
+//                this.newMap=this.datamap['newMap'];
+//                for( var i=0;i<this.datalist.length;i++){
+//                    this.curDataFee.push(this.newMap[this.datalist[i]].dayCount);
+//                    this.curData.push(this.newMap[this.datalist[i]].dayServiceCharge);
+//                }
+//            }, function (e) {
+//                console.log(e)
+//            });
 
         },
         data()
@@ -151,7 +154,7 @@
                     },
                     toolbox: {
                         feature: {
-                            saveAsImage: {}
+//                            saveAsImage: {}
                         }
                     },
                     grid: {
@@ -163,17 +166,19 @@
                     xAxis : [
                         {
                             type : 'category',
-                            boundaryGap : false,
+//                            boundaryGap : false,
                             data : this.datalist,
                             xAxisIndex:0
                         }
                     ],
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name:"交易量"
                         },
                         {
-                            type: 'value'
+                            type: 'value',
+                            name:"交易额"
                         }
                     ],
                     series : [

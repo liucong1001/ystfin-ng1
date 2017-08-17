@@ -1,6 +1,7 @@
 <template>
     <div class="examDetail">
         <div class="page-header-main header">
+            <div class="wraptop"></div>
             <header class="mint-header is-fixed">
                 <div class="mint-header-button is-left">
                     <a href="#/exam" class="router-link-active">
@@ -13,9 +14,8 @@
                 <div class="mint-header-button is-right"></div>
             </header>
         </div>
-
+        <div style="height: 20px"></div>
         <p class="center">详情页面</p>
-
         <table>
              <tbody>
               <tr>
@@ -70,13 +70,21 @@
                     <router-link to="/dealer">交易明细</router-link>
                 </div>
             </a>
-            <a class="mint-tab-item">
-                <mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>
+            <!--<a class="mint-tab-item">-->
+                <!--<mt-badge type="error" class="tipmsg" v-show="this.examNum>0">{{examNum}}</mt-badge>-->
+                <!--<div class="mint-tab-item-icon">-->
+                    <!--<img  class="img_pencil2">-->
+                <!--</div>-->
+                <!--<div class="mint-tab-item-label">-->
+                    <!--<router-link to="/exam">领导审批</router-link>-->
+                <!--</div>-->
+            <!--</a>-->
+            <a class="mint-tab-item" href="#/person">
                 <div class="mint-tab-item-icon">
-                    <img  class="img_pencil2">
+                    <img  class="img_person">
                 </div>
                 <div class="mint-tab-item-label">
-                    <router-link to="/exam">领导审批</router-link>
+                    我
                 </div>
             </a>
         </div>

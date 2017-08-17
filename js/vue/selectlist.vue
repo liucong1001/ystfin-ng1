@@ -7,8 +7,8 @@
             <option value="5">天查询 </option>
             <option value="3">同比 </option>
             <option value="4">环比</option>
-            <option value="6">交易均价</option>
-            <option value="7">交易车型</option>
+            <!--<option value="6">交易均价</option>-->
+            <!--<option value="7">交易车型</option>-->
         </select>
     </div>
 </template>
