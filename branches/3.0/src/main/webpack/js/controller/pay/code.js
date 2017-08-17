@@ -65,14 +65,15 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
 
 
         console.log("点击了保存,原来data", data);
-        console.log("下拉框的id为", data.type);
+        // console.log("下拉框的id为", data.type);
+        console.log("user数据",$scope.users);
 
         $scope.totalPrice = 0;
         $http.post('/exchange/save', $scope.users[index]).then(function (ret) {
             console.log("后台返回的", ret);
             // 计算费用
             for (var i = 0; i < $scope.users.length; i++) {
-                $scope.totalPrice += parseFloat($scope.users[i]['marketFee']) + parseFloat($scope.users[i]['otherFee']);
+                $scope.totalPrice += parseFloat($scope.users[i]['marketFee']) + parseFloat($scope.users[i]['otherFee'])+parseFloat($scope.users[i]['divideFee']);
             }
         }, function (err) {
             console.log(err);
@@ -112,13 +113,15 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
 
     // remove user  移除
     $scope.removeUser = function(index,data) {
-        //console.log("移除");
-        //console.log(data);
+
         $scope.users.splice(index, 1);
         // 移除后计算费用
         $scope.totalPrice = 0;
-        for(var i=0;i<$scope.users.length;i++){
-            $scope.totalPrice += parseFloat($scope.users[i]['fee']);
+        // for(var i=0;i<$scope.users.length;i++){
+        //     $scope.totalPrice += parseFloat($scope.users[i]['fee']);
+        // }
+        for (var i = 0; i < $scope.users.length; i++) {
+            $scope.totalPrice += parseFloat($scope.users[i]['marketFee']) + parseFloat($scope.users[i]['otherFee'])+parseFloat($scope.users[i]['divideFee']);
         }
     };
 
@@ -238,18 +241,10 @@ app.controller("codeController",["$rootScope","$scope","$http","$filter","TransR
 
         console.log($scope.selectId);
        if($scope.selectId==$scope.otherId){
-           $ctrl.open();
-           // var pass= prompt("请输入操作密码", "");
-
-
-
-           //
-           // if (pass=='321')//如果返回的有内容
-           //  {
-           //       $rootScope.leader=false;
-           // }else{
-           //     alert("对不起！您的权限不够！");
-           // }
+           /*金额三为禁用的时候点击才出现弹出提示密码框*/
+           if($rootScope.leader){
+               $ctrl.open();
+           }
 
        }
 
