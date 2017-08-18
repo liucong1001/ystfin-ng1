@@ -33,7 +33,7 @@
                             <!--<td>{{x.u}}</td>-->
                             <td>{{x.c}}</td>
                             <td>{{x.s}}</td>
-                            <td>{{x.b}}</td>
+                            <td>{{x.b | intNum }}</td>
                             <td>{{x.f}}</td>
 
                         </tr>
@@ -116,10 +116,10 @@
                             for(var i=0;i<this.datalist.length;i++){
                                 this.count=this.datalist[i].c;
                                 this.yushenliang=this.datalist[i].s;
-                                this.money=this.datalist[i].b;
+                                this.money= Math.round(this.datalist[i].b) ;
                                 this.ServiceCharge=this.datalist[i].f;
                                 this.count1=parseFloat(this.count)+ parseFloat( this.count1);
-                                this.money1=(parseFloat(this.money1)+parseFloat(this.money));
+                                this.money1+=this.money;
                                 this.ServiceCharge1=parseFloat(this.ServiceCharge1)+parseFloat(this.ServiceCharge);
                                 if(this.yushenliang){
                                     this.yushenliang1=parseFloat(this.yushenliang1)+parseFloat(this.yushenliang);
@@ -220,17 +220,17 @@
                     for(var i=0;i<this.datalist.length;i++){
                         this.count=this.datalist[i].c;
                         this.yushenliang=this.datalist[i].s;
-                        this.money=this.datalist[i].b;
+                        this.money= Math.round(this.datalist[i].b) ;
                         this.ServiceCharge=this.datalist[i].f;
                         this.count1=parseFloat(this.count)+ parseFloat( this.count1);
-                        this.money1=(parseFloat(this.money1)+parseFloat(this.money));
+                        this.money1+=this.money;
                         this.ServiceCharge1=parseFloat(this.ServiceCharge1)+parseFloat(this.ServiceCharge);
                         if(this.yushenliang){
                             this.yushenliang1=parseFloat(this.yushenliang1)+parseFloat(this.yushenliang);
                         }
-                        if(this.money1){
-                            this.money1=parseInt(this.money1);
-                        }
+//                        if(this.money1){
+//                            this.money1=parseInt(this.money1);
+//                        }
                     }
                 }, function (e) {
                     console.log(e)
@@ -254,6 +254,8 @@
         },
 
     }
+
+
 </script>
 <style>
     .dealer{
