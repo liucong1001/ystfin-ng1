@@ -12,8 +12,6 @@
             </section>
             <section class="well">
                 <p class="Dealer_title">商户交易明细报表</p>
-
-
                 <table width="100%" border="1" cellpadding="0" cellspacing="0" align="center" class="page-popup-wrapper">
                     <tr>
                         <td rowspan="2" scope="col">编号</td>
